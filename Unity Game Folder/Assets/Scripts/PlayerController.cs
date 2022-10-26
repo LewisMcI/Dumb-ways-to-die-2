@@ -66,12 +66,18 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
+            // Decrease scale
             transform.localScale = new Vector3(1.0f, 0.5f, 1.0f);
+            // Move slightly down
+            transform.position -= Vector3.up * 0.5f;
+
             isCrouching = true;
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
+            // Reset scale
             transform.localScale = Vector3.one;
+
             isCrouching = false;
         }
     }
