@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject UIMenu;
-    List<GameObject> players = new List<GameObject>();
-    public static GameController Instance { get; private set; }
+    #region fields
+    public static GameController Instance;
+    #endregion
 
-    private bool gameBegun;
-
+    #region methods
     private void Awake()
     {
-        gameBegun = true;
         if (Instance == null)
         {
             Instance = this;
@@ -22,4 +20,5 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }
