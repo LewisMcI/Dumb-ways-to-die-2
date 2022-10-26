@@ -10,9 +10,6 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private float jumpForce;
-    [SerializeField]
-    [Range(0f, 0.5f)]
-    private float moveSmoothTime;
 
     [Header("Check Sphere")]
     [SerializeField]
@@ -22,6 +19,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float groundDistance = 0.01f;
     private bool isGrounded;
+
+    private bool isCrouching;
 
     private Rigidbody rig;
     #endregion
@@ -37,9 +36,8 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         Move();
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-            Jump();
+        Jump();
+        Crouch();
     }
 
     private void Move()
@@ -51,7 +49,8 @@ public class PlayerController : MonoBehaviour
             dir.Normalize();
 
         // Set velocity
-        Vector3 vel = (transform.right * dir.x + transform.forward * dir.y) * moveSpeed * Time.deltaTime;
+        float currSpeed = (isCrouching) ? moveSpeed / 2 : moveSpeed;
+        Vector3 vel = (transform.right * dir.x + transform.forward * dir.y) * currSpeed * Time.deltaTime;
         vel.y = rig.velocity.y;
         // Apply velocity
         rig.velocity = vel;
@@ -59,7 +58,22 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rig.velocity = new Vector3(0, jumpForce, 0);
+        if (Input.GetButtonDown("Jump") && isGrounded)
+            rig.velocity = new Vector3(0, jumpForce, 0);
+    }
+
+    private void Crouch()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
+        {
+            transform.localScale = new Vector3(1.0f, 0.5f, 1.0f);
+            isCrouching = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            transform.localScale = Vector3.one;
+            isCrouching = false;
+        }
     }
     #endregion
 }

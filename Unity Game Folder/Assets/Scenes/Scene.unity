@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 56a6d19fd791a85449367723cb0de0a8, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1780,6 +1780,11 @@ Transform:
   m_Father: {fileID: 1424354746}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &951296264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3866830963064161608, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+  m_PrefabInstance: {fileID: 3866830963994027072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &957960698
 GameObject:
   m_ObjectHideFlags: 0
@@ -4650,9 +4655,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3866830963064161611, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866830963064161612, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3866830963161398182, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866830963161398183, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 951296264}
+    - target: {fileID: 3866830963161398183, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3866830963161398184, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
       propertyPath: m_RootOrder
