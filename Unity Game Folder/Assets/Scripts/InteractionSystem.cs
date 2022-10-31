@@ -9,6 +9,7 @@ public class InteractionSystem : MonoBehaviour
     private bool interactHeldDown = false;
     void Update()
     {
+        Debug.Log("Update");
         if (Input.GetButtonDown("Interact") && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, Mathf.Infinity))
         {
             interactHeldDown = true;
