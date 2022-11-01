@@ -73,7 +73,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -119,7 +119,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 1
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   flipYMode: 0
   xrRendering: 1
   fullscreenPassthrough: 0
-  allowDynamicResolution: 0
+  allowDynamicResolution: 1
   customRenderingSettings: 0
   invertFaceCulling: 0
   probeLayerMask:
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 3866830963161398184}
   - component: {fileID: 3866830963161398186}
   - component: {fileID: 3866830963161398183}
-  - component: {fileID: 3866830963161398185}
+  - component: {fileID: 793109037}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 3866830963161398182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3866830963064161612}
@@ -289,14 +289,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c271e8b133bf6648babb6cb63fb1501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1500
+  moveSpeed: 500
   jumpForce: 5
   groundCheck: {fileID: 3866830964775690625}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
   groundDistance: 0.01
---- !u!114 &3866830963161398185
+--- !u!114 &793109037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3866830963161398182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4043f2a802187594c913909863a9b243, type: 3}
+  m_Script: {fileID: 11500000, guid: bd80e3485b1c4ee43a9f2661b49e7e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3866830964685374747
@@ -371,7 +371,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b37f17655e242b34b9956cefe10c39d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -400,7 +400,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3866830964685374747}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ca55f6275493964cb4ecbb2f796bb00, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

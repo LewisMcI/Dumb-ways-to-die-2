@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     #region fields
-    public static GameController Instance;
+    [SerializeField]
+    private GameUI gameUI;
+
+    public static GameManager Instance;
     #endregion
 
     #region methods
@@ -19,6 +22,11 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Update()
+    {
+
     }
     #endregion
 }
