@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
 {
-
     private RaycastHit hit;
     private bool interactHeldDown = false;
+
     void Update()
     {
-        //Debug.Log("Update");
-        if (Input.GetButtonDown("Interact") && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, Mathf.Infinity))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
         {
-            interactHeldDown = true;
-            Debug.Log("Interact");
-            string tag = hit.transform.gameObject.tag;
-            switch (tag)
             {
-                case "Door":
-                    OpenDoor(hit.transform.gameObject);
-                    break;
-                case "Pivot":
-                    Debug.Log("Pivot");
-                    PivotObject(hit.transform.gameObject);
-                    break;
-                default:
-                    break;
+                string tag = hit.transform.gameObject.tag;
+                switch (tag)
+                {
+                    case "Door":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            OpenDoor(hit.transform.gameObject);
+                        break;
+                    case "Pivot":
+                        if (Input.GetButtonDown("Interact"))
+                        {
+                            PivotObject(hit.transform.gameObject);
+                            interactHeldDown = true;
+                        }
+                        break;
+                    default:
+                        GameUI.Instance.DotAnim.SetBool("Interactable", false);
+                        break;
+                }
             }
+        }
+        else
+        {
+            GameUI.Instance.DotAnim.SetBool("Interactable", false);
         }
         if (Input.GetButtonUp("Interact"))
         {

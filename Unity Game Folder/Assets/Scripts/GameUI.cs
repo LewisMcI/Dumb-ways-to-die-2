@@ -7,19 +7,32 @@ public class GameUI : MonoBehaviour
 {
     #region fields
     [SerializeField]
-    private GameObject blinkImage;
-    private Animator blinkAnim;
+    private Image dotImage;
+    private Animator dotAnim;
+
+    public static GameUI Instance;
+    #endregion
+
+    #region properties
+    public Animator DotAnim
+    {
+        get { return dotAnim; }
+    }
     #endregion
 
     #region methods
     private void Awake()
     {
-        blinkAnim = blinkImage.GetComponent<Animator>();
-    }
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
 
-    public void TriggerBlink()
-    {
-        blinkAnim.SetTrigger("Blink");
+        dotAnim = dotImage.GetComponent<Animator>();
     }
     #endregion
 }

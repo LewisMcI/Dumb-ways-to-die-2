@@ -5,9 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region fields
-    [SerializeField]
-    private GameUI gameUI;
-
     public static GameManager Instance;
     #endregion
 
@@ -22,11 +19,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Update()
-    {
-
     }
     #endregion
 }
