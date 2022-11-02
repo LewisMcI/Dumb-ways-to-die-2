@@ -6,6 +6,7 @@ public class InteractionSystem : MonoBehaviour
 {
     private RaycastHit hit;
     private bool interactHeldDown = false;
+    public bool hasInteract;
 
     void Update()
     {
@@ -42,6 +43,24 @@ public class InteractionSystem : MonoBehaviour
             interactHeldDown = false;
         }
     }
+
+    private IEnumerator HasInteract()
+    {
+        hasInteract = true;
+        yield return new WaitForSeconds(0.1f);
+        hasInteract = !hasInteract;
+    }
+
+    public void OnInteract()
+    {
+        if (hasInteract == false)
+        {
+            Debug.Log("Press");
+            StartCoroutine(HasInteract());
+        }
+    }
+
+
 
     void OpenDoor(GameObject door)
     {
