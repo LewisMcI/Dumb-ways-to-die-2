@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
     #region fields
-    public static GameManager Instance;
+    [SerializeField]
+    private Image dotImage;
+    private Animator dotAnim;
+
+    public static GameUI Instance;
+    #endregion
+
+    #region properties
+    public Animator DotAnim
+    {
+        get { return dotAnim; }
+    }
     #endregion
 
     #region methods
@@ -19,6 +31,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        dotAnim = dotImage.GetComponent<Animator>();
     }
     #endregion
 }
