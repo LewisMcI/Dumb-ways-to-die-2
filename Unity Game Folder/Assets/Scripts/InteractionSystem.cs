@@ -22,6 +22,7 @@ public class InteractionSystem : MonoBehaviour
                             OpenDoor(hit.transform.gameObject);
                         break;
                     case "Pivot":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                         {
                             PivotObject(hit.transform.gameObject);
@@ -78,15 +79,16 @@ public class InteractionSystem : MonoBehaviour
         Vector3 startingPos = pivotSettings.startingPos;
         Vector3 endingPos = pivotSettings.endingPos;
         Quaternion startingAngle = pivotSettings.startingAngle;
-        Quaternion endingAngle = pivotSettings.endingAngle;
-
-        while (interactHeldDown)
+        Quaternion endingAngle = pivotSettings.endingAngle; 
+        int smoothness = pivotSettings.smoothness;
+        float time = pivotSettings.timeToOpen;
+        for (float i = 0; i <= smoothness; i++)
         {
-            float newQuat = Quaternion.Dot(transform.rotation, pivotObj.transform.rotation);
-            Debug.Log(newQuat);
-            pivotObj.transform.position = Vector3.Lerp(startingPos, endingPos, newQuat);
-            pivotObj.transform.rotation = Quaternion.Lerp(startingAngle, endingAngle, newQuat);
-            yield return new WaitForSeconds(0.05f);
+            Debug.Log(i / smoothness);
+            Debug.Log(Vector3.Lerp(startingPos, endingPos, i / smoothness));
+            pivotObj.transform.parent.localPosition = Vector3.Lerp(startingPos, endingPos, i / smoothness);
+            pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i/ smoothness);
+            yield return new WaitForSeconds(time/smoothness);
         }
     }
 }
