@@ -7,61 +7,88 @@ public class InteractionSystem : MonoBehaviour
     private RaycastHit hit;
     private bool interactHeldDown = false;
     public bool hasInteract;
+    private GameObject pickedUpObject;
+    private Vector3 pickedUpPos, pickedUpRot;
+    private Transform pickedUpTransformParent;
 
     void Update()
     {
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+        if (Input.GetButtonDown("Interact") && pickedUpObject)
         {
-            {
-                string tag = hit.transform.gameObject.tag;
-                switch (tag)
-                {
-                    case "Door":
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                            OpenDoor(hit.transform.gameObject);
-                        break;
-                    case "Pivot":
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                        {
-                            PivotObject(hit.transform.gameObject);
-                            interactHeldDown = true;
-                        }
-                        break;
-                    default:
-                        GameUI.Instance.DotAnim.SetBool("Interactable", false);
-                        break;
-                }
-            }
+            DropObject(pickedUpObject);
         }
         else
         {
-            GameUI.Instance.DotAnim.SetBool("Interactable", false);
-        }
-        if (Input.GetButtonUp("Interact"))
-        {
-            interactHeldDown = false;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+            {
+                {
+                    switch (hit.transform.tag)
+                    {
+                        case "Interactable":
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                            if (Input.GetButtonDown("Interact"))
+                                PickupObject(hit.transform.gameObject);
+                            break;
+                        case "Door":
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                            if (Input.GetButtonDown("Interact"))
+                                OpenDoor(hit.transform.gameObject);
+                            break;
+                        case "Pivot":
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                            if (Input.GetButtonDown("Interact"))
+                            {
+                                PivotObject(hit.transform.gameObject);
+                                interactHeldDown = true;
+                            }
+                            break;
+                        default:
+                            GameUI.Instance.DotAnim.SetBool("Interactable", false);
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                GameUI.Instance.DotAnim.SetBool("Interactable", false);
+            }
+            if (Input.GetButtonUp("Interact"))
+            {
+                interactHeldDown = false;
+            }
         }
     }
 
-    private IEnumerator HasInteract()
+    void PickupObject(GameObject objectToPickup)
     {
-        hasInteract = true;
-        yield return new WaitForSeconds(0.1f);
-        hasInteract = !hasInteract;
+        // Disable collision
+        objectToPickup.GetComponent<Collider>().enabled = false;
+        // Get position and rotation
+        pickedUpTransformParent = objectToPickup.transform.parent;
+        pickedUpPos = objectToPickup.transform.position;
+        pickedUpRot = objectToPickup.transform.rotation.eulerAngles;
+        // Attach to camera
+        objectToPickup.transform.parent = Camera.main.transform;
+        // Add offset position
+        objectToPickup.transform.localPosition = Vector3.zero + Vector3.forward * 1f;
+        // Make object face camera
+        objectToPickup.transform.LookAt(Camera.main.transform);
+        // Save object
+        pickedUpObject = objectToPickup;
     }
 
-    public void OnInteract()
+    void DropObject(GameObject objectToDrop)
     {
-        if (hasInteract == false)
-        {
-            Debug.Log("Press");
-            StartCoroutine(HasInteract());
-        }
+        // Enalbe collision
+        objectToDrop.GetComponent<Collider>().enabled = true;
+        // Remove parent
+        objectToDrop.transform.parent = pickedUpTransformParent;
+        // Place back to original transform
+        objectToDrop.transform.position = pickedUpPos;
+        objectToDrop.transform.eulerAngles = pickedUpRot;
+        // Reset
+        pickedUpObject = null;
     }
-
-
 
     void OpenDoor(GameObject door)
     {
@@ -102,8 +129,7 @@ public class InteractionSystem : MonoBehaviour
 
         for (float i = 0; i <= smoothness; i++)
         {
-            Debug.Log(i / smoothness);
-            pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i/ smoothness);
+            pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i / smoothness);
             pivotSettings.currentState = !objState;
             yield return new WaitForSeconds(time/smoothness);
         }
