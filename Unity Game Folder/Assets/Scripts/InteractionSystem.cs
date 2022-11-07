@@ -76,19 +76,37 @@ public class InteractionSystem : MonoBehaviour
     IEnumerator PivotObjectEnumerator(GameObject pivotObj)
     {
         PivotSettings pivotSettings = pivotObj.GetComponentInParent<PivotSettings>();
-        Vector3 startingPos = pivotSettings.startingPos;
-        Vector3 endingPos = pivotSettings.endingPos;
-        Quaternion startingAngle = pivotSettings.startingAngle;
-        Quaternion endingAngle = pivotSettings.endingAngle; 
+        // If object is in use, Ignores
+        if (pivotSettings.inUse == true)
+        {
+            yield break;
+        }
+        // Setting up values for object
+        pivotSettings.inUse = true;
+        bool objState = pivotSettings.currentState;
+
+        Quaternion startingAngle;
+        Quaternion endingAngle;
+        if (objState == false)
+        {
+            startingAngle = pivotSettings.GetStartingAngle;
+            endingAngle = pivotSettings.endingAngle;
+        }
+        else
+        {
+            endingAngle = pivotSettings.GetStartingAngle;
+            startingAngle = pivotSettings.endingAngle;
+        }
         int smoothness = pivotSettings.smoothness;
         float time = pivotSettings.timeToOpen;
+
         for (float i = 0; i <= smoothness; i++)
         {
             Debug.Log(i / smoothness);
-            Debug.Log(Vector3.Lerp(startingPos, endingPos, i / smoothness));
-            pivotObj.transform.parent.localPosition = Vector3.Lerp(startingPos, endingPos, i / smoothness);
             pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i/ smoothness);
+            pivotSettings.currentState = !objState;
             yield return new WaitForSeconds(time/smoothness);
         }
+        pivotSettings.inUse = false;
     }
 }
