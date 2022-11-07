@@ -23,12 +23,14 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching;
 
     private Rigidbody rig;
+    private Animator anim;
     #endregion
 
     #region methods
     void Awake()
     {
         rig = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -47,6 +49,12 @@ public class PlayerController : MonoBehaviour
         // If moving diagonally normalise vector so that speed remains the same
         if (dir.magnitude > 1.0f)
             dir.Normalize();
+
+        // Set animation
+        if (dir.x != 0.0f || dir.y != 0.0f)
+            anim.SetBool("isWalking", true);
+        else
+            anim.SetBool("isWalking", false);
 
         // Set velocity
         float currSpeed = (isCrouching) ? moveSpeed / 2 : moveSpeed;
