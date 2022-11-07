@@ -111,24 +111,35 @@ public class InteractionSystem : MonoBehaviour
         // Setting up values for object
         pivotSettings.inUse = true;
         bool objState = pivotSettings.currentState;
+        bool usingMovement = pivotSettings.usingMovement;
 
         Quaternion startingAngle;
         Quaternion endingAngle;
+        Vector3 startingPos;
+        Vector3 endingPos;
         if (objState == false)
         {
             startingAngle = pivotSettings.GetStartingAngle;
             endingAngle = pivotSettings.endingAngle;
+            startingPos = pivotSettings.GetStartingPos;
+            endingPos = pivotSettings.endingPos;
         }
         else
         {
             endingAngle = pivotSettings.GetStartingAngle;
             startingAngle = pivotSettings.endingAngle;
+            endingPos = pivotSettings.GetStartingPos;
+            startingPos = pivotSettings.endingPos;
         }
         int smoothness = pivotSettings.smoothness;
         float time = pivotSettings.timeToOpen;
 
         for (float i = 0; i <= smoothness; i++)
         {
+            if (usingMovement)
+            {
+                pivotObj.transform.parent.localPosition = Vector3.Lerp(startingPos, endingPos, i / smoothness);
+            }
             pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i / smoothness);
             pivotSettings.currentState = !objState;
             yield return new WaitForSeconds(time/smoothness);
