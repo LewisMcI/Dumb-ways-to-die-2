@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
         Jump();
         Crouch();
     }
-
     private void Move()
     {
         // Get axis
@@ -49,13 +48,9 @@ public class PlayerController : MonoBehaviour
         // If moving diagonally normalise vector so that speed remains the same
         if (dir.magnitude > 1.0f)
             dir.Normalize();
-
-        // Set animation
-        if (dir.x != 0.0f || dir.y != 0.0f)
-            anim.SetBool("isWalking", true);
-        else
-            anim.SetBool("isWalking", false);
-
+        // Set animation parameters
+        anim.SetFloat("dirX", dir.x);
+        anim.SetFloat("dirY", dir.y);
         // Set velocity
         float currSpeed = (isCrouching) ? moveSpeed / 2 : moveSpeed;
         Vector3 vel = (transform.right * dir.x + transform.forward * dir.y) * currSpeed * Time.deltaTime;
