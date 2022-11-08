@@ -5,14 +5,21 @@ using UnityEngine;
 public class DeathTrigger : MonoBehaviour
 {
     private bool trapTriggered = false;
-    private void OnTriggerEnter(Collider other)
+
+    private bool triggerKills = false;
+
+    private void Awake()
     {
         EventManager.onClicked += KillPlayer;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        triggerKills = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        EventManager.onClicked -= KillPlayer;
+        triggerKills = false;
     }
 
     public GameObject shotgun;
@@ -21,12 +28,17 @@ public class DeathTrigger : MonoBehaviour
 
     private void KillPlayer()
     {
-        if (!trapTriggered)
+        trapTriggered = true;
+        if (triggerKills)
         {
-            trapTriggered = true;
             Debug.Log("Kill Player");
-            StartCoroutine(PivotObjectEnumerator(shotgun));
         }
+        else
+        {
+            Debug.Log("Trigger does not kill");
+        }
+        StartCoroutine(PivotObjectEnumerator(shotgun));
+        EventManager.onClicked -= KillPlayer;
     }
 
     IEnumerator PivotObjectEnumerator(GameObject pivotObj)
