@@ -23,6 +23,8 @@ public class PivotSettings : MonoBehaviour
     [HideInInspector]
     public bool inUse = false;
 
+    public bool open = false;
+
     public Quaternion GetStartingAngle { get => startingAngle; }
     public Vector3 GetStartingPos { get => startingPos; }
 

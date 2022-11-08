@@ -108,6 +108,7 @@ public class InteractionSystem : MonoBehaviour
         {
             yield break;
         }
+        pivotSettings.open = !pivotSettings.open;
         // Setting up values for object
         pivotSettings.inUse = true;
         bool objState = pivotSettings.currentState;
