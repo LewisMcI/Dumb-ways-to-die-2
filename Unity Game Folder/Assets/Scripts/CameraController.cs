@@ -8,10 +8,11 @@ public class CameraController : MonoBehaviour
     [Header("Settings")]
     [SerializeField]
     private float sensitivity;
-    float cameraPitch;
+    private float cameraPitch;
     [SerializeField]
     [Range(0f, 0.5f)]
-    float lookSmoothTime;
+    private float lookSmoothTime;
+    private float activateTimer = 3f;
     #endregion
 
     #region methods
@@ -22,10 +23,13 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Cursor.lockState != CursorLockMode.None)
+        if (activateTimer <= 0)
         {
-            CameraLook();
+            if (Cursor.lockState != CursorLockMode.None)
+                CameraLook();
         }
+        else
+            activateTimer -= Time.deltaTime;
     }
 
     Vector2 currMouseDelta = Vector2.zero;
@@ -43,7 +47,7 @@ public class CameraController : MonoBehaviour
 
         // X rotation
         transform.localEulerAngles = Vector3.right * cameraPitch;
-        transform.parent.Rotate(Vector3.up * currMouseDelta.x);
+        transform.parent.parent.Rotate(Vector3.up * currMouseDelta.x);
     }
     #endregion
 }
