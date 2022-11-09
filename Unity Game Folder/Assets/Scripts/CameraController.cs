@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     [Range(0f, 0.5f)]
     private float lookSmoothTime;
-    private float activateTimer = 3f;
     #endregion
 
     #region methods
@@ -23,13 +22,11 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (activateTimer <= 0)
+        if (GameManager.Instance.EnableControls)
         {
             if (Cursor.lockState != CursorLockMode.None)
                 CameraLook();
         }
-        else
-            activateTimer -= Time.deltaTime;
     }
 
     Vector2 currMouseDelta = Vector2.zero;

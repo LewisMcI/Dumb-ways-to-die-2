@@ -35,11 +35,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (GameManager.Instance.EnableControls)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        Move();
-        Jump();
-        Crouch();
+            Move();
+            Jump();
+            Crouch();
+        }
     }
     private void Move()
     {
