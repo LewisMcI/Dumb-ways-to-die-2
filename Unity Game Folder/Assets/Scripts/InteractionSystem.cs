@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
 {
     private RaycastHit hit;
+    private bool interactHeldDown = false;
+    public bool hasInteract;
     private GameObject pickedUpObject;
+    private Vector3 pickedUpPos, pickedUpRot;
+    private Transform pickedUpTransformParent;
 
     void Update()
     {
@@ -34,7 +37,10 @@ public class InteractionSystem : MonoBehaviour
                         case "Pivot":
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
+                            {
                                 PivotObject(hit.transform.gameObject);
+                                interactHeldDown = true;
+                            }
                             break;
                         default:
                             GameUI.Instance.DotAnim.SetBool("Interactable", false);
@@ -46,6 +52,10 @@ public class InteractionSystem : MonoBehaviour
             {
                 GameUI.Instance.DotAnim.SetBool("Interactable", false);
             }
+            if (Input.GetButtonUp("Interact"))
+            {
+                interactHeldDown = false;
+            }
         }
     }
 
@@ -53,33 +63,29 @@ public class InteractionSystem : MonoBehaviour
     {
         // Disable collision
         objectToPickup.GetComponent<Collider>().enabled = false;
-        // Remove physics
-        if (objectToPickup.TryGetComponent(typeof(Rigidbody), out Component component))
-            Destroy(objectToPickup.GetComponent<Rigidbody>());
-        // Set to ignore player layer
-        objectToPickup.layer = 7;
-
+        // Get position and rotation
+        pickedUpTransformParent = objectToPickup.transform.parent;
+        pickedUpPos = objectToPickup.transform.position;
+        pickedUpRot = objectToPickup.transform.rotation.eulerAngles;
         // Attach to camera
         objectToPickup.transform.parent = Camera.main.transform;
         // Add offset position
-        objectToPickup.transform.localPosition = Vector3.forward * 1.25f;
+        objectToPickup.transform.localPosition = Vector3.zero + Vector3.forward * 1f;
         // Make object face camera
         objectToPickup.transform.LookAt(Camera.main.transform);
-
         // Save object
         pickedUpObject = objectToPickup;
     }
 
     void DropObject(GameObject objectToDrop)
     {
-        // Enable collision
+        // Enalbe collision
         objectToDrop.GetComponent<Collider>().enabled = true;
-        // Add physics
-        objectToDrop.AddComponent<Rigidbody>();
-
         // Remove parent
-        objectToDrop.transform.parent = null;
-
+        objectToDrop.transform.parent = pickedUpTransformParent;
+        // Place back to original transform
+        objectToDrop.transform.position = pickedUpPos;
+        objectToDrop.transform.eulerAngles = pickedUpRot;
         // Reset
         pickedUpObject = null;
     }

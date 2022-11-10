@@ -8,10 +8,10 @@ public class CameraController : MonoBehaviour
     [Header("Settings")]
     [SerializeField]
     private float sensitivity;
-    private float cameraPitch;
+    float cameraPitch;
     [SerializeField]
     [Range(0f, 0.5f)]
-    private float lookSmoothTime;
+    float lookSmoothTime;
     #endregion
 
     #region methods
@@ -22,10 +22,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.EnableControls)
+        if (Cursor.lockState != CursorLockMode.None)
         {
-            if (Cursor.lockState != CursorLockMode.None)
-                CameraLook();
+            CameraLook();
         }
     }
 
@@ -44,7 +43,7 @@ public class CameraController : MonoBehaviour
 
         // X rotation
         transform.localEulerAngles = Vector3.right * cameraPitch;
-        transform.parent.parent.Rotate(Vector3.up * currMouseDelta.x);
+        transform.parent.Rotate(Vector3.up * currMouseDelta.x);
     }
     #endregion
 }
