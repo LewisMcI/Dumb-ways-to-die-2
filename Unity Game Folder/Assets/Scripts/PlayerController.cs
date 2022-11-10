@@ -23,23 +23,27 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching;
 
     private Rigidbody rig;
+    private Animator anim;
     #endregion
 
     #region methods
     void Awake()
     {
         rig = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (GameManager.Instance.EnableControls)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        Move();
-        Jump();
-        Crouch();
+            Move();
+            Jump();
+            Crouch();
+        }
     }
-
     private void Move()
     {
         // Get axis
@@ -47,7 +51,9 @@ public class PlayerController : MonoBehaviour
         // If moving diagonally normalise vector so that speed remains the same
         if (dir.magnitude > 1.0f)
             dir.Normalize();
-
+        // Set animation parameters
+        anim.SetFloat("dirX", dir.x);
+        anim.SetFloat("dirY", dir.y);
         // Set velocity
         float currSpeed = (isCrouching) ? moveSpeed / 2 : moveSpeed;
         Vector3 vel = (transform.right * dir.x + transform.forward * dir.y) * currSpeed * Time.deltaTime;
