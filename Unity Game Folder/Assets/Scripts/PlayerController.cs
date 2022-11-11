@@ -70,16 +70,31 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
             // Decrease scale
-            transform.localScale = new Vector3(1.0f, 0.5f, 1.0f);
+            //transform.localScale = new Vector3(1.0f, 0.5f, 1.0f);
             // Move slightly down
-            transform.position -= Vector3.up * 0.5f;
+            //transform.position -= Vector3.up * 0.5f;
+
+            // Scale collider
+            float reductionScale = 0.7f;
+            transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f * reductionScale, 0.0f);
+            transform.GetChild(0).GetComponent<CapsuleCollider>().height = 1.8f * reductionScale;
+
+            // Trigger crouching animation
+            anim.SetBool("Crouching", true);
 
             isCrouching = true;
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             // Reset scale
-            transform.localScale = Vector3.one;
+            //transform.localScale = Vector3.one;
+
+            // Reset collider
+            transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f, 0.0f);
+            transform.GetChild(0).GetComponent<CapsuleCollider>().height = 1.8f;
+
+            // Trigger standing animation
+            anim.SetBool("Crouching", false);
 
             isCrouching = false;
         }
