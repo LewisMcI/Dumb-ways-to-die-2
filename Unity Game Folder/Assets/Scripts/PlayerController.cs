@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !isCrouching)
             rig.velocity = new Vector3(0, jumpForce, 0);
     }
 
