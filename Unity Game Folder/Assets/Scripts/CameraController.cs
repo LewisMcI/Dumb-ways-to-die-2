@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     [Range(0f, 0.5f)]
     private float lookSmoothTime;
+    [SerializeField]
+    private Transform head;
     #endregion
 
     #region methods
@@ -38,13 +40,15 @@ public class CameraController : MonoBehaviour
         // Smoothen rotation
         currMouseDelta = Vector2.SmoothDamp(currMouseDelta, targetMouseDelta, ref currMouseDeltaVel, lookSmoothTime);
 
-        // Y rotation
         cameraPitch -= currMouseDelta.y;
         cameraPitch = Mathf.Clamp(cameraPitch, -60.0f, 60.0f);
 
-        // X rotation
+        // Y rotation
         transform.localEulerAngles = Vector3.right * cameraPitch;
-        transform.parent.parent.Rotate(Vector3.up * currMouseDelta.x);
+        // X rotation
+        transform.root.Rotate(Vector3.up * currMouseDelta.x);
+        // Y position
+        transform.position = new Vector3(head.position.x, head.position.y, transform.position.z);
     }
     #endregion
 }

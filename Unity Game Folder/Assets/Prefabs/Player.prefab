@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2699160288834411079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094451455879333245}
+  m_Layer: 6
+  m_Name: bip EyeSight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1094451455879333245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2699160288834411079}
+  m_LocalRotation: {x: 4.6629357e-14, y: -2.0428104e-14, z: 8.6736174e-19, w: 1}
+  m_LocalPosition: {x: -0.1, y: 0.1, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2054326367488183670}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -0.05793002, y: -0.23367034, z: -2.8116808}
 --- !u!1 &3866830963064161608
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 80
   lookSmoothTime: 0.03
+  head: {fileID: 0}
 --- !u!114 &3150345827258021552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,5 +1260,10 @@ Animator:
 --- !u!4 &1860370479625752960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ba1c07ec87391614581d8b1b377c4b48, type: 3}
+  m_PrefabInstance: {fileID: 2187593167703520875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2054326367488183670 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -9018024397137495267, guid: ba1c07ec87391614581d8b1b377c4b48, type: 3}
   m_PrefabInstance: {fileID: 2187593167703520875}
   m_PrefabAsset: {fileID: 0}
