@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded && !isJumping && !isCrouching && !anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
+        Debug.Log(isGrounded);
+        if (Input.GetButtonDown("Jump") && isGrounded && !isCrouching && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
         {
             // Add force
             rig.velocity = new Vector3(0, jumpForce, 0);
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
         }
 
-        if (isJumping && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+        if (isJumping && rig.velocity.y <= 0.0f)
         {
             if (isGrounded)
             {
