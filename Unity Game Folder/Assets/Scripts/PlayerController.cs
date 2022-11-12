@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private float groundDistance = 0.01f;
     private bool isGrounded;
 
-    private bool isCrouching;
+    private bool isCrouching, isJumping;
 
     private Rigidbody rig;
     private Animator anim;
@@ -61,19 +61,32 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded && !isCrouching)
+        if (Input.GetButtonDown("Jump") && isGrounded && !isJumping && !isCrouching && !anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
+        {
+            // Add force
             rig.velocity = new Vector3(0, jumpForce, 0);
+            // Trigger jump animation
+            anim.SetBool("Jumping", true);
+            // Set
+            isJumping = true;
+        }
+
+        if (isJumping && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+        {
+            if (isGrounded)
+            {
+                // Trigger jump animation
+                anim.SetBool("Jumping", false);
+                // Reset
+                isJumping = false;
+            }
+        }
     }
 
     private void Crouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
-            // Decrease scale
-            //transform.localScale = new Vector3(1.0f, 0.5f, 1.0f);
-            // Move slightly down
-            //transform.position -= Vector3.up * 0.5f;
-
             // Scale collider
             float reductionScale = 0.7f;
             transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f * reductionScale, 0.0f);
@@ -86,9 +99,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            // Reset scale
-            //transform.localScale = Vector3.one;
-
             // Reset collider
             transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f, 0.0f);
             transform.GetChild(0).GetComponent<CapsuleCollider>().height = 1.8f;

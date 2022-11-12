@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         // X rotation
         transform.root.Rotate(Vector3.up * currMouseDelta.x);
         // Y position
-        transform.position = new Vector3(head.position.x, head.position.y, transform.position.z);
+        transform.position = head.position;
     }
     #endregion
 }
