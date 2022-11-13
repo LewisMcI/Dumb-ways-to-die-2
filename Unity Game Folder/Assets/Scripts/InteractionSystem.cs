@@ -1,80 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
 {
     private RaycastHit hit;
-    private bool interactHeldDown = false;
     public bool hasInteract;
     private GameObject pickedUpObject;
-    private Vector3 pickedUpPos, pickedUpRot;
-    private Transform pickedUpTransformParent;
 
     void Update()
     {
         if (Input.GetButtonDown("Interact") && pickedUpObject)
         {
-            DropObject(pickedUpObject);
+            // Holding scissors?
+            bool interacted = false;
+            if (pickedUpObject.name == "SM_Item_Soap_02")
+            {
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+                {
+                    switch (hit.transform.tag)
+                    {
+                        case "Cabinet":
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                            if (Input.GetButtonDown("Interact"))
+                            {
+                                hit.transform.GetComponent<TrapCabinet>().Interact(true);
+                                interacted = true;
+                            }
+                            break;
+                    }
+                }
+            }
+            // Else drop
+            if (!interacted)
+            {
+                DropObject(pickedUpObject);
+            }
         }
         else
         {
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
             {
+                switch (hit.transform.tag)
                 {
-                    switch (hit.transform.tag)
-                    {
-                        case "Interactable":
-                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            if (Input.GetButtonDown("Interact"))
-                                PickupObject(hit.transform.gameObject);
-                            break;
-                        case "Door":
-                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            if (Input.GetButtonDown("Interact"))
-                                OpenDoor(hit.transform.gameObject);
-                            break;
-                        case "Pivot":
-                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            if (Input.GetButtonDown("Interact"))
-                            {
-                                PivotObject(hit.transform.gameObject);
-                                interactHeldDown = true;
-                            }
-                            break;
-                        default:
-                            GameUI.Instance.DotAnim.SetBool("Interactable", false);
-                            break;
-                    }
+                    case "Pickup":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            PickupObject(hit.transform.gameObject);
+                        break;
+                    case "Door":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            OpenDoor(hit.transform.gameObject);
+                        break;
+                    case "Pivot":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            PivotObject(hit.transform.gameObject);
+                        break;
+                    case "Cabinet":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            hit.transform.GetComponent<TrapCabinet>().Interact(false);
+                        break;
+                    default:
+                        GameUI.Instance.DotAnim.SetBool("Interactable", false);
+                        break;
                 }
             }
             else
             {
                 GameUI.Instance.DotAnim.SetBool("Interactable", false);
             }
-            if (Input.GetButtonUp("Interact"))
-            {
-                interactHeldDown = false;
-            }
         }
     }
 
     void PickupObject(GameObject objectToPickup)
     {
-        Rigidbody rb = (Rigidbody)objectToPickup.GetComponent(typeof(Rigidbody));
+        Rigidbody rig = (Rigidbody)objectToPickup.GetComponent(typeof(Rigidbody));
         // Remove Rigidbody
-        if (rb != null)
-        {
-            Destroy(rb);
-        }
-            
+        if (rig != null)
+            Destroy(rig);
 
+        // Ignore raycasts
+        objectToPickup.layer = LayerMask.GetMask("Ignore Raycast");
         // Disable collision
         objectToPickup.GetComponent<Collider>().enabled = false;
-        // Get position and rotation
-        pickedUpTransformParent = objectToPickup.transform.parent;
-        pickedUpPos = objectToPickup.transform.position;
-        pickedUpRot = objectToPickup.transform.rotation.eulerAngles;
         // Attach to camera
         objectToPickup.transform.parent = Camera.main.transform;
         // Add offset position
@@ -83,11 +95,12 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.transform.LookAt(Camera.main.transform);
         // Save object
         pickedUpObject = objectToPickup;
-
     }
 
     void DropObject(GameObject objectToDrop)
     {
+        // Ignore raycasts
+        objectToDrop.layer = LayerMask.GetMask("Default");
         // Enable collision
         objectToDrop.GetComponent<Collider>().enabled = true;
         // Add physics
@@ -98,7 +111,6 @@ public class InteractionSystem : MonoBehaviour
 
         // Reset
         pickedUpObject = null;
-        
     }
 
     void OpenDoor(GameObject door)

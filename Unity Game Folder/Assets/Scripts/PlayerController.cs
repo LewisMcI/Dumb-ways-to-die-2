@@ -37,9 +37,12 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        Move();
-        Jump();
-        Crouch();
+        if (GameManager.Instance.EnableControls)
+        {
+            Move();
+            Jump();
+            Crouch();
+        }
     }
     private void Move()
     {
@@ -61,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log(isGrounded);
         if (Input.GetButtonDown("Jump") && isGrounded && !isCrouching && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
         {
             // Add force
