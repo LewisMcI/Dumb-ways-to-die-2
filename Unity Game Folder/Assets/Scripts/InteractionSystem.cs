@@ -61,6 +61,14 @@ public class InteractionSystem : MonoBehaviour
 
     void PickupObject(GameObject objectToPickup)
     {
+        Rigidbody rb = (Rigidbody)objectToPickup.GetComponent(typeof(Rigidbody));
+        // Remove Rigidbody
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
+            
+
         // Disable collision
         objectToPickup.GetComponent<Collider>().enabled = false;
         // Get position and rotation
@@ -75,19 +83,22 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.transform.LookAt(Camera.main.transform);
         // Save object
         pickedUpObject = objectToPickup;
+
     }
 
     void DropObject(GameObject objectToDrop)
     {
-        // Enalbe collision
+        // Enable collision
         objectToDrop.GetComponent<Collider>().enabled = true;
+        // Add physics
+        objectToDrop.AddComponent<Rigidbody>();
+
         // Remove parent
-        objectToDrop.transform.parent = pickedUpTransformParent;
-        // Place back to original transform
-        objectToDrop.transform.position = pickedUpPos;
-        objectToDrop.transform.eulerAngles = pickedUpRot;
+        objectToDrop.transform.parent = null;
+
         // Reset
         pickedUpObject = null;
+        
     }
 
     void OpenDoor(GameObject door)
