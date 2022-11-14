@@ -36,9 +36,9 @@ public class CameraController : MonoBehaviour
     private void CameraLook()
     {
         // Get axis
-        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime, Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime);
+        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X") * sensitivity, Input.GetAxis("Mouse Y") * sensitivity);
         // Smoothen rotation
-        currMouseDelta = Vector2.SmoothDamp(currMouseDelta, targetMouseDelta, ref currMouseDeltaVel, lookSmoothTime);
+        currMouseDelta = Vector2.SmoothDamp(currMouseDelta, targetMouseDelta, ref currMouseDeltaVel, lookSmoothTime * Time.deltaTime);
 
         cameraPitch -= currMouseDelta.y;
         cameraPitch = Mathf.Clamp(cameraPitch, -60.0f, 60.0f);
