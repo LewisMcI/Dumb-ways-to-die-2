@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching, isJumping;
 
     private Rigidbody[] limbs;
+    [SerializeField]
+    private Camera kitchenCam;
 
     private Rigidbody rig;
     private Animator anim;
@@ -153,6 +156,10 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        // Switch cameras
+        Camera.main.enabled = false;
+        kitchenCam.enabled = true;
+        // Enable ragdoll physics
         EnableRagdoll();
     }
     #endregion
