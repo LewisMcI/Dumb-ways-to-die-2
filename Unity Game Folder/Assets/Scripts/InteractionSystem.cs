@@ -17,7 +17,7 @@ public class InteractionSystem : MonoBehaviour
         {
             // Holding scissors?
             bool interacted = false;
-            if (pickedUpObject.name == "SM_Item_Soap_02")
+            if (pickedUpObject.name == "Scissors")
             {
                 if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
                 {
