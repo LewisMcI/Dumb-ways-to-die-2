@@ -46,6 +46,7 @@ public class InteractionSystem : MonoBehaviour
                             if (Input.GetButtonDown("Interact"))
                             {
                                 pickedUpObject.name = "Toasted Bread";
+                                pickedUpObject.GetComponent<Collider>().enabled = true;
                                 hit.transform.GetComponent<TrapToaster>().Interact();
                                 // Attach to toaster
                                 pickedUpObject.transform.parent = hit.transform;
@@ -132,6 +133,7 @@ public class InteractionSystem : MonoBehaviour
         {
             objectToPickup.GetComponent<AudioSource>().Play();
             objectToPickup.tag = "Untagged";
+            objectToPickup.GetComponent<Renderer>().enabled = false;
             if (brushTeethTask != null)
             {
                 GameManager.Instance.CompletedTask(brushTeethTask);
