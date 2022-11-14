@@ -14,6 +14,8 @@ public class InteractionSystem : MonoBehaviour
 
     public Task makeToastTask;
 
+    public GameObject bed;
+
     void Update()
     {
         if (Input.GetButtonDown("Interact") && pickedUpObject)
@@ -101,6 +103,14 @@ public class InteractionSystem : MonoBehaviour
                         if (pickedUpObject && pickedUpObject.name == "SM_Item_Bread_01")
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         break;
+                    case "Bed":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                        {
+                            GameUI.Instance.ReverseBlink();
+                            StartCoroutine(GoToSleep());
+                        }
+                        break;
                     default:
                         GameUI.Instance.DotAnim.SetBool("Interactable", false);
                         break;
@@ -111,6 +121,12 @@ public class InteractionSystem : MonoBehaviour
                 GameUI.Instance.DotAnim.SetBool("Interactable", false);
             }
         }
+    }
+
+    IEnumerator GoToSleep()
+    {
+        yield return new WaitForSeconds(3.0f);
+        GameManager.Instance.Restart();
     }
 
     void PickupObject(GameObject objectToPickup)
@@ -139,6 +155,10 @@ public class InteractionSystem : MonoBehaviour
             if (brushTeethTask != null)
             {
                 GameManager.Instance.CompletedTask(makeToastTask);
+                if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+                {
+                    bed.tag = "Bed";
+                }
             }
             else
             {
