@@ -32,6 +32,32 @@ public class InteractionSystem : MonoBehaviour
                     }
                 }
             }
+            else if (pickedUpObject.name == "SM_Item_Bread_01")
+            {
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+                {
+                    switch (hit.transform.tag)
+                    {
+                        case "Toaster":
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                            if (Input.GetButtonDown("Interact"))
+                            {
+                                hit.transform.GetComponent<TrapToaster>().Interact();
+                                // Attach to toaster
+                                pickedUpObject.transform.parent = hit.transform;
+                                // Set transform
+                                pickedUpObject.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
+                                pickedUpObject.transform.localEulerAngles = new Vector3(90, 0, 0);
+                                pickedUpObject.transform.localScale = new Vector3(1.0f, 0.8f, 1.2f);
+                                // Reset
+                                pickedUpObject.layer = LayerMask.GetMask("Default");
+                                pickedUpObject = null;
+                                interacted = true;
+                            }
+                            break;
+                    }
+                }
+            }
             // Else drop
             if (!interacted)
             {
@@ -64,6 +90,10 @@ public class InteractionSystem : MonoBehaviour
                         if (Input.GetButtonDown("Interact"))
                             hit.transform.GetComponent<TrapCabinet>().Interact(false);
                         break;
+                    case "Toaster":
+                        if (pickedUpObject && pickedUpObject.name == "SM_Item_Bread_01")
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        break;
                     default:
                         GameUI.Instance.DotAnim.SetBool("Interactable", false);
                         break;
@@ -93,14 +123,13 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.transform.localPosition = Vector3.zero + Vector3.forward * 1f;
         // Make object face camera
         objectToPickup.transform.LookAt(Camera.main.transform);
+
         // Save object
         pickedUpObject = objectToPickup;
     }
 
     void DropObject(GameObject objectToDrop)
     {
-        // Ignore raycasts
-        objectToDrop.layer = LayerMask.GetMask("Default");
         // Enable collision
         objectToDrop.GetComponent<Collider>().enabled = true;
         // Add physics
@@ -110,6 +139,7 @@ public class InteractionSystem : MonoBehaviour
         objectToDrop.transform.parent = null;
 
         // Reset
+        objectToDrop.layer = LayerMask.GetMask("Default");
         pickedUpObject = null;
     }
 

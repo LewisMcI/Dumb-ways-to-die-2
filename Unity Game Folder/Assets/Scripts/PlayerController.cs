@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("dirY", dir.y);
         // Set velocity
         float currSpeed = (isCrouching) ? moveSpeed / 2 : moveSpeed;
-        Vector3 vel = (transform.right * dir.x + transform.forward * dir.y) * currSpeed * Time.deltaTime;
+        Vector3 vel = ((transform.right * dir.x + transform.forward * dir.y) * currSpeed) * Time.fixedDeltaTime;
         vel.y = rig.velocity.y;
         // Apply velocity
         rig.velocity = vel;

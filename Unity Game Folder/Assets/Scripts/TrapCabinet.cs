@@ -17,14 +17,6 @@ public class TrapCabinet : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void Cut()
-    {
-        if (!cut)
-        {
-
-        }
-    }
-
     public void Interact(bool scissors)
     {
         // Cut rope
