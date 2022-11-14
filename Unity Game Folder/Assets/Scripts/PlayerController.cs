@@ -50,11 +50,10 @@ public class PlayerController : MonoBehaviour
             Jump();
             Crouch();
         }
+
+        // Notepad
         if (Input.GetButtonDown("GameUI"))
-        {
             anim.SetBool("Notepad", !anim.GetBool("Notepad"));
-            notepad.SetActive(!notepad.activeSelf);
-        }
     }
 
     private void FixedUpdate()
