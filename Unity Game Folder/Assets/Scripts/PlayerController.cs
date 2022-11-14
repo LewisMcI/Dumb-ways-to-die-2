@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody[] limbs;
     [SerializeField]
     private Camera kitchenCam;
+    private float restartTimer = 5f;
 
     private Rigidbody rig;
     private Animator anim;
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
+        kitchenCam.enabled = false;
     }
 
     private void Update()
@@ -161,6 +162,13 @@ public class PlayerController : MonoBehaviour
         kitchenCam.enabled = true;
         // Enable ragdoll physics
         EnableRagdoll();
+        if (restartTimer <= 0.0f)
+        {
+            Debug.Log("asd");
+            GameManager.Instance.Restart();
+        }
+        else
+            restartTimer -= Time.deltaTime;
     }
     #endregion
 }
