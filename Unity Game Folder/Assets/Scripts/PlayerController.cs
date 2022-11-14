@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private GameObject notepad;
     private bool isCrouching, isJumping;
 
+    private Rigidbody[] limbs;
+
     private Rigidbody rig;
     private Animator anim;
     #endregion
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
+        DisableRagdoll();
     }
 
     private void Update()
@@ -125,6 +129,31 @@ public class PlayerController : MonoBehaviour
 
             isCrouching = false;
         }
+    }
+
+    private void DisableRagdoll()
+    {
+        foreach (Rigidbody rig in limbs)
+        {
+            rig.isKinematic = true;
+            rig.detectCollisions = false;
+        }
+    }
+
+    private void EnableRagdoll()
+    {
+        GameManager.Instance.EnableControls = false;
+        anim.enabled = false;
+        foreach (Rigidbody rig in limbs)
+        {
+            rig.isKinematic = false;
+            rig.detectCollisions = true;
+        }
+    }
+
+    public void Die()
+    {
+        EnableRagdoll();
     }
     #endregion
 }

@@ -5,8 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region fields
+    private bool started;
     private bool enableControls;
     private float enableControlsTimer = 2.5f;
+    private GameObject player;
 
     public static GameManager Instance;
     #endregion
@@ -17,6 +19,10 @@ public class GameManager : MonoBehaviour
         get { return enableControls; }
         set { enableControls = value; }
     }
+    public GameObject Player
+    {
+        get { return player; }
+    }
     #endregion
 
     #region methods
@@ -25,6 +31,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            player = GameObject.FindGameObjectWithTag("Player");
         }
         if (Instance != this)
         {
@@ -34,12 +41,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (enableControlsTimer <= 0.0f)
+        if (!started)
         {
-            enableControls = true;
+            if (enableControlsTimer <= 0.0f)
+            {
+                enableControls = true;
+                started = true;
+            }
+            else
+                enableControlsTimer -= Time.deltaTime;
         }
-        else
-            enableControlsTimer -= Time.deltaTime;
     }
     #endregion
 }
