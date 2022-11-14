@@ -5085,11 +5085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6573351546303800816, guid: 255fbe78ca149c341af4d7d6ec5811bd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09526978
+      value: 0.09526139
       objectReference: {fileID: 0}
     - target: {fileID: 6573351546303800816, guid: 255fbe78ca149c341af4d7d6ec5811bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.30114973
+      value: 0.3011498
       objectReference: {fileID: 0}
     - target: {fileID: 6573351546303800816, guid: 255fbe78ca149c341af4d7d6ec5811bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5261,6 +5261,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5825532384218794498, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_TagString
+      value: Pivot
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1950733119399844177, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
       propertyPath: m_Name
       value: Stylised_Door_1
@@ -5271,11 +5303,55 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 698abdf2c36d74443bab9a8c8eb15e0c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+--- !u!1 &5682011567472576791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5825532384218794498, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+  m_PrefabInstance: {fileID: 7060802281260170473}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &4626062568431604707
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682011567472576791}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2619086233303812490, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
 --- !u!4 &7383575991835876098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
   m_PrefabInstance: {fileID: 7060802281260170473}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8211596609462824452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8068073526183931155, guid: 8b536a57d29f0b64b9a00048db196bbb, type: 3}
+  m_PrefabInstance: {fileID: 7060802281260170473}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4212854406331866586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211596609462824452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endingAngle: {x: -95.605, y: 0, z: -90}
+  usingMovement: 0
+  endingPos: {x: 0, y: 0, z: 0}
+  smoothness: 25
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
+  open: 0
 --- !u!1001 &7808503193905182686
 PrefabInstance:
   m_ObjectHideFlags: 0
