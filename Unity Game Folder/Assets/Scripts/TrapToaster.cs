@@ -23,11 +23,10 @@ public class TrapToaster : MonoBehaviour
     {
         if (knife.transform.IsChildOf(transform))
         {
-            Debug.Log("ded");
             explosionVFX.SetActive(true);
+            GameManager.Instance.Player.GetComponent<PlayerController>().Die();
         }
-        else
-            Debug.Log("alive");
+
         // Reset tag
         transform.tag = "Untagged";
     }

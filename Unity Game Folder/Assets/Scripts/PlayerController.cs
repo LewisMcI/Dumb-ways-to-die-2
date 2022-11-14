@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class PlayerController : MonoBehaviour
     private GameObject notepad;
     private bool isCrouching, isJumping;
 
+    private Rigidbody[] limbs;
+    [SerializeField]
+    private Camera kitchenCam;
+
     private Rigidbody rig;
     private Animator anim;
     #endregion
@@ -33,6 +38,8 @@ public class PlayerController : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
+        DisableRagdoll();
     }
 
     private void Update()
@@ -125,6 +132,35 @@ public class PlayerController : MonoBehaviour
 
             isCrouching = false;
         }
+    }
+
+    private void DisableRagdoll()
+    {
+        foreach (Rigidbody rig in limbs)
+        {
+            rig.isKinematic = true;
+            rig.detectCollisions = false;
+        }
+    }
+
+    private void EnableRagdoll()
+    {
+        GameManager.Instance.EnableControls = false;
+        anim.enabled = false;
+        foreach (Rigidbody rig in limbs)
+        {
+            rig.isKinematic = false;
+            rig.detectCollisions = true;
+        }
+    }
+
+    public void Die()
+    {
+        // Switch cameras
+        Camera.main.enabled = false;
+        kitchenCam.enabled = true;
+        // Enable ragdoll physics
+        EnableRagdoll();
     }
     #endregion
 }
