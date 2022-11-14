@@ -105,7 +105,7 @@ Camera:
     height: 1
   near clip plane: 0.15
   far clip plane: 1000
-  field of view: 90.5
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ed6d0a3985eb746975cc62d6784953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 120
+  sensitivity: 3
   lookSmoothTime: 0.03
   head: {fileID: 1094451455879333245}
 --- !u!114 &3150345827258021552
@@ -335,13 +335,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c271e8b133bf6648babb6cb63fb1501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 25
+  moveSpeed: 150
   jumpForce: 5
   groundCheck: {fileID: 3866830964775690625}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  groundDistance: 0.01
+  groundDistance: 0.1
 --- !u!114 &793109037
 MonoBehaviour:
   m_ObjectHideFlags: 0
