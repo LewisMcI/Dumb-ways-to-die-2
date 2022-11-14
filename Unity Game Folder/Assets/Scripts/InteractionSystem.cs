@@ -12,6 +12,8 @@ public class InteractionSystem : MonoBehaviour
 
     public Task brushTeethTask;
 
+    public Task makeToastTask;
+
     void Update()
     {
         if (Input.GetButtonDown("Interact") && pickedUpObject)
@@ -136,7 +138,7 @@ public class InteractionSystem : MonoBehaviour
             objectToPickup.GetComponent<Renderer>().enabled = false;
             if (brushTeethTask != null)
             {
-                GameManager.Instance.CompletedTask(brushTeethTask);
+                GameManager.Instance.CompletedTask(makeToastTask);
             }
             else
             {
