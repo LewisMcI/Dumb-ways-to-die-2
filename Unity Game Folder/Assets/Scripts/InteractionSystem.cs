@@ -66,7 +66,7 @@ public class InteractionSystem : MonoBehaviour
         }
         else
         {
-            if (Camera.main.gameObject && Camera.main.enabled && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+            if (!GameManager.Instance.Player.GetComponent<PlayerController>().Dead && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
             {
                 switch (hit.transform.tag)
                 {
