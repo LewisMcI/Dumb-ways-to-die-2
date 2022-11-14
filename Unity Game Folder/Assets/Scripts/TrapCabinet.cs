@@ -32,6 +32,7 @@ public class TrapCabinet : MonoBehaviour
                 anim.SetTrigger("Open");
             else
                 anim.SetTrigger("Shoot");
+
             // Reset tag
             transform.tag = "Untagged";
         }
