@@ -9,6 +9,8 @@ public class TrapToaster : MonoBehaviour
     private bool removed;
 
     private Animator anim;
+
+    public GameObject explosionVFX;
     #endregion
 
     #region methods
@@ -20,7 +22,10 @@ public class TrapToaster : MonoBehaviour
     public void Interact()
     {
         if (knife.transform.IsChildOf(transform))
+        {
             Debug.Log("ded");
+            explosionVFX.SetActive(true);
+        }
         else
             Debug.Log("alive");
         // Reset tag
