@@ -23,6 +23,7 @@ public class TrapToaster : MonoBehaviour
     {
         if (knife.transform.IsChildOf(transform))
         {
+            GetComponent<AudioSource>().Play();
             explosionVFX.SetActive(true);
             GameManager.Instance.Player.GetComponent<PlayerController>().Die();
         }
