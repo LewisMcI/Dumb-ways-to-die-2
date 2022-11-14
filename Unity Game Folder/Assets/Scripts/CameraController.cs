@@ -13,6 +13,9 @@ public class CameraController : MonoBehaviour
     [Range(0f, 0.5f)]
     private float lookSmoothTime;
     [SerializeField]
+    [Range(0f, 10f)]
+    private float followHeadTime;
+    [SerializeField]
     private Transform head;
     #endregion
 
@@ -33,6 +36,7 @@ public class CameraController : MonoBehaviour
 
     Vector2 currMouseDelta = Vector2.zero;
     Vector2 currMouseDeltaVel = Vector2.zero;
+    Vector3 transformVel = Vector3.zero;
     private void CameraLook()
     {
         // Get axis
@@ -48,7 +52,7 @@ public class CameraController : MonoBehaviour
         // X rotation
         transform.root.Rotate(Vector3.up * currMouseDelta.x);
         // Y position
-        transform.position = head.position;
+        transform.position = Vector3.SmoothDamp(transform.position, head.position, ref transformVel, followHeadTime * Time.deltaTime);
     }
     #endregion
 }
