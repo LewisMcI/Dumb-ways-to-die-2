@@ -108,6 +108,14 @@ public class InteractionSystem : MonoBehaviour
 
     void PickupObject(GameObject objectToPickup)
     {
+        // Brush teeth interaction
+        if (objectToPickup.name == "SM_Item_Toothbrush_01")
+        {
+            objectToPickup.GetComponent<AudioSource>().Play();
+            objectToPickup.tag = "Untagged";
+            return;
+        }
+
         Rigidbody rig = (Rigidbody)objectToPickup.GetComponent(typeof(Rigidbody));
         // Remove Rigidbody
         if (rig != null)
