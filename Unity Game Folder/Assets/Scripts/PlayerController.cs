@@ -28,9 +28,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Camera kitchenCam;
     private float restartTimer = 5f;
+    private bool dead;
 
     private Rigidbody rig;
     private Animator anim;
+    #endregion
+
+    #region properties
+    public bool Dead
+    {
+        get { return dead; }
+        set { dead = value; }
+    }
     #endregion
 
     #region methods
@@ -54,6 +63,14 @@ public class PlayerController : MonoBehaviour
         // Notepad
         if (Input.GetButtonDown("GameUI"))
             anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+
+        if (dead)
+        {
+            if (restartTimer <= 0.0f)
+                GameManager.Instance.Restart();
+            else
+                restartTimer -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -161,13 +178,8 @@ public class PlayerController : MonoBehaviour
         kitchenCam.enabled = true;
         // Enable ragdoll physics
         EnableRagdoll();
-        if (restartTimer <= 0.0f)
-        {
-            Debug.Log("asd");
-            GameManager.Instance.Restart();
-        }
-        else
-            restartTimer -= Time.deltaTime;
+
+        dead = true;
     }
     #endregion
 }
