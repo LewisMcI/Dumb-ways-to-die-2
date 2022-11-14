@@ -6,7 +6,7 @@ public class PivotSettings : MonoBehaviour
 {
 
     private Quaternion startingAngle;
-    public Quaternion endingAngle;
+    public Vector3 endingAngle;
 
     public bool usingMovement = false;
     private Vector3 startingPos;

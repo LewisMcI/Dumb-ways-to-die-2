@@ -174,14 +174,14 @@ public class InteractionSystem : MonoBehaviour
         if (objState == false)
         {
             startingAngle = pivotSettings.GetStartingAngle;
-            endingAngle = pivotSettings.endingAngle;
+            endingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
             startingPos = pivotSettings.GetStartingPos;
             endingPos = pivotSettings.endingPos;
         }
         else
         {
             endingAngle = pivotSettings.GetStartingAngle;
-            startingAngle = pivotSettings.endingAngle;
+            startingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
             endingPos = pivotSettings.GetStartingPos;
             startingPos = pivotSettings.endingPos;
         }
