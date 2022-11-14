@@ -5573,7 +5573,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2055167854}
   - component: {fileID: 2055167853}
-  - component: {fileID: 2055167852}
   - component: {fileID: 2055167851}
   m_Layer: 0
   m_Name: Kitchen Camera
@@ -5601,10 +5600,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 1
+  antialiasing: 3
   SMAAQuality: 2
-  dithering: 0
-  stopNaNs: 0
+  dithering: 1
+  stopNaNs: 1
   taaSharpenStrength: 0.5
   TAAQuality: 1
   taaHistorySharpening: 0.35
@@ -5707,14 +5706,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!81 &2055167852
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055167850}
-  m_Enabled: 1
 --- !u!20 &2055167853
 Camera:
   m_ObjectHideFlags: 0
@@ -6474,6 +6465,18 @@ PrefabInstance:
     - target: {fileID: 1574561949772971457, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -16.299412
+      objectReference: {fileID: 0}
+    - target: {fileID: 3150345827258021552, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: stopNaNs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3150345827258021552, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: dithering
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3150345827258021552, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
+      propertyPath: antialiasing
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3687947934166943130, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8774,11 +8777,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7454035966832550692, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09487914
+      value: 0.09487751
       objectReference: {fileID: 0}
     - target: {fileID: 7454035966832550692, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.30115205
+      value: 0.30115208
       objectReference: {fileID: 0}
     - target: {fileID: 7454035966832550692, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_LocalPosition.z
