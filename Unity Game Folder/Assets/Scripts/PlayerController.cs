@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private float groundDistance = 0.01f;
     private bool isGrounded;
 
+    [SerializeField]
+    private GameObject notepad;
     private bool isCrouching, isJumping;
 
     private Rigidbody rig;
@@ -39,6 +41,11 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
             Crouch();
+        }
+        if (Input.GetButtonDown("GameUI"))
+        {
+            anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+            notepad.SetActive(!notepad.activeSelf);
         }
     }
 
