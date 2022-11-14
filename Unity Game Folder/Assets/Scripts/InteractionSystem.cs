@@ -9,6 +9,8 @@ public class InteractionSystem : MonoBehaviour
     public bool hasInteract;
     private GameObject pickedUpObject;
 
+    public Task brushTeethTask;
+
     void Update()
     {
         if (Input.GetButtonDown("Interact") && pickedUpObject)
@@ -113,6 +115,14 @@ public class InteractionSystem : MonoBehaviour
         {
             objectToPickup.GetComponent<AudioSource>().Play();
             objectToPickup.tag = "Untagged";
+            if (brushTeethTask != null)
+            {
+                GameManager.Instance.CompletedTask(brushTeethTask);
+            }
+            else
+            {
+                Debug.Log("Task Uninitialized for " + gameObject.name);
+            }
             return;
         }
 
