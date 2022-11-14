@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class InteractionSystem : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class InteractionSystem : MonoBehaviour
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
                             {
+                                pickedUpObject.name = "Toasted Bread";
                                 hit.transform.GetComponent<TrapToaster>().Interact();
                                 // Attach to toaster
                                 pickedUpObject.transform.parent = hit.transform;
@@ -112,6 +114,21 @@ public class InteractionSystem : MonoBehaviour
     {
         // Brush teeth interaction
         if (objectToPickup.name == "SM_Item_Toothbrush_01")
+        {
+            objectToPickup.GetComponent<AudioSource>().Play();
+            objectToPickup.tag = "Untagged";
+            
+            if (brushTeethTask != null)
+            {
+                GameManager.Instance.CompletedTask(brushTeethTask);
+            }
+            else
+            {
+                Debug.Log("Task Uninitialized for " + gameObject.name);
+            }
+            return;
+        }
+        else if (objectToPickup.name == "Toasted Bread")
         {
             objectToPickup.GetComponent<AudioSource>().Play();
             objectToPickup.tag = "Untagged";
