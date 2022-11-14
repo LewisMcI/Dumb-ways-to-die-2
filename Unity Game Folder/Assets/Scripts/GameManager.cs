@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -51,6 +52,11 @@ public class GameManager : MonoBehaviour
             else
                 enableControlsTimer -= Time.deltaTime;
         }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("Main Scene");
     }
     #endregion
 }
