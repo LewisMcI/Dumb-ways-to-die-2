@@ -32,7 +32,7 @@ public class TrapCabinet : MonoBehaviour
                 anim.SetTrigger("Open");
             else
                 anim.SetTrigger("Shoot");
-
+            GetComponent<Collider>().enabled = false;
             // Reset tag
             transform.tag = "Untagged";
         }
