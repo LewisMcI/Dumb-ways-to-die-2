@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class InteractionSystem : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class InteractionSystem : MonoBehaviour
     public bool hasInteract;
     private GameObject pickedUpObject;
 
+    public Task brushTeethTask;
+
+    public Task makeToastTask;
+
     void Update()
     {
         if (Input.GetButtonDown("Interact") && pickedUpObject)
         {
             // Holding scissors?
             bool interacted = false;
-            if (pickedUpObject.name == "SM_Item_Soap_02")
+            if (pickedUpObject.name == "Scissors")
             {
                 if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
                 {
@@ -42,6 +47,8 @@ public class InteractionSystem : MonoBehaviour
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
                             {
+                                pickedUpObject.name = "Toasted Bread";
+                                pickedUpObject.GetComponent<Collider>().enabled = true;
                                 hit.transform.GetComponent<TrapToaster>().Interact();
                                 // Attach to toaster
                                 pickedUpObject.transform.parent = hit.transform;
@@ -108,6 +115,38 @@ public class InteractionSystem : MonoBehaviour
 
     void PickupObject(GameObject objectToPickup)
     {
+        // Brush teeth interaction
+        if (objectToPickup.name == "SM_Item_Toothbrush_01")
+        {
+            objectToPickup.GetComponent<AudioSource>().Play();
+            objectToPickup.tag = "Untagged";
+            
+            if (brushTeethTask != null)
+            {
+                GameManager.Instance.CompletedTask(brushTeethTask);
+            }
+            else
+            {
+                Debug.Log("Task Uninitialized for " + gameObject.name);
+            }
+            return;
+        }
+        else if (objectToPickup.name == "Toasted Bread")
+        {
+            objectToPickup.GetComponent<AudioSource>().Play();
+            objectToPickup.tag = "Untagged";
+            objectToPickup.GetComponent<Renderer>().enabled = false;
+            if (brushTeethTask != null)
+            {
+                GameManager.Instance.CompletedTask(makeToastTask);
+            }
+            else
+            {
+                Debug.Log("Task Uninitialized for " + gameObject.name);
+            }
+            return;
+        }
+
         Rigidbody rig = (Rigidbody)objectToPickup.GetComponent(typeof(Rigidbody));
         // Remove Rigidbody
         if (rig != null)
