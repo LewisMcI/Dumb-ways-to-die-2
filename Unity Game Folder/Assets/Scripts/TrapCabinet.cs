@@ -11,6 +11,13 @@ public class TrapCabinet : MonoBehaviour
     private Animator anim;
     #endregion
 
+    #region properties
+    public bool Cut
+    {
+        get { return cut; }
+    }
+    #endregion
+
     #region methods
     private void Awake()
     {

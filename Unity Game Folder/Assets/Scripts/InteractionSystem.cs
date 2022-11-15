@@ -14,6 +14,7 @@ public class InteractionSystem : MonoBehaviour
 
 
     public GameObject bed;
+    private string text = "Cut Rope";
 
     private void Awake()
     {
@@ -33,7 +34,16 @@ public class InteractionSystem : MonoBehaviour
                     switch (hit.transform.tag)
                     {
                         case "Cabinet":
-                            GameUI.Instance.InteractText.text = "Cut Rope";
+                            if (!hit.transform.GetComponent<TrapCabinet>().Cut)
+                            {
+                                GameUI.Instance.InteractText.text = text;
+                                text = "Open";
+                            }
+                            else
+                            {
+                                text = "Open";
+                                GameUI.Instance.InteractText.text = text;
+                            }
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
                             {
@@ -92,7 +102,6 @@ public class InteractionSystem : MonoBehaviour
                             GameUI.Instance.InteractText.text = "Eat Bread";
                         else
                             GameUI.Instance.InteractText.text = "Pickup";
-
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             PickupObject(hit.transform.gameObject);
@@ -111,7 +120,7 @@ public class InteractionSystem : MonoBehaviour
                         break;
                     case "Cabinet":
                         if (pickedUpObject && pickedUpObject.name == "Scissors")
-                            GameUI.Instance.InteractText.text = "Cut Rope";
+                            GameUI.Instance.InteractText.text = text;
                         else
                             GameUI.Instance.InteractText.text = "Open";
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
