@@ -7,6 +7,8 @@ public class GameUI : MonoBehaviour
 {
     #region fields
     [SerializeField]
+    private Animator notifyAnim;
+    [SerializeField]
     private Image dotImage;
     private Animator dotAnim;
 
@@ -20,6 +22,11 @@ public class GameUI : MonoBehaviour
     public Animator DotAnim
     {
         get { return dotAnim; }
+    }
+
+    public Animator NotifyAnim
+    {
+        get { return notifyAnim; }
     }
     #endregion
 
