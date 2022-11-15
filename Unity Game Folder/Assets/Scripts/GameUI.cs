@@ -12,6 +12,9 @@ public class GameUI : MonoBehaviour
     private Image dotImage;
     private Animator dotAnim;
 
+    [SerializeField]
+    private Animator blinkAnim;
+
     public static GameUI Instance;
     #endregion
 
@@ -40,6 +43,11 @@ public class GameUI : MonoBehaviour
         }
 
         dotAnim = dotImage.GetComponent<Animator>();
+    }
+
+    public void ReverseBlink()
+    {
+        blinkAnim.GetComponent<Animator>().SetTrigger("Fade");
     }
     #endregion
 }

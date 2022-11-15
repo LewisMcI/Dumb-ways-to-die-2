@@ -9,10 +9,19 @@ public class InteractionSystem : MonoBehaviour
     private RaycastHit hit;
     public bool hasInteract;
     private GameObject pickedUpObject;
+    private Vector3 startingPosition;
 
     public Task brushTeethTask;
 
     public Task makeToastTask;
+
+
+    public GameObject bed;
+
+    private void Awake()
+    {
+        startingPosition = new Vector3(bed.transform.position.x, bed.transform.position.y + .15f, bed.transform.position.z + 1);
+    }
 
     void Update()
     {
@@ -101,6 +110,15 @@ public class InteractionSystem : MonoBehaviour
                         if (pickedUpObject && pickedUpObject.name == "SM_Item_Bread_01")
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         break;
+                    case "Bed":
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                        {
+                            GameUI.Instance.ReverseBlink();
+                            
+                            StartCoroutine(GoToSleep());
+                        }
+                        break;
                     default:
                         GameUI.Instance.DotAnim.SetBool("Interactable", false);
                         break;
@@ -111,6 +129,19 @@ public class InteractionSystem : MonoBehaviour
                 GameUI.Instance.DotAnim.SetBool("Interactable", false);
             }
         }
+    }
+
+    IEnumerator GoToSleep()
+    {
+        Vector3 currentPosition = transform.position;
+        float time = 1.0f;
+        float iterations = 100;
+        for (float i = 0; i < iterations; i++)
+        {
+            transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
+            yield return new WaitForSeconds(time / iterations);
+        }
+        GameManager.Instance.Restart();
     }
 
     void PickupObject(GameObject objectToPickup)
@@ -139,6 +170,10 @@ public class InteractionSystem : MonoBehaviour
             if (brushTeethTask != null)
             {
                 GameManager.Instance.CompletedTask(makeToastTask);
+                if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+                {
+                    bed.tag = "Bed";
+                }
             }
             else
             {
