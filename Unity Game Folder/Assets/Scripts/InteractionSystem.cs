@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class InteractionSystem : MonoBehaviour
 {
@@ -36,6 +33,7 @@ public class InteractionSystem : MonoBehaviour
                     switch (hit.transform.tag)
                     {
                         case "Cabinet":
+                            GameUI.Instance.InteractText.text = "Cut Rope";
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
                             {
@@ -53,6 +51,7 @@ public class InteractionSystem : MonoBehaviour
                     switch (hit.transform.tag)
                     {
                         case "Toaster":
+                            GameUI.Instance.InteractText.text = "Place Bread";
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
                             {
@@ -87,28 +86,44 @@ public class InteractionSystem : MonoBehaviour
                 switch (hit.transform.tag)
                 {
                     case "Pickup":
+                        if (hit.transform.name == "SM_Item_Toothbrush_01")
+                            GameUI.Instance.InteractText.text = "Brush Teeth";
+                        else if (hit.transform.name == "Toasted Bread")
+                            GameUI.Instance.InteractText.text = "Eat Bread";
+                        else
+                            GameUI.Instance.InteractText.text = "Pickup";
+
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             PickupObject(hit.transform.gameObject);
                         break;
                     case "Door":
+                        GameUI.Instance.InteractText.text = "Open";
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             OpenDoor(hit.transform.gameObject);
                         break;
                     case "Pivot":
+                        GameUI.Instance.InteractText.text = "Open";
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             PivotObject(hit.transform.gameObject);
                         break;
                     case "Cabinet":
+                        if (pickedUpObject && pickedUpObject.name == "Scissors")
+                            GameUI.Instance.InteractText.text = "Cut Rope";
+                        else
+                            GameUI.Instance.InteractText.text = "Open";
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             hit.transform.GetComponent<TrapCabinet>().Interact(false);
                         break;
                     case "Toaster":
                         if (pickedUpObject && pickedUpObject.name == "SM_Item_Bread_01")
+                        {
+                            GameUI.Instance.InteractText.text = "Place Bread";
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        }
                         break;
                     case "Bed":
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
