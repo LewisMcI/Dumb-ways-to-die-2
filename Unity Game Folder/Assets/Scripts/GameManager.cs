@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
             {
                 if (text.text.Replace(" ", "") == task.taskName.Replace(" ", ""))
                 {
+                    GameUI.Instance.NotifyAnim.SetTrigger("Notify");
                     task.taskComplete = true;
                     tasks.Remove(task);
                     text.text = "<s>" + text.text + "</s>";
