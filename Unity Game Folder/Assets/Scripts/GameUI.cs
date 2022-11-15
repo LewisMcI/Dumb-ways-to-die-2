@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class GameUI : MonoBehaviour
     private Animator notifyAnim;
     [SerializeField]
     private Image dotImage;
+    private TextMeshProUGUI interactText;
     private Animator dotAnim;
 
     [SerializeField]
@@ -28,6 +30,11 @@ public class GameUI : MonoBehaviour
     {
         get { return notifyAnim; }
     }
+
+    public TextMeshProUGUI InteractText
+    {
+        get { return interactText; }
+    }
     #endregion
 
     #region methods
@@ -43,6 +50,7 @@ public class GameUI : MonoBehaviour
         }
 
         dotAnim = dotImage.GetComponent<Animator>();
+        interactText = dotImage.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     public void ReverseBlink()
