@@ -38,7 +38,10 @@ public class TrapCabinet : MonoBehaviour
             if (cut)
                 anim.SetTrigger("Open");
             else
+            {
                 anim.SetTrigger("Shoot");
+                GetComponent<AudioSource>().Play();
+            }
             GetComponent<Collider>().enabled = false;
             // Reset tag
             transform.tag = "Untagged";
