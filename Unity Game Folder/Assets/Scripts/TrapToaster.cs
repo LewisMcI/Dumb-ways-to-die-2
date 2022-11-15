@@ -27,14 +27,20 @@ public class TrapToaster : MonoBehaviour
     {
         if (knife.transform.IsChildOf(transform))
         {
-            GetComponent<AudioSource>().Play();
-            explosionVFX.SetActive(true);
-            GameManager.Instance.Player.GetComponent<PlayerController>().Die();
-            tableRig.isKinematic = false;
+            StartCoroutine(KillPlayer());
         }
 
         // Reset tag
         transform.tag = "Untagged";
+    }
+
+    IEnumerator KillPlayer()
+    {
+        GameManager.Instance.Player.GetComponent<PlayerController>().Die();
+        yield return new WaitForSeconds(0.25f);
+        GetComponent<AudioSource>().Play();
+        explosionVFX.SetActive(true);
+        tableRig.isKinematic = false;
     }
     #endregion
 }

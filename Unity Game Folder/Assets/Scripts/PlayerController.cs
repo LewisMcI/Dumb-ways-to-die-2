@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         foreach (Rigidbody rig in limbs)
         {
             if (rig.transform.name == "bip Pelvis")
-                rig.velocity = new Vector3(100, 0, 0);
+                rig.velocity = new Vector3(100, 10, 0);
         }
     }
 
@@ -185,11 +185,17 @@ public class PlayerController : MonoBehaviour
         // Switch cameras
         Camera.main.enabled = false;
         kitchenCam.enabled = true;
+        StartCoroutine(KillPlayer());
+
+        dead = true;
+    }
+
+    IEnumerator KillPlayer()
+    {
+        yield return new WaitForSeconds(0.25f);
         // Enable ragdoll physics
         EnableRagdoll();
         AddRagdollForce();
-
-        dead = true;
     }
     #endregion
 }
