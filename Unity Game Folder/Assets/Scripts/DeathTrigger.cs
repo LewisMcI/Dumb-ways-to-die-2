@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DeathTrigger : MonoBehaviour
 {
-    private bool trapTriggered = false;
-
     private bool triggerKills = false;
 
     private void Awake()
@@ -28,7 +26,6 @@ public class DeathTrigger : MonoBehaviour
 
     private void KillPlayer()
     {
-        trapTriggered = true;
         if (triggerKills)
         {
             Debug.Log("Kill Player");
