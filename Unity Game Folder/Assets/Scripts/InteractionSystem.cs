@@ -99,7 +99,7 @@ public class InteractionSystem : MonoBehaviour
                         if (hit.transform.name == "SM_Item_Toothbrush_01")
                             GameUI.Instance.InteractText.text = "Brush Teeth";
                         else if (hit.transform.name == "Toasted Bread")
-                            GameUI.Instance.InteractText.text = "Eat Bread";
+                            GameUI.Instance.InteractText.text = "Eat Toast";
                         else
                             GameUI.Instance.InteractText.text = "Pickup";
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
@@ -179,6 +179,10 @@ public class InteractionSystem : MonoBehaviour
             if (brushTeethTask != null)
             {
                 GameManager.Instance.CompletedTask(brushTeethTask);
+                if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+                {
+                    bed.tag = "Bed";
+                }
             }
             else
             {

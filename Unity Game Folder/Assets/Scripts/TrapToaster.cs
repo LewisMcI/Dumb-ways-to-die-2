@@ -11,12 +11,16 @@ public class TrapToaster : MonoBehaviour
     private Animator anim;
 
     public GameObject explosionVFX;
+
+    [SerializeField]
+    private Rigidbody tableRig;
     #endregion
 
     #region methods
     private void Awake()
     {
         knife = transform.GetChild(0).gameObject;
+        tableRig.isKinematic = true;
     }
 
     public void Interact()
@@ -26,6 +30,7 @@ public class TrapToaster : MonoBehaviour
             GetComponent<AudioSource>().Play();
             explosionVFX.SetActive(true);
             GameManager.Instance.Player.GetComponent<PlayerController>().Die();
+            tableRig.isKinematic = false;
         }
 
         // Reset tag
