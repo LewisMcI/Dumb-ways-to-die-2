@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Notepad
-        if (Input.GetButtonDown("GameUI"))
+        if (Input.GetButtonDown("Notepad"))
             anim.SetBool("Notepad", !anim.GetBool("Notepad"));
 
         if (dead)

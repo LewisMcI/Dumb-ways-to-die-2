@@ -26,7 +26,6 @@ public class InteractionSystem : MonoBehaviour
         if (Input.GetButtonDown("Interact") && pickedUpObject)
         {
             // Holding scissors?
-            bool interacted = false;
             if (pickedUpObject.name == "Scissors")
             {
                 if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
@@ -48,7 +47,6 @@ public class InteractionSystem : MonoBehaviour
                             if (Input.GetButtonDown("Interact"))
                             {
                                 hit.transform.GetComponent<TrapCabinet>().Interact(true);
-                                interacted = true;
                             }
                             break;
                     }
@@ -77,17 +75,15 @@ public class InteractionSystem : MonoBehaviour
                                 // Reset
                                 pickedUpObject.layer = LayerMask.GetMask("Default");
                                 pickedUpObject = null;
-                                interacted = true;
                             }
                             break;
                     }
                 }
             }
-            // Else drop
-            if (!interacted)
-            {
-                DropObject(pickedUpObject);
-            }
+        }
+        else if (Input.GetButtonDown("Drop") && pickedUpObject)
+        {
+            DropObject(pickedUpObject);
         }
         else
         {
