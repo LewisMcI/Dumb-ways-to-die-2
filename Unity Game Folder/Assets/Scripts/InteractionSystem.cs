@@ -159,6 +159,12 @@ public class InteractionSystem : MonoBehaviour
                             StartCoroutine(GoToSleep());
                         }
                         break;
+                    case "Light":
+                        GameUI.Instance.InteractText.text = "Use";
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            hit.transform.GetComponent<LightSwitch>().Switch();
+                        break;
                     default:
                         GameUI.Instance.DotAnim.SetBool("Interactable", false);
                         break;
