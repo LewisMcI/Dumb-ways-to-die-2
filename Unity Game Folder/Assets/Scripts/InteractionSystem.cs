@@ -1,5 +1,13 @@
+using System;
 using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using static UnityEngine.GraphicsBuffer;
 
 public class InteractionSystem : MonoBehaviour
 {
@@ -12,6 +20,8 @@ public class InteractionSystem : MonoBehaviour
 
     public Task makeToastTask;
 
+    [SerializeField]
+    private Transform pickupTransform;
 
     public GameObject bed;
     private string text = "Cut Rope";
@@ -21,10 +31,11 @@ public class InteractionSystem : MonoBehaviour
         startingPosition = new Vector3(bed.transform.position.x, bed.transform.position.y + .15f, bed.transform.position.z + 1);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetButtonDown("Interact") && pickedUpObject)
         {
+            bool interacted = false;
             // Holding scissors?
             if (pickedUpObject.name == "Scissors")
             {
@@ -47,6 +58,7 @@ public class InteractionSystem : MonoBehaviour
                             if (Input.GetButtonDown("Interact"))
                             {
                                 hit.transform.GetComponent<TrapCabinet>().Interact(true);
+                                interacted = true;
                             }
                             break;
                     }
@@ -63,8 +75,11 @@ public class InteractionSystem : MonoBehaviour
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                             if (Input.GetButtonDown("Interact"))
                             {
+                                // Rename
                                 pickedUpObject.name = "Toasted Bread";
-                                pickedUpObject.GetComponent<Collider>().enabled = true;
+                                // Remove rigidbody
+                                Destroy(pickedUpObject.GetComponent<Rigidbody>());
+                                // Check trap
                                 hit.transform.GetComponent<TrapToaster>().Interact();
                                 // Attach to toaster
                                 pickedUpObject.transform.parent = hit.transform;
@@ -75,15 +90,20 @@ public class InteractionSystem : MonoBehaviour
                                 // Reset
                                 pickedUpObject.layer = LayerMask.GetMask("Default");
                                 pickedUpObject = null;
+                                interacted = true;
                             }
                             break;
                     }
                 }
             }
+            if (!interacted)
+            {
+                DropObject();
+            }
         }
-        else if (Input.GetButtonDown("Drop") && pickedUpObject)
+        else if (Input.GetButtonDown("Throw") && pickedUpObject)
         {
-            DropObject(pickedUpObject);
+            ThrowObject();
         }
         else
         {
@@ -150,26 +170,31 @@ public class InteractionSystem : MonoBehaviour
             }
         }
     }
-
-    IEnumerator GoToSleep()
+    private void FixedUpdate()
     {
-        Vector3 currentPosition = transform.position;
-        float time = 1.0f;
-        float iterations = 100;
-        for (float i = 0; i < iterations; i++)
+        if (pickedUpObject)
         {
-            transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
-            yield return new WaitForSeconds(time / iterations);
+            Vector3 desiredVelocity = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Normalize(pickupTransform.position - pickedUpObject.GetComponent<Renderer>().bounds.center) : Vector3.Normalize(pickupTransform.position - pickedUpObject.transform.position);
+            float distance = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Distance(pickedUpObject.GetComponent<Renderer>().bounds.center, pickupTransform.position) : Vector3.Distance(pickedUpObject.transform.position, pickupTransform.position);
+            // Distance before slowing down
+            float stopDistance = 2f;
+            // Speed to reach object
+            float speed = 20f;
+            // Get velocity
+            desiredVelocity *= speed * (distance / stopDistance);
+            // Set velocity
+            pickedUpObject.GetComponent<Rigidbody>().velocity = desiredVelocity;
+            // Face camera
+            pickedUpObject.transform.LookAt(Camera.main.transform);
         }
-        GameManager.Instance.Restart();
     }
 
-    void PickupObject(GameObject objectToPickup)
+    private void PickupObject(GameObject objectToPickup)
     {
         // Brush teeth interaction
         if (objectToPickup.name == "SM_Item_Toothbrush_01")
         {
-            objectToPickup.GetComponent<AudioSource>().Play();
+            AudioManager.Instance.PlayAudio("Brush Teeth");
             objectToPickup.tag = "Untagged";
             
             if (brushTeethTask != null)
@@ -180,17 +205,15 @@ public class InteractionSystem : MonoBehaviour
                     bed.tag = "Bed";
                 }
             }
-            else
-            {
-                Debug.Log("Task Uninitialized for " + gameObject.name);
-            }
             return;
         }
+        // Eat bread interaction
         else if (objectToPickup.name == "Toasted Bread")
         {
-            objectToPickup.GetComponent<AudioSource>().Play();
+            AudioManager.Instance.PlayAudio("Eat");
             objectToPickup.tag = "Untagged";
             objectToPickup.GetComponent<Renderer>().enabled = false;
+
             if (brushTeethTask != null)
             {
                 GameManager.Instance.CompletedTask(makeToastTask);
@@ -199,54 +222,52 @@ public class InteractionSystem : MonoBehaviour
                     bed.tag = "Bed";
                 }
             }
-            else
-            {
-                Debug.Log("Task Uninitialized for " + gameObject.name);
-            }
             return;
         }
 
-        Rigidbody rig = (Rigidbody)objectToPickup.GetComponent(typeof(Rigidbody));
-        // Remove Rigidbody
-        if (rig != null)
-            Destroy(rig);
-
+        // Remove parent
+        objectToPickup.transform.parent = null;
+        // Add physics
+        if (!objectToPickup.GetComponent<Rigidbody>())
+            objectToPickup.AddComponent<Rigidbody>();
+        // Remove gravity
+        objectToPickup.GetComponent<Rigidbody>().useGravity = false;
         // Ignore raycasts
-        objectToPickup.layer = LayerMask.GetMask("Ignore Raycast");
-        // Disable collision
-        objectToPickup.GetComponent<Collider>().enabled = false;
-        // Attach to camera
-        objectToPickup.transform.parent = Camera.main.transform;
-        // Add offset position
-        objectToPickup.transform.localPosition = Vector3.zero + Vector3.forward * 1f;
-        // Make object face camera
-        objectToPickup.transform.LookAt(Camera.main.transform);
+        objectToPickup.layer = 2;
+        // Set position
+        objectToPickup.transform.position = pickupTransform.position;
 
         // Save object
         pickedUpObject = objectToPickup;
     }
 
-    void DropObject(GameObject objectToDrop)
+    private void DropObject()
     {
-        // Enable collision
-        objectToDrop.GetComponent<Collider>().enabled = true;
-        // Add physics
-        objectToDrop.AddComponent<Rigidbody>();
-
-        // Remove parent
-        objectToDrop.transform.parent = null;
-
         // Reset
-        objectToDrop.layer = LayerMask.GetMask("Default");
+        pickedUpObject.layer = LayerMask.GetMask("Default");
+        pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
         pickedUpObject = null;
     }
 
-    void OpenDoor(GameObject door)
+    private void ThrowObject()
+    {
+        // Add force
+        pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 15000f * Time.deltaTime);
+        // Play sfx
+        AudioManager.Instance.PlayAudio("Whoosh");
+
+        // Reset
+        pickedUpObject.layer = LayerMask.GetMask("Default");
+        pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
+        pickedUpObject = null;
+    }
+
+    private void OpenDoor(GameObject door)
     {
         door.SetActive(false);
     }
 
-    void PivotObject(GameObject pivotObj)
+    private void PivotObject(GameObject pivotObj)
     {
         StartCoroutine(PivotObjectEnumerator(pivotObj));
     }
@@ -297,5 +318,18 @@ public class InteractionSystem : MonoBehaviour
             yield return new WaitForSeconds(time/smoothness);
         }
         pivotSettings.inUse = false;
+    }
+
+    IEnumerator GoToSleep()
+    {
+        Vector3 currentPosition = transform.position;
+        float time = 1.0f;
+        float iterations = 100;
+        for (float i = 0; i < iterations; i++)
+        {
+            transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
+            yield return new WaitForSeconds(time / iterations);
+        }
+        GameManager.Instance.Restart();
     }
 }

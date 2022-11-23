@@ -24,13 +24,14 @@ public class PlayerController : MonoBehaviour
     private GameObject notepad;
     private bool isCrouching, isJumping;
 
-    private Rigidbody[] limbs;
     [SerializeField]
     private Camera kitchenCam;
+
     private float restartTimer = 5f;
     private bool dead;
 
     private Rigidbody rig;
+    private Rigidbody[] limbs;
     private Animator anim;
     #endregion
 

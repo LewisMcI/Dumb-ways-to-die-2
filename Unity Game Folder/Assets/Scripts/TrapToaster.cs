@@ -6,9 +6,6 @@ public class TrapToaster : MonoBehaviour
 {
     #region fields
     private GameObject knife;
-    private bool removed;
-
-    private Animator anim;
 
     public GameObject explosionVFX;
 
@@ -25,10 +22,9 @@ public class TrapToaster : MonoBehaviour
 
     public void Interact()
     {
+        // If knife not taken out kill player
         if (knife.transform.IsChildOf(transform))
-        {
             StartCoroutine(KillPlayer());
-        }
 
         // Reset tag
         transform.tag = "Untagged";
@@ -38,7 +34,7 @@ public class TrapToaster : MonoBehaviour
     {
         GameManager.Instance.Player.GetComponent<PlayerController>().Die();
         yield return new WaitForSeconds(0.25f);
-        GetComponent<AudioSource>().Play();
+        AudioManager.Instance.PlayAudio("Explosion");
         explosionVFX.SetActive(true);
         tableRig.isKinematic = false;
     }

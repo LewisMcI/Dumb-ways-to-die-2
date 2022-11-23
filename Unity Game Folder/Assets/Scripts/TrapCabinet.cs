@@ -40,7 +40,6 @@ public class TrapCabinet : MonoBehaviour
             else
             {
                 anim.SetTrigger("Shoot");
-                GetComponent<AudioSource>().Play();
             }
             GetComponent<Collider>().enabled = false;
             // Reset tag

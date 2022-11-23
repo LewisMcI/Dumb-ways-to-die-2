@@ -8,15 +8,11 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
 
-    /* Anytime an audio is needed, the script needs a reference to this script,
-     * if PlayAudio function is called and passed through a name, then if there is an 
-     * audioSource with that name, it will be found and played.
-     */
+    // Anytime an audio is needed, the script needs a reference to this script,
+    // if PlayAudio function is called and passed through a name, then if there is an 
+    // audioSource with that name, it will be found and played.
 
-    /* Sounds Class
-     * 
-     * When instantiated, the values can be editted in the inspector.
-     */
+    // When instantiated, the values can be editted in the inspector.
     [System.Serializable]
     public class Sound
     {
@@ -28,21 +24,30 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     Sound foundAudio;
 
-    /* Play Audio
-     * 
-     * We look through all sounds and try to find the matching sound with the name
-     * we have been given.
-     * Then when its found we play it.
-     */
+    public static AudioManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void PlayAudio(string nameToFind)
     {
         bool found = false;
+        // Check sounds
         for (int i = 0; i < sounds.Length; i++)
         {
             if (sounds[i].audioName == nameToFind)
             {
                 foundAudio = sounds[i];
-
+                // Play audio
                 foundAudio.audioSource.Play();
                 found = true;
             }
