@@ -15,17 +15,19 @@ public class EventManager : MonoBehaviour
      */
     public static event ClickAction onClicked;
 
+    public static event ClickAction onEventBrushTeeth;
+
     public Observer[] observers;
 
     public static EventManager Instance;
 
-    public void Update()
+    public void FixedUpdate()
     {
         foreach(Observer observer in observers)
         {
             if (observer.RequirementsMet())
             {
-                DeathTrigger();
+                BrushTeethEvent();
             }
         }
     }
@@ -41,11 +43,15 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void DeathTrigger()
+    public void BrushTeethEvent()
     {
-        if (onClicked != null)
+        AudioManager.Instance.PlayAudio("Brush Teeth");
+        if (onEventBrushTeeth != null)
         {
-            onClicked();
+            onEventBrushTeeth();
+            // Removes from notepad
+            // 
+
         }
     }
 }

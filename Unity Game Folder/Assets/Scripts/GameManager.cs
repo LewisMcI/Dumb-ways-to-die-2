@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
 
     public List<Task> tasks;
 
-    public List<TextMeshPro> notepadText;
+    public TaskManager taskManager;
+
 
     public static GameManager Instance;
     #endregion
@@ -61,24 +62,8 @@ public class GameManager : MonoBehaviour
 
     public void CompletedTask(Task task)
     {
-        if (tasks.Contains(task))
-        {
-            foreach (TextMeshPro text in notepadText)
-            {
-                if (text.text.Replace(" ", "") == task.taskName.Replace(" ", ""))
-                {
-                    GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                    task.taskComplete = true;
-                    tasks.Remove(task);
-                    text.text = "<s>" + text.text + "</s>";
-                    continue;
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("Invalid Task Complete");
-        }
+        Debug.Log("Completed task");
+        taskManager.CompletedTask(task.taskName);
 
     }
 

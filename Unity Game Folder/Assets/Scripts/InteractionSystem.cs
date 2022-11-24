@@ -187,17 +187,9 @@ public class InteractionSystem : MonoBehaviour
         // Brush teeth interaction
         if (objectToPickup.name == "SM_Item_Toothbrush_01")
         {
-            AudioManager.Instance.PlayAudio("Brush Teeth");
+            GameManager.Instance.CompletedTask(brushTeethTask);/*
+            EventManager.Instance.BrushTeethEvent();*/
             objectToPickup.tag = "Untagged";
-            
-            if (brushTeethTask != null)
-            {
-                GameManager.Instance.CompletedTask(brushTeethTask);
-                if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
-                {
-                    bed.tag = "Bed";
-                }
-            }
             return;
         }
         // Eat bread interaction
