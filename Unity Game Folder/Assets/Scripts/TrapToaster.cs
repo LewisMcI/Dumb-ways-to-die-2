@@ -16,7 +16,7 @@ public class TrapToaster : MonoBehaviour
     #region methods
     private void Awake()
     {
-        knife = transform.GetChild(0).gameObject;
+        knife = transform.GetChild(2).gameObject;
         tableRig.isKinematic = true;
     }
 
@@ -25,6 +25,7 @@ public class TrapToaster : MonoBehaviour
         // If knife not taken out kill player
         if (knife.transform.IsChildOf(transform))
             StartCoroutine(KillPlayer());
+        GetComponent<Animator>().SetTrigger("Activate");
 
         // Reset tag
         transform.tag = "Untagged";
