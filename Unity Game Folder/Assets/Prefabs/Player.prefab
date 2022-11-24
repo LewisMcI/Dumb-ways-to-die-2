@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 3866830963064161610}
   - component: {fileID: 3866830963064161609}
   - component: {fileID: 3150345827258021552}
+  - component: {fileID: 1978535368}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -121,7 +122,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 75
   orthographic: 0
@@ -290,6 +291,19 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!65 &1978535368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3866830963064161608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.2, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3866830963161398182
 GameObject:
   m_ObjectHideFlags: 0
