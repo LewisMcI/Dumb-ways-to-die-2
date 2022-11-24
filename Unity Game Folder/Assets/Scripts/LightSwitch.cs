@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LightSwitch : MonoBehaviour
+public class LightSwitch : Interactable
 {
     #region fields
     [SerializeField]
@@ -12,7 +12,7 @@ public class LightSwitch : MonoBehaviour
     #endregion
 
     #region methods
-    public void Switch()
+    public override void Action()
     {
         // Switch
         active = !active;

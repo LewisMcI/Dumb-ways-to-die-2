@@ -4,89 +4,42 @@ using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
 {
+    #region fields
     private RaycastHit hit;
-    public bool hasInteract;
-    private GameObject pickedUpObject;
-    private Vector3 startingPosition;
-
-    public Task brushTeethTask;
-
-    public Task makeToastTask;
 
     [SerializeField]
     private Transform pickupTransform;
+    private GameObject pickedUpObject;
 
-    public GameObject bed;
-    private string text = "Cut Rope";
+    public static InteractionSystem Instance;
+    #endregion
 
+    #region properties
+    public GameObject PickedUpObject
+    {
+        get { return pickedUpObject;}
+    }
+    #endregion
+
+    #region methods
     private void Awake()
     {
-        startingPosition = new Vector3(bed.transform.position.x, bed.transform.position.y + .15f, bed.transform.position.z + 1);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()
     {
         if (Input.GetButtonUp("Interact") && pickedUpObject)
         {
-            bool interacted = false;
-            // Holding scissors?
-            if (pickedUpObject.name == "Scissors")
-            {
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
-                {
-                    switch (hit.transform.tag)
-                    {
-                        case "Cabinet":
-                            if (!hit.transform.GetComponent<TrapCabinet>().Cut)
-                            {
-                                GameUI.Instance.InteractText.text = text;
-                                text = "Open";
-                            }
-                            else
-                            {
-                                text = "Open";
-                                GameUI.Instance.InteractText.text = text;
-                            }
-                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            hit.transform.GetComponent<TrapCabinet>().Interact(true);
-                            interacted = true;
-                            break;
-                    }
-                }
-            }
-            else if (pickedUpObject.name == "SM_Item_Bread_01")
-            {
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
-                {
-                    switch (hit.transform.tag)
-                    {
-                        case "Toaster":
-                            GameUI.Instance.InteractText.text = "Place Bread";
-                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            // Rename
-                            pickedUpObject.name = "Toasted Bread";
-                            // Remove rigidbody
-                            Destroy(pickedUpObject.GetComponent<Rigidbody>());
-                            // Check trap
-                            hit.transform.GetComponent<TrapToaster>().Interact();
-                            // Attach to toaster
-                            pickedUpObject.transform.parent = hit.transform;
-                            // Set transform
-                            pickedUpObject.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
-                            pickedUpObject.transform.localEulerAngles = new Vector3(90, 0, 0);
-                            pickedUpObject.transform.localScale = new Vector3(1.0f, 0.8f, 1.2f);
-                            // Reset
-                            pickedUpObject.layer = LayerMask.GetMask("Default");
-                            pickedUpObject = null;
-                            interacted = true;
-                            break;
-                    }
-                }
-            }
-            if (!interacted)
-            {
-                DropObject();
-            }
+            CastRay();
+            DropObject();
         }
         else if (Input.GetButtonDown("Throw") && pickedUpObject)
         {
@@ -94,77 +47,13 @@ public class InteractionSystem : MonoBehaviour
         }
         else
         {
-            if (!GameManager.Instance.Player.GetComponent<PlayerController>().Dead && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
-            {
-                switch (hit.transform.tag)
-                {
-                    case "Pickup":
-                        if (hit.transform.name == "SM_Item_Toothbrush_01")
-                            GameUI.Instance.InteractText.text = "Brush Teeth";
-                        else if (hit.transform.name == "Toasted Bread")
-                            GameUI.Instance.InteractText.text = "Eat Toast";
-                        else
-                            GameUI.Instance.InteractText.text = "Pickup";
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                            PickupObject(hit.transform.gameObject);
-                        break;
-                    case "Door":
-                        GameUI.Instance.InteractText.text = "Open";
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                            OpenDoor(hit.transform.gameObject);
-                        break;
-                    case "Pivot":
-                        GameUI.Instance.InteractText.text = "Open";
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                            PivotObject(hit.transform.gameObject);
-                        break;
-                    case "Cabinet":
-                        if (pickedUpObject && pickedUpObject.name == "Scissors")
-                            GameUI.Instance.InteractText.text = text;
-                        else
-                            GameUI.Instance.InteractText.text = "Open";
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                            hit.transform.GetComponent<TrapCabinet>().Interact(false);
-                        break;
-                    case "Toaster":
-                        if (pickedUpObject && pickedUpObject.name == "SM_Item_Bread_01")
-                        {
-                            GameUI.Instance.InteractText.text = "Place Bread";
-                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        }
-                        break;
-                    case "Bed":
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                        {
-                            GameUI.Instance.ReverseBlink();
-                            
-                            StartCoroutine(GoToSleep());
-                        }
-                        break;
-                    case "Light":
-                        GameUI.Instance.InteractText.text = "Use";
-                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                        if (Input.GetButtonDown("Interact"))
-                            hit.transform.GetComponent<LightSwitch>().Switch();
-                        break;
-                    default:
-                        GameUI.Instance.DotAnim.SetBool("Interactable", false);
-                        break;
-                }
-            }
-            else
-            {
-                GameUI.Instance.DotAnim.SetBool("Interactable", false);
-            }
+            CastRay();
         }
     }
+
     private void FixedUpdate()
     {
+        // Pick up physics
         if (pickedUpObject)
         {
             Vector3 desiredVelocity = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Normalize(pickupTransform.position - pickedUpObject.GetComponent<Renderer>().bounds.center) : Vector3.Normalize(pickupTransform.position - pickedUpObject.transform.position);
@@ -182,42 +71,61 @@ public class InteractionSystem : MonoBehaviour
         }
     }
 
+    private void CastRay()
+    {
+        if (!GameManager.Instance.Player.GetComponent<PlayerController>().Dead && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+        {
+            if (hit.transform.GetComponent<Interactable>())
+            {
+                switch (hit.transform.GetComponent<Interactable>().type)
+                {
+                    case Interactable.Type.Pickup:
+                        GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            PickupObject(hit.transform.gameObject);
+                        break;
+                    case Interactable.Type.Pivot:
+                        GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                        GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        if (Input.GetButtonDown("Interact"))
+                            PivotObject(hit.transform.gameObject);
+                        break;
+                    case Interactable.Type.Trap:
+                        if (hit.transform.GetComponent<Interactable>().text != "")
+                        {
+                            GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        }
+                        if (Input.GetButtonDown("Interact") || pickedUpObject && Input.GetButtonUp("Interact"))
+                            hit.transform.GetComponent<Interactable>().Action();
+                        break;
+                    case Interactable.Type.Other:
+                        if (hit.transform.GetComponent<Interactable>().text != "")
+                        {
+                            GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                            GameUI.Instance.DotAnim.SetBool("Interactable", true);
+                        }
+                        if (Input.GetButtonDown("Interact"))
+                            hit.transform.GetComponent<Interactable>().Action();
+                        break;
+                }
+            }
+            else
+            {
+                if (GameUI.Instance.DotAnim.GetBool("Interactable"))
+                    GameUI.Instance.DotAnim.SetBool("Interactable", false);
+            }
+        }
+        else
+        {
+            if (GameUI.Instance.DotAnim.GetBool("Interactable"))
+                GameUI.Instance.DotAnim.SetBool("Interactable", false);
+        }
+    }
+
     private void PickupObject(GameObject objectToPickup)
     {
-        // Brush teeth interaction
-        if (objectToPickup.name == "SM_Item_Toothbrush_01")
-        {
-            AudioManager.Instance.PlayAudio("Brush Teeth");
-            objectToPickup.tag = "Untagged";
-            
-            if (brushTeethTask != null)
-            {
-                GameManager.Instance.CompletedTask(brushTeethTask);
-                if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
-                {
-                    bed.tag = "Bed";
-                }
-            }
-            return;
-        }
-        // Eat bread interaction
-        else if (objectToPickup.name == "Toasted Bread")
-        {
-            AudioManager.Instance.PlayAudio("Eat");
-            objectToPickup.tag = "Untagged";
-            objectToPickup.GetComponent<Renderer>().enabled = false;
-
-            if (brushTeethTask != null)
-            {
-                GameManager.Instance.CompletedTask(makeToastTask);
-                if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
-                {
-                    bed.tag = "Bed";
-                }
-            }
-            return;
-        }
-
         // Remove parent
         objectToPickup.transform.parent = null;
         // Add physics
@@ -255,11 +163,6 @@ public class InteractionSystem : MonoBehaviour
         pickedUpObject = null;
     }
 
-    private void OpenDoor(GameObject door)
-    {
-        door.SetActive(false);
-    }
-
     private void PivotObject(GameObject pivotObj)
     {
         PivotMultiple pivotMultiple = pivotObj.GetComponent<PivotMultiple>();
@@ -268,11 +171,8 @@ public class InteractionSystem : MonoBehaviour
             // If all pivotSettings are not in use.
             for (int i = 0; i < pivotMultiple.listOfPivotSettings.Length; i++)
             {
-
                 if (pivotMultiple.listOfPivotSettings[i].inUse)
-                {
                     return;
-                }
             }
             // Start Coroutine for each
             foreach (PivotSettings pivotObject in pivotMultiple.listOfPivotSettings)
@@ -337,17 +237,5 @@ public class InteractionSystem : MonoBehaviour
         }
         pivotSettings.inUse = false;
     }
-
-    IEnumerator GoToSleep()
-    {
-        Vector3 currentPosition = transform.position;
-        float time = 1.0f;
-        float iterations = 100;
-        for (float i = 0; i < iterations; i++)
-        {
-            transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
-            yield return new WaitForSeconds(time / iterations);
-        }
-        GameManager.Instance.Restart();
-    }
+    #endregion
 }

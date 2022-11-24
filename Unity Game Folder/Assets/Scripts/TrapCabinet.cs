@@ -3,19 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapCabinet : MonoBehaviour
+public class TrapCabinet : Interactable
 {
     #region fields
     private bool cut;
 
     private Animator anim;
-    #endregion
-
-    #region properties
-    public bool Cut
-    {
-        get { return cut; }
-    }
     #endregion
 
     #region methods
@@ -24,10 +17,18 @@ public class TrapCabinet : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void Interact(bool scissors)
+    private void Update()
+    {
+        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
+            text = "Cut";
+        else
+            text = "Open";
+    }
+
+    public override void Action()
     {
         // Cut rope
-        if (scissors && !cut)
+        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors" && !cut)
         {
             anim.SetTrigger("Cut");
             cut = true;
@@ -38,12 +39,8 @@ public class TrapCabinet : MonoBehaviour
             if (cut)
                 anim.SetTrigger("Open");
             else
-            {
                 anim.SetTrigger("Shoot");
-            }
             GetComponent<Collider>().enabled = false;
-            // Reset tag
-            transform.tag = "Untagged";
         }
     }
     #endregion

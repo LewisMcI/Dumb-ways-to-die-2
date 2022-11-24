@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 375888050068231536}
   - component: {fileID: 1974376207456132915}
   - component: {fileID: 905051602445561175}
+  - component: {fileID: 3339157389702456619}
   m_Layer: 0
   m_Name: Kitchen_Knife_1
-  m_TagString: Pickup
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +101,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 587366007896238738, guid: d6f0336b372cae546aa46976a0cdc656, type: 3}
+--- !u!114 &3339157389702456619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5775015364471140655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  text: Pick Up
 --- !u!1 &7204556701574592153
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +226,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7409766189126280974}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.4225001, y: -0.6238384, z: 13.553751}
   m_LocalScale: {x: 1.25, y: 1, z: 1.25}
   m_ConstrainProportionsScale: 0
@@ -299,6 +314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aea32bf14dd82459f3925047a59436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  text: Pick Up
+  bread: {fileID: 0}
+  knife: {fileID: 0}
+  jam: {fileID: 0}
+  plate: {fileID: 0}
   explosionVFX: {fileID: 6929365290383180721}
   tableRig: {fileID: 0}
 --- !u!95 &9049730112542354493
