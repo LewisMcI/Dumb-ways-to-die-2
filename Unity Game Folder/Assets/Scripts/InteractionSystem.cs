@@ -26,7 +26,7 @@ public class InteractionSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Interact") && pickedUpObject)
+        if (Input.GetButtonUp("Interact") && pickedUpObject)
         {
             bool interacted = false;
             // Holding scissors?
@@ -48,11 +48,8 @@ public class InteractionSystem : MonoBehaviour
                                 GameUI.Instance.InteractText.text = text;
                             }
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            if (Input.GetButtonDown("Interact"))
-                            {
-                                hit.transform.GetComponent<TrapCabinet>().Interact(true);
-                                interacted = true;
-                            }
+                            hit.transform.GetComponent<TrapCabinet>().Interact(true);
+                            interacted = true;
                             break;
                     }
                 }
@@ -66,25 +63,22 @@ public class InteractionSystem : MonoBehaviour
                         case "Toaster":
                             GameUI.Instance.InteractText.text = "Place Bread";
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
-                            if (Input.GetButtonDown("Interact"))
-                            {
-                                // Rename
-                                pickedUpObject.name = "Toasted Bread";
-                                // Remove rigidbody
-                                Destroy(pickedUpObject.GetComponent<Rigidbody>());
-                                // Check trap
-                                hit.transform.GetComponent<TrapToaster>().Interact();
-                                // Attach to toaster
-                                pickedUpObject.transform.parent = hit.transform;
-                                // Set transform
-                                pickedUpObject.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
-                                pickedUpObject.transform.localEulerAngles = new Vector3(90, 0, 0);
-                                pickedUpObject.transform.localScale = new Vector3(1.0f, 0.8f, 1.2f);
-                                // Reset
-                                pickedUpObject.layer = LayerMask.GetMask("Default");
-                                pickedUpObject = null;
-                                interacted = true;
-                            }
+                            // Rename
+                            pickedUpObject.name = "Toasted Bread";
+                            // Remove rigidbody
+                            Destroy(pickedUpObject.GetComponent<Rigidbody>());
+                            // Check trap
+                            hit.transform.GetComponent<TrapToaster>().Interact();
+                            // Attach to toaster
+                            pickedUpObject.transform.parent = hit.transform;
+                            // Set transform
+                            pickedUpObject.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
+                            pickedUpObject.transform.localEulerAngles = new Vector3(90, 0, 0);
+                            pickedUpObject.transform.localScale = new Vector3(1.0f, 0.8f, 1.2f);
+                            // Reset
+                            pickedUpObject.layer = LayerMask.GetMask("Default");
+                            pickedUpObject = null;
+                            interacted = true;
                             break;
                     }
                 }
