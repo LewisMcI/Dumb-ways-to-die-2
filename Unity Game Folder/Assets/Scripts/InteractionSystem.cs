@@ -265,6 +265,16 @@ public class InteractionSystem : MonoBehaviour
         PivotMultiple pivotMultiple = pivotObj.GetComponent<PivotMultiple>();
         if (pivotMultiple != null)
         {
+            // If all pivotSettings are not in use.
+            for (int i = 0; i < pivotMultiple.listOfPivotSettings.Length; i++)
+            {
+
+                if (pivotMultiple.listOfPivotSettings[i].inUse)
+                {
+                    return;
+                }
+            }
+            // Start Coroutine for each
             foreach (PivotSettings pivotObject in pivotMultiple.listOfPivotSettings)
             {
                 StartCoroutine(PivotObjectEnumerator(pivotObject.transform.GetChild(0).gameObject));
