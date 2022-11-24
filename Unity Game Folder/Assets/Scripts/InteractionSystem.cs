@@ -1,13 +1,6 @@
 using System;
 using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using static UnityEngine.GraphicsBuffer;
 
 public class InteractionSystem : MonoBehaviour
 {
