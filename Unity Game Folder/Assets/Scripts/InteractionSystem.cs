@@ -262,12 +262,27 @@ public class InteractionSystem : MonoBehaviour
 
     private void PivotObject(GameObject pivotObj)
     {
-        StartCoroutine(PivotObjectEnumerator(pivotObj));
+        PivotMultiple pivotMultiple = pivotObj.GetComponent<PivotMultiple>();
+        if (pivotMultiple != null)
+        {
+            foreach (PivotSettings pivotObject in pivotMultiple.listOfPivotSettings)
+            {
+                StartCoroutine(PivotObjectEnumerator(pivotObject.transform.GetChild(0).gameObject));
+            }
+        }
+        else
+        {
+            StartCoroutine(PivotObjectEnumerator(pivotObj));
+        }
     }
 
     IEnumerator PivotObjectEnumerator(GameObject pivotObj)
     {
-        PivotSettings pivotSettings = pivotObj.GetComponentInParent<PivotSettings>();
+        PivotSettings pivotSettings = pivotObj.GetComponent<PivotSettings>();
+        if (pivotSettings == null)
+        {
+            pivotSettings = pivotObj.GetComponentInParent<PivotSettings>();
+        }
         // If object is in use, Ignores
         if (pivotSettings.inUse == true)
         {
