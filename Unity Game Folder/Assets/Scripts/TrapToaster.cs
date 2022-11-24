@@ -7,7 +7,8 @@ public class TrapToaster : MonoBehaviour
     #region fields
     private GameObject knife;
 
-    public GameObject explosionVFX;
+    [SerializeField]
+    private GameObject explosionVFX;
 
     [SerializeField]
     private Rigidbody tableRig;
