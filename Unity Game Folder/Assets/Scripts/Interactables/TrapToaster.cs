@@ -58,6 +58,10 @@ public class TrapToaster : Interactable
 
             // Attach to toaster
             obj.transform.parent = transform;
+            // Change type
+            obj.GetComponent<Bread>().type = Type.None;
+            // Change text
+            obj.GetComponent<Bread>().text = "";
             // Set transform
             obj.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
             obj.transform.localEulerAngles = new Vector3(90f, 0.0f, 0.0f);
@@ -81,6 +85,10 @@ public class TrapToaster : Interactable
         bread.name = "Toasted Bread";
         // Change material
         bread.GetComponent<Renderer>().material = toastMat;
+        // Change type
+        bread.GetComponent<Bread>().type = Type.Pickup;
+        // Change text
+        bread.GetComponent<Bread>().text = "Pick Up";
     }
     #endregion
 }

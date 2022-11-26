@@ -112,6 +112,10 @@ public class InteractionSystem : MonoBehaviour
                         if (Input.GetButtonDown("Interact"))
                             hit.transform.GetComponent<Interactable>().Action();
                         break;
+                    case Interactable.Type.None:
+                        if (GameUI.Instance.DotAnim.GetBool("Interactable"))
+                            GameUI.Instance.DotAnim.SetBool("Interactable", false);
+                        break;
                 }
             }
             else
