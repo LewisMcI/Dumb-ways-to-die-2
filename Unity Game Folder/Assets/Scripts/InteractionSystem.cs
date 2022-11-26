@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
@@ -10,6 +11,8 @@ public class InteractionSystem : MonoBehaviour
     [SerializeField]
     private Transform pickupTransform;
     private GameObject pickedUpObject;
+    [SerializeField]
+    private bool keepRotation = true;
 
     public static InteractionSystem Instance;
     #endregion
@@ -67,7 +70,8 @@ public class InteractionSystem : MonoBehaviour
             // Set velocity
             pickedUpObject.GetComponent<Rigidbody>().velocity = desiredVelocity;
             // Face camera
-            pickedUpObject.transform.LookAt(Camera.main.transform);
+            if (!pickedUpObject.GetComponent<Interactable>().keepRotation)
+                pickedUpObject.transform.LookAt(Camera.main.transform);
         }
     }
 

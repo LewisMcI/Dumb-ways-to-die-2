@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
     #region fields
     public Type type;
     public string text;
+    public bool keepRotation = true;
     #endregion
 
     #region methods
