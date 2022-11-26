@@ -14,9 +14,7 @@ public class TrapToaster : Interactable
     private GameObject jam;
     [SerializeField]
     private GameObject plate;
-
-    [SerializeField]
-    private Material toastMat;
+    private bool placed;
 
     [SerializeField]
     private GameObject explosionVFX;
@@ -38,6 +36,10 @@ public class TrapToaster : Interactable
             text = "Drop";
         else if (text != "")
             text = "";
+
+        // Change toast color
+        if (placed)
+            bread.GetComponent<Renderer>().material.color = Color.Lerp(bread.GetComponent<Renderer>().material.color, new Color32(145, 126, 98, 255), 0.5f * Time.deltaTime);
     }
 
     public override void Action()
@@ -50,8 +52,6 @@ public class TrapToaster : Interactable
                 StartCoroutine(KillPlayer());
             else
                 StartCoroutine(ChangeBread());
-
-            GetComponent<Animator>().SetTrigger("Activate");
 
             // Remove rigidbody
             Destroy(obj.GetComponent<Rigidbody>());
@@ -80,15 +80,19 @@ public class TrapToaster : Interactable
 
     IEnumerator ChangeBread()
     {
-        yield return new WaitForSeconds(1.0f);
+        placed = true;
+        GetComponent<Animator>().SetTrigger("Activate");
+        yield return new WaitForSeconds(2.0f);
         // Rename
         bread.name = "Toasted Bread";
-        // Change material
-        bread.GetComponent<Renderer>().material = toastMat;
         // Change type
         bread.GetComponent<Bread>().type = Type.Pickup;
         // Change text
         bread.GetComponent<Bread>().text = "Pick Up";
+        // Move slightly up
+        bread.transform.position += Vector3.up * 0.025f;
+        // Reset
+        placed = false;
     }
     #endregion
 }

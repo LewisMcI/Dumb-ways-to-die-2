@@ -48,6 +48,8 @@ public class Plate : Interactable
         }
         if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam")
         {
+            // Play sfx
+            AudioManager.Instance.PlayAudio("Spread");
             // Change mesh
             bread.GetComponent<MeshFilter>().mesh = breadJam;
             // Make interactable
