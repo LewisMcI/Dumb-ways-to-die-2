@@ -8,7 +8,8 @@ public class LightSwitch : Interactable
     #region fields
     [SerializeField]
     private GameObject[] lights;
-    bool active = true;
+    [SerializeField]
+    bool active;
     #endregion
 
     #region methods
