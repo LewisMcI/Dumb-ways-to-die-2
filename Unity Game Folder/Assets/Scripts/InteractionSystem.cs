@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
@@ -151,7 +150,7 @@ public class InteractionSystem : MonoBehaviour
     private void DropObject()
     {
         // Reset
-        pickedUpObject.layer = LayerMask.GetMask("Default");
+        pickedUpObject.layer = 0;
         pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
         pickedUpObject = null;
     }
@@ -164,7 +163,7 @@ public class InteractionSystem : MonoBehaviour
         AudioManager.Instance.PlayAudio("Whoosh");
 
         // Reset
-        pickedUpObject.layer = LayerMask.GetMask("Default");
+        pickedUpObject.layer = 0;
         pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
         pickedUpObject = null;
     }

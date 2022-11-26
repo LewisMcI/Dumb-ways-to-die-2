@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   text: Pick Up
+  keepRotation: 1
 --- !u!1 &7204556701574592153
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,12 +315,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aea32bf14dd82459f3925047a59436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
+  type: 2
+  text: 
+  keepRotation: 1
   bread: {fileID: 0}
   knife: {fileID: 0}
   jam: {fileID: 0}
   plate: {fileID: 0}
+  toastMat: {fileID: 2100000, guid: 5505060f2d4a57644891b657b365f475, type: 2}
   explosionVFX: {fileID: 6929365290383180721}
   tableRig: {fileID: 0}
 --- !u!95 &9049730112542354493

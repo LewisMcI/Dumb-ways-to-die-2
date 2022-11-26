@@ -16,6 +16,9 @@ public class TrapToaster : Interactable
     private GameObject plate;
 
     [SerializeField]
+    private Material toastMat;
+
+    [SerializeField]
     private GameObject explosionVFX;
 
     [SerializeField]
@@ -31,9 +34,9 @@ public class TrapToaster : Interactable
 
     private void Update()
     {
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Bread")
+        if (text != "Drop" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Bread")
             text = "Drop";
-        else
+        else if (text != "")
             text = "";
     }
 
@@ -45,12 +48,10 @@ public class TrapToaster : Interactable
             // If knife not taken out kill player
             if (knife.transform.IsChildOf(transform))
                 StartCoroutine(KillPlayer());
-            GetComponent<Animator>().SetTrigger("Activate");
+            else
+                StartCoroutine(ChangeBread());
 
-            // Rename
-            obj.name = "Toasted Bread";
-            obj.GetComponent<Bread>().type = Type.Other;
-            obj.GetComponent<Bread>().text = "Eat";
+            GetComponent<Animator>().SetTrigger("Activate");
 
             // Remove rigidbody
             Destroy(obj.GetComponent<Rigidbody>());
@@ -59,7 +60,7 @@ public class TrapToaster : Interactable
             obj.transform.parent = transform;
             // Set transform
             obj.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
-            obj.transform.localEulerAngles = new Vector3(90, 0, 0);
+            obj.transform.localEulerAngles = new Vector3(90f, 0.0f, 0.0f);
             obj.transform.localScale = new Vector3(1.0f, 0.8f, 1.2f);
         }
     }
@@ -71,6 +72,15 @@ public class TrapToaster : Interactable
         AudioManager.Instance.PlayAudio("Explosion");
         explosionVFX.SetActive(true);
         tableRig.isKinematic = false;
+    }
+
+    IEnumerator ChangeBread()
+    {
+        yield return new WaitForSeconds(1.0f);
+        // Rename
+        bread.name = "Toasted Bread";
+        // Change material
+        bread.GetComponent<Renderer>().material = toastMat;
     }
     #endregion
 }

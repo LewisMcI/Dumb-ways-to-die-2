@@ -19,9 +19,9 @@ public class TrapCabinet : Interactable
 
     private void Update()
     {
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
+        if (text != "Cut" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
             text = "Cut";
-        else
+        else if (text != "Open")
             text = "Open";
     }
 
