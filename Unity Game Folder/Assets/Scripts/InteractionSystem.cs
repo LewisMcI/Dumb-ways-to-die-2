@@ -137,6 +137,8 @@ public class InteractionSystem : MonoBehaviour
             objectToPickup.AddComponent<Rigidbody>();
         // Remove gravity
         objectToPickup.GetComponent<Rigidbody>().useGravity = false;
+        // Add angular drag
+        objectToPickup.GetComponent<Rigidbody>().angularDrag = 5.0f;
         // Ignore raycasts
         objectToPickup.layer = 2;
         // Set position
