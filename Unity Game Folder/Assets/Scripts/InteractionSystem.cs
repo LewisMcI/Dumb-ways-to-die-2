@@ -144,8 +144,6 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.GetComponent<Rigidbody>().angularDrag = 5.0f;
         // Ignore raycasts
         objectToPickup.layer = 2;
-        // Set position
-        objectToPickup.transform.position = pickupTransform.position;
 
         // Save object
         pickedUpObject = objectToPickup;
@@ -223,6 +221,7 @@ public class InteractionSystem : MonoBehaviour
             endingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
             startingPos = pivotSettings.GetStartingPos;
             endingPos = pivotSettings.endingPos;
+            AudioManager.Instance.PlayAudio("DoorOpen");
         }
         else
         {
@@ -230,6 +229,7 @@ public class InteractionSystem : MonoBehaviour
             startingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
             endingPos = pivotSettings.GetStartingPos;
             startingPos = pivotSettings.endingPos;
+            AudioManager.Instance.PlayAudio("DoorClose");
         }
         int smoothness = pivotSettings.smoothness;
         float time = pivotSettings.timeToOpen;
