@@ -41,13 +41,9 @@ public class GameUI : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         if (Instance != this)
-        {
             Destroy(gameObject);
-        }
 
         dotAnim = dotImage.GetComponent<Animator>();
         interactText = dotImage.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -56,6 +52,16 @@ public class GameUI : MonoBehaviour
     public void ReverseBlink()
     {
         blinkAnim.GetComponent<Animator>().SetTrigger("Fade");
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
     #endregion
 }

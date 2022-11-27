@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Notepad"))
             anim.SetBool("Notepad", !anim.GetBool("Notepad"));
 
+        if (Input.GetButtonDown("Pause Game"))
+            GameManager.Instance.PauseGame();
         if (dead)
         {
             if (restartTimer <= 0.0f)

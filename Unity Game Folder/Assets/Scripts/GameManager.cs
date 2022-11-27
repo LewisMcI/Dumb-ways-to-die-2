@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
 
 
     public static GameManager Instance;
+
+    public bool gameState = true;
+
+    public GameObject pauseMenu;
     #endregion
 
     #region properties
@@ -65,6 +69,27 @@ public class GameManager : MonoBehaviour
         Debug.Log("Completed task");
         taskManager.CompletedTask(task);
 
+    }
+
+    public void PauseGame()
+    {
+        Debug.Log("Pause Game");
+        gameState = !gameState;
+        if (pauseMenu != null)
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+        else
+            Debug.Log("Pause Menu Not Setup");
+
+        if (gameState)
+        {
+            Time.timeScale = 1;
+            enableControls = true;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            enableControls = false;
+        }
     }
 
     public void Restart()

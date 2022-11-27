@@ -31,6 +31,12 @@ public class CameraController : MonoBehaviour
         {
             if (Cursor.lockState != CursorLockMode.None)
                 CameraLook();
+            else
+                Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if (Time.timeScale == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
