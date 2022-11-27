@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public bool gameState = true;
 
-    public GameObject pauseMenu;
+    public GameUI gameUI;
     #endregion
 
     #region properties
@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Pause Game");
         gameState = !gameState;
+        GameObject pauseMenu = null;
+        if (gameUI != null)
+            pauseMenu = gameUI.pauseMenu;
         if (pauseMenu != null)
             pauseMenu.SetActive(!pauseMenu.activeSelf);
         else

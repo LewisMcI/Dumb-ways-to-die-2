@@ -18,6 +18,11 @@ public class GameUI : MonoBehaviour
     private Animator blinkAnim;
 
     public static GameUI Instance;
+
+    public GameObject pauseMenu;
+
+    [SerializeField]
+    private GameObject settingsMenu;
     #endregion
 
     #region properties
@@ -62,6 +67,12 @@ public class GameUI : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void SettingsMenu()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
     #endregion
 }
