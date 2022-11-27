@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
         kitchenCam.enabled = false;
+        StartCoroutine(OpenNotepadAfterAwake());
     }
 
     private void Update()
@@ -199,6 +200,13 @@ public class PlayerController : MonoBehaviour
         // Enable ragdoll physics
         EnableRagdoll();
         AddRagdollForce();
+    }
+    private IEnumerator OpenNotepadAfterAwake()
+    {
+        while (anim.GetCurrentAnimatorStateInfo(0).IsName("WakeUp"))
+            yield return new WaitForSeconds(0.25f);
+
+        anim.SetBool("Notepad", !anim.GetBool("Notepad"));
     }
     #endregion
 }
