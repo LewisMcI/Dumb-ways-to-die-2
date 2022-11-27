@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     public void CompletedTask(Task task)
     {
         Debug.Log("Completed task");
-        taskManager.CompletedTask(task.taskName);
+        taskManager.CompletedTask(task);
 
     }
 

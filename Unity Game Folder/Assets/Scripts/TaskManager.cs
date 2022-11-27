@@ -3,46 +3,25 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum Tasks
-{
-    BrushTeeth = 0,
-    MakeToast = 1
-}
 public class TaskManager : MonoBehaviour
 {
-    // Tasks for the day
-    public List<Tasks> tasks;
-    public List<bool> tasksComplete = new List<bool>();
-
-    private void Awake()
-    {
-        foreach(var task in tasks)
-        {
-            tasksComplete.Add(false);
-        }
-    }
     public List<TextMeshPro> notepadText;
-    public void CompletedTask(string task)
+    public void CompletedTask(Task task)
     {
-        Debug.Log("TaskManager");
-        int index = -1;
-        Tasks currentTask = Tasks.BrushTeeth;
-        index = tasks.IndexOf(currentTask);
-        if (index != -1)
+        string taskName = task.taskName;
+        bool changed = false;
+        foreach (TextMeshPro text in notepadText)
         {
-            foreach (TextMeshPro text in notepadText)
+            if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
             {
-                Debug.Log(text + task);
-                if (text.text.Replace(" ", "") == task.Replace(" ", ""))
-                {
-                    GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                    tasksComplete[index] = true;
-                    text.text = "<s>" + text.text + "</s>";
-                    continue;
-                }
+                GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                text.text = "<s>" + text.text + "</s>";
+                changed = true;
+                task.taskComplete = true;
+                continue;
             }
         }
-        else
+        if (!changed)
         {
             Debug.Log("Invalid Task Complete");
         }
