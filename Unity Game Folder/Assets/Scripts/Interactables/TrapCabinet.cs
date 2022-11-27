@@ -31,6 +31,7 @@ public class TrapCabinet : Interactable
         if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors" && !cut)
         {
             anim.SetTrigger("Cut");
+            AudioManager.Instance.PlayAudio("Cut");
             cut = true;
         }
         else
