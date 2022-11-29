@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching, isJumping;
 
     [SerializeField]
-    private Camera kitchenCam;
+    private Camera toasterCam, fridgeCam;
 
     private float restartTimer = 5f;
     private bool dead;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
-        kitchenCam.enabled = false;
+        toasterCam.enabled = false;
         StartCoroutine(OpenNotepadAfterAwake());
     }
 
@@ -184,19 +184,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Die(SelectCam camera, float delay)
     {
         // Switch cameras
         Camera.main.enabled = false;
-        kitchenCam.enabled = true;
-        StartCoroutine(KillPlayer());
+        switch (camera)
+        {
+            case SelectCam.toasterCam:
+                toasterCam.enabled = true;
+                break;
+            case SelectCam.fridgeCam:
+                fridgeCam.enabled = true;
+                break;
+        }
+
+        StartCoroutine(KillPlayer(delay));
 
         dead = true;
     }
 
-    IEnumerator KillPlayer()
+    IEnumerator KillPlayer(float delay)
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(delay);
         // Enable ragdoll physics
         EnableRagdoll();
         AddRagdollForce();
@@ -207,6 +216,12 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+    }
+
+    public enum SelectCam
+    {
+        toasterCam,
+        fridgeCam
     }
     #endregion
 }

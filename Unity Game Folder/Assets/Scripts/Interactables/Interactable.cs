@@ -19,9 +19,6 @@ public class Interactable : MonoBehaviour
             case Type.Pivot:
                 text = "Open";
                 break;
-            case Type.Trap:
-                text = "";
-                break;
             case Type.None:
                 text = "";
                 break;

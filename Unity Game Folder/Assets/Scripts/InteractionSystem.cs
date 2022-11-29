@@ -170,7 +170,7 @@ public class InteractionSystem : MonoBehaviour
         pickedUpObject = null;
     }
 
-    private void PivotObject(GameObject pivotObj)
+    public void PivotObject(GameObject pivotObj)
     {
         PivotMultiple pivotMultiple = pivotObj.GetComponent<PivotMultiple>();
         if (pivotMultiple != null)
@@ -221,7 +221,7 @@ public class InteractionSystem : MonoBehaviour
             endingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
             startingPos = pivotSettings.GetStartingPos;
             endingPos = pivotSettings.endingPos;
-            AudioManager.Instance.PlayAudio("DoorOpen");
+            //AudioManager.Instance.PlayAudio("DoorOpen");
         }
         else
         {
@@ -229,7 +229,7 @@ public class InteractionSystem : MonoBehaviour
             startingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
             endingPos = pivotSettings.GetStartingPos;
             startingPos = pivotSettings.endingPos;
-            AudioManager.Instance.PlayAudio("DoorClose");
+            //AudioManager.Instance.PlayAudio("DoorClose");
         }
         int smoothness = pivotSettings.smoothness;
         float time = pivotSettings.timeToOpen;

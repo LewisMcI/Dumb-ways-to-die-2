@@ -1,6 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class TrapToaster : Interactable
@@ -71,8 +70,9 @@ public class TrapToaster : Interactable
 
     IEnumerator KillPlayer()
     {
-        GameManager.Instance.Player.GetComponent<PlayerController>().Die();
-        yield return new WaitForSeconds(0.25f);
+        float delay = 0.25f;
+        GameManager.Instance.Player.GetComponent<PlayerController>().Die(PlayerController.SelectCam.toasterCam, delay);
+        yield return new WaitForSeconds(delay);
         AudioManager.Instance.PlayAudio("Explosion");
         explosionVFX.SetActive(true);
         tableRig.isKinematic = false;
