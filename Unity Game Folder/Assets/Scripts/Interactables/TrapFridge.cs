@@ -37,6 +37,7 @@ public class TrapFridge : Interactable
         yield return new WaitForSeconds(delay);
         tableRig.isKinematic = false;
         GetComponent<Animator>().SetTrigger("Activate");
+        GetComponent<AudioSource>().Play();
     }
     #endregion
 }
