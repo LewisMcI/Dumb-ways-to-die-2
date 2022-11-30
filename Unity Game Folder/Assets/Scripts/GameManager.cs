@@ -89,7 +89,10 @@ public class GameManager : MonoBehaviour
     {
         int timeInMinutes = (int)(timeLeft / 60.0f);
         int timeInSeconds = (int)(timeLeft) - (timeInMinutes * 60); 
-        timerText.text = timeInMinutes + ":" + timeInSeconds;
+        if (timeInSeconds < 10)
+            timerText.text = timeInMinutes + ":0" + timeInSeconds;
+        else
+            timerText.text = timeInMinutes + ":" + timeInSeconds;
     }
 
     public void CompletedTask(Task task)
