@@ -23,14 +23,8 @@ public class Smashable : MonoBehaviour
         {
             rb = gameObject.AddComponent<Rigidbody>();
         }
-        try
-        {
-            bc = GetComponent<BoxCollider>();
-        }
-        catch
-        {
-            bc = gameObject.AddComponent<BoxCollider>();
-        }
+
+        bc = GetComponent<BoxCollider>();
     }
     private void FixedUpdate()
     {
@@ -42,7 +36,7 @@ public class Smashable : MonoBehaviour
 
     void CanBreak()
     {
-        if (!GetComponent<Interactable>().interacting)
+        if (!bc.isTrigger && !GetComponent<Interactable>().interacting)
         {
             bc.isTrigger = true;
         }
@@ -50,16 +44,27 @@ public class Smashable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        broken = true;
-        Destroy(bc); Destroy(rb);
-        GetComponent<Interactable>().type = Interactable.Type.None;
-        foreach(var piece in smashedPieces)
+        if (bc.isTrigger == true)
         {
-            Rigidbody newRb = piece.AddComponent<Rigidbody>();
-            newRb.AddExplosionForce(10, Vector3.down, 10);
-            AudioManager.Instance.PlayAudio("Bottle Smash");
+            broken = true;
+            Destroy(bc); Destroy(rb);
+            GetComponent<Interactable>().type = Interactable.Type.None;
+            foreach (var piece in smashedPieces)
+            {
+                Rigidbody newRb;
+                try
+                {
+                    newRb = piece.AddComponent<Rigidbody>();
+                }
+                catch
+                {
+                    newRb = piece.GetComponent<Rigidbody>();
+                }
+                newRb.AddExplosionForce(10, Vector3.down, 10);
+                AudioManager.Instance.PlayAudio("Bottle Smash");
+            }
+            StartCoroutine(DestroyAfterSeconds(destroyTime));
         }
-        StartCoroutine(DestroyAfterSeconds(destroyTime));
     }
 
     IEnumerator DestroyAfterSeconds(float waitTime)
