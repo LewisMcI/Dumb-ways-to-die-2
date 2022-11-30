@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Smashable : MonoBehaviour
 {
+    #region fields
     [SerializeField]
     private GameObject[] smashedPieces;
     [SerializeField]
@@ -12,9 +13,11 @@ public class Smashable : MonoBehaviour
     private Rigidbody rb;
     private BoxCollider bc;
     private bool broken = false;
-
+    #endregion
+    #region methods
     private void Awake()
     {
+        // Try catch incase user has already setup a rigid body for other reasons.
         try
         {
             rb = GetComponent<Rigidbody>();
@@ -23,11 +26,12 @@ public class Smashable : MonoBehaviour
         {
             rb = gameObject.AddComponent<Rigidbody>();
         }
-
+        // Sets up BoxCollider Reference
         bc = GetComponent<BoxCollider>();
     }
     private void FixedUpdate()
     {
+        // If object is not broken and has velocity
         if (!broken && rb.velocity.magnitude >= 1)
         {
             CanBreak();
@@ -36,6 +40,7 @@ public class Smashable : MonoBehaviour
 
     void CanBreak()
     {
+        // If the BoxCollider isn't a trigger and the object is not currently being held.
         if (!bc.isTrigger && !GetComponent<Interactable>().interacting)
         {
             bc.isTrigger = true;
@@ -44,13 +49,17 @@ public class Smashable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // If OnTriggerEnter was called by this box collider.
         if (bc.isTrigger == true)
         {
+            // Object is now broken
             broken = true;
+            // Destroy unnecessary components.
             Destroy(bc); Destroy(rb);
-            GetComponent<Interactable>().type = Interactable.Type.None;
+            // For each piece in model
             foreach (var piece in smashedPieces)
             {
+                // Creates a new RigidBody for each component
                 Rigidbody newRb;
                 try
                 {
@@ -60,9 +69,12 @@ public class Smashable : MonoBehaviour
                 {
                     newRb = piece.GetComponent<Rigidbody>();
                 }
+                // Adds explosive force to separate objects.
                 newRb.AddExplosionForce(10, Vector3.down, 10);
+                // Audio
                 AudioManager.Instance.PlayAudio("Bottle Smash");
             }
+            // Destroys bottle and it's pieces after time.
             StartCoroutine(DestroyAfterSeconds(destroyTime));
         }
     }
@@ -72,4 +84,5 @@ public class Smashable : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         Destroy(gameObject);
     }
+    #endregion
 }
