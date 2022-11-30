@@ -135,6 +135,7 @@ public class InteractionSystem : MonoBehaviour
     {
         // Remove parent
         objectToPickup.transform.parent = null;
+        objectToPickup.GetComponent<Interactable>().interacting = true;
         // Add physics
         if (!objectToPickup.GetComponent<Rigidbody>())
             objectToPickup.AddComponent<Rigidbody>();
@@ -153,6 +154,7 @@ public class InteractionSystem : MonoBehaviour
     {
         // Reset
         pickedUpObject.layer = 0;
+        pickedUpObject.GetComponent<Interactable>().interacting = false;
         pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
         pickedUpObject = null;
     }
