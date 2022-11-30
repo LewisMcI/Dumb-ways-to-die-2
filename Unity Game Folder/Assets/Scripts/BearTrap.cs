@@ -32,9 +32,12 @@ public class BearTrap : MonoBehaviour
                     Destroy(other.GetComponent<Rigidbody>());
                 // Set as parent if not player
                 other.transform.parent = transform;
+                // Disable collider
+                other.GetComponent<Collider>().enabled = false;
                 // Snap to position
                 other.transform.localPosition = new Vector3(0.0f, 0.5f, 0.0f);
                 StartCoroutine(TrapItem(other.gameObject));
+                // Set tag
                 other.tag = "Trapped";
             }
         }
@@ -71,6 +74,8 @@ public class BearTrap : MonoBehaviour
         // Enable interaction
         if (obj.GetComponent<Interactable>())
             obj.GetComponent<Interactable>().interactable = true;
+        // Enable collider
+        obj.GetComponent<Collider>().enabled = true;
 
         triggered = false;
     }
