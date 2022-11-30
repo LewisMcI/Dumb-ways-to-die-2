@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public bool gameState = true;
+
+    [Range(10.0f, 1080.0f)]
+    public float timerForLevel = 120;
+    private float timeLeft;
+    public TextMeshProUGUI timerText;
 
     public GameUI gameUI;
     #endregion
@@ -54,10 +60,18 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        timeLeft = timerForLevel;
     }
 
     private void Update()
     {
+        timeLeft -= Time.deltaTime;
+        if (timeLeft > 0)
+        {
+            UpdateTimer();
+        }
+        else
+            Restart();
         if (!started)
         {
             if (enableControlsTimer <= 0.0f)
@@ -69,6 +83,13 @@ public class GameManager : MonoBehaviour
             else
                 enableControlsTimer -= Time.deltaTime;
         }
+    }
+
+    private void UpdateTimer()
+    {
+        int timeInMinutes = (int)(timeLeft / 60.0f);
+        int timeInSeconds = (int)(timeLeft) - (timeInMinutes * 60); 
+        timerText.text = timeInMinutes + ":" + timeInSeconds;
     }
 
     public void CompletedTask(Task task)
