@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     #region fields
     private bool started;
     private bool enableControls;
+    private bool enableCamera;
     private float enableControlsTimer = 2.5f;
     private GameObject player;
 
@@ -29,6 +30,11 @@ public class GameManager : MonoBehaviour
     {
         get { return enableControls; }
         set { enableControls = value; }
+    }
+    public bool EnableCamera
+    {
+        get { return enableCamera; }
+        set { enableCamera = value; }
     }
     public GameObject Player
     {
@@ -57,6 +63,7 @@ public class GameManager : MonoBehaviour
             if (enableControlsTimer <= 0.0f)
             {
                 enableControls = true;
+                EnableCamera = true;
                 started = true;
             }
             else
@@ -87,11 +94,13 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
             enableControls = true;
+            EnableCamera = true;
         }
         else
         {
             Time.timeScale = 0;
             enableControls = false;
+            EnableCamera = false;
         }
     }
 

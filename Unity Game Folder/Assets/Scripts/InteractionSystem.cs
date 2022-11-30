@@ -78,7 +78,7 @@ public class InteractionSystem : MonoBehaviour
     {
         if (!GameManager.Instance.Player.GetComponent<PlayerController>().Dead && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
         {
-            if (hit.transform.GetComponent<Interactable>())
+            if (hit.transform.GetComponent<Interactable>() && hit.transform.GetComponent<Interactable>().interactable)
             {
                 switch (hit.transform.GetComponent<Interactable>().type)
                 {
@@ -145,6 +145,9 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.GetComponent<Rigidbody>().angularDrag = 5.0f;
         // Ignore raycasts
         objectToPickup.layer = 2;
+        // Reset tag if tagged trapped
+        if (objectToPickup.transform.tag == "Trapped")
+            objectToPickup.transform.tag = "Untagged";
 
         // Save object
         pickedUpObject = objectToPickup;

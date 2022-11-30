@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.EnableControls)
+        if (GameManager.Instance.EnableCamera)
         {
             if (Cursor.lockState != CursorLockMode.None)
                 CameraLook();

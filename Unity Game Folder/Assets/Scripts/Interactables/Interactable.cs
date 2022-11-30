@@ -6,7 +6,7 @@ public class Interactable : MonoBehaviour
     public Type type;
     public string text;
     public bool keepRotation = true;
-
+    public bool interactable = true;
     public bool interacting = false;
     #endregion
 
