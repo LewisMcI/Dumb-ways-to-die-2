@@ -32,8 +32,10 @@ public class TrapFridge : Interactable
 
     IEnumerator TriggerTrap()
     {
+        // Disable controls
+        GameManager.Instance.EnableControls = false;
         float delay = 0.75f;
-        GameManager.Instance.Player.GetComponent<PlayerController>().Die(PlayerController.SelectCam.fridgeCam, delay);
+        PlayerController.Instance.Die(PlayerController.SelectCam.fridgeCam, delay);
         yield return new WaitForSeconds(delay);
         tableRig.isKinematic = false;
         GetComponent<Animator>().SetTrigger("Activate");

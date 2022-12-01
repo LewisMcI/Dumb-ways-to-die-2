@@ -70,9 +70,11 @@ public class TrapToaster : Interactable
 
     IEnumerator KillPlayer()
     {
+        // Disable controls
+        GameManager.Instance.EnableControls = false;
         GetComponent<Animator>().SetTrigger("Explode");
         float delay = 0.5f;
-        GameManager.Instance.Player.GetComponent<PlayerController>().Die(PlayerController.SelectCam.toasterCam, delay);
+        PlayerController.Instance.Die(PlayerController.SelectCam.toasterCam, delay);
         yield return new WaitForSeconds(delay);
         Destroy(bread);
         AudioManager.Instance.PlayAudio("Explosion");

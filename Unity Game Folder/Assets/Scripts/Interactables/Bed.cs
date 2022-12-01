@@ -38,12 +38,12 @@ public class Bed : Interactable
 
     IEnumerator GoToSleep()
     {
-        Vector3 currentPosition = GameManager.Instance.Player.transform.position;
+        Vector3 currentPosition = PlayerController.Instance.transform.position;
         float time = 1.0f;
         float iterations = 100;
         for (float i = 0; i < iterations; i++)
         {
-            GameManager.Instance.Player.transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
+            PlayerController.Instance.transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
             yield return new WaitForSeconds(time / iterations);
         }
         GameManager.Instance.Restart();

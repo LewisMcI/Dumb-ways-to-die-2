@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching, isJumping;
 
     [SerializeField]
-    private Camera toasterCam, fridgeCam;
+    private Camera toasterCam, fridgeCam, couchCam;
 
     private float restartTimer = 5f;
     private bool dead;
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rig;
     private Rigidbody[] limbs;
     private Animator anim;
+
+    public static PlayerController Instance;
     #endregion
 
     #region properties
@@ -46,11 +48,19 @@ public class PlayerController : MonoBehaviour
     #region methods
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         rig = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
-        toasterCam.enabled = false;
         StartCoroutine(OpenNotepadAfterAwake());
     }
 
@@ -196,6 +206,9 @@ public class PlayerController : MonoBehaviour
             case SelectCam.fridgeCam:
                 fridgeCam.enabled = true;
                 break;
+            case SelectCam.couchCam:
+                couchCam.enabled = true;
+                break;
         }
 
         StartCoroutine(KillPlayer(delay));
@@ -221,7 +234,8 @@ public class PlayerController : MonoBehaviour
     public enum SelectCam
     {
         toasterCam,
-        fridgeCam
+        fridgeCam,
+        couchCam
     }
     #endregion
 }

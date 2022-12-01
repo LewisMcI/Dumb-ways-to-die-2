@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     private bool enableControls;
     private bool enableCamera;
     private float enableControlsTimer = 2.5f;
-    private GameObject player;
 
     public List<Task> tasks;
 
@@ -42,10 +41,6 @@ public class GameManager : MonoBehaviour
         get { return enableCamera; }
         set { enableCamera = value; }
     }
-    public GameObject Player
-    {
-        get { return player; }
-    }
     #endregion
 
     #region methods
@@ -54,7 +49,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            player = GameObject.FindGameObjectWithTag("Player");
         }
         if (Instance != this)
         {
