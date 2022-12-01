@@ -17,7 +17,10 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-
+    public void SetQualityLevel(int index)
+    {
+        QualitySettings.SetQualityLevel(index, true);
+    }
 
 
 
