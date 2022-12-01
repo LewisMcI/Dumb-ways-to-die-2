@@ -37,6 +37,8 @@ public class TrapFridge : Interactable
         float delay = 0.75f;
         PlayerController.Instance.Die(PlayerController.SelectCam.fridgeCam, delay);
         yield return new WaitForSeconds(delay);
+        // Add backwards force
+        PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
         tableRig.isKinematic = false;
         GetComponent<Animator>().SetTrigger("Activate");
         GetComponent<AudioSource>().Play();

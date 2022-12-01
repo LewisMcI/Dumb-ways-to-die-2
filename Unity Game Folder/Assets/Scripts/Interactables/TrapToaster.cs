@@ -76,6 +76,8 @@ public class TrapToaster : Interactable
         float delay = 0.5f;
         PlayerController.Instance.Die(PlayerController.SelectCam.toasterCam, delay);
         yield return new WaitForSeconds(delay);
+        // Add backwards force
+        PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
         Destroy(bread);
         AudioManager.Instance.PlayAudio("Explosion");
         explosionVFX.SetActive(true);

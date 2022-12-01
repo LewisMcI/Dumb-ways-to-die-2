@@ -185,12 +185,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void AddRagdollForce()
+    public void AddRagdollForce(Vector3 force)
     {
         foreach (Rigidbody rig in limbs)
         {
             if (rig.transform.name == "bip Pelvis")
-                rig.velocity = new Vector3(100, 10, 0);
+                rig.velocity = force;
         }
     }
 
@@ -221,7 +221,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         // Enable ragdoll physics
         EnableRagdoll();
-        AddRagdollForce();
     }
     private IEnumerator OpenNotepadAfterAwake()
     {
