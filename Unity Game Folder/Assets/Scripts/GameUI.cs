@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
@@ -67,6 +68,18 @@ public class GameUI : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void ChangeScene(string scene)
+    {
+        try
+        {
+            SceneManager.LoadScene(scene);
+        }
+        catch
+        {
+            Debug.Log("The scene named: '" + scene + "' does not exist");
+        }
     }
 
     public void SettingsMenu()
