@@ -166,6 +166,7 @@ public class InteractionSystem : MonoBehaviour
     {
         // Add force
         pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 15000f * Time.deltaTime);
+        pickedUpObject.GetComponent<Interactable>().interacting = false;
         // Play sfx
         AudioManager.Instance.PlayAudio("Whoosh");
 
