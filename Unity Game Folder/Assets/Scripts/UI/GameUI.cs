@@ -72,6 +72,7 @@ public class GameUI : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        Time.timeScale = 1.0f;
         try
         {
             SceneManager.LoadScene(scene);

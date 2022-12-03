@@ -13,12 +13,15 @@ public class GameManager : MonoBehaviour
     private bool enableCamera;
     private float enableControlsTimer = 2.5f;
 
-    public List<Task> tasks;
+    public Task[] tasks;
 
-    public TextMeshPro[] notepadText;
+    public TextMeshPro[] notepadText = new TextMeshPro[3];
 
 
     public static GameManager Instance;
+
+    public TaskManager taskManager;
+    private Task[] todaysTasks;
 
     public bool gameState = true;
 
@@ -55,8 +58,18 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         timeLeft = timerForLevel;
+        InitializeTasks();
     }
 
+    private void InitializeTasks()
+    {
+        todaysTasks = taskManager.GenerateTasks();
+        Debug.Log(todaysTasks[0].name + todaysTasks[1].name + todaysTasks[2].name);
+        for (int i = 0; i < 3; i++)
+        {
+            notepadText[i].text = todaysTasks[i].name;
+        }
+    }
     private void Update()
     {
         timeLeft -= Time.deltaTime;
