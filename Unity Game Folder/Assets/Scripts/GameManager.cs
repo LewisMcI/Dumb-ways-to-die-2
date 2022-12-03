@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public List<Task> tasks;
 
-    public TaskManager taskManager;
+    public TextMeshPro[] notepadText;
 
 
     public static GameManager Instance;
@@ -92,8 +92,23 @@ public class GameManager : MonoBehaviour
     public void CompletedTask(Task task)
     {
         Debug.Log("Completed task");
-        taskManager.CompletedTask(task);
-
+        string taskName = task.taskName;
+        bool changed = false;
+        foreach (TextMeshPro text in notepadText)
+        {
+            if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+            {
+                GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                text.text = "<s>" + text.text + "</s>";
+                changed = true;
+                task.taskComplete = true;
+                continue;
+            }
+        }
+        if (!changed)
+        {
+            Debug.Log("Invalid Task Complete");
+        }
     }
 
     public void PauseGame()
