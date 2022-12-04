@@ -96,7 +96,7 @@ public class TaskManager : MonoBehaviour
         else
         {
             int randomIndex = Random.Range(0, task.associatedTraps.Length);
-            Debug.Log("New 'Trap' is " + task.associatedTraps[randomIndex].name);
+            Debug.Log("New Trap is '" + task.associatedTraps[randomIndex].name + "'");
             newTrap = Instantiate(task.associatedTraps[randomIndex], new Vector3(0, 0, 0), Quaternion.identity, positionObj.transform);
         }
         newTrap.transform.localPosition = Vector3.zero;

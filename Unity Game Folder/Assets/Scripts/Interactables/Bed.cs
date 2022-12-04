@@ -24,7 +24,7 @@ public class Bed : Interactable
         if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
             text = "Sleep";
         else
-            text = "";
+            text = "You can't sleep just yet";
     }
 
     public override void Action()
