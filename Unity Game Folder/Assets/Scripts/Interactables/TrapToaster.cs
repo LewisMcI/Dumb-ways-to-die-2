@@ -19,14 +19,15 @@ public class TrapToaster : Interactable
     private GameObject explosionVFX;
 
     [SerializeField]
-    private Rigidbody tableRig;
+    private bool kills = true;
     #endregion
 
     #region methods
     private void Awake()
     {
-        knife = transform.GetChild(2).gameObject;
-        tableRig.isKinematic = true;
+        if (bread == null || knife == null || jam == null || plate == null)
+            if (kills == true)
+                throw new Exception("Toaster trap has not yet been set up!");
     }
 
     private void Update()
@@ -43,11 +44,11 @@ public class TrapToaster : Interactable
 
     public override void Action()
     {
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Bread")
+        GameObject obj = InteractionSystem.Instance.PickedUpObject;
+        if (obj != null && obj.name == "Bread")
         {
-            GameObject obj = InteractionSystem.Instance.PickedUpObject;
-            // If knife not taken out kill player
-            if (knife.transform.IsChildOf(transform))
+            // If knife has not been taken out of toaster then kill the player.
+            if (knife != null && knife.transform.parent != null && kills)
                 StartCoroutine(KillPlayer());
             else
                 StartCoroutine(ChangeBread());
@@ -81,7 +82,6 @@ public class TrapToaster : Interactable
         Destroy(bread);
         AudioManager.Instance.PlayAudio("Explosion");
         explosionVFX.SetActive(true);
-        tableRig.isKinematic = false;
     }
 
     IEnumerator ChangeBread()

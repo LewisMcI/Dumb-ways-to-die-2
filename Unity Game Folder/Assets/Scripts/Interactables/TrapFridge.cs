@@ -6,8 +6,6 @@ using UnityEngine;
 public class TrapFridge : Interactable
 {
     #region fields
-    [SerializeField]
-    private Rigidbody tableRig;
     #endregion
 
     #region methods
@@ -39,7 +37,6 @@ public class TrapFridge : Interactable
         yield return new WaitForSeconds(delay);
         // Add backwards force
         PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
-        tableRig.isKinematic = false;
         GetComponent<Animator>().SetTrigger("Activate");
         GetComponent<AudioSource>().Play();
     }

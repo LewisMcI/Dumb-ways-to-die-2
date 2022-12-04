@@ -205,6 +205,8 @@ public class InteractionSystem : MonoBehaviour
         if (pivotSettings == null)
         {
             pivotSettings = pivotObj.GetComponentInParent<PivotSettings>();
+            if (pivotSettings == null)
+                throw new Exception("Cannot find Pivot Settings on '" + pivotObj.name + "'");
         }
         // If object is in use, Ignores
         if (pivotSettings.inUse == true)
