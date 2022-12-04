@@ -12,4 +12,6 @@ public class Task : ScriptableObject
     public GameObject[] associatedTraps;
 
     public string nameOfPosition;
+
+    public bool isDependent = false;
 }

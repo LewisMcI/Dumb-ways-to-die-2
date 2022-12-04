@@ -5,8 +5,7 @@ using UnityEngine;
 public class Bread : Interactable
 {
     #region fields
-    [SerializeField]
-    private Task makeToastTask;
+
     #endregion
 
     #region methods
@@ -16,8 +15,7 @@ public class Bread : Interactable
         type = Type.None;
         transform.GetComponent<Renderer>().enabled = false;
 
-        if (makeToastTask != null)
-            GameManager.Instance.CompletedTask(makeToastTask);
+        GameManager.Instance.SetTaskComplete("Make Toast");
     }
     #endregion
 }

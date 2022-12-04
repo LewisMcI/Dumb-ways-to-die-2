@@ -61,6 +61,39 @@ public class GameManager : MonoBehaviour
         InitializeTasks();
     }
 
+    public bool AllTasksComplete()
+    {
+        foreach(var task in todaysTasks)
+        {
+            if (task.taskComplete == false && !task.isDependent)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void SetTaskComplete(string taskName)
+    { 
+        foreach(var task in todaysTasks)
+        {
+            if (taskName == task.taskName)
+            {
+                foreach (var text in notepadText)
+                {
+                    if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+                    {
+                        GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                        text.text = "<s>" + text.text + "</s>";
+                        task.taskComplete = true;
+                        return;
+                    }
+                }
+                throw new Exception("Trying to complete task that is not on notepad");
+            }
+        }
+        throw new Exception("Trying to complete task that does not exist");
+    }
     private void InitializeTasks()
     {
         todaysTasks = taskManager.GenerateTasks();
@@ -102,7 +135,7 @@ public class GameManager : MonoBehaviour
             timerText.text = timeInMinutes + ":" + timeInSeconds;
     }
 
-    public void CompletedTask(Task task)
+/*    public void CompletedTask(Task task)
     {
         Debug.Log("Completed task");
         string taskName = task.taskName;
@@ -122,7 +155,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Invalid Task Complete");
         }
-    }
+    }*/
 
     public void PauseGame()
     {

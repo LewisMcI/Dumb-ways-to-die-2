@@ -5,10 +5,6 @@ using UnityEngine;
 public class Bed : Interactable
 {
     #region fields
-    [SerializeField]
-    private Task makeToastTask;
-    [SerializeField]
-    private Task brushTeethTask;
 
     private Vector3 startingPosition;
     #endregion
@@ -21,7 +17,7 @@ public class Bed : Interactable
 
     private void Update()
     {
-        if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+        if (GameManager.Instance.AllTasksComplete())
             text = "Sleep";
         else
             text = "You can't sleep just yet";
@@ -29,7 +25,7 @@ public class Bed : Interactable
 
     public override void Action()
     {
-        if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+        if (GameManager.Instance.AllTasksComplete())
         {
             GameUI.Instance.ReverseBlink();
             StartCoroutine(GoToSleep());
