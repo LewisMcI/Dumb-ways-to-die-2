@@ -3874,7 +3874,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 896957104}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: SetVFXVolume
+        m_MethodName: SetMusicVolume
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1111144146}
@@ -6076,7 +6076,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 896957104}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: SetVFXVolume
+        m_MethodName: SetMouseSensitivity
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1731635094}
@@ -6192,6 +6192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorial: 1
+  vfxVolume: 0
+  musicVolume: 0
 --- !u!4 &1751804920
 Transform:
   m_ObjectHideFlags: 0

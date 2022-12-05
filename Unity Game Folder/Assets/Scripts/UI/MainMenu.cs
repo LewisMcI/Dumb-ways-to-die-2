@@ -33,7 +33,14 @@ public class MainMenu : MonoBehaviour
     {
         gameSettings.vfxVolume = (int)slider.value;
     }
-
+    public void SetMusicVolume(Slider slider)
+    {
+        gameSettings.musicVolume = (int)slider.value;
+    }
+    public void SetMouseSensitivity(Slider slider)
+    {
+        // TODO: FIX
+    }
 
 
     // Start is called before the first frame update
