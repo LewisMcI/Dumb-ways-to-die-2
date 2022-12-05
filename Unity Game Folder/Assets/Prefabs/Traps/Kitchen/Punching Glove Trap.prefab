@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2780518735529944925}
   - component: {fileID: 1200898211523481392}
   - component: {fileID: 3716448408314793114}
-  - component: {fileID: 7097828001657936550}
   m_Layer: 0
   m_Name: Fridge Bottom Door
   m_TagString: Untagged
@@ -118,22 +117,6 @@ MonoBehaviour:
   keepRotation: 1
   interactable: 1
   interacting: 0
---- !u!54 &7097828001657936550
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55556615728359254}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &841725314359513353
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +818,6 @@ MonoBehaviour:
   keepRotation: 1
   interactable: 1
   interacting: 0
-  tableRig: {fileID: 0}
 --- !u!1 &2417593323418288374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,8 +1361,7 @@ GameObject:
   - component: {fileID: 1225791471635390159}
   - component: {fileID: 6158974047555023258}
   - component: {fileID: 3961957263453103845}
-  - component: {fileID: 7510472665760494045}
-  - component: {fileID: 1503176560785263904}
+  - component: {fileID: 5086717776491285466}
   m_Layer: 0
   m_Name: Fridge Top Door
   m_TagString: Untagged
@@ -1457,8 +1438,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7510472665760494045
-MeshCollider:
+--- !u!65 &5086717776491285466
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1467,26 +1448,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2830941673871945586, guid: 2f905eb94e67e03449c1632b3c68b180, type: 3}
---- !u!54 &1503176560785263904
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5775030582079034154}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Size: {x: 0.5577495, y: 0.14507765, z: 0.5071985}
+  m_Center: {x: -0.26805246, y: -0.068194434, z: 0.04873503}
 --- !u!1 &6056469935852924489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,7 +1795,6 @@ MonoBehaviour:
   jam: {fileID: 8717557078422619449}
   plate: {fileID: 1151260366264759822}
   explosionVFX: {fileID: 0}
-  tableRig: {fileID: 0}
   kills: 0
 --- !u!95 &4810249415233600644
 Animator:
@@ -2411,7 +2374,6 @@ GameObject:
   - component: {fileID: 8336492030152859523}
   - component: {fileID: 4908625353253965862}
   - component: {fileID: 7204078841579250924}
-  - component: {fileID: 261713524703449137}
   - component: {fileID: 5146287191506014903}
   - component: {fileID: 3718577913136197207}
   m_Layer: 0
@@ -2486,22 +2448,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &261713524703449137
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717557078422619449}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &5146287191506014903
 BoxCollider:
   m_ObjectHideFlags: 0

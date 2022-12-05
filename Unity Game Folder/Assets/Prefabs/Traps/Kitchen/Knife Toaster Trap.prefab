@@ -588,8 +588,7 @@ GameObject:
   - component: {fileID: 6860241337687285403}
   - component: {fileID: 1967943005559534030}
   - component: {fileID: 8704658583669466801}
-  - component: {fileID: 2741589259762119049}
-  - component: {fileID: 6551260681529085300}
+  - component: {fileID: 990645606201315723}
   - component: {fileID: 5062502093178292411}
   m_Layer: 0
   m_Name: Fridge Top Door
@@ -667,8 +666,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2741589259762119049
-MeshCollider:
+--- !u!65 &990645606201315723
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -677,26 +676,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2830941673871945586, guid: 2f905eb94e67e03449c1632b3c68b180, type: 3}
---- !u!54 &6551260681529085300
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2167247681399575422}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Size: {x: 0.5577495, y: 0.14507765, z: 0.5071985}
+  m_Center: {x: -0.26805246, y: -0.068194434, z: 0.04873503}
 --- !u!114 &5062502093178292411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,7 +1241,6 @@ GameObject:
   - component: {fileID: 4433706603029995479}
   - component: {fileID: 731952859417350258}
   - component: {fileID: 3300184659924083896}
-  - component: {fileID: 5591026451929862245}
   - component: {fileID: 674927585587696355}
   - component: {fileID: 9056053957638647299}
   m_Layer: 0
@@ -1334,22 +1315,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &5591026451929862245
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3948636555359831405}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &674927585587696355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1807,7 +1772,6 @@ GameObject:
   - component: {fileID: 7539299494339176201}
   - component: {fileID: 6817580605736783716}
   - component: {fileID: 9053890961282796750}
-  - component: {fileID: 3221787911899749106}
   m_Layer: 0
   m_Name: Fridge Bottom Door
   m_TagString: Untagged
@@ -1912,22 +1876,6 @@ MonoBehaviour:
   keepRotation: 1
   interactable: 1
   interacting: 0
---- !u!54 &3221787911899749106
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689167339667564290}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &5935494991060788212
 GameObject:
   m_ObjectHideFlags: 0
