@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    GameSettings gameSettings;
-    private void Awake()
-    {
-        gameSettings = GameObject.Find("Game Settings").GetComponent<GameSettings>();
-    }
+    public AudioMixer masterMixer;
+    public AudioSource vfxTestNoise;
     public void Play()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -31,11 +29,16 @@ public class MainMenu : MonoBehaviour
 
     public void SetVFXVolume(Slider slider)
     {
-        gameSettings.vfxVolume = (int)slider.value;
+        if (slider.value == slider.minValue)
+        {
+            masterMixer.SetFloat("VFXVolume", -1000);
+        }
+        masterMixer.SetFloat("VFXVolume", slider.value);
+        vfxTestNoise.Play();
     }
     public void SetMusicVolume(Slider slider)
     {
-        gameSettings.musicVolume = (int)slider.value;
+        masterMixer.SetFloat("MusicVolume", slider.value);
     }
     public void SetMouseSensitivity(Slider slider)
     {
