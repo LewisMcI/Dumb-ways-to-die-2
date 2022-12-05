@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class TrapCouch : Interactable
 {
@@ -86,6 +87,9 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = true;
+        GameObject tv = GameObject.Find("Tv");
+        tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
+        tv.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     IEnumerator UnsetSitting()
@@ -94,6 +98,8 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = false;
+        GameObject tv = GameObject.Find("Tv");
+        tv.transform.GetChild(1).gameObject.SetActive(false);
     }
     #endregion
 }
