@@ -87,7 +87,9 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = true;
-        GameObject.Find("Tv").transform.GetChild(0).GetComponent<VideoPlayer>().Play();
+        GameObject tv = GameObject.Find("Tv");
+        tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
+        tv.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     IEnumerator UnsetSitting()
@@ -96,6 +98,8 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = false;
+        GameObject tv = GameObject.Find("Tv");
+        tv.transform.GetChild(1).gameObject.SetActive(false);
     }
     #endregion
 }
