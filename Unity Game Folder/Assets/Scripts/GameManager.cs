@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 
         // Rotate towards book when paused
         if (!gameState)
-            Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, Quaternion.Euler(0, 0, 0), 3f * Time.deltaTime);
+            Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, Quaternion.Euler(-6, -8, -2), 3f * Time.deltaTime);
     }
 
     private void UpdateTimer()
@@ -167,7 +167,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Pause Game");
         gameState = !gameState;
 
-        /*
         GameObject pauseMenu = null;
         if (gameUI != null)
             pauseMenu = gameUI.pauseMenu;
@@ -175,7 +174,6 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(!pauseMenu.activeSelf);
         else
             Debug.Log("Pause Menu Not Setup");
-        */
 
         if (gameState)
         {
