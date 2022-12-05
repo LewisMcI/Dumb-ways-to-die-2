@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
         }
         else
             Restart();
+
         if (!started)
         {
             if (enableControlsTimer <= 0.0f)
@@ -123,6 +124,10 @@ public class GameManager : MonoBehaviour
             else
                 enableControlsTimer -= Time.deltaTime;
         }
+
+        // Rotate towards book when paused
+        if (!gameState)
+            Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, Quaternion.Euler(0, 0, 0), 3f * Time.deltaTime);
     }
 
     private void UpdateTimer()
@@ -161,6 +166,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Pause Game");
         gameState = !gameState;
+
+        /*
         GameObject pauseMenu = null;
         if (gameUI != null)
             pauseMenu = gameUI.pauseMenu;
@@ -168,16 +175,16 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(!pauseMenu.activeSelf);
         else
             Debug.Log("Pause Menu Not Setup");
+        */
 
         if (gameState)
         {
-            Time.timeScale = 1;
             enableControls = true;
             EnableCamera = true;
         }
         else
         {
-            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
             enableControls = false;
             EnableCamera = false;
         }
