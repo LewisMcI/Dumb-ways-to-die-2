@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Book (Pause)
-        if (Input.GetButtonDown("Pause Game"))
+        if (Input.GetButtonDown("Pause Game") && !dead)
         {
             anim.SetBool("Book", !anim.GetBool("Book"));
             GameManager.Instance.PauseGame();
@@ -215,10 +215,10 @@ public class PlayerController : MonoBehaviour
                 couchCam.enabled = true;
                 break;
         }
+        dead = true;
+        Debug.Log(dead);
 
         StartCoroutine(KillPlayer(delay));
-
-        dead = true;
     }
 
     IEnumerator KillPlayer(float delay)

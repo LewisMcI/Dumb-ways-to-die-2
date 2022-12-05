@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class TrapFridge : Interactable
 {
-    #region fields
-    #endregion
-
     #region methods
     public override void Action()
     {
