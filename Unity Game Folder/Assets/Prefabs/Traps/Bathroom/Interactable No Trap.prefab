@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 1611774950964085086}
   - component: {fileID: 1528049955470811968}
   m_Layer: 0
-  m_Name: Base
+  m_Name: Interactable No Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,8 +234,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.52553576, y: 0.6405599, z: 0.2152974}
-  m_Center: {x: 0.014139711, y: 0.7252187, z: -0.015292483}
+  m_Size: {x: 0.52553576, y: 0.6405599, z: 0.2163117}
+  m_Center: {x: 0.014139711, y: 0.7252187, z: -0.014785346}
 --- !u!1 &3289939051186530042
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,3 +739,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4996170575848576, guid: 8449ff2e5b6aee842a6a4c4d38658f82, type: 3}
   m_PrefabInstance: {fileID: 2772024382296124687}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2773043288839910877 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1092162761398482, guid: 8449ff2e5b6aee842a6a4c4d38658f82, type: 3}
+  m_PrefabInstance: {fileID: 2772024382296124687}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8665140604432082218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773043288839910877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4171a2662633d9e47af3b688e6e46342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Brush Teeth
+  keepRotation: 1
+  interactable: 1
+  interacting: 0
