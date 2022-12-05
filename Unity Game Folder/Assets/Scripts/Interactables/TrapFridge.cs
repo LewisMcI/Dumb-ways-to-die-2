@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class TrapFridge : Interactable
 {
-    #region fields
-    #endregion
-
     #region methods
     public override void Action()
     {
@@ -32,6 +29,10 @@ public class TrapFridge : Interactable
     {
         // Disable controls
         GameManager.Instance.EnableControls = false;
+        // Reset player velocity and animation
+        PlayerController.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirX", 0);
+        PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirY", 0);
         float delay = 0.75f;
         PlayerController.Instance.Die(PlayerController.SelectCam.fridgeCam, delay);
         yield return new WaitForSeconds(delay);
