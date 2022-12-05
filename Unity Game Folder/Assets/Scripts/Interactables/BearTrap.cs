@@ -24,7 +24,7 @@ public class BearTrap : MonoBehaviour
                 other.GetComponent<Animator>().SetFloat("dirY", 0);
                 StartCoroutine(TrapPlayer());
             }
-            else if (other.transform.tag != "Trapped")
+            else if (other != null && other.transform.tag != "Trapped")
             {
                 GetComponent<Animator>().SetTrigger("Trigger");
                 // Remove rigidbody of collided object if exists
@@ -64,18 +64,21 @@ public class BearTrap : MonoBehaviour
         if (obj.GetComponent<Interactable>())
             obj.GetComponent<Interactable>().interactable = false;
         yield return new WaitForSeconds(3f);
-        // Reset parent
-        obj.transform.parent = null;
-        // Add rigidbody if it doesn't exist
-        if (!obj.GetComponent<Rigidbody>())
-            obj.AddComponent<Rigidbody>();
-        // Add force
-        obj.GetComponent<Rigidbody>().AddForce(Vector3.up * 150f * Time.deltaTime + Vector3.forward * 150f * Time.deltaTime, ForceMode.VelocityChange);
-        // Enable interaction
-        if (obj.GetComponent<Interactable>())
-            obj.GetComponent<Interactable>().interactable = true;
-        // Enable collider
-        obj.GetComponent<Collider>().enabled = true;
+        if (obj != null)
+        {
+            // Reset parent
+            obj.transform.parent = null;
+            // Add rigidbody if it doesn't exist
+            if (!obj.GetComponent<Rigidbody>())
+                obj.AddComponent<Rigidbody>();
+            // Add force
+            obj.GetComponent<Rigidbody>().AddForce(Vector3.up * 150f * Time.deltaTime + Vector3.forward * 150f * Time.deltaTime, ForceMode.VelocityChange);
+            // Enable interaction
+            if (obj.GetComponent<Interactable>())
+                obj.GetComponent<Interactable>().interactable = true;
+            // Enable collider
+            obj.GetComponent<Collider>().enabled = true;
+        }
 
         triggered = false;
     }
