@@ -24,6 +24,7 @@ public class Clothing : Interactable
         // Disable object
         gameObject.SetActive(false);
         transform.parent.GetComponent<Clothes>().Check();
+        AudioManager.Instance.PlayAudio("Cloth");
     }
     #endregion
 }
