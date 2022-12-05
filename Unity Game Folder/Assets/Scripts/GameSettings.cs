@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameSettings : MonoBehaviour
 {
     public bool tutorial = true;
+
+    public int vfxVolume;
+    public int musicVolume;
     void Awake()
     {
         GameSettings[] objs = GameObject.FindObjectsOfType<GameSettings>();
