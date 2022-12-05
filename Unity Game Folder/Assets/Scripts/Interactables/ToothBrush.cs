@@ -5,8 +5,6 @@ using UnityEngine;
 public class ToothBrush : Interactable
 {
     #region fields
-    [SerializeField]
-    private Task brushTeethTask;
     #endregion
 
     #region methods
@@ -15,8 +13,7 @@ public class ToothBrush : Interactable
         AudioManager.Instance.PlayAudio("Brush Teeth");
         type = Type.None;
 
-        if (brushTeethTask != null)
-            GameManager.Instance.CompletedTask(brushTeethTask);
+        GameManager.Instance.SetTaskComplete("Brush Teeth");
     }
     #endregion
 }

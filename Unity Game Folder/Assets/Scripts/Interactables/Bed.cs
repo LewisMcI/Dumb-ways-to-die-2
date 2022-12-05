@@ -5,10 +5,6 @@ using UnityEngine;
 public class Bed : Interactable
 {
     #region fields
-    [SerializeField]
-    private Task makeToastTask;
-    [SerializeField]
-    private Task brushTeethTask;
 
     private Vector3 startingPosition;
     #endregion
@@ -21,15 +17,15 @@ public class Bed : Interactable
 
     private void Update()
     {
-        if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+        if (GameManager.Instance.AllTasksComplete())
             text = "Sleep";
         else
-            text = "";
+            text = "You can't sleep just yet";
     }
 
     public override void Action()
     {
-        if (makeToastTask.taskComplete == true && brushTeethTask.taskComplete == true)
+        if (GameManager.Instance.AllTasksComplete())
         {
             GameUI.Instance.ReverseBlink();
             StartCoroutine(GoToSleep());
@@ -38,12 +34,12 @@ public class Bed : Interactable
 
     IEnumerator GoToSleep()
     {
-        Vector3 currentPosition = GameManager.Instance.Player.transform.position;
+        Vector3 currentPosition = PlayerController.Instance.transform.position;
         float time = 1.0f;
         float iterations = 100;
         for (float i = 0; i < iterations; i++)
         {
-            GameManager.Instance.Player.transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
+            PlayerController.Instance.transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
             yield return new WaitForSeconds(time / iterations);
         }
         GameManager.Instance.Restart();

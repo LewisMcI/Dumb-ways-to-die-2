@@ -6,6 +6,8 @@ public class Interactable : MonoBehaviour
     public Type type;
     public string text;
     public bool keepRotation = true;
+    public bool interactable = true;
+    public bool interacting = false;
     #endregion
 
     #region methods
@@ -18,9 +20,6 @@ public class Interactable : MonoBehaviour
                 break;
             case Type.Pivot:
                 text = "Open";
-                break;
-            case Type.Trap:
-                text = "";
                 break;
             case Type.None:
                 text = "";

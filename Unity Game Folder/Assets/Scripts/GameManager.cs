@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,17 +10,25 @@ public class GameManager : MonoBehaviour
     #region fields
     private bool started;
     private bool enableControls;
+    private bool enableCamera;
     private float enableControlsTimer = 2.5f;
-    private GameObject player;
 
-    public List<Task> tasks;
+    public Task[] tasks;
 
-    public TaskManager taskManager;
+    public TextMeshPro[] notepadText = new TextMeshPro[3];
 
 
     public static GameManager Instance;
 
+    public TaskManager taskManager;
+    private Task[] todaysTasks;
+
     public bool gameState = true;
+
+    [Range(10.0f, 1080.0f)]
+    public float timerForLevel = 120;
+    private float timeLeft;
+    public TextMeshProUGUI timerText;
 
     public GameUI gameUI;
     #endregion
@@ -30,9 +39,10 @@ public class GameManager : MonoBehaviour
         get { return enableControls; }
         set { enableControls = value; }
     }
-    public GameObject Player
+    public bool EnableCamera
     {
-        get { return player; }
+        get { return enableCamera; }
+        set { enableCamera = value; }
     }
     #endregion
 
@@ -42,21 +52,72 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            player = GameObject.FindGameObjectWithTag("Player");
         }
         if (Instance != this)
         {
             Destroy(gameObject);
         }
+        timeLeft = timerForLevel;
+        InitializeTasks();
     }
 
+    public bool AllTasksComplete()
+    {
+        foreach(var task in todaysTasks)
+        {
+            if (task.taskComplete == false && !task.isDependent)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void SetTaskComplete(string taskName)
+    { 
+        foreach(var task in todaysTasks)
+        {
+            if (taskName == task.taskName)
+            {
+                foreach (var text in notepadText)
+                {
+                    if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+                    {
+                        GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                        text.text = "<s>" + text.text + "</s>";
+                        task.taskComplete = true;
+                        return;
+                    }
+                }
+                throw new Exception("Trying to complete task that is not on notepad");
+            }
+        }
+        throw new Exception("Trying to complete task that does not exist");
+    }
+    private void InitializeTasks()
+    {
+        todaysTasks = taskManager.GenerateTasks();
+        Debug.Log("Breakfast task is: " + todaysTasks[0].name + ", Midday Task is: " + todaysTasks[1].name + ", Final Task is: " + todaysTasks[2].name);
+        for (int i = 0; i < 3; i++)
+        {
+            notepadText[i].text = todaysTasks[i].name;
+        }
+    }
     private void Update()
     {
+        timeLeft -= Time.deltaTime;
+        if (timeLeft > 0)
+        {
+            UpdateTimer();
+        }
+        else
+            Restart();
         if (!started)
         {
             if (enableControlsTimer <= 0.0f)
             {
                 enableControls = true;
+                EnableCamera = true;
                 started = true;
             }
             else
@@ -64,12 +125,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CompletedTask(Task task)
+    private void UpdateTimer()
+    {
+        int timeInMinutes = (int)(timeLeft / 60.0f);
+        int timeInSeconds = (int)(timeLeft) - (timeInMinutes * 60); 
+        if (timeInSeconds < 10)
+            timerText.text = timeInMinutes + ":0" + timeInSeconds;
+        else
+            timerText.text = timeInMinutes + ":" + timeInSeconds;
+    }
+
+/*    public void CompletedTask(Task task)
     {
         Debug.Log("Completed task");
-        taskManager.CompletedTask(task);
-
-    }
+        string taskName = task.taskName;
+        bool changed = false;
+        foreach (TextMeshPro text in notepadText)
+        {
+            if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+            {
+                GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                text.text = "<s>" + text.text + "</s>";
+                changed = true;
+                task.taskComplete = true;
+                continue;
+            }
+        }
+        if (!changed)
+        {
+            Debug.Log("Invalid Task Complete");
+        }
+    }*/
 
     public void PauseGame()
     {
@@ -87,11 +173,13 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
             enableControls = true;
+            EnableCamera = true;
         }
         else
         {
             Time.timeScale = 0;
             enableControls = false;
+            EnableCamera = false;
         }
     }
 
