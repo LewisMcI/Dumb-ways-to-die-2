@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching, isJumping;
 
     [SerializeField]
-    private Camera toasterCam, fridgeCam, couchCam;
+    private Camera toasterCam, fridgeCam, couchCam, bathroomCam;
 
     private float restartTimer = 5f;
     private bool dead;
@@ -214,6 +214,9 @@ public class PlayerController : MonoBehaviour
             case SelectCam.couchCam:
                 couchCam.enabled = true;
                 break;
+            case SelectCam.bathroomCam:
+                bathroomCam.enabled = true;
+                break;
         }
         dead = true;
         Debug.Log(dead);
@@ -239,7 +242,8 @@ public class PlayerController : MonoBehaviour
     {
         toasterCam,
         fridgeCam,
-        couchCam
+        couchCam,
+        bathroomCam
     }
     #endregion
 }
