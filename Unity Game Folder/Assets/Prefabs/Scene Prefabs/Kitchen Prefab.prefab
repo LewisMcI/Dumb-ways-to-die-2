@@ -2799,89 +2799,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!1 &7396261199808690201
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2035562306460384439}
-  - component: {fileID: 4771579796526624741}
-  - component: {fileID: 2851522651409395647}
-  m_Layer: 3
-  m_Name: SM_Prop_LaundryBin_01_Clothes (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2035562306460384439
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7396261199808690201}
-  m_LocalRotation: {x: 0.62412924, y: 2.775558e-17, z: -2.0572738e-17, w: 0.78132117}
-  m_LocalPosition: {x: -1.041, y: 0.289, z: -0.382}
-  m_LocalScale: {x: 0.6672267, y: 0.6672267, z: 0.6672267}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4949983238379356762}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 77.237, y: 0, z: 0}
---- !u!33 &4771579796526624741
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7396261199808690201}
-  m_Mesh: {fileID: 4300002, guid: 8371fc53250f7b84e8f2ef7bdfe64561, type: 3}
---- !u!23 &2851522651409395647
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7396261199808690201}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 28646867ddcf90a4989276acd313ea43, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7822887121226310219
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,6 +3823,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3c79e0380a04b1744898ce39974e6cd6, type: 3}
       propertyPath: m_Name
       value: Washing Machine Round Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 5508666928164402857, guid: 3c79e0380a04b1744898ce39974e6cd6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.212
+      objectReference: {fileID: 0}
+    - target: {fileID: 5508666928164402857, guid: 3c79e0380a04b1744898ce39974e6cd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.665
+      objectReference: {fileID: 0}
+    - target: {fileID: 5508666928164402857, guid: 3c79e0380a04b1744898ce39974e6cd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.269
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c79e0380a04b1744898ce39974e6cd6, type: 3}
