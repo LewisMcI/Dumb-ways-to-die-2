@@ -74,10 +74,7 @@ public class PlayerController : MonoBehaviour
 
         // Book (Pause)
         if (Input.GetButtonDown("Pause Game") && !dead)
-        {
-            anim.SetBool("Book", !anim.GetBool("Book"));
             GameManager.Instance.PauseGame();
-        }
 
         // Notepad
         if (Input.GetButtonDown("Notepad"))
@@ -236,6 +233,11 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+    }
+
+    public void Book()
+    {
+        anim.SetBool("Book", !anim.GetBool("Book"));
     }
 
     public enum SelectCam

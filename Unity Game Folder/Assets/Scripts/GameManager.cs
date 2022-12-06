@@ -182,6 +182,8 @@ public class GameManager : MonoBehaviour
             enableControls = false;
             EnableCamera = false;
         }
+
+        PlayerController.Instance.Book();
     }
 
     public void Restart()

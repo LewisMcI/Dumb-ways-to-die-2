@@ -12,6 +12,9 @@ public class TrapCouch : Interactable
     private Vector3 originalPos;
     private Quaternion originalRot;
     private bool transition, sitting;
+
+    [SerializeField]
+    private VideoClip[] clips;
     #endregion
 
     #region methods
@@ -88,8 +91,26 @@ public class TrapCouch : Interactable
         transition = false;
         sitting = true;
         GameObject tv = GameObject.Find("Tv");
+        int random = Random.Range(0, 4);
+        switch (random)
+        {
+            case 0:
+                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[0];
+                break;
+            case 1:
+                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[1];
+                break;
+            case 2:
+                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[2];
+                break;
+            case 3:
+                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[3];
+                break;
+        }
         tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
         tv.transform.GetChild(1).gameObject.SetActive(true);
+
+        GameManager.Instance.SetTaskComplete("Watch TV");
     }
 
     IEnumerator UnsetSitting()
