@@ -12,7 +12,7 @@ public class Bed : Interactable
     #region methods
     private void Awake()
     {
-        startingPosition = new Vector3(transform.position.x, transform.position.y + .15f, transform.transform.position.z + 1);
+        startingPosition = new Vector3(transform.position.x, transform.position.y +.75f, transform.position.z - 4);
     }
 
     private void Update()
@@ -30,6 +30,8 @@ public class Bed : Interactable
             GameUI.Instance.ReverseBlink();
             StartCoroutine(GoToSleep());
         }
+        GameUI.Instance.ReverseBlink();
+        StartCoroutine(GoToSleep());
     }
 
     IEnumerator GoToSleep()
