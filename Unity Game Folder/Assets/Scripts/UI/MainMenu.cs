@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -44,16 +45,19 @@ public class MainMenu : MonoBehaviour
         // TODO: FIX
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void ChangeScreenSettings(TMP_Dropdown dropdown)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (dropdown.value == 0)
+        {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        }
+        else if (dropdown.value == 1)
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        }
     }
 }
