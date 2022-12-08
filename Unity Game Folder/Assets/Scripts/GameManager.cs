@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         todaysTasks = taskManager.GenerateTasks();
         Debug.Log("Breakfast task is: " + todaysTasks[0].name + ", Midday Task is: " + todaysTasks[1].name + ", Final Task is: " + todaysTasks[2].name);
         for (int i = 0; i < 3; i++)
-            notepadText[i].text = todaysTasks[i].name;
+            notepadText[i].text = todaysTasks[i].taskName;
     }
     private void Update()
     {
