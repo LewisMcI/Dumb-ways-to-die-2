@@ -90,37 +90,53 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = true;
-        GameObject tv = GameObject.Find("Tv");
-        int random = Random.Range(0, 4);
-        switch (random)
-        {
-            case 0:
-                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[0];
-                break;
-            case 1:
-                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[1];
-                break;
-            case 2:
-                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[2];
-                break;
-            case 3:
-                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[3];
-                break;
-        }
-        tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
-        tv.transform.GetChild(1).gameObject.SetActive(true);
 
-        GameManager.Instance.SetTaskComplete("Watch TV");
+        GameObject tv = GameObject.Find("Tv");
+        if (tv.GetComponent<WatchTV>() && tv.GetComponent<WatchTV>().enabled)
+        {
+            if (!tv.transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
+            {
+                int random = Random.Range(0, 4);
+                switch (random)
+                {
+                    case 0:
+                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[0];
+                        break;
+                    case 1:
+                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[1];
+                        break;
+                    case 2:
+                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[2];
+                        break;
+                    case 3:
+                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[3];
+                        break;
+                }
+                tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
+                tv.transform.GetChild(1).gameObject.SetActive(true);
+                tv.GetComponent<WatchTV>().type = Type.None;
+            }
+            else
+            {
+                tv.transform.GetChild(1).gameObject.SetActive(true);
+            }
+            if (tv.GetComponent<WatchTV>().trap)
+                GameManager.Instance.SetTaskComplete("Watch TV");
+            tv.GetComponent<WatchTV>().enabled = false;
+        }
+        else if (tv.GetComponent<WatchTV>() && !tv.GetComponent<WatchTV>().enabled && !tv.transform.GetChild(1).gameObject.activeSelf)
+            tv.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     IEnumerator UnsetSitting()
     {
         transition = true;
+        GameObject tv = GameObject.Find("Tv");
+        if (tv.transform.GetChild(1).gameObject.activeSelf)
+            tv.transform.GetChild(1).gameObject.SetActive(false);
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = false;
-        GameObject tv = GameObject.Find("Tv");
-        tv.transform.GetChild(1).gameObject.SetActive(false);
     }
     #endregion
 }

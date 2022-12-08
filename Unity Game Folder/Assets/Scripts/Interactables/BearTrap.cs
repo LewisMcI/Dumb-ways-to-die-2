@@ -24,7 +24,7 @@ public class BearTrap : MonoBehaviour
                 other.GetComponent<Animator>().SetFloat("dirY", 0);
                 StartCoroutine(TrapPlayer());
             }
-            else if (other != null && other.transform.tag != "Trapped" && other.GetComponent<Interactable>().type != Interactable.Type.Pivot)
+            else if (other != null && other.gameObject && other.transform.tag != "Trapped" && other.GetComponent<Interactable>().type != Interactable.Type.Pivot)
             {
                 GetComponent<Animator>().SetTrigger("Trigger");
                 // Remove rigidbody of collided object if exists
