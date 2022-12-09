@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        timeLeft -= Time.deltaTime;
+        if (gameState != false)
+            timeLeft -= Time.deltaTime;
         if (timeLeft > 0)
             UpdateTimer();
         else
