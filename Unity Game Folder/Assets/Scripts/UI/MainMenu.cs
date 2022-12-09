@@ -10,9 +10,19 @@ public class MainMenu : MonoBehaviour
 {
     public AudioMixer masterMixer;
     public AudioSource vfxTestNoise;
+
+    bool isTutorial = true;
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (isTutorial == true)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+    }
+
+    public void ChangeTutorialOption()
+    {
+        isTutorial = !isTutorial;
     }
 
     public void Quit()
