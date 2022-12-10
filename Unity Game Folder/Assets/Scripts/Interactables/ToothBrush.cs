@@ -13,7 +13,7 @@ public class ToothBrush : Interactable
         AudioManager.Instance.PlayAudio("Brush Teeth");
         type = Type.None;
 
-        GameManager.Instance.SetTaskComplete("Brush Teeth");
+        GameManager.Instance.UpdateTaskCompletion("Brush Teeth");
     }
     #endregion
 }

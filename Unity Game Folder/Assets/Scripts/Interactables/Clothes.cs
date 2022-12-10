@@ -26,10 +26,11 @@ public class Clothes : MonoBehaviour
                 allCollected = false;
         }
         // Mark task as complete if all clothes collected
+
+        GameManager.Instance.UpdateTaskCompletion("Get Clothes");
         if (allCollected)
         {
             clothingText.gameObject.SetActive(false);
-            GameManager.Instance.SetTaskComplete("Get Clothes");
         }
         
     }

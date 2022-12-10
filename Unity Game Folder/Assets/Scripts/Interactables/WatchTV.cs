@@ -34,6 +34,7 @@ public class WatchTV : Interactable
             }
             transform.GetChild(0).GetComponent<VideoPlayer>().Play();
             type = Type.None;
+            GameManager.Instance.UpdateTaskCompletion("Sit and Watch TV");
         }
     }
     #endregion

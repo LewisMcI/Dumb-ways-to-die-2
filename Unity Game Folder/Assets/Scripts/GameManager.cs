@@ -72,24 +72,29 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
-
-    public void SetTaskComplete(string taskName)
-    { 
-        foreach(var task in todaysTasks)
+    public void UpdateTaskCompletion(string taskName)
+    {
+        foreach (var task in todaysTasks)
         {
+            Debug.Log(task.taskName + taskName);
             if (taskName == task.taskName)
             {
-                foreach (var text in notepadText)
+                task.stepsComplete++;
+                if (task.stepsComplete >= task.steps)
                 {
-                    if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+                    foreach (var text in notepadText)
                     {
-                        GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                        text.text = "<s>" + text.text + "</s>";
-                        task.taskComplete = true;
-                        return;
+                        if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+                        {
+                            GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                            text.text = "<s>" + text.text + "</s>";
+                            task.taskComplete = true;
+                            return;
+                        }
                     }
+                    throw new Exception("Trying to complete task that is not on notepad");
                 }
-                throw new Exception("Trying to complete task that is not on notepad");
+                return;
             }
         }
         throw new Exception("Trying to complete task that does not exist");

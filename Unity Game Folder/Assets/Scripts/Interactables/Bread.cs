@@ -15,7 +15,7 @@ public class Bread : Interactable
         type = Type.None;
         transform.GetComponent<Renderer>().enabled = false;
 
-        GameManager.Instance.SetTaskComplete("Make Toast");
+        GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
     }
     #endregion
 }

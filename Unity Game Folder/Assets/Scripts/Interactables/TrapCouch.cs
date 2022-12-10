@@ -121,7 +121,7 @@ public class TrapCouch : Interactable
                 tv.transform.GetChild(1).gameObject.SetActive(true);
             }
             if (tv.GetComponent<WatchTV>().trap)
-                GameManager.Instance.SetTaskComplete("Watch TV");
+                GameManager.Instance.UpdateTaskCompletion("Sit and Watch TV");
             tv.GetComponent<WatchTV>().enabled = false;
         }
         else if (tv.GetComponent<WatchTV>() && !tv.GetComponent<WatchTV>().enabled && !tv.transform.GetChild(1).gameObject.activeSelf)

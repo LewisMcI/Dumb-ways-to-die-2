@@ -17,11 +17,17 @@ public class Task : ScriptableObject
 
     public string nameOfPosition;
 
-    public bool isDependent = false; 
+    public bool isDependent = false;
+
+    public int steps = 1;
+
+    [HideInInspector]
+    public int stepsComplete;
 
     // Initialize coolDown with editor's value
     private void OnEnable()
     {
         taskComplete = baseTaskComplete;
+        stepsComplete = 0;
     }
 }
