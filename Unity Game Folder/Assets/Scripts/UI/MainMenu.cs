@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
         if (isTutorial == true)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         else
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
     }
 
     public void ChangeTutorialOption()
