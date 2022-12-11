@@ -22,11 +22,12 @@ public class Plate : Interactable
             text = "";
     }
 
-    public override void Action()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Toasted Bread")
+        if (collision.transform.name == "Toasted Bread")
         {
-            GameObject obj = InteractionSystem.Instance.PickedUpObject;
+            GameObject obj = collision.gameObject;
+            InteractionSystem.Instance.DropObject();
 
             // Remove rigidbody
             Destroy(obj.GetComponent<Rigidbody>());
@@ -46,7 +47,7 @@ public class Plate : Interactable
             // Save
             bread = obj;
         }
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam" && bread)
+        else if (collision.transform.name == "Jam" && bread)
         {
             // Play sfx
             AudioManager.Instance.PlayAudio("Spread");

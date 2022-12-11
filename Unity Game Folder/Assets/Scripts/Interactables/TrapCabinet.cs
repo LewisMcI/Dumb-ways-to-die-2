@@ -26,38 +26,42 @@ public class TrapCabinet : Interactable
             text = "Open";
     }
 
-    public override void Action()
+    private void OnCollisionEnter(Collision collision)
     {
         // Cut rope
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors" && !cut)
+        if (collision.transform.name == "Scissors" && !cut)
         {
             anim.SetTrigger("Cut");
             AudioManager.Instance.PlayAudio("Cut");
             cut = true;
         }
-        else
-        {
-            // Open and shoot if not cut
-            if (cut)
-                anim.SetTrigger("Open");
-            else if (!cut && kills)
-            {
-                // Cast ray to see if player will be hit
-                RaycastHit hit;
-                if (Physics.BoxCast(transform.GetChild(0).GetChild(0).transform.position, new Vector3(0.5f, 0.2f, 0.6f), Vector3.right, out hit, Quaternion.identity, 3f))
-                {
-                    if (hit.transform.tag == "Player" || hit.transform.tag == "MainCamera")
-                        StartCoroutine(TriggerTrap());
-                }
-                anim.SetTrigger("Shoot Smoke");
-            }
-            else if (!cut && !kills)
-            {
-                anim.SetTrigger("Shoot Confetti");
-            }
+    }
 
-            GetComponent<Collider>().enabled = false;
+    public override void Action()
+    {
+        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
+            return;
+
+        // Open and shoot if not cut
+        if (cut)
+            anim.SetTrigger("Open");
+        else if (!cut && kills)
+        {
+            // Cast ray to see if player will be hit
+            RaycastHit hit;
+            if (Physics.BoxCast(transform.GetChild(0).GetChild(0).transform.position, new Vector3(0.5f, 0.2f, 0.6f), Vector3.right, out hit, Quaternion.identity, 3f))
+            {
+                if (hit.transform.tag == "Player" || hit.transform.tag == "MainCamera")
+                    StartCoroutine(TriggerTrap());
+            }
+            anim.SetTrigger("Shoot Smoke");
         }
+        else if (!cut && !kills)
+        {
+            anim.SetTrigger("Shoot Confetti");
+        }
+
+        GetComponent<Collider>().enabled = false;
     }
 
     IEnumerator TriggerTrap()
