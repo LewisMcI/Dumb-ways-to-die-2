@@ -16,7 +16,7 @@ public class Plate : Interactable
     {
         if (text != "Place" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Toasted Bread")
             text = "Place";
-        else if (text != "Spread" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam")
+        else if (text != "Spread" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam" && bread)
             text = "Spread";
         else if (text != "")
             text = "";
@@ -46,7 +46,7 @@ public class Plate : Interactable
             // Save
             bread = obj;
         }
-        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam")
+        if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam" && bread)
         {
             // Play sfx
             AudioManager.Instance.PlayAudio("Spread");
@@ -58,6 +58,7 @@ public class Plate : Interactable
             bread.GetComponent<Bread>().text = "Eat";
             // Enable collider
             bread.GetComponent<Collider>().enabled = true;
+            bread = null;
         }
     }
     #endregion
