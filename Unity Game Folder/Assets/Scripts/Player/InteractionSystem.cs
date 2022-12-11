@@ -11,7 +11,7 @@ public class InteractionSystem : MonoBehaviour
     private Transform pickupTransform;
     private GameObject pickedUpObject;
     [SerializeField]
-    private bool keepRotation = true;
+    private bool keepRotation;
 
     public static InteractionSystem Instance;
     #endregion
