@@ -76,7 +76,6 @@ public class GameManager : MonoBehaviour
     {
         foreach (var task in todaysTasks)
         {
-            Debug.Log(task.taskName + taskName);
             if (taskName == task.taskName)
             {
                 task.stepsComplete++;
@@ -84,16 +83,19 @@ public class GameManager : MonoBehaviour
                 {
                     foreach (var text in notepadText)
                     {
-                        if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
+#pragma warning disable CS0642 // Possible mistaken empty statement
+                        if (text.text.Replace(" ", "").Contains(task.name.Replace(" ", "")));
+#pragma warning restore CS0642 // Possible mistaken empty statement
                         {
                             GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                            text.text = "<s>" + text.text + "</s>";
                             task.taskComplete = true;
+                            UpdateNotepad();
                             return;
                         }
                     }
                     throw new Exception("Trying to complete task that is not on notepad");
                 }
+                UpdateNotepad();
                 return;
             }
         }
@@ -103,8 +105,20 @@ public class GameManager : MonoBehaviour
     {
         todaysTasks = taskManager.GenerateTasks();
         Debug.Log("Breakfast task is: " + todaysTasks[0].name + ", Midday Task is: " + todaysTasks[1].name + ", Final Task is: " + todaysTasks[2].name);
+        UpdateNotepad();
+    }
+
+    private void UpdateNotepad()
+    {
         for (int i = 0; i < 3; i++)
-            notepadText[i].text = todaysTasks[i].taskName;
+        {
+            string newText = todaysTasks[i].taskName;
+            if (todaysTasks[i].steps > 1)
+                newText = newText + " (" + todaysTasks[i].stepsComplete + " / " + todaysTasks[i].steps + ")";
+            if (todaysTasks[i].stepsComplete >= todaysTasks[i].steps)
+                newText = "<s>" + newText + "</s>";
+            notepadText[i].text = newText;
+        }
     }
     private void Update()
     {
@@ -144,28 +158,6 @@ public class GameManager : MonoBehaviour
         else
             timerText.text = timeInMinutes + ":" + timeInSeconds;
     }
-
-/*    public void CompletedTask(Task task)
-    {
-        Debug.Log("Completed task");
-        string taskName = task.taskName;
-        bool changed = false;
-        foreach (TextMeshPro text in notepadText)
-        {
-            if (text.text.Replace(" ", "") == taskName.Replace(" ", ""))
-            {
-                GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                text.text = "<s>" + text.text + "</s>";
-                changed = true;
-                task.taskComplete = true;
-                continue;
-            }
-        }
-        if (!changed)
-        {
-            Debug.Log("Invalid Task Complete");
-        }
-    }*/
 
     public void PauseGame()
     {

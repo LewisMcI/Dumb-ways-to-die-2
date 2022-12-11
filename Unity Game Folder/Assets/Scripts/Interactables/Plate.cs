@@ -43,7 +43,7 @@ public class Plate : Interactable
             obj.GetComponent<Bread>().text = "";
             // Disable collider
             obj.GetComponent<Collider>().enabled = false;
-
+            GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
             // Save
             bread = obj;
         }
@@ -60,6 +60,7 @@ public class Plate : Interactable
             // Enable collider
             bread.GetComponent<Collider>().enabled = true;
             bread = null;
+            GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
         }
     }
     #endregion

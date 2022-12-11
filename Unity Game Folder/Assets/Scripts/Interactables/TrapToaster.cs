@@ -100,6 +100,7 @@ public class TrapToaster : Interactable
         bread.transform.position += Vector3.up * 0.025f;
         // Reset
         placed = false;
+        GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
     }
     #endregion
 }
