@@ -169,21 +169,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Pause Game");
         gameState = !gameState;
 
-        GameObject pauseMenu = null;
-        if (gameUI != null)
-            pauseMenu = gameUI.pauseMenu;
-        if (pauseMenu != null)
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-        else
-            Debug.Log("Pause Menu Not Setup");
-
         if (gameState)
         {
             enableControls = true;
             EnableCamera = true;
+            GameUI.Instance.pauseMenu.SetActive(false);
+            GameUI.Instance.settingsMenu.SetActive(false);
+            GameUI.Instance.pauseText.SetActive(true);
         }
         else
         {
+            GameUI.Instance.pauseMenu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             enableControls = false;
             EnableCamera = false;
