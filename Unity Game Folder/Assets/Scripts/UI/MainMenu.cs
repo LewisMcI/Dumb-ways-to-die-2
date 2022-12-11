@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
 
     public void SetQualityLevel(int index)
     {
-        QualitySettings.SetQualityLevel(index, true);
+        QualitySettings.SetQualityLevel(index, false);
     }
 
     public void SetVFXVolume(Slider slider)
