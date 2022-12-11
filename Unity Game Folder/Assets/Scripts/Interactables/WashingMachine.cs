@@ -36,9 +36,9 @@ public class WashingMachine : Interactable
             try
             {
                 if (Random.Range(0, 10) > 5)
-                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 20, -10));
+                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 30, -30));
                 else
-                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 20, 10));
+                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 30, 30));
             }
             catch { }
         }
