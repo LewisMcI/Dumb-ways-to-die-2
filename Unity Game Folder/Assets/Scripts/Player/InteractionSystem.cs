@@ -153,7 +153,7 @@ public class InteractionSystem : MonoBehaviour
         pickedUpObject = objectToPickup;
     }
 
-    private void DropObject()
+    public void DropObject()
     {
         // Reset
         pickedUpObject.layer = 0;
