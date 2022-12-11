@@ -18,14 +18,12 @@ public class GameUI : MonoBehaviour
     [SerializeField]
     private Animator blinkAnim;
 
-    public static GameUI Instance;
-
     public GameObject pauseMenu;
-    [SerializeField]
-    private GameObject pauseText;
+    public GameObject pauseText;
 
-    [SerializeField]
-    private GameObject settingsMenu;
+    public GameObject settingsMenu;
+
+    public static GameUI Instance;
     #endregion
 
     #region properties
