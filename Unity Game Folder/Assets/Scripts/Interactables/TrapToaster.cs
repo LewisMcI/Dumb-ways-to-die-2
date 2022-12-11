@@ -42,11 +42,12 @@ public class TrapToaster : Interactable
             bread.GetComponent<Renderer>().material.color = Color.Lerp(bread.GetComponent<Renderer>().material.color, new Color32(145, 126, 98, 255), 0.5f * Time.deltaTime);
     }
 
-    public override void Action()
+    private void OnCollisionEnter(Collision collision)
     {
-        GameObject obj = InteractionSystem.Instance.PickedUpObject;
-        if (obj != null && obj.name == "Bread")
+        if (collision.transform.name == "Bread")
         {
+            GameObject obj = collision.gameObject;
+            InteractionSystem.Instance.DropObject();
             // If knife has not been taken out of toaster then kill the player.
             if (knife != null && knife.transform.parent != null && kills)
                 StartCoroutine(KillPlayer());
