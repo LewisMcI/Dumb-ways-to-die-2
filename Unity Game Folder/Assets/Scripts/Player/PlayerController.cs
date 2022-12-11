@@ -198,6 +198,8 @@ public class PlayerController : MonoBehaviour
 
     public void Die(SelectCam camera, float delay)
     {
+        GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
         // Switch cameras
         Camera.main.enabled = false;
         switch (camera)
