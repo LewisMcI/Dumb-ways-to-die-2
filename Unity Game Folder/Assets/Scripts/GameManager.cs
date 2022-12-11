@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [Range(10.0f, 1080.0f)]
     public float timerForLevel = 120;
     private float timeLeft;
-    public TextMeshProUGUI timerText;
+    public TextMeshPro timerText;
 
     public GameUI gameUI;
     #endregion
