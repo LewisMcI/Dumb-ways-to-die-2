@@ -52,7 +52,6 @@ public class MainMenu : MonoBehaviour
     }
     public void SetMouseSensitivity(Slider slider)
     {
-        // TODO: FIX
     }
 
     public void ChangeScreenSettings(TMP_Dropdown dropdown)
