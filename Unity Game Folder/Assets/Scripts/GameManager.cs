@@ -129,7 +129,10 @@ public class GameManager : MonoBehaviour
 
         // Rotate towards book when paused
         if (!gameState)
+        {
+            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, new Vector3(0.05f, 1.65f, 0.23f), 5f * Time.deltaTime);
             Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, Quaternion.Euler(-6, -8, -2), 3f * Time.deltaTime);
+        }
     }
 
     private void UpdateTimer()
