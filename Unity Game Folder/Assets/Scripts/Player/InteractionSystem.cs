@@ -156,10 +156,14 @@ public class InteractionSystem : MonoBehaviour
     public void DropObject()
     {
         // Reset
-        pickedUpObject.layer = 0;
-        pickedUpObject.GetComponent<Interactable>().interacting = false;
-        pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
-        pickedUpObject = null;
+        try
+        {
+            pickedUpObject.layer = 0;
+            pickedUpObject.GetComponent<Interactable>().interacting = false;
+            pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
+            pickedUpObject = null;
+        }
+        catch { }
     }
 
     private void ThrowObject()
