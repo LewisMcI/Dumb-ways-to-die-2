@@ -27,6 +27,11 @@ public class Task : ScriptableObject
     // Initialize coolDown with editor's value
     private void OnEnable()
     {
+        Reset();
+    }
+
+    public void Reset()
+    {
         taskComplete = baseTaskComplete;
         stepsComplete = 0;
     }
