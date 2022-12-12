@@ -30,8 +30,6 @@ public class Bed : Interactable
             GameUI.Instance.ReverseBlink();
             StartCoroutine(GoToSleep());
         }
-        GameUI.Instance.ReverseBlink();
-        StartCoroutine(GoToSleep());
     }
 
     IEnumerator GoToSleep()
