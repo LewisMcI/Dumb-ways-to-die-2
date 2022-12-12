@@ -1,14 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     bool isTutorial = true;
+
+    private void Awake()
+    {
+        try
+        {
+            GameSettings.Instance.ResetVolumes();
+        }
+        catch { }
+    }
     public void Play()
     {
         if (isTutorial == true)
@@ -36,11 +42,17 @@ public class MainMenu : MonoBehaviour
 
     public void SetVFXVolume(Slider slider)
     {
-        GameSettings.Instance.SetVFXVolume((int)slider.value);
+        Debug.Log(slider.value);
+        if (slider.value != GameSettings.Instance.vfxVolume && slider.value != 0)
+        {
+            GameSettings.Instance.SetVFXVolume((int)slider.value);
+        }
     }
     public void SetMusicVolume(Slider slider)
     {
-        GameSettings.Instance.SetMusicVolume((int)slider.value);
+        Debug.Log(slider.value);
+        if (slider.value != 0)
+            GameSettings.Instance.SetMusicVolume((int)slider.value);
     }
     public void SetMouseSensitivity(Slider slider)
     {

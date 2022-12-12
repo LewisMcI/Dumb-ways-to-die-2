@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSettings : MonoBehaviour
 {
+    [HideInInspector]
     public bool tutorial = true;
-
+    [HideInInspector]
     public int vfxVolume;
     public int musicVolume;
 
@@ -17,33 +16,60 @@ public class GameSettings : MonoBehaviour
     public static GameSettings Instance;
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        if (Instance != this)
-        {
+        if (Instance != null)
             Destroy(gameObject);
-        }
-        SceneManager.sceneLoaded += OnSceneChange;
+        else
+            Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    void OnSceneChange(Scene scene, LoadSceneMode mode)
+    public void ResetVolumes()
     {
-        SetVFXVolume(vfxVolume);
-        SetMusicVolume(musicVolume);
-        // Find Music Slider
-        // Find VFX Slider
-        // Edit currentValue = settingsValue
+        ResetMusicVolume();
+        ResetVFXVolume();
     }
+
     public void SetVFXVolume(int value)
     {
         masterMixer.SetFloat("VFXVolume", value);
+        vfxVolume = value;
         vfxTestNoise.Play();
     }
     public void SetMusicVolume(int value)
     {
         masterMixer.SetFloat("MusicVolume", value);
+        musicVolume = value;
+    }
+
+    void ResetVFXVolume()
+    {
+        Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
+        foreach (var slider in sliders)
+        {
+            if (slider.gameObject.name == "VFX Slider")
+            {
+                slider.gameObject.SetActive(false);
+                slider.value = vfxVolume;
+                slider.gameObject.SetActive(true);
+                Debug.Log("Found");
+                return;
+            }
+        }
+    }
+
+    void ResetMusicVolume()
+    {
+        Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
+        foreach (var slider in sliders)
+        {
+            if (slider.gameObject.name == "Music Slider")
+            {
+                slider.gameObject.SetActive(false);
+                slider.value = musicVolume;
+                slider.gameObject.SetActive(true);
+                Debug.Log("Found");
+                return;
+            }
+        }
     }
 }
