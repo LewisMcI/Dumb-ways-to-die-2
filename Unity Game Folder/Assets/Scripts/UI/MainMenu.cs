@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public AudioMixer masterMixer;
-    public AudioSource vfxTestNoise;
-
     bool isTutorial = true;
     public void Play()
     {
@@ -39,16 +36,11 @@ public class MainMenu : MonoBehaviour
 
     public void SetVFXVolume(Slider slider)
     {
-        if (slider.value == slider.minValue)
-        {
-            masterMixer.SetFloat("VFXVolume", -1000);
-        }
-        masterMixer.SetFloat("VFXVolume", slider.value);
-        vfxTestNoise.Play();
+        GameSettings.Instance.SetVFXVolume((int)slider.value);
     }
     public void SetMusicVolume(Slider slider)
     {
-        masterMixer.SetFloat("MusicVolume", slider.value);
+        GameSettings.Instance.SetMusicVolume((int)slider.value);
     }
     public void SetMouseSensitivity(Slider slider)
     {
