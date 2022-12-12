@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     private float timeLeft;
     public TextMeshPro timerText;
 
+    public GameSettings settings;
+
     public GameUI gameUI;
     #endregion
 
@@ -59,6 +61,10 @@ public class GameManager : MonoBehaviour
         }
         timeLeft = timerForLevel;
         InitializeTasks();
+        if (settings == null) 
+        {
+            settings = GameObject.FindObjectOfType<GameSettings>();
+        }
     }
 
     public bool AllTasksComplete()
