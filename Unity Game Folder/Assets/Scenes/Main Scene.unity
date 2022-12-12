@@ -3711,41 +3711,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1040556982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4551387664635175288, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
-  m_PrefabInstance: {fileID: 4480756605994552862}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1040556986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1040556982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
-  keepRotation: 1
-  interactable: 1
-  interacting: 0
---- !u!65 &1040556987
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1040556982}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.70000005, y: 0.6893655, z: 0.060000006}
-  m_Center: {x: -6.505213e-21, y: -0.00000023843256, z: 0.030000003}
 --- !u!114 &1106729742 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1583994731979591599, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
@@ -4914,6 +4879,41 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1420019815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7438205743228663360, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
+  m_PrefabInstance: {fileID: 4480756605994552862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1420019819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420019815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  text: Pick Up
+  keepRotation: 1
+  interactable: 1
+  interacting: 0
+--- !u!65 &1420019820
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420019815}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8218157, y: 0.70498204, z: 0.07884826}
+  m_Center: {x: 0.13824642, y: 0.16223152, z: 0.024666982}
 --- !u!1 &1441773954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5602802503871112354, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
@@ -11289,7 +11289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3101919999983158014, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: speed
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3113705857878867558, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_Mesh
