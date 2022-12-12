@@ -33,6 +33,7 @@ public class Task : ScriptableObject
     public void Reset()
     {
         taskComplete = baseTaskComplete;
+        taskComplete = false;
         stepsComplete = 0;
     }
 }

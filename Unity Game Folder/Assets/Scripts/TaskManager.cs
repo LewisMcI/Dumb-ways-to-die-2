@@ -18,6 +18,14 @@ public class TaskManager : MonoBehaviour
 
     public Task[] GenerateTasks()
     {
+        // Reset All Traps
+        foreach (var trap in availableMorningTasks)
+            trap.Reset();
+        foreach (var trap in availableMiddayTasks)
+            trap.Reset();
+        foreach (var trap in availableFinalTasks)
+            trap.Reset();
+
         // Tasks are initialized?
         if (availableMorningTasks.Length == 0 || availableMiddayTasks.Length == 0 || availableFinalTasks.Length == 0)
         {

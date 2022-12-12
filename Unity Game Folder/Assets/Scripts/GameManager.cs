@@ -191,10 +191,6 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        foreach(var task in todaysTasks)
-        {
-            task.Reset();
-        }
         SceneManager.LoadScene("Main Scene");
     }
     #endregion
