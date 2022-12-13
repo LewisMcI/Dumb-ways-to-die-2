@@ -16,10 +16,17 @@ public class Controls : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !loading.activeSelf)
         {
-            gameObject.SetActive(false);
+            StartCoroutine(Continue(0.5f));
+            GetComponent<Image>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
             loading.SetActive(true);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+    }
+
+    IEnumerator Continue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     #endregion
 }
