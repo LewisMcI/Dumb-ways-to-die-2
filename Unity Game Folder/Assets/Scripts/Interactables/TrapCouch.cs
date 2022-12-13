@@ -97,7 +97,7 @@ public class TrapCouch : Interactable
         {
             if (!tv.transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
             {
-                int random = Random.Range(0, 4);
+                int random = Random.Range(0, 3);
                 switch (random)
                 {
                     case 0:
@@ -108,9 +108,6 @@ public class TrapCouch : Interactable
                         break;
                     case 2:
                         tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[2];
-                        break;
-                    case 3:
-                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[3];
                         break;
                 }
                 tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
@@ -127,6 +124,9 @@ public class TrapCouch : Interactable
         }
         else if (tv.GetComponent<WatchTV>() && !tv.GetComponent<WatchTV>().enabled && !tv.transform.GetChild(1).gameObject.activeSelf)
             tv.transform.GetChild(1).gameObject.SetActive(true);
+
+        GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
     }
 
     IEnumerator UnsetSitting()
@@ -139,6 +139,9 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = false;
+
+        GameManager.Instance.EnableControls = true;
+        GameManager.Instance.EnableCamera = true;
     }
     #endregion
 }
