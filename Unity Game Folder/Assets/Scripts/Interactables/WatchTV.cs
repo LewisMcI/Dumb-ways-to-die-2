@@ -16,7 +16,7 @@ public class WatchTV : Interactable
     {
         if (!transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
         {
-            int random = Random.Range(0, 4);
+            int random = Random.Range(0, 3);
             switch (random)
             {
                 case 0:
@@ -27,9 +27,6 @@ public class WatchTV : Interactable
                     break;
                 case 2:
                     transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[2];
-                    break;
-                case 3:
-                    transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[3];
                     break;
             }
             transform.GetChild(0).GetComponent<VideoPlayer>().Play();
