@@ -130,6 +130,7 @@ public class TrapCouch : Interactable
 
     IEnumerator UnsetSitting()
     {
+        Debug.Log("Unset");
         transition = true;
         GameObject tv = GameObject.Find("Tv");
         if (tv.transform.GetChild(1).gameObject.activeSelf)
