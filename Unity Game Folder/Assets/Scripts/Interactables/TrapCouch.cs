@@ -12,6 +12,8 @@ public class TrapCouch : Interactable
     private Vector3 originalPos;
     private Quaternion originalRot;
     private bool transition, sitting;
+    [SerializeField]
+    private GameObject tv;
 
     [SerializeField]
     private VideoClip[] clips;
@@ -91,7 +93,6 @@ public class TrapCouch : Interactable
         transition = false;
         sitting = true;
 
-        GameObject tv = GameObject.Find("Tv");
         if (tv.GetComponent<WatchTV>() && tv.GetComponent<WatchTV>().enabled)
         {
             if (!tv.transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
