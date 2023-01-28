@@ -4528,12 +4528,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2487303558162076092, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_AudioOutputMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2487303558162076092, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_TargetAudioSources.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1837385750}
     - target: {fileID: 2558458222649624947, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.92045
@@ -11058,6 +11058,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!82 &1837385750 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 943227650066311636, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
+  m_PrefabInstance: {fileID: 883099796}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1915204081
 Mesh:
   m_ObjectHideFlags: 0
