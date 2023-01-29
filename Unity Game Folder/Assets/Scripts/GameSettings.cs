@@ -13,9 +13,11 @@ public class GameSettings : MonoBehaviour
     [HideInInspector]
     public int vfxVolume;
     public int musicVolume;
+    public float sensitivity;
 
     public AudioMixer masterMixer;
     public AudioSource vfxTestNoise;
+
 
     public static GameSettings Instance;
     private void Start()
@@ -66,14 +68,13 @@ public class GameSettings : MonoBehaviour
         if (values[4] == "vfxVolume")
         {
             vfxVolume = int.Parse(values[5]);
-            Debug.Log(vfxVolume);
             if (!masterMixer.SetFloat("VFXVolume", vfxVolume)) 
                 Debug.Log("why");
         }
         else
             Debug.Log("Could not load");
         if (values[6] == "sensitivity")
-            Debug.Log("Deal with sensitivity " + values[7]);
+            sensitivity = float.Parse(values[7]);
         else
             Debug.Log("Could not load");
         if (values[8] == "loadTutorial")
@@ -97,7 +98,7 @@ public class GameSettings : MonoBehaviour
             return;
         musicVolume = (int)musicVol;
         vfxVolume = (int)vfxVol;
-        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + "100" + ",loadTutorial=" + loadTutorial;
+        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + sensitivity + ",loadTutorial=" + loadTutorial;
 
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", text);
     }
@@ -105,6 +106,7 @@ public class GameSettings : MonoBehaviour
     {
         ResetMusicVolume();
         ResetVFXVolume();
+        ResetMouseSensitivity();
     }
 
     public void SetVFXVolume(int value)
@@ -121,6 +123,13 @@ public class GameSettings : MonoBehaviour
         SaveSettings();
     }
 
+    public void SetMouseSensitivity(float value)
+    {
+        sensitivity = value;
+        Debug.Log("AHASHHDASH" + value);
+        SaveSettings();
+    }
+
     void ResetVFXVolume()
     {
         Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
@@ -131,8 +140,8 @@ public class GameSettings : MonoBehaviour
                 slider.gameObject.SetActive(false);
                 slider.value = vfxVolume;
                 slider.gameObject.SetActive(true);
-/*                Debug.Log("Found");
-*/                return;
+/*                Debug.Log("Found");*/
+                return;
             }
         }
     }
@@ -147,7 +156,23 @@ public class GameSettings : MonoBehaviour
                 slider.gameObject.SetActive(false);
                 slider.value = musicVolume;
                 slider.gameObject.SetActive(true);
-/*                Debug.Log("Found");*/
+                /*                Debug.Log("Found");*/
+                return;
+            }
+        }
+    }
+
+    void ResetMouseSensitivity()
+    {
+        Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
+        foreach (var slider in sliders)
+        {
+            if (slider.gameObject.name == "Mouse Sensitivity Slider")
+            {
+                slider.gameObject.SetActive(false);
+                slider.value = sensitivity;
+                slider.gameObject.SetActive(true);
+                /*                Debug.Log("Found");*/
                 return;
             }
         }

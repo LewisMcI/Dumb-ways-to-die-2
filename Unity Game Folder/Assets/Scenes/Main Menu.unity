@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 1034.2482, g: 609.1399, b: 544.9915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3400,7 +3400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5825,7 +5825,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.26666668, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6483,8 +6483,8 @@ RectTransform:
   m_Father: {fileID: 275357447}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.26666668, y: 0}
+  m_AnchorMax: {x: 0.26666668, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7077,7 +7077,7 @@ GameObject:
   - component: {fileID: 1731635093}
   - component: {fileID: 1731635094}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Mouse Sensitivity Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7150,10 +7150,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1476207384}
   m_HandleRect: {fileID: 1569079604}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
+  m_MinValue: 0.5
+  m_MaxValue: 8
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 2.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7221,7 +7221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+  m_Color: {r: 0.6745098, g: 0.627451, b: 0.57254905, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7530,9 +7530,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a518c62e7f9ae428c0bd5084adbd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorial: 1
+  loadTutorial: 0
   vfxVolume: 0
   musicVolume: 0
+  sensitivity: 0
   masterMixer: {fileID: 24100000, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
   vfxTestNoise: {fileID: 1751804921}
 --- !u!4 &1751804920
@@ -7893,7 +7894,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.8, y: -46.3}
+  m_AnchoredPosition: {x: 144, y: 70}
   m_SizeDelta: {x: 110.6422, y: 46.6513}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1858877748

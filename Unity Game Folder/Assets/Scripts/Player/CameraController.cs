@@ -6,8 +6,6 @@ public class CameraController : MonoBehaviour
 {
     #region fields
     [Header("Settings")]
-    [SerializeField]
-    private float sensitivity;
     private float cameraPitch;
     [SerializeField]
     [Range(0f, 0.5f)]
@@ -46,7 +44,7 @@ public class CameraController : MonoBehaviour
     private void CameraLook()
     {
         // Get axis
-        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X") * sensitivity, Input.GetAxis("Mouse Y") * sensitivity);
+        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X") * GameSettings.Instance.sensitivity, Input.GetAxis("Mouse Y") * GameSettings.Instance.sensitivity);
         // Smoothen rotation
         currMouseDelta = Vector2.SmoothDamp(currMouseDelta, targetMouseDelta, ref currMouseDeltaVel, lookSmoothTime * Time.deltaTime);
 

@@ -43,7 +43,6 @@ public class MainMenu : MonoBehaviour
 
     public void SetVFXVolume(Slider slider)
     {
-        Debug.Log(slider.value);
         if (slider.value != GameSettings.Instance.vfxVolume && slider.value != 0)
         {
             GameSettings.Instance.SetVFXVolume((int)slider.value);
@@ -51,12 +50,15 @@ public class MainMenu : MonoBehaviour
     }
     public void SetMusicVolume(Slider slider)
     {
-        Debug.Log(slider.value);
         if (slider.value != 0)
             GameSettings.Instance.SetMusicVolume((int)slider.value);
     }
     public void SetMouseSensitivity(Slider slider)
     {
+        if (slider.value != 0.5f)
+        {
+            GameSettings.Instance.SetMouseSensitivity(slider.value);
+        }
     }
 
     public void ChangeScreenSettings(TMP_Dropdown dropdown)
