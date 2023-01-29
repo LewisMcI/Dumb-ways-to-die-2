@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    bool isTutorial = true;
-
     private void Awake()
     {
         try
@@ -17,15 +15,18 @@ public class MainMenu : MonoBehaviour
     }
     public void Play()
     {
-        if (isTutorial == true)
+        if (GameSettings.Instance.loadTutorial == true)
+        {
+            GameSettings.Instance.loadTutorial = false;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
     }
 
     public void ChangeTutorialOption()
     {
-        isTutorial = !isTutorial;
+        GameSettings.Instance.loadTutorial = !GameSettings.Instance.loadTutorial;
     }
 
     public void Quit()

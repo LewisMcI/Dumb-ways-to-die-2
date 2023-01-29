@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameSettings : MonoBehaviour
 {
     [HideInInspector]
-    public bool tutorial = true;
+    public bool loadTutorial;
     [HideInInspector]
     public int vfxVolume;
     public int musicVolume;
@@ -76,6 +76,10 @@ public class GameSettings : MonoBehaviour
             Debug.Log("Deal with sensitivity " + values[7]);
         else
             Debug.Log("Could not load");
+        if (values[8] == "loadTutorial")
+            loadTutorial = bool.Parse(values[9]);
+        else
+            Debug.Log("Could not load");
 
         ResetVolumes();
     }
@@ -93,7 +97,7 @@ public class GameSettings : MonoBehaviour
             return;
         musicVolume = (int)musicVol;
         vfxVolume = (int)vfxVol;
-        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + "100";
+        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + "100" + ",loadTutorial=" + loadTutorial;
 
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", text);
     }
