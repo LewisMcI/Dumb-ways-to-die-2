@@ -18,6 +18,8 @@ public class GameSettings : MonoBehaviour
     public AudioMixer masterMixer;
     public AudioSource vfxTestNoise;
 
+    public int qualitySetting;
+    public int displayMode;
 
     public static GameSettings Instance;
     private void Start()
@@ -81,6 +83,14 @@ public class GameSettings : MonoBehaviour
             loadTutorial = bool.Parse(values[9]);
         else
             Debug.Log("Could not load");
+        if (values[10] == "quality")
+            qualitySetting = int.Parse(values[11]);
+        else
+            Debug.Log("Could not load");
+        if (values[12] == "displayMode")
+            displayMode = int.Parse(values[13]);
+        else
+            Debug.Log("Could not load");
 
         ResetVolumes();
     }
@@ -98,7 +108,7 @@ public class GameSettings : MonoBehaviour
             return;
         musicVolume = (int)musicVol;
         vfxVolume = (int)vfxVol;
-        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + sensitivity + ",loadTutorial=" + loadTutorial;
+        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + sensitivity + ",loadTutorial=" + loadTutorial +",quality=" + qualitySetting + ",displayMode=" + displayMode;
 
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", text);
     }
@@ -107,6 +117,8 @@ public class GameSettings : MonoBehaviour
         ResetMusicVolume();
         ResetVFXVolume();
         ResetMouseSensitivity();
+        ResetQualitySettings();
+        ResetDisplayMode();
     }
 
     public void SetVFXVolume(int value)
@@ -126,7 +138,18 @@ public class GameSettings : MonoBehaviour
     public void SetMouseSensitivity(float value)
     {
         sensitivity = value;
-        Debug.Log("AHASHHDASH" + value);
+        SaveSettings();
+    }
+
+    public void SetQualitySettings(int value)
+    {
+        qualitySetting = value;
+        SaveSettings();
+    }
+
+    public void SetDisplayMode(int value)
+    {
+        displayMode = value;
         SaveSettings();
     }
 
@@ -173,6 +196,37 @@ public class GameSettings : MonoBehaviour
                 slider.value = sensitivity;
                 slider.gameObject.SetActive(true);
                 /*                Debug.Log("Found");*/
+                return;
+            }
+        }
+    }
+    void ResetQualitySettings()
+    {
+        TMPro.TMP_Dropdown[] dropdowns = Resources.FindObjectsOfTypeAll<TMPro.TMP_Dropdown>() as TMPro.TMP_Dropdown[];
+        foreach (var dropdown in dropdowns)
+        {
+            if (dropdown.gameObject.name == "Quality Settings Dropdown")
+            {
+                dropdown.gameObject.SetActive(false);
+                dropdown.value = qualitySetting;
+                dropdown.gameObject.SetActive(true);
+                /*                Debug.Log("Found");*/
+                return;
+            }
+        }
+    }
+
+    void ResetDisplayMode()
+    {
+        TMPro.TMP_Dropdown[] dropdowns = Resources.FindObjectsOfTypeAll<TMPro.TMP_Dropdown>() as TMPro.TMP_Dropdown[];
+        foreach (var dropdown in dropdowns)
+        {
+            if (dropdown.gameObject.name == "Display Mode Dropdown")
+            {
+                dropdown.gameObject.SetActive(false);
+                dropdown.value = displayMode;
+                dropdown.gameObject.SetActive(true);
+                Debug.Log("Found");
                 return;
             }
         }

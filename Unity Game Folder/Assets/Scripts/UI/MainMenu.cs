@@ -38,6 +38,7 @@ public class MainMenu : MonoBehaviour
 
     public void SetQualityLevel(int index)
     {
+        GameSettings.Instance.SetQualitySettings(index);
         QualitySettings.SetQualityLevel(index, false);
     }
 
@@ -63,6 +64,7 @@ public class MainMenu : MonoBehaviour
 
     public void ChangeScreenSettings(TMP_Dropdown dropdown)
     {
+        GameSettings.Instance.SetDisplayMode(dropdown.value);
         if (dropdown.value == 0)
         {
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
