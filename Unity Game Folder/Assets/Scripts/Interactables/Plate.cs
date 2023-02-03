@@ -43,7 +43,7 @@ public class Plate : Interactable
             obj.GetComponent<Bread>().Text = "";
             // Disable collider
             obj.GetComponent<Collider>().enabled = false;
-            GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
+            GameManager.Instance.UpdateTaskCompletion("Make Jam Toast");
             // Save
             bread = obj;
         }
@@ -54,13 +54,14 @@ public class Plate : Interactable
             // Change mesh
             bread.GetComponent<MeshFilter>().mesh = breadJam;
             // Make interactable
+            bread.GetComponent<Bread>().Type = InteractableType.Other;
             bread.GetComponent<Bread>().CanInteract = true;
             // Change text
             bread.GetComponent<Bread>().Text = "Eat";
             // Enable collider
             bread.GetComponent<Collider>().enabled = true;
             bread = null;
-            GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
+            GameManager.Instance.UpdateTaskCompletion("Make Jam Toast");
         }
     }
     #endregion

@@ -25,6 +25,7 @@ public class Interactable : MonoBehaviour
     public InteractableType Type
     {
         get { return type; }
+        set { type = value; }
     }
     public string Text
     {

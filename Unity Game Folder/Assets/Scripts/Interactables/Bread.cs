@@ -11,7 +11,11 @@ public class Bread : Interactable
         CanInteract = false;
         transform.GetComponent<Renderer>().enabled = false;
 
-        GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
+        GameManager.Instance.UpdateTaskCompletion("Make Jam Toast");
+        // Play grab animation
+        Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
+        if (!anim.GetBool("Notepad"))
+            anim.SetTrigger("Grab");
     }
     #endregion
 }
