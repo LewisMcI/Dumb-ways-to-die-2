@@ -14,12 +14,12 @@ public class Plate : Interactable
     #region methods
     private void Update()
     {
-        if (text != "Place" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Toasted Bread")
-            text = "Place";
-        else if (text != "Spread" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam" && bread)
-            text = "Spread";
-        else if (text != "")
-            text = "";
+        if (Text != "Place" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Toasted Bread")
+            Text = "Place";
+        else if (Text != "Spread" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Jam" && bread)
+            Text = "Spread";
+        else if (Text != "")
+            Text = "";
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -38,9 +38,9 @@ public class Plate : Interactable
             obj.transform.localEulerAngles = new Vector3(0.0f, 90f, 0.0f);
             obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             // Make non-pickable
-            obj.GetComponent<Bread>().type = Type.None;
+            obj.GetComponent<Bread>().CanInteract = false;
             // Reset text
-            obj.GetComponent<Bread>().text = "";
+            obj.GetComponent<Bread>().Text = "";
             // Disable collider
             obj.GetComponent<Collider>().enabled = false;
             GameManager.Instance.UpdateTaskCompletion("Make and Eat Toast");
@@ -54,9 +54,9 @@ public class Plate : Interactable
             // Change mesh
             bread.GetComponent<MeshFilter>().mesh = breadJam;
             // Make interactable
-            bread.GetComponent<Bread>().type = Type.Other;
+            bread.GetComponent<Bread>().CanInteract = true;
             // Change text
-            bread.GetComponent<Bread>().text = "Eat";
+            bread.GetComponent<Bread>().Text = "Eat";
             // Enable collider
             bread.GetComponent<Collider>().enabled = true;
             bread = null;

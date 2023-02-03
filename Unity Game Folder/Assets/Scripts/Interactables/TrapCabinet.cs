@@ -20,10 +20,10 @@ public class TrapCabinet : Interactable
 
     private void Update()
     {
-        if (text != "Cut" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
-            text = "Cut";
-        else if (text != "Open")
-            text = "Open";
+        if (Text != "Cut" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
+            Text = "Cut";
+        else if (Text != "Open")
+            Text = "Open";
     }
 
     private void OnCollisionEnter(Collision collision)

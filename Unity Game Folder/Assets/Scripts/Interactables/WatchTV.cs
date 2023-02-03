@@ -30,7 +30,7 @@ public class WatchTV : Interactable
                     break;
             }
             transform.GetChild(0).GetComponent<VideoPlayer>().Play();
-            type = Type.None;
+            CanInteract = false;
         }
     }
     #endregion

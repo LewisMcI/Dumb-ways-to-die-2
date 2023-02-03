@@ -41,7 +41,7 @@ public class Smashable : MonoBehaviour
     void CanBreak()
     {
         // If the BoxCollider isn't a trigger and the object is not currently being held.
-        if (!bc.isTrigger && !GetComponent<Interactable>().interacting)
+        if (!bc.isTrigger && !GetComponent<Interactable>().Interacting)
         {
             bc.isTrigger = true;
         }

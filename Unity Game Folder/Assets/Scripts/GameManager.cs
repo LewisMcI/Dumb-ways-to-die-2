@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
+
     public void UpdateTaskCompletion(string taskName)
     {
         foreach (var task in todaysTasks)
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
             notepadText[i].text = newText;
         }
     }
+
     private void Update()
     {
         if (gameState != false)

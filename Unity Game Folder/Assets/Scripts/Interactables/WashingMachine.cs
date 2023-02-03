@@ -19,12 +19,12 @@ public class WashingMachine : Interactable
         washingMachine.SetActive(!washingMachine.activeSelf);
         if (washingMachine.activeSelf == true)
         {
-            text = "Turn Off";
+            Text = "Turn Off";
             AudioManager.Instance.PlayAudio("Washing Machine");
         }
         else
         {
-            text = "Turn On";
+            Text = "Turn On";
             AudioManager.Instance.StopAudio("Washing Machine");
         }
     }

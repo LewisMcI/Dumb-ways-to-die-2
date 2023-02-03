@@ -112,7 +112,7 @@ public class TrapCouch : Interactable
                 }
                 tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
                 tv.transform.GetChild(1).gameObject.SetActive(true);
-                tv.GetComponent<WatchTV>().type = Type.None;
+                tv.GetComponent<WatchTV>().CanInteract = false;
             }
             else
             {

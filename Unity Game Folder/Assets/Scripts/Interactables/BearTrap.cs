@@ -24,7 +24,7 @@ public class BearTrap : MonoBehaviour
                 other.GetComponent<Animator>().SetFloat("dirY", 0);
                 StartCoroutine(TrapPlayer());
             }
-            else if (other != null && other.gameObject && other.transform.tag != "Trapped" && other.GetComponent<Interactable>().type != Interactable.Type.Pivot)
+            else if (other != null && other.gameObject && other.transform.tag != "Trapped" && other.GetComponent<Interactable>().Type != Interactable.InteractableType.Pivot)
             {
                 GetComponent<Animator>().SetTrigger("Trigger");
                 // Remove rigidbody of collided object if exists
@@ -62,7 +62,7 @@ public class BearTrap : MonoBehaviour
 
         // Disable interaction
         if (obj.GetComponent<Interactable>())
-            obj.GetComponent<Interactable>().interactable = false;
+            obj.GetComponent<Interactable>().CanInteract = false;
         yield return new WaitForSeconds(3f);
         if (obj != null)
         {
@@ -75,7 +75,7 @@ public class BearTrap : MonoBehaviour
             obj.GetComponent<Rigidbody>().AddForce(Vector3.up * 150f * Time.deltaTime + Vector3.forward * 150f * Time.deltaTime, ForceMode.VelocityChange);
             // Enable interaction
             if (obj.GetComponent<Interactable>())
-                obj.GetComponent<Interactable>().interactable = true;
+                obj.GetComponent<Interactable>().CanInteract = true;
             // Enable collider
             obj.GetComponent<Collider>().enabled = true;
         }

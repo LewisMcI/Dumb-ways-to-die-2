@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class ToothBrush : Interactable
 {
-    #region fields
-    #endregion
-
     #region methods
     public override void Action()
     {
         AudioManager.Instance.PlayAudio("Brush Teeth");
-        type = Type.None;
+        CanInteract = false;
 
         GameManager.Instance.UpdateTaskCompletion("Brush Teeth");
     }

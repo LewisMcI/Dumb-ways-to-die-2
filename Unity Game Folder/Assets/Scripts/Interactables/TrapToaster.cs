@@ -32,10 +32,10 @@ public class TrapToaster : Interactable
 
     private void Update()
     {
-        if (text != "Drop" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Bread")
-            text = "Drop";
-        else if (text != "")
-            text = "";
+        if (Text != "Drop" && InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Bread")
+            Text = "Drop";
+        else if (Text != "")
+            Text = "";
 
         // Change toast color
         if (placed)
@@ -60,9 +60,9 @@ public class TrapToaster : Interactable
             // Attach to toaster
             obj.transform.parent = transform;
             // Change type
-            obj.GetComponent<Bread>().type = Type.None;
+            obj.GetComponent<Bread>().CanInteract = false;
             // Change text
-            obj.GetComponent<Bread>().text = "";
+            obj.GetComponent<Bread>().Text = "";
             // Set transform
             obj.transform.localPosition = new Vector3(0.0f, 0.075f, 0.03f);
             obj.transform.localEulerAngles = new Vector3(90f, 0.0f, 0.0f);
@@ -93,9 +93,9 @@ public class TrapToaster : Interactable
         // Rename
         bread.name = "Toasted Bread";
         // Change type
-        bread.GetComponent<Bread>().type = Type.Pickup;
+        bread.GetComponent<Bread>().CanInteract = true;
         // Change text
-        bread.GetComponent<Bread>().text = "Pick Up";
+        bread.GetComponent<Bread>().Text = "Pick Up";
         // Move slightly up
         bread.transform.position += Vector3.up * 0.025f;
         // Reset

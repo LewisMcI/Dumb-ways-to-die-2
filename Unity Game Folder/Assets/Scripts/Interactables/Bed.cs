@@ -18,9 +18,9 @@ public class Bed : Interactable
     private void Update()
     {
         if (GameManager.Instance.AllTasksComplete())
-            text = "Sleep";
+            Text = "Sleep";
         else
-            text = "You can't sleep just yet";
+            Text = "You can't sleep just yet";
     }
 
     public override void Action()

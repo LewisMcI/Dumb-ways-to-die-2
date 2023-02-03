@@ -69,7 +69,7 @@ public class InteractionSystem : MonoBehaviour
             // Set velocity
             pickedUpObject.GetComponent<Rigidbody>().velocity = desiredVelocity;
             // Face camera
-            if (!pickedUpObject.GetComponent<Interactable>().keepRotation)
+            if (!pickedUpObject.GetComponent<Interactable>().KeepRotation)
                 pickedUpObject.transform.LookAt(Camera.main.transform);
         }
     }
@@ -78,43 +78,39 @@ public class InteractionSystem : MonoBehaviour
     {
         if (!PlayerController.Instance.Dead && GameManager.Instance.EnableControls && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
         {
-            if (hit.transform.GetComponent<Interactable>() && hit.transform.GetComponent<Interactable>().interactable)
+            if (hit.transform.GetComponent<Interactable>() && hit.transform.GetComponent<Interactable>().CanInteract)
             {
-                switch (hit.transform.GetComponent<Interactable>().type)
+                switch (hit.transform.GetComponent<Interactable>().Type)
                 {
-                    case Interactable.Type.Pickup:
-                        GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                    case Interactable.InteractableType.Pickup:
+                        GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             PickupObject(hit.transform.gameObject);
                         break;
-                    case Interactable.Type.Pivot:
-                        GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                    case Interactable.InteractableType.Pivot:
+                        GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
                             PivotObject(hit.transform.gameObject);
                         break;
-                    case Interactable.Type.Trap:
-                        if (hit.transform.GetComponent<Interactable>().text != "")
+                    case Interactable.InteractableType.Trap:
+                        if (hit.transform.GetComponent<Interactable>().Text != "")
                         {
-                            GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                            GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         }
                         if (Input.GetButtonDown("Interact") || pickedUpObject && Input.GetButtonUp("Interact"))
                             hit.transform.GetComponent<Interactable>().Action();
                         break;
-                    case Interactable.Type.Other:
-                        if (hit.transform.GetComponent<Interactable>().text != "")
+                    case Interactable.InteractableType.Other:
+                        if (hit.transform.GetComponent<Interactable>().Text != "")
                         {
-                            GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().text;
+                            GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         }
                         if (Input.GetButtonDown("Interact"))
                             hit.transform.GetComponent<Interactable>().Action();
-                        break;
-                    case Interactable.Type.None:
-                        if (GameUI.Instance.DotAnim.GetBool("Interactable"))
-                            GameUI.Instance.DotAnim.SetBool("Interactable", false);
                         break;
                 }
             }
@@ -135,7 +131,7 @@ public class InteractionSystem : MonoBehaviour
     {
         // Remove parent
         objectToPickup.transform.parent = null;
-        objectToPickup.GetComponent<Interactable>().interacting = true;
+        objectToPickup.GetComponent<Interactable>().Interacting = true;
         // Add physics
         if (!objectToPickup.GetComponent<Rigidbody>())
             objectToPickup.AddComponent<Rigidbody>();
@@ -159,7 +155,7 @@ public class InteractionSystem : MonoBehaviour
         try
         {
             pickedUpObject.layer = 0;
-            pickedUpObject.GetComponent<Interactable>().interacting = false;
+            pickedUpObject.GetComponent<Interactable>().Interacting = false;
             pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
             pickedUpObject = null;
         }
@@ -170,7 +166,7 @@ public class InteractionSystem : MonoBehaviour
     {
         // Add force
         pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 15000f * Time.deltaTime);
-        pickedUpObject.GetComponent<Interactable>().interacting = false;
+        pickedUpObject.GetComponent<Interactable>().Interacting = false;
         // Play sfx
         AudioManager.Instance.PlayAudio("Whoosh");
 
@@ -224,9 +220,9 @@ public class InteractionSystem : MonoBehaviour
         bool objState = pivotSettings.currentState;
         bool usingMovement = pivotSettings.usingMovement;
         if (pivotSettings.open)
-            pivotObj.transform.GetComponent<Interactable>().text = "Close";
+            pivotObj.transform.GetComponent<Interactable>().Text = "Close";
         else
-            pivotObj.transform.GetComponent<Interactable>().text = "Open";
+            pivotObj.transform.GetComponent<Interactable>().Text = "Open";
 
         Quaternion startingAngle;
         Quaternion endingAngle;

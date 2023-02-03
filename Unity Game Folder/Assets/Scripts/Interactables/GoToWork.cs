@@ -11,9 +11,9 @@ public class GoToWork : Interactable
     private void Update()
     {
         if (GameManager.Instance.AllTasksComplete())
-            text = "Go To Work";
+            Text = "Go To Work";
         else
-            text = "You can't Go To Work just yet";
+            Text = "You can't Go To Work just yet";
     }
 
     public override void Action()
