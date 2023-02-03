@@ -25,6 +25,10 @@ public class Clothing : Interactable
         gameObject.SetActive(false);
         transform.parent.GetComponent<Clothes>().Check();
         AudioManager.Instance.PlayAudio("Cloth");
+        // Play grab animation
+        Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
+        if (!anim.GetBool("Notepad"))
+            anim.SetTrigger("Grab");
     }
     #endregion
 }
