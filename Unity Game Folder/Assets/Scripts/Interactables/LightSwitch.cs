@@ -20,6 +20,8 @@ public class LightSwitch : Interactable
         // Set lights
         foreach (GameObject light in lights)
             light.SetActive(active);
+        // Switch scale
+        transform.parent.localScale = (active) ? new Vector3(1.0f, -1.0f, 1.0f) : Vector3.one;
 
         // Player audio
         AudioManager.Instance.PlayAudio("Switch");
