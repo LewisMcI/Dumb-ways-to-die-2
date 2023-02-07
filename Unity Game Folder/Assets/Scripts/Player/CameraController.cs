@@ -15,12 +15,25 @@ public class CameraController : MonoBehaviour
     private float followHeadTime;
     [SerializeField]
     private Transform head;
+    [SerializeField]
+    private GameObject gameSettingsPrefab;
     #endregion
 
     #region methods
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        if (GameSettings.Instance == null)
+        {
+            try
+            {
+                Instantiate(gameSettingsPrefab, transform.position, Quaternion.identity, null);
+            }
+            catch
+            {
+                throw new System.Exception("Missing GameSettings: Please create a GameSettings instance or attach the prefab to the player controller.");
+            }
+        }
     }
 
     private void Update()

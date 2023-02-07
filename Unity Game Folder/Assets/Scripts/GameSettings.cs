@@ -12,13 +12,17 @@ public class GameSettings : MonoBehaviour
     public bool loadTutorial;
     [HideInInspector]
     public int vfxVolume;
+    [HideInInspector]
     public int musicVolume;
+    [HideInInspector]
     public float sensitivity;
 
     public AudioMixer masterMixer;
     public AudioSource vfxTestNoise;
 
+    [HideInInspector]
     public int qualitySetting;
+    [HideInInspector]
     public int displayMode;
 
     public static GameSettings Instance;
@@ -114,11 +118,28 @@ public class GameSettings : MonoBehaviour
     }
     public void ResetVolumes()
     {
-        ResetMusicVolume();
-        ResetVFXVolume();
-        ResetMouseSensitivity();
-        ResetQualitySettings();
-        ResetDisplayMode();
+        List<String> names = new List<String> { "VFX Slider", 
+            "Music Slider", 
+            "Mouse Sensitivity Slider", 
+            "Quality Settings Slider", 
+            "Quality Settings Dropdown", 
+            "Display Mode Dropdown" 
+        };
+        Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
+        foreach (var slider in sliders)
+        {
+            for(int i = 0; i < names.Count; i++)
+            {
+                if (slider.gameObject.name == names[i])
+                {
+                    slider.gameObject.SetActive(false);
+                    slider.value = vfxVolume;
+                    slider.gameObject.SetActive(true);
+                    /*                Debug.Log("Found");*/
+                    return;
+                }
+            }
+        }
     }
 
     public void SetVFXVolume(int value)
@@ -153,7 +174,8 @@ public class GameSettings : MonoBehaviour
         SaveSettings();
     }
 
-    void ResetVFXVolume()
+    // TODO: TEST IF WORKING
+/*    void ResetVFXVolume()
     {
         Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
         foreach (var slider in sliders)
@@ -163,7 +185,7 @@ public class GameSettings : MonoBehaviour
                 slider.gameObject.SetActive(false);
                 slider.value = vfxVolume;
                 slider.gameObject.SetActive(true);
-/*                Debug.Log("Found");*/
+*//*                Debug.Log("Found");*//*
                 return;
             }
         }
@@ -179,7 +201,7 @@ public class GameSettings : MonoBehaviour
                 slider.gameObject.SetActive(false);
                 slider.value = musicVolume;
                 slider.gameObject.SetActive(true);
-                /*                Debug.Log("Found");*/
+                *//*                Debug.Log("Found");*//*
                 return;
             }
         }
@@ -195,7 +217,7 @@ public class GameSettings : MonoBehaviour
                 slider.gameObject.SetActive(false);
                 slider.value = sensitivity;
                 slider.gameObject.SetActive(true);
-                /*                Debug.Log("Found");*/
+                *//*                Debug.Log("Found");*//*
                 return;
             }
         }
@@ -210,7 +232,7 @@ public class GameSettings : MonoBehaviour
                 dropdown.gameObject.SetActive(false);
                 dropdown.value = qualitySetting;
                 dropdown.gameObject.SetActive(true);
-                /*                Debug.Log("Found");*/
+                *//*                Debug.Log("Found");*//*
                 return;
             }
         }
@@ -230,5 +252,5 @@ public class GameSettings : MonoBehaviour
                 return;
             }
         }
-    }
+    }*/
 }
