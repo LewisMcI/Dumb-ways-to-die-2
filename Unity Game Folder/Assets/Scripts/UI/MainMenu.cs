@@ -32,8 +32,12 @@ public class MainMenu : MonoBehaviour
     public void Quit()
     {
         Debug.Log("Quit");
+#if UNITY_STANDALONE
         Application.Quit();
-
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     public void SetQualityLevel(int index)
