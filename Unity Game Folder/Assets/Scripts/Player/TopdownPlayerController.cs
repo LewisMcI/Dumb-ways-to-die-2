@@ -4,33 +4,31 @@ using UnityEngine;
 
 public class TopdownPlayerController : MonoBehaviour
 {
-    float speed = 100.0f;
+    float moveSpeed = 120.0f;
+    float rotationSpeed = 150.0f;
     Rigidbody rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
 
     private void Move()
     {
-
         // Get axis
         Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         // If moving diagonally normalise vector so that speed remains the same
         if (dir.magnitude > 1.0f)
             dir.Normalize();
-        Vector3 vel = ((transform.right * dir.x + transform.forward * dir.y) * speed) * Time.fixedDeltaTime;
+        Vector3 vel = ((transform.forward * dir.y) * moveSpeed) * Time.fixedDeltaTime;
         vel.y = rb.velocity.y;
         // Apply velocity
         rb.velocity = vel;
-        if (vel.magnitude > 0.1f)
-        {
-            transform.rotation = Quaternion.LookRotation(vel, Vector3.up);
-        }
+        // Rotate
+        transform.Rotate(Vector3.up, dir.x * rotationSpeed * Time.fixedDeltaTime);
     }
 }
