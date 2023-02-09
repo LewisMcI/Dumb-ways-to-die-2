@@ -15,16 +15,17 @@ public class Lawnmower : Interactable
     #endregion
 
     #region methods
-
     public override void Action()
     {
         // Enable new camera
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().EnableNewCamera(PlayerController.SelectCam.outsideCam);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enabled = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<InteractionSystem>().enabled = false;
-        GameObject.FindGameObjectWithTag("Player").transform.position = playerPosition.position;
-        GameObject.FindGameObjectWithTag("Player").transform.rotation = playerPosition.rotation;
-        transform.parent = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerController>().EnableNewCamera(PlayerController.SelectCam.outsideCam);
+        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<InteractionSystem>().enabled = false;
+        player.transform.position = playerPosition.position;
+        player.transform.rotation = playerPosition.rotation;
+        transform.parent = player.transform;
+        player.GetComponent<Rigidbody>().angularDrag = 1.0f;
 
         triggerCollider.enabled = true;
 
