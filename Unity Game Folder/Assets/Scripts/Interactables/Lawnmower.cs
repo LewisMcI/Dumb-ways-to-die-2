@@ -95,8 +95,17 @@ public class Lawnmower : Interactable
             explosionSFX.Play();
             Destroy(other.gameObject);
             explosionVFX.Play();
-            ExitLawnmower();
-            Destroy(this);
+
+            // Disable player controller.
+            PlayerController.Instance.GetComponent<TopdownPlayerController>().enabled = false;
+            StartCoroutine(KillPlayer());
         }
+    }
+
+    IEnumerator KillPlayer()
+    {
+        yield return new WaitForSeconds(1.0f);
+        ExitLawnmower();
+        Destroy(this);
     }
 }
