@@ -86,8 +86,8 @@ public class Lawnmower : Interactable
             // Destroy grass
             Destroy(other.gameObject);
             destroyedCount++;
-            if (destroyedCount >= 100)
-                ExitLawnmower();
+       /*     if (destroyedCount >= 100)
+                ExitLawnmower();*/
             Debug.Log("Grass Destroyed: " + destroyedCount);
         }
         if (other.name == "Bomb")
