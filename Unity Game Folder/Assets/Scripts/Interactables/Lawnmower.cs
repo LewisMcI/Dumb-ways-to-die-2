@@ -1,53 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Lawnmower : Interactable
 {
     #region fields
     
     public Transform playerPosition;
-    public BoxCollider triggerCollider;
-    private int destroyedCount;
+    public Camera associatedCam;
 
-    public Camera outsideCam;
-    bool active = false;
+    private int destroyedCount;
+    private float initAngularDrag;
+
+    public VisualEffect explosionVFX;
+    public AudioSource explosionSFX;
     #endregion
 
     #region methods
     public override void Action()
     {
-        // Enable new camera
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerController>().EnableNewCamera(PlayerController.SelectCam.outsideCam);
-        player.GetComponent<PlayerController>().enabled = false;
-        player.GetComponent<InteractionSystem>().enabled = false;
+        destroyedCount = 0;
+        GameObject player;
+        // Find player
+        try
+        {
+            player = PlayerController.Instance.gameObject;
+        }
+        catch
+        {
+            Debug.Log("Cannot find PlayerController instance");
+            throw new System.Exception("Could not find PlayerController Instance");
+        }
+
+        // Enable new camera.
+        PlayerController.Instance.EnableNewCamera(PlayerController.SelectCam.outsideCam);
+        // Disable player controller.
+        PlayerController.Instance.enabled = false;
+
+        // Move player to position
         player.transform.position = playerPosition.position;
         player.transform.rotation = playerPosition.rotation;
+
+        // Add lawnmower as child to player to control movement.
         transform.parent = player.transform;
-        player.GetComponent<Rigidbody>().angularDrag = 1.0f;
 
-        triggerCollider.enabled = true;
+        Rigidbody playerRB = player.GetComponent<Rigidbody>();
+        // Get old angular drag.
+        initAngularDrag = playerRB.angularDrag;
+        // Set new angular drag on player.
+        playerRB.angularDrag = 1.0f;
 
-        GameObject.FindGameObjectWithTag("Player").AddComponent<TopdownPlayerController>();
-        active = true;
+        player.AddComponent<TopdownPlayerController>();
     }
     #endregion
-
+    void ExitLawnmower()
+    {
+        GameObject player;
+        // Find player
+        try
+        {
+            player = PlayerController.Instance.gameObject;
+        }
+        catch
+        {
+            Debug.Log("Cannot find PlayerController instance");
+            throw new System.Exception("Could not find PlayerController Instance");
+        }
+        // Remove Topdown Controller
+        Destroy(player.GetComponent<TopdownPlayerController>());
+        // ReEnable player camera.
+        PlayerController.Instance.ReEnablePlayer();
+        // Unchild lawnmower.
+        transform.parent = null;
+        // Set new angular drag on player.
+        player.GetComponent<Rigidbody>().angularDrag = initAngularDrag;
+        // Enable player controller.
+        PlayerController.Instance.enabled = true;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Grass")
+        // If hit grass
+        if (other.name == "Grass Piece")
         {
+            // Destroy grass
             Destroy(other.gameObject);
             destroyedCount++;
-            Debug.Log(destroyedCount);
+            if (destroyedCount >= 100)
+                ExitLawnmower();
+            Debug.Log("Grass Destroyed: " + destroyedCount);
         }
-        if (other.tag == "Bomb")
+        if (other.name == "Bomb")
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<TopdownPlayerController>().enabled = false;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enabled = true;
-            Debug.Log("HUGE EXPLOSION KPOW BODY FLIES AWAY MINECRAFT DEATH SOUND (THERE IS AN ERROR BELOW THIS IT IS OKAY)");
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Die(PlayerController.SelectCam.outsideCam, 0.1f);
+            explosionSFX.Play();
+            Destroy(other.gameObject);
+            explosionVFX.Play();
+            ExitLawnmower();
+            Destroy(this);
         }
     }
 }

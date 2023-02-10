@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching, isJumping;
 
     [SerializeField]
-    private Camera toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam;
+    private Camera playerCam, toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam;
 
     private float restartTimer = 5f;
     private bool dead;
@@ -199,25 +199,43 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.Instance.EnableCamera = false;
         // Switch cameras
-        Camera.main.enabled = false;
+        Camera currentCam = Camera.main;
+        currentCam.tag = "Untagged";
+        currentCam.enabled = false;
         switch (camera)
         {
             case SelectCam.toasterCam:
                 toasterCam.enabled = true;
+                toasterCam.tag = "MainCamera";
                 break;
             case SelectCam.fridgeCam:
                 fridgeCam.enabled = true;
+                fridgeCam.tag = "MainCamera";
                 break;
             case SelectCam.couchCam:
                 couchCam.enabled = true;
+                couchCam.tag = "MainCamera";
                 break;
             case SelectCam.bathroomCam:
                 bathroomCam.enabled = true;
+                bathroomCam.tag = "MainCamera";
                 break;
             case SelectCam.outsideCam:
                 outsideCam.enabled = true;
+                outsideCam.tag = "MainCamera";
                 break;
         }
+    }
+
+    public void ReEnablePlayer()
+    {
+        GameManager.Instance.EnableCamera = true;
+        Camera currentCam = Camera.main;
+        currentCam.tag = "Untagged";
+        currentCam.enabled = false;
+
+        playerCam.enabled = true;
+        playerCam.tag = "MainCamera";
     }
 
     public void Die(SelectCam camera, float delay)
