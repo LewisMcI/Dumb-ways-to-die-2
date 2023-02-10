@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,33 +6,22 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region fields
-    private bool started;
-    private bool enableControls;
-    private bool enableCamera;
-    private float enableControlsTimer = 2.5f;
 
-    public Task[] tasks;
-
-    public TextMeshPro[] notepadText = new TextMeshPro[3];
-
-
+    // Managerrs
     public static GameManager Instance;
-
     public TaskManager taskManager;
-    private Task[] todaysTasks;
+    GameSettings settings;
 
-    public bool gameState = true;
+    // Set in inspector Dependencies
+    [SerializeField]
+    GameUI gameUI;
 
-    [Range(10.0f, 1080.0f)]
-    public float timerForLevel = 120;
-    private float timeLeft;
-    public TextMeshPro timerText;
+    // Instatiating variables.
+    private bool enableControls = true;
+    private bool enableCamera = true;
+    private bool gameState = true;
 
-    public GameSettings settings;
-
-    public GameUI gameUI;
     #endregion
-
     #region properties
     public bool EnableControls
     {
@@ -51,6 +38,7 @@ public class GameManager : MonoBehaviour
     #region methods
     private void Awake()
     {
+        // GameManager Instance
         if (Instance == null)
         {
             Instance = this;
@@ -59,96 +47,38 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        timeLeft = timerForLevel;
-        InitializeTasks();
-        if (settings == null) 
+
+        // Get Managers
+        try
         {
-            settings = GameObject.FindObjectOfType<GameSettings>();
+            taskManager = GetComponent<TaskManager>();
         }
+        catch
+        {
+            throw new Exception("Could not find TaskManager");
+        }
+        settings = GameObject.FindObjectOfType<GameSettings>();
+        if (settings == null)
+            throw new Exception("Could not find TaskManager");
+
+        // InitTasks
+        InitTasks();
     }
 
-    public bool AllTasksComplete()
+    /* InitializeTasks
+     * Inits Tasks for the day.
+     */
+    private void InitTasks()
     {
-        foreach(var task in todaysTasks)
-        {
-            if (task.taskComplete == false && !task.isDependent)
-            {
-                return false;
-            }
-        }
-        return true;
+        if(!taskManager.GenerateTasks())
+            throw new Exception("Failed to Initialize Tasks");
+        Debug.Log("Breakfast task is: " + taskManager.TodaysTasks[0].name + ", Midday Task is: " + taskManager.TodaysTasks[1].name + ", Final Task is: " + taskManager.TodaysTasks[2].name);
     }
 
-    public void UpdateTaskCompletion(string taskName)
-    {
-        foreach (var task in todaysTasks)
-        {
-            if (taskName == task.taskName)
-            {
-                task.stepsComplete++;
-                if (task.stepsComplete >= task.steps)
-                {
-                    foreach (var text in notepadText)
-                    {
-#pragma warning disable CS0642 // Possible mistaken empty statement
-                        if (text.text.Replace(" ", "").Contains(task.name.Replace(" ", "")));
-#pragma warning restore CS0642 // Possible mistaken empty statement
-                        {
-                            GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                            task.taskComplete = true;
-                            UpdateNotepad();
-                            return;
-                        }
-                    }
-                    throw new Exception("Trying to complete task that is not on notepad");
-                }
-                UpdateNotepad();
-                return;
-            }
-        }
-        throw new Exception("Trying to complete task that does not exist");
-    }
-    private void InitializeTasks()
-    {
-        todaysTasks = taskManager.GenerateTasks();
-        Debug.Log("Breakfast task is: " + todaysTasks[0].name + ", Midday Task is: " + todaysTasks[1].name + ", Final Task is: " + todaysTasks[2].name);
-        UpdateNotepad();
-    }
-
-    private void UpdateNotepad()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            string newText = todaysTasks[i].taskName;
-            if (todaysTasks[i].steps > 1)
-                newText = newText + " (" + todaysTasks[i].stepsComplete + " / " + todaysTasks[i].steps + ")";
-            if (todaysTasks[i].stepsComplete >= todaysTasks[i].steps)
-                newText = "<s>" + newText + "</s>";
-            notepadText[i].text = newText;
-        }
-    }
 
     private void Update()
     {
-        if (gameState != false)
-            timeLeft -= Time.deltaTime;
-        if (timeLeft > 0)
-            UpdateTimer();
-        else
-            Restart();
-
-        if (!started)
-        {
-            if (enableControlsTimer <= 0.0f)
-            {
-                enableControls = true;
-                EnableCamera = true;
-                started = true;
-            }
-            else
-                enableControlsTimer -= Time.deltaTime;
-        }
-
+        // TODO: ektor what is this??????
         // Rotate towards book when paused
         if (!gameState)
         {
@@ -157,16 +87,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UpdateTimer()
-    {
-        int timeInMinutes = (int)(timeLeft / 60.0f);
-        int timeInSeconds = (int)(timeLeft) - (timeInMinutes * 60); 
-        if (timeInSeconds < 10)
-            timerText.text = timeInMinutes + ":0" + timeInSeconds;
-        else
-            timerText.text = timeInMinutes + ":" + timeInSeconds;
-    }
-
+    /* PauseGame
+     * Sets game state equal to false and activates game ui.
+     */
     public void PauseGame()
     {
         Debug.Log("Pause Game");
@@ -191,9 +114,12 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.Book();
     }
 
+    /* Restarts Scene
+     * 
+     */
     public void Restart()
     {
-        SceneManager.LoadScene("Main Scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     #endregion
 }

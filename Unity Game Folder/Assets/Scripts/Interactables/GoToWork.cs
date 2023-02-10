@@ -10,7 +10,7 @@ public class GoToWork : Interactable
 
     private void Update()
     {
-        if (GameManager.Instance.AllTasksComplete())
+        if (GameManager.Instance.taskManager.AllTasksComplete())
             Text = "Go To Work";
         else
             Text = "You can't Go To Work just yet";
@@ -18,7 +18,7 @@ public class GoToWork : Interactable
 
     public override void Action()
     {
-        if (GameManager.Instance.AllTasksComplete())
+        if (GameManager.Instance.taskManager.AllTasksComplete())
         {
             // TODO: Add ReverseBlink animation equivalent for leaving to work.
             GameUI.Instance.ReverseBlink();

@@ -17,7 +17,7 @@ public class Clothes : MonoBehaviour
         noCompleted++;
         // Mark task as complete if all clothes collected
 
-        GameManager.Instance.UpdateTaskCompletion("Get Clothes");
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Get Clothes");
         
     }
     #endregion

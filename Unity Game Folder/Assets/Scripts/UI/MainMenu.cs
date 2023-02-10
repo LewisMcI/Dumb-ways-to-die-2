@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     {
         try
         {
-            GameSettings.Instance.ResetVolumes();
+            GameSettings.Instance.ResetUI();
         }
         catch { }
     }

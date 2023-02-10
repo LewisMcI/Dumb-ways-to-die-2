@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 209.8023, g: 204.1333, b: 222.5166, a: 1}
+  m_IndirectSpecularColor: {r: 209.7832, g: 203.86938, b: 221.98996, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3482,16 +3482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25589263ac33024c860ff1f483f7cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tasks: []
-  notepadText:
-  - {fileID: 3866830963994027074}
-  - {fileID: 3866830963994027073}
-  - {fileID: 1802933252}
   taskManager: {fileID: 910180751}
-  gameState: 1
-  timerForLevel: 300
-  timerText: {fileID: 1195275436}
-  settings: {fileID: 0}
   gameUI: {fileID: 499148643}
 --- !u!4 &910180750
 Transform:
@@ -3529,6 +3520,10 @@ MonoBehaviour:
   availableFinalTasks:
   - {fileID: 11400000, guid: f88bb2c01bbfdee42864232e422b2fc2, type: 2}
   - {fileID: 11400000, guid: e2f561012ebad1448afc19867f6bcb47, type: 2}
+  notepadText:
+  - {fileID: 3866830963994027074}
+  - {fileID: 3866830963994027073}
+  - {fileID: 1802933252}
 --- !u!82 &910180752
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4581,7 +4576,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 4000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 1.3555912e-19, y: 1.3563156e-19, z: 1.3563156e-19, w: 3.0439522e+32}
+  m_BoundingSphereOverride: {x: 0, y: 5.5e-44, z: 0, w: 1.6114932e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5118,17 +5113,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1195275436 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2519561777756077802, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
-  m_PrefabInstance: {fileID: 3866830963994027072}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1242577928
 Mesh:
   m_ObjectHideFlags: 0

@@ -101,7 +101,7 @@ public class TrapToaster : Interactable
         // Reset
         placed = false;
 
-        GameManager.Instance.UpdateTaskCompletion("Make Jam Toast");
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
     }
     #endregion
 }

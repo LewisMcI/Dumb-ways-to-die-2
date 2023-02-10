@@ -96,7 +96,7 @@ public class GameSettings : MonoBehaviour
         else
             Debug.Log("Could not load");
 
-        ResetVolumes();
+        ResetUI();
     }
 
     private void SaveSettings()
@@ -116,24 +116,31 @@ public class GameSettings : MonoBehaviour
 
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", text);
     }
-    public void ResetVolumes()
+    public void ResetUI()
     {
-        List<String> names = new List<String> { "VFX Slider", 
-            "Music Slider", 
-            "Mouse Sensitivity Slider", 
-            "Quality Settings Slider", 
-            "Quality Settings Dropdown", 
-            "Display Mode Dropdown" 
+        ResetDropdowns();
+        ResetSliders();
+    }
+
+    void ResetSliders()
+    {
+        List<String> names = new List<String> { "VFX Slider",
+            "Music Slider",
+            "Mouse Sensitivity Slider"
+        };
+        List<float> values = new List<float> { vfxVolume,
+            musicVolume,
+            sensitivity,
         };
         Slider[] sliders = Resources.FindObjectsOfTypeAll<Slider>() as Slider[];
         foreach (var slider in sliders)
         {
-            for(int i = 0; i < names.Count; i++)
+            for (int i = 0; i < names.Count; i++)
             {
                 if (slider.gameObject.name == names[i])
                 {
                     slider.gameObject.SetActive(false);
-                    slider.value = vfxVolume;
+                    slider.value = values[i];
                     slider.gameObject.SetActive(true);
                     /*                Debug.Log("Found");*/
                     return;
@@ -141,7 +148,30 @@ public class GameSettings : MonoBehaviour
             }
         }
     }
-
+    void ResetDropdowns()
+    {
+        List<String> names = new List<String> { "Quality Settings Dropdown",
+            "Display Mode Dropdown"
+        };
+        List<int> values = new List<int> { qualitySetting,
+            displayMode
+        };
+        Dropdown[] dropdowns = Resources.FindObjectsOfTypeAll<Dropdown>() as Dropdown[];
+        foreach (var dropdown in dropdowns)
+        {
+            for (int i = 0; i < names.Count; i++)
+            {
+                if (dropdown.gameObject.name == names[i])
+                {
+                    dropdown.gameObject.SetActive(false);
+                    dropdown.value = values[i];
+                    dropdown.gameObject.SetActive(true);
+                    /*                Debug.Log("Found");*/
+                    return;
+                }
+            }
+        }
+    }
     public void SetVFXVolume(int value)
     {
         masterMixer.SetFloat("VFXVolume", value);

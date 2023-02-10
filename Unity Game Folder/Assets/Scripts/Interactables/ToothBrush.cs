@@ -10,7 +10,7 @@ public class ToothBrush : Interactable
         AudioManager.Instance.PlayAudio("Brush Teeth");
         CanInteract = false;
 
-        GameManager.Instance.UpdateTaskCompletion("Brush Teeth");
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Brush Teeth");
         // Play grab animation
         Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
         if (!anim.GetBool("Notepad"))
