@@ -234,8 +234,6 @@ MonoBehaviour:
   type: 0
   text: Pick Up
   keepRotation: 1
-  interactable: 1
-  interacting: 0
 --- !u!65 &25104977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -803,6 +801,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7c6998a51bee99b4b875619560d20202, type: 2}
   availableFinalTasks:
   - {fileID: 11400000, guid: e2f561012ebad1448afc19867f6bcb47, type: 2}
+  notepadText:
+  - {fileID: 793953631}
+  - {fileID: 793953630}
+  - {fileID: 793953629}
 --- !u!114 &294459200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,16 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25589263ac33024c860ff1f483f7cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tasks: []
-  notepadText:
-  - {fileID: 793953631}
-  - {fileID: 793953630}
-  - {fileID: 793953629}
   taskManager: {fileID: 294459199}
-  gameState: 1
-  timerForLevel: 300
-  timerText: {fileID: 793953628}
-  settings: {fileID: 0}
   gameUI: {fileID: 594442952}
 --- !u!4 &294459201
 Transform:
@@ -1918,8 +1911,6 @@ MonoBehaviour:
   type: 0
   text: Pick Up
   keepRotation: 1
-  interactable: 1
-  interacting: 0
 --- !u!65 &586179822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3319,17 +3310,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5602802503871112354, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
   m_PrefabInstance: {fileID: 793953626}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &793953628 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2519561777756077802, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
-  m_PrefabInstance: {fileID: 793953626}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &793953629 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 915676453718655472, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
@@ -5974,11 +5954,6 @@ PrefabInstance:
     - {fileID: 633380010545996003, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
     - {fileID: 8546716964101292236, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
---- !u!1 &883099797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7153465568783797695, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
-  m_PrefabInstance: {fileID: 883099796}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &883099798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7298884151077903117, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
@@ -5989,19 +5964,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7438205743228663360, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
   m_PrefabInstance: {fileID: 883099796}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &883099800 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6269290462739127655, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
-  m_PrefabInstance: {fileID: 883099796}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &883099801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4480756606933517922, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
-  m_PrefabInstance: {fileID: 883099796}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &883099802 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 975714813574025977, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
   m_PrefabInstance: {fileID: 883099796}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &883099803 stripped
@@ -6026,66 +5991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &883099805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883099800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
-  keepRotation: 1
-  interactable: 1
-  interacting: 0
---- !u!65 &883099806
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883099800}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0000005, y: 2, z: 2.1095526}
-  m_Center: {x: 0, y: 0.0000014305062, z: 0.054775223}
---- !u!114 &883099807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883099802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
-  keepRotation: 1
-  interactable: 1
-  interacting: 0
---- !u!65 &883099808
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883099802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0000002, y: 1.7996961, z: 1.9993354}
-  m_Center: {x: -0.000007656311, y: -0.0983368, z: -0.0003331679}
 --- !u!1 &972332225
 GameObject:
   m_ObjectHideFlags: 0
@@ -7778,8 +7683,6 @@ MonoBehaviour:
   type: 0
   text: Pick Up
   keepRotation: 1
-  interactable: 1
-  interacting: 0
 --- !u!114 &1378258230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8026,36 +7929,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1393420233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883099797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
-  keepRotation: 1
-  interactable: 1
-  interacting: 0
---- !u!65 &1393420234
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883099797}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.000001, y: 2.0948725, z: 2.504925}
-  m_Center: {x: -0.000030517578, y: 0.000000036253144, z: 0.2524608}
 --- !u!43 &1458538029
 Mesh:
   m_ObjectHideFlags: 0
