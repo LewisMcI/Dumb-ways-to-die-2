@@ -996,6 +996,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3237253463612823702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 35580137659461968}
+  m_Layer: 0
+  m_Name: Lawnmower Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &35580137659461968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237253463612823702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3525523163335306987}
+  m_Father: {fileID: 3525523162020161419}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3525523162020161420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1051,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3525523162020161420}
-  m_LocalRotation: {x: 0.120618805, y: -0, z: -0, w: 0.9926989}
+  m_LocalRotation: {x: 0.120621994, y: 0, z: 0, w: 0.99269855}
   m_LocalPosition: {x: 12.4699, y: 0.432, z: -2.533}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1053,9 +1085,10 @@ Transform:
   - {fileID: 6087064652278471990}
   - {fileID: 4813318121010788213}
   - {fileID: 8889454141764181973}
+  - {fileID: 35580137659461968}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.856, y: 0, z: 0}
 --- !u!1 &3525523163012675754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3781,6 +3814,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ba254c32d3adbd94a9c30fb1f7c11cca, type: 3}
   m_PrefabInstance: {fileID: 6049214396563487453}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7253263781051661876
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 35580137659461968}
+    m_Modifications:
+    - target: {fileID: 6072515145518108888, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_Name
+      value: LawnMower Task
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.771311
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.43384767
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.352549
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9926989
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.120618805
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+--- !u!4 &3525523163335306987 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6072515145518108895, guid: acfcd6451040f7648826fe0c44d97ac7, type: 3}
+  m_PrefabInstance: {fileID: 7253263781051661876}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8995683025522522174
 PrefabInstance:

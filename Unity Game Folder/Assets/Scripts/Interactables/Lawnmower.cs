@@ -6,11 +6,13 @@ using UnityEngine.VFX;
 public class Lawnmower : Interactable
 {
     #region fields
-    
+
+    [SerializeField]
+    private Transform grassMaster;
+
     public Transform playerPosition;
     public Camera associatedCam;
 
-    private int destroyedCount;
     private float initAngularDrag;
 
     public VisualEffect explosionVFX;
@@ -20,7 +22,6 @@ public class Lawnmower : Interactable
     #region methods
     public override void Action()
     {
-        destroyedCount = 0;
         GameObject player;
         // Find player
         try
@@ -52,6 +53,12 @@ public class Lawnmower : Interactable
         playerRB.angularDrag = 1.0f;
 
         player.AddComponent<TopdownPlayerController>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+            ExitLawnmower();
     }
     #endregion
     void ExitLawnmower()
@@ -85,10 +92,14 @@ public class Lawnmower : Interactable
         {
             // Destroy grass
             Destroy(other.gameObject);
-            destroyedCount++;
+            if (grassMaster.childCount == 1)
+            {
+                Debug.Log("Complete");
+                GameManager.Instance.taskManager.UpdateTaskCompletion("Mow Lawn");
+                ExitLawnmower();
+            }
        /*     if (destroyedCount >= 100)
                 ExitLawnmower();*/
-            Debug.Log("Grass Destroyed: " + destroyedCount);
         }
         if (other.name == "Bomb")
         {
