@@ -25,6 +25,8 @@ public class TaskManager : MonoBehaviour
         {
             throw new Exception("Not Enough Traps in GameManager");
         }
+        FindNotepadText();
+        UpdateNotepad();
     }
 
     void FindNotepadText()
@@ -32,6 +34,8 @@ public class TaskManager : MonoBehaviour
         notepadText[0] = GameObject.Find("Notepad Task One").GetComponent<TextMeshPro>();
         notepadText[1] = GameObject.Find("Notepad Task Two").GetComponent<TextMeshPro>();
         notepadText[2] = GameObject.Find("Notepad Task Three").GetComponent<TextMeshPro>();
+
+        GameObject.Find("Notepad").SetActive(false);
     }
 
     /* AllTasksComplete
