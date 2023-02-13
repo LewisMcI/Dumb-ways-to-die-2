@@ -139,6 +139,7 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = false;
+        tv.transform.GetChild(0).GetComponent<VideoPlayer>().Stop();
 
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
