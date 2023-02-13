@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region fields
-
     // Managers
     public static GameManager Instance;
     public TaskManager taskManager;
@@ -14,14 +13,14 @@ public class GameManager : MonoBehaviour
 
     // Set in inspector Dependencies
     [SerializeField]
-    GameUI gameUI;
+    private GameUI gameUI;
 
     // Instatiating variables.
     private bool enableControls = true;
     private bool enableCamera = true;
-    private bool gameState = true;
-
+    private bool isPaused;
     #endregion
+
     #region properties
     public bool EnableControls
     {
@@ -32,6 +31,10 @@ public class GameManager : MonoBehaviour
     {
         get { return enableCamera; }
         set { enableCamera = value; }
+    }
+    public bool IsPaused
+    {
+        get { return isPaused; }
     }
     #endregion
 
@@ -65,9 +68,9 @@ public class GameManager : MonoBehaviour
         InitTasks();
     }
 
-    /* InitializeTasks
-     * Inits Tasks for the day.
-     */
+    /// <summary>
+    ///  Inits Tasks for the day.
+    /// </summary>
     private void InitTasks()
     {
         Task[] tempTasks = taskManager.TodaysTasks;
@@ -76,27 +79,24 @@ public class GameManager : MonoBehaviour
         Debug.Log("Breakfast task is: " + tempTasks[0].name + ", Midday Task is: " + tempTasks[1].name + ", Final Task is: " + tempTasks[2].name);
     }
 
-
-    private void Update()
-    {
-        // TODO: ektor what is this??????
-        // Rotate towards book when paused
-        if (!gameState)
-        {
-            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, new Vector3(0.05f, 1.65f, 0.23f), 5f * Time.deltaTime);
-            Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, Quaternion.Euler(-6, -8, -2), 3f * Time.deltaTime);
-        }
-    }
-
-    /* PauseGame
-     * Sets game state equal to false and activates game ui.
-     */
+    /// <summary>
+    ///  Sets game state equal to false and activates game ui.
+    /// </summary>
     public void PauseGame()
     {
         Debug.Log("Pause Game");
-        gameState = !gameState;
+        isPaused = !isPaused;
 
-        if (gameState)
+        // Paused
+        if (isPaused)
+        {
+            GameUI.Instance.pauseMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            enableControls = false;
+            EnableCamera = false;
+        }
+        // Unpaused
+        else
         {
             enableControls = true;
             EnableCamera = true;
@@ -104,20 +104,13 @@ public class GameManager : MonoBehaviour
             GameUI.Instance.settingsMenu.SetActive(false);
             GameUI.Instance.pauseText.SetActive(true);
         }
-        else
-        {
-            GameUI.Instance.pauseMenu.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            enableControls = false;
-            EnableCamera = false;
-        }
 
         PlayerController.Instance.Book();
     }
 
-    /* Restarts Scene
-     * 
-     */
+    /// <summary>
+    ///  Restarts current scene.
+    /// </summary>
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
