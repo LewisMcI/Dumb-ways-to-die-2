@@ -22,7 +22,7 @@ public class ToothBrush : Interactable
         bubbleVFX.Play();
 
         // Mark as complete
-        //GameManager.Instance.taskManager.UpdateTaskCompletion("Brush Teeth");
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Brush Teeth");
 
         // Play grab animation
         Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
