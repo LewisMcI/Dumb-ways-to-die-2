@@ -66,20 +66,26 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Controls
         if (GameManager.Instance.EnableControls)
         {
             Jump();
             Crouch();
         }
 
-        // Book (Pause)
-        if (Input.GetButtonDown("Pause Game") && !dead && GameManager.Instance.EnableControls)
+        // Book
+        if (Input.GetButtonDown("Pause Game") && !dead)
+        {
             GameManager.Instance.PauseGame();
+        }
 
         // Notepad
         if (Input.GetButtonDown("Notepad"))
+        {
             anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+        }
 
+        // Death
         if (dead)
         {
             if (restartTimer <= 0.0f)
@@ -167,15 +173,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DisableRagdoll()
-    {
-        foreach (Rigidbody rig in limbs)
-        {
-            rig.isKinematic = true;
-            rig.detectCollisions = false;
-        }
-    }
-
     private void EnableRagdoll()
     {
         GameManager.Instance.EnableControls = false;
@@ -187,6 +184,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void DisableRagdoll()
+    {
+        foreach (Rigidbody rig in limbs)
+        {
+            rig.isKinematic = true;
+            rig.detectCollisions = false;
+        }
+    }
+
     public void AddRagdollForce(Vector3 force)
     {
         foreach (Rigidbody rig in limbs)
@@ -195,6 +201,7 @@ public class PlayerController : MonoBehaviour
                 rig.velocity = force;
         }
     }
+
     public void EnableNewCamera(SelectCam camera)
     {
         GameManager.Instance.EnableCamera = false;
@@ -260,11 +267,6 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
-    }
-
-    public void Book()
-    {
-        anim.SetBool("Book", !anim.GetBool("Book"));
     }
 
     public enum SelectCam

@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
-        Debug.Log("Pause Game");
         isPaused = !isPaused;
 
         // Paused
@@ -105,7 +104,8 @@ public class GameManager : MonoBehaviour
             GameUI.Instance.pauseText.SetActive(true);
         }
 
-        PlayerController.Instance.Book();
+        // Trigger book animation
+        PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Book", IsPaused);
     }
 
     /// <summary>
