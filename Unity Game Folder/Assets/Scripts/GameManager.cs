@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     #region fields
 
-    // Managerrs
+    // Managers
     public static GameManager Instance;
     public TaskManager taskManager;
     GameSettings settings;
@@ -70,9 +70,10 @@ public class GameManager : MonoBehaviour
      */
     private void InitTasks()
     {
-        if(!taskManager.GenerateTasks())
+        Task[] tempTasks = taskManager.TodaysTasks;
+        if(!tempTasks[0])
             throw new Exception("Failed to Initialize Tasks");
-        Debug.Log("Breakfast task is: " + taskManager.TodaysTasks[0].name + ", Midday Task is: " + taskManager.TodaysTasks[1].name + ", Final Task is: " + taskManager.TodaysTasks[2].name);
+        Debug.Log("Breakfast task is: " + tempTasks[0].name + ", Midday Task is: " + tempTasks[1].name + ", Final Task is: " + tempTasks[2].name);
     }
 
 
