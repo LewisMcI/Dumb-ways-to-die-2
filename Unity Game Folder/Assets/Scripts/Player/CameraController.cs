@@ -49,6 +49,13 @@ public class CameraController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+
+        // Rotate camera towards book when paused
+        if (GameManager.Instance.IsPaused)
+        {
+            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, new Vector3(0.05f, 1.65f, 0.23f), 5f * Time.deltaTime);
+            Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, Quaternion.Euler(-6, -8, -2), 4f * Time.deltaTime);
+        }
     }
 
     Vector2 currMouseDelta = Vector2.zero;
