@@ -8,6 +8,7 @@ public class Bread : Interactable
     public override void Action()
     {
         AudioManager.Instance.PlayAudio("Eat");
+        GameObject.Find("Eating").GetComponent<ParticleSystem>().Play();
         CanInteract = false;
         transform.GetComponent<Renderer>().enabled = false;
 
