@@ -7,8 +7,11 @@ public class Bread : Interactable
     #region methods
     public override void Action()
     {
+        // Play SFX
         AudioManager.Instance.PlayAudio("Eat");
-        GameObject.Find("Eating").GetComponent<ParticleSystem>().Play();
+        // Play eat FX
+        Camera.main.transform.Find("VFX").transform.Find("Eating Effect").GetComponent<ParticleSystem>().Play();
+
         CanInteract = false;
         transform.GetComponent<Renderer>().enabled = false;
 
