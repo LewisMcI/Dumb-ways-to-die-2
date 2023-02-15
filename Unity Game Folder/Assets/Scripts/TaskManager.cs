@@ -81,6 +81,11 @@ public class TaskManager : MonoBehaviour
                 task.stepsComplete++;
                 if (task.stepsComplete >= task.steps)
                 {
+                    // Advance time
+                    DynamicSky.Instance.AdvanceTime();
+                    // Play time pass SFX
+                    DynamicSky.Instance.transform.GetComponent<AudioSource>().Play();
+
                     foreach (var text in notepadText)
                     {
 #pragma warning disable CS0642 // Possible mistaken empty statement

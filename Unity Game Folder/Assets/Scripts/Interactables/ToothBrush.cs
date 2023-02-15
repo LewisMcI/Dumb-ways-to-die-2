@@ -5,21 +5,15 @@ using UnityEngine.VFX;
 
 public class ToothBrush : Interactable
 {
-    VisualEffect bubbleVFX;
-
     #region methods
-    private void Awake()
-    {
-        bubbleVFX = GameObject.Find("Player Bubble Effect").GetComponent<VisualEffect>();
-        if (!bubbleVFX)
-            Debug.Log("Could not find player bubble effect");
-    }
     public override void Action()
     {
-        // Play animations, effects and audio
+        // Play animation
         GetComponent<Animator>().SetTrigger("React");
+        // Play audio
         AudioManager.Instance.PlayAudio("Brush Teeth");
-        bubbleVFX.Play();
+        // Play bubble FX
+        Camera.main.transform.Find("VFX").transform.Find("Bubble Effect").GetComponent<VisualEffect>().Play();
 
         // Mark as complete
         GameManager.Instance.taskManager.UpdateTaskCompletion("Brush Teeth");

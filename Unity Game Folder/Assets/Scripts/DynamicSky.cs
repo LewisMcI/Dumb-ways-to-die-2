@@ -11,6 +11,7 @@ public class DynamicSky : MonoBehaviour
     [SerializeField]
     [Range(0.0f, 24.0f)]
     private float timeOfDay;
+    private float targetTime;
     [SerializeField]
     private float orbitSpeed, cloudSpeed;
     private float cloudRotation;
@@ -26,6 +27,8 @@ public class DynamicSky : MonoBehaviour
     private Cubemap daySkybox, nightSkybox;
 
     private bool isNight;
+
+    public static DynamicSky Instance;
     #endregion
 
     #region properties
@@ -37,6 +40,10 @@ public class DynamicSky : MonoBehaviour
     {
         // Get sky
         skyVolume.sharedProfile.TryGet<PhysicallyBasedSky>(out sky);
+        // Set starting time
+        targetTime = timeOfDay;
+
+        Instance = this;
     }
 
     private void OnValidate()
@@ -49,8 +56,13 @@ public class DynamicSky : MonoBehaviour
 
     private void Update()
     {
+        if (timeOfDay < targetTime)
+        {
+            timeOfDay += orbitSpeed * Time.deltaTime;
+        }
+
         // Increase time of day
-        timeOfDay += orbitSpeed * Time.deltaTime;
+        //timeOfDay += orbitSpeed * Time.deltaTime;
         // Reset time of day
         if (timeOfDay > 24.0f)
             timeOfDay = 0.0f;
@@ -78,9 +90,6 @@ public class DynamicSky : MonoBehaviour
         // Set light intesity
         sun.transform.GetChild(0).GetComponent<Light>().intensity = dayNightCurve.Evaluate(alpha) * 4000.0f;
         moon.transform.GetChild(0).GetComponent<Light>().intensity = dayNightCurve.Evaluate(alpha) * 50.0f;
-        //sun.transform.GetChild(0).GetComponent<Light>().shadowStrength = dayNightCurve.Evaluate(alpha);
-        //moon.transform.GetChild(0).GetComponent<Light>().shadowStrength = dayNightCurve.Evaluate(alpha);
-
 
         CheckNightDayTransition();
     }
@@ -123,6 +132,11 @@ public class DynamicSky : MonoBehaviour
         sky.spaceEmissionTexture.value = nightSkybox;
 
         isNight = true;
+    }
+
+    public void AdvanceTime()
+    {
+        targetTime += 6.0f;
     }
     #endregion
 }
