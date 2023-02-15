@@ -6,9 +6,9 @@ public class Plate : Interactable
 {
     #region fields
     [SerializeField]
-    private Mesh breadJam;
+    private Mesh knifeJam;
 
-    private GameObject bread;
+    private GameObject bread, jam, knife;
     #endregion
 
     #region methods
@@ -22,46 +22,60 @@ public class Plate : Interactable
             Text = "";
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.name == "Toasted Bread")
         {
-            GameObject obj = collision.gameObject;
+            bread = collision.gameObject;
             InteractionSystem.Instance.DropObject();
 
             // Remove rigidbody
-            Destroy(obj.GetComponent<Rigidbody>());
+            Destroy(bread.GetComponent<Rigidbody>());
             // Attach to plate
-            obj.transform.parent = transform;
+            bread.transform.parent = transform;
             // Set transform
-            obj.transform.localPosition = new Vector3(0.1f, 0.02f, 0.0f);
-            obj.transform.localEulerAngles = new Vector3(0.0f, 90f, 0.0f);
-            obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            bread.transform.localPosition = new Vector3(0.1f, 0.02f, 0.0f);
+            bread.transform.localEulerAngles = new Vector3(0.0f, 90f, 0.0f);
+            bread.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             // Make non-pickable
-            obj.GetComponent<Bread>().CanInteract = false;
+            bread.GetComponent<Bread>().CanInteract = false;
             // Reset text
-            obj.GetComponent<Bread>().Text = "";
-            // Disable collider
-            obj.GetComponent<Collider>().enabled = false;
+            bread.GetComponent<Bread>().Text = "";
+            // Mark as placed
+            bread.GetComponent<Bread>().Placed = true;
+
             GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
-            // Save
-            bread = obj;
         }
-        else if (collision.transform.name == "Jam" && bread)
+        else if (collision.transform.name == "Jam")
         {
-            // Play sfx
-            AudioManager.Instance.PlayAudio("Spread");
-            // Change mesh
-            bread.GetComponent<MeshFilter>().mesh = breadJam;
-            // Make interactable
-            bread.GetComponent<Bread>().Type = InteractableType.Other;
-            bread.GetComponent<Bread>().CanInteract = true;
-            // Change text
-            bread.GetComponent<Bread>().Text = "Eat";
-            // Enable collider
-            bread.GetComponent<Collider>().enabled = true;
-            bread = null;
+            jam = collision.gameObject;
+
+            // Drop jam from player
+            InteractionSystem.Instance.DropObject();
+            // Disable interaction with jam
+            jam.GetComponent<Interactable>().CanInteract = false;
+            // Remove jam rigidbody
+            Destroy(jam.GetComponent<Rigidbody>());
+
+            // Snap to position
+            jam.transform.position = new Vector3(-6.85f, 1.68f, 8.6f);
+            jam.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            // Play open jam animation
+            jam.GetComponent<Animator>().SetTrigger("Open");
+
             GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
+        }
+        else if (collision.transform.name == "Knife" && jam)
+        {
+            if (knife == null)
+                GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
+
+            knife = collision.gameObject;
+
+            knife.name = "Knife Jam";
+            // Change mesh
+            knife.GetComponent<MeshFilter>().mesh = knifeJam;
+
         }
     }
     #endregion

@@ -96,6 +96,8 @@ public class TrapToaster : Interactable
         bread.GetComponent<Bread>().CanInteract = true;
         // Change text
         bread.GetComponent<Bread>().Text = "Pick Up";
+        // Mark as toasted
+        bread.GetComponent<Bread>().Toasted = true;
         // Move slightly up
         bread.transform.position += Vector3.up * 0.025f;
         // Reset
