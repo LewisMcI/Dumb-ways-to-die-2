@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
+using Application = UnityEngine.Application;
 
 public class GameSettings : MonoBehaviour
 {
@@ -26,6 +28,8 @@ public class GameSettings : MonoBehaviour
     public int displayMode;
 
     public static GameSettings Instance;
+
+    private const string DEFAULT_VALUE = "masterVolume=10,musicVolume=-50,vfxVolume=-50,sensitivity=3,loadTutorial=False,quality=2,displayMode=0";
     private void Start()
     {
         if (Instance != null)
@@ -36,6 +40,10 @@ public class GameSettings : MonoBehaviour
 
         LoadSettings();
     }
+    private void SetDefaultSettings()
+    {
+        File.WriteAllText(Application.dataPath + "/Resources/options.txt", DEFAULT_VALUE);
+    }
 
     private void LoadSettings()
     {
@@ -45,6 +53,12 @@ public class GameSettings : MonoBehaviour
         saveString = Regex.Replace(saveString, @"\s+", "");
 
         char[] listOfChar = saveString.ToCharArray();
+
+        if (listOfChar.Length == 0)
+        {
+            SetDefaultSettings();
+        }
+
         List<string> values = new List<string>() ;
         string tempString = "";
         foreach (char character in listOfChar)
