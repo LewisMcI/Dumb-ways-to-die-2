@@ -49,7 +49,7 @@ public class TrapCabinet : Interactable
         {
             // Cast ray to see if player will be hit
             RaycastHit hit;
-            if (Physics.BoxCast(transform.GetChild(0).GetChild(0).transform.position, new Vector3(0.5f, 0.2f, 0.6f), Vector3.right, out hit, Quaternion.identity, 3f))
+            if (Physics.BoxCast(transform.GetChild(0).GetChild(0).transform.position, new Vector3(0.3f, 0.2f, 0.6f), Vector3.right, out hit, Quaternion.identity, 3f))
             {
                 if (hit.transform.tag == "Player" || hit.transform.tag == "MainCamera")
                     StartCoroutine(TriggerTrap());
