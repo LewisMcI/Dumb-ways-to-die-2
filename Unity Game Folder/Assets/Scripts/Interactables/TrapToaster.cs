@@ -26,8 +26,10 @@ public class TrapToaster : Interactable
     private void Awake()
     {
         if (bread == null || knife == null || jam == null || plate == null)
+        {
             if (kills == true)
                 throw new Exception("Toaster trap has not yet been set up!");
+        }
     }
 
     private void Update()
@@ -52,7 +54,10 @@ public class TrapToaster : Interactable
             if (knife != null && knife.transform.parent != null && kills)
                 StartCoroutine(KillPlayer());
             else
+            {
                 StartCoroutine(ChangeBread());
+                Debug.Log("asd");
+            }
 
             // Remove rigidbody
             Destroy(obj.GetComponent<Rigidbody>());
