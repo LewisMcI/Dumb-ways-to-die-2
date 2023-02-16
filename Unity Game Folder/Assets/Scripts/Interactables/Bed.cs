@@ -44,7 +44,7 @@ public class Bed : Interactable
             yield return new WaitForSeconds(time / iterations);
         }
 
-
+        GameManager.Instance.taskManager.ResetAllTraps();
         // TODO: FIX this!!!
 
         if (SceneManager.GetActiveScene().name == "Main Scene")
