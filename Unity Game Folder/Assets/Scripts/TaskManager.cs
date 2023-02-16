@@ -29,6 +29,13 @@ public class TaskManager : MonoBehaviour
         UpdateNotepad();
     }
 
+    public void ResetAllTraps()
+    {
+        foreach(var task in todaysTasks)
+        {
+            task.Reset();
+        }
+    }
     void FindNotepadText()
     {
         notepadText[0] = GameObject.Find("Notepad Task One").GetComponent<TextMeshPro>();
