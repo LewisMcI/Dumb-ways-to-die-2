@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bed : Interactable
 {
@@ -42,7 +43,26 @@ public class Bed : Interactable
             PlayerController.Instance.transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
             yield return new WaitForSeconds(time / iterations);
         }
-        GameManager.Instance.Restart();
+
+        GameManager.Instance.taskManager.ResetAllTraps();
+        // TODO: FIX this!!!
+
+        if (SceneManager.GetActiveScene().name == "Main Scene")
+        {
+            SceneManager.LoadScene("Level 2");
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            SceneManager.LoadScene("Level 3");
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            SceneManager.LoadScene("Level 4");
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 4")
+        {
+            SceneManager.LoadScene("Level 5");
+        }
     }
     #endregion
 }

@@ -265,8 +265,13 @@ public class PlayerController : MonoBehaviour
     {
         while (anim.GetCurrentAnimatorStateInfo(0).IsName("WakeUp"))
             yield return new WaitForSeconds(0.25f);
+        notepad.SetActive(true);
+
+        GameManager.Instance.taskManager.FindNotepadText();
+
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+
     }
 
     public enum SelectCam
