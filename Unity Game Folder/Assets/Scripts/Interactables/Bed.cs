@@ -47,7 +47,7 @@ public class Bed : Interactable
         GameManager.Instance.taskManager.ResetAllTraps();
         // TODO: FIX this!!!
 
-        if (SceneManager.GetActiveScene().name == "Main Scene")
+        if (SceneManager.GetActiveScene().name == "Level 1")
         {
             SceneManager.LoadScene("Level 2");
         }
