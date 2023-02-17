@@ -247,8 +247,17 @@ public class PlayerController : MonoBehaviour
 
     public void Die(SelectCam camera, float delay)
     {
+        GameManager.Instance.EnableCamera = false;
         GameManager.Instance.EnableControls = false;
         EnableNewCamera(camera);
+        dead = true;
+        Debug.Log(dead);
+
+        StartCoroutine(KillPlayer(delay));
+    }
+    public void Die(float delay)
+    {
+        GameManager.Instance.EnableControls = false;
         dead = true;
         Debug.Log(dead);
 
