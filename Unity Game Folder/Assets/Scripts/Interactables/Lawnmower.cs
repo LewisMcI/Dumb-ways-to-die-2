@@ -17,6 +17,9 @@ public class Lawnmower : Interactable
 
     public VisualEffect explosionVFX;
     public AudioSource explosionSFX;
+
+    [SerializeField]
+    private List<BoxCollider> walls;
     #endregion
 
     #region methods
@@ -52,6 +55,11 @@ public class Lawnmower : Interactable
         // Set new angular drag on player.
         playerRB.angularDrag = 1.0f;
 
+        // Enable Invisible Walls
+        foreach (var wall in walls)
+        {
+            wall.enabled = true;
+        }
         player.AddComponent<TopdownPlayerController>();
     }
 
@@ -63,6 +71,10 @@ public class Lawnmower : Interactable
     #endregion
     void ExitLawnmower()
     {
+        foreach (var wall in walls)
+        {
+            wall.enabled = true;
+        }
         GameObject player;
         // Find player
         try
@@ -97,6 +109,7 @@ public class Lawnmower : Interactable
                 Debug.Log("Complete");
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Mow Lawn");
                 ExitLawnmower();
+                Destroy(this);
             }
        /*     if (destroyedCount >= 100)
                 ExitLawnmower();*/
