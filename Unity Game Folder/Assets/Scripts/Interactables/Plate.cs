@@ -58,8 +58,10 @@ public class Plate : Interactable
             Destroy(jam.GetComponent<Rigidbody>());
 
             // Snap to position
-            jam.transform.position = new Vector3(-6.85f, 1.68f, 8.6f);
+            jam.transform.position = new Vector3(-6.9f, 1.39f, 8.3f);
             jam.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            //jam.transform.position = new Vector3(-6.75f, 1.5f, 8.3f);
+            //jam.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             // Play open jam animation
             jam.GetComponent<Animator>().SetTrigger("Open");
 
