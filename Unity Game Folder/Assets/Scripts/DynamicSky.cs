@@ -43,6 +43,8 @@ public class DynamicSky : MonoBehaviour
         // Set starting time
         targetTime = timeOfDay;
 
+        UpdateTime();
+
         Instance = this;
     }
 
@@ -50,6 +52,8 @@ public class DynamicSky : MonoBehaviour
     {
         // Get sky
         skyVolume.sharedProfile.TryGet<PhysicallyBasedSky>(out sky);
+        // Set starting time
+        targetTime = timeOfDay;
 
         UpdateTime();
     }
