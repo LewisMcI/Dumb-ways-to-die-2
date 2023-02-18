@@ -7663,7 +7663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8907421009724771879}
   m_LocalRotation: {x: 0.51021564, y: -0.48957112, z: -0.48957133, w: 0.5102157}
-  m_LocalPosition: {x: 3.399, y: 1.298, z: -0.621}
+  m_LocalPosition: {x: 3.413, y: 1.024, z: -0.621}
   m_LocalScale: {x: 1.0003409, y: 1.25, z: 1.2494677}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8150,6 +8150,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 98dbeea0d606bb2478336a5e6f7a2a92, type: 3}
   m_PrefabInstance: {fileID: 4866143128698482614}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &3205612654514454929
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713214928459584231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.7996957, z: 1.9993355}
+  m_Center: {x: 0.000015258789, y: -0.098336846, z: -0.0003322065}
 --- !u!114 &4009536982598306773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8165,19 +8178,6 @@ MonoBehaviour:
   type: 0
   text: Pick Up
   keepRotation: 1
---- !u!65 &3205612654514454929
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5713214928459584231}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 1.7996957, z: 1.9993355}
-  m_Center: {x: 0.000015258789, y: -0.098336846, z: -0.0003322065}
 --- !u!1001 &5209706837119276175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8738,6 +8738,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 7244982341080433345, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7244982341080433345, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2187e073d2f56024794019ea129aeadc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
 --- !u!4 &7951750928188743926 stripped
