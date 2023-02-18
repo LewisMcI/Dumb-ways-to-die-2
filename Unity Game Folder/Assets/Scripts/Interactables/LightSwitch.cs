@@ -13,7 +13,7 @@ public class LightSwitch : Interactable
     [SerializeField]
     private Material emissionOn, emissionOff;
 
-    private bool isOn = true;
+    private bool isOff;
     #endregion
 
     #region methods
@@ -25,14 +25,14 @@ public class LightSwitch : Interactable
     public override void Action()
     {
         // Switch
-        isOn = !isOn;
+        isOff = !isOff;
 
         // Set lights
         foreach (GameObject light in lights)
-            light.SetActive(isOn);
+            light.SetActive(isOff);
         // Set bulbs
         foreach (MeshRenderer bulb in bulbs)
-            bulb.material = (isOn) ? emissionOn : emissionOff;
+            bulb.material = (isOff) ? emissionOn : emissionOff;
 
         // Switch scale
         transform.parent.localScale = (lights[0].activeSelf) ? new Vector3(1.0f, -1.0f, 1.0f) : Vector3.one;
