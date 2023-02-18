@@ -63,16 +63,23 @@ public class Smashable : MonoBehaviour
                 Rigidbody newRb;
                 try
                 {
-                    newRb = piece.AddComponent<Rigidbody>();
+
+                    newRb = piece.GetComponent<Rigidbody>();
+
+                    // Adds explosive force to separate objects.
+                    newRb.AddExplosionForce(10, Vector3.down, 10);
+                    // Audio
+                    AudioManager.Instance.PlayAudio("Bottle Smash");
                 }
                 catch
                 {
-                    newRb = piece.GetComponent<Rigidbody>();
+                    newRb = piece.AddComponent<Rigidbody>();
+
+                    // Adds explosive force to separate objects.
+                    newRb.AddExplosionForce(10, Vector3.down, 10);
+                    // Audio
+                    AudioManager.Instance.PlayAudio("Bottle Smash");
                 }
-                // Adds explosive force to separate objects.
-                newRb.AddExplosionForce(10, Vector3.down, 10);
-                // Audio
-                AudioManager.Instance.PlayAudio("Bottle Smash");
             }
             // Destroys bottle and it's pieces after time.
             StartCoroutine(DestroyAfterSeconds(destroyTime));

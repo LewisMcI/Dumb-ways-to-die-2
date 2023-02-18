@@ -23,13 +23,29 @@ public class Lawnmower : Interactable
     public AudioClip lawnmowerEnd;
 
     public GameObject grassBlock;
+    [SerializeField]
+    private int minSpawnGrass = 45;
+    [SerializeField]
+    private int maxSpawnGrass = 100;
+    private int noToSpawnGrass;
+    private int noOfGrass;
 
+    [SerializeField][Range(0.0f, 1.0f)]
+    private float percentDestroyedToWin = 0.75f;
+
+    private int noToWin;
     bool active = false;
     [SerializeField]
     private List<BoxCollider> walls;
     #endregion
 
     #region methods
+    private void Awake()
+    {
+        noToSpawnGrass = Random.Range(minSpawnGrass, maxSpawnGrass);
+        noOfGrass = grassMaster.childCount;
+        noToWin = (int)(noOfGrass * (1-percentDestroyedToWin));
+    }
     public override void Action()
     {
         active = true;
@@ -140,11 +156,18 @@ public class Lawnmower : Interactable
         {
             // Destroy grass
             Destroy(other.gameObject);
-            if (grassMaster.childCount % 50 == 0)
+            noOfGrass--;
+            noToSpawnGrass--;
+            Debug.Log(noOfGrass);
+            if (noToSpawnGrass == 0)
             {
-                Instantiate(grassBlock, transform.position + (-transform.forward * 2) + new Vector3(0, -1, 0), Quaternion.identity);
+                noToSpawnGrass = Random.Range(minSpawnGrass, maxSpawnGrass);
+                Debug.Log("Spawned, next is: " + noToSpawnGrass);
+                Rigidbody newRb = Instantiate(grassBlock, transform.position + (-transform.forward * 2) + new Vector3(0, -1, 0), Quaternion.identity).GetComponent<Rigidbody>();
+                newRb.AddForce(-transform.forward * 2, ForceMode.Impulse);
+
             }
-            else if (grassMaster.childCount == 1)
+            else if (grassMaster.childCount <= noToWin)
             {
                 Debug.Log("Complete");
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Mow Lawn");
@@ -155,16 +178,21 @@ public class Lawnmower : Interactable
         }
         if (other.name == "Bomb"|| other.name == "Block of Grass(Clone)")
         {
-            StartCoroutine(KillPlayer());
-            explosionSFX.Play();
-            Destroy(other.gameObject);
-            explosionVFX.Play();
+            Rigidbody otherRb = other.gameObject.GetComponent<Rigidbody>();
+            if (!otherRb)
+                otherRb = other.gameObject.AddComponent<Rigidbody>();
+            otherRb.AddForce(-transform.forward * 400, ForceMode.Force);
+            StartCoroutine(KillPlayer(other.gameObject));
 
         }
     }
 
-    IEnumerator KillPlayer()
+    IEnumerator KillPlayer(GameObject other)
     {
+        yield return new WaitForSeconds(0.5f);
+        explosionSFX.Play();
+        Destroy(other.gameObject);
+        explosionVFX.Play();
         // Disable player controller.
         PlayerController.Instance.GetComponent<TopdownPlayerController>().enabled = false;
         lawnmowerStartup.Stop();
