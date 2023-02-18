@@ -54,10 +54,7 @@ public class TrapToaster : Interactable
             if (knife != null && knife.transform.parent != null && kills)
                 StartCoroutine(KillPlayer());
             else
-            {
                 StartCoroutine(ChangeBread());
-                Debug.Log("asd");
-            }
 
             // Remove rigidbody
             Destroy(obj.GetComponent<Rigidbody>());

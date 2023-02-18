@@ -61,7 +61,6 @@ public class Bread : Interactable
             GetComponent<Bread>().Text = "Eat";
             // Enable collider
             GetComponent<Collider>().enabled = true;
-
         }
     }
     #endregion

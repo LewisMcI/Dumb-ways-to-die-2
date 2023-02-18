@@ -17,7 +17,7 @@ public class LightSwitch : Interactable
     #endregion
 
     #region methods
-    private void Awake()
+    private void Start()
     {
         Action();
     }
