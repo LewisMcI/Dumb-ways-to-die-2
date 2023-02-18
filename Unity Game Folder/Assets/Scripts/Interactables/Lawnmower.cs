@@ -64,6 +64,9 @@ public class Lawnmower : Interactable
         // Set new angular drag on player.
         playerRB.angularDrag = 1.0f;
 
+        // Play player lawnmower animation
+        PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Lawnmower", true);
+
         // Enable Invisible Walls
         foreach (var wall in walls)
         {
@@ -76,8 +79,20 @@ public class Lawnmower : Interactable
     {
         if (active)
         {
-            if (Input.GetKey(KeyCode.Escape))
+            Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
+            // Get axis
+            Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            // If moving diagonally normalise vector so that speed remains the same
+            if (dir.magnitude > 1.0f)
+                dir.Normalize();
+            // Set animation parameters
+            anim.SetFloat("dirX", dir.x);
+            anim.SetFloat("dirY", dir.y);
+
+            if (Input.GetKey(KeyCode.Escape) && !PlayerController.Instance.Dead)
+            {
                 ExitLawnmower();
+            }
 
             if (!lawnmowerStartup.isPlaying)
             {
@@ -116,6 +131,7 @@ public class Lawnmower : Interactable
         player.GetComponent<Rigidbody>().angularDrag = initAngularDrag;
         // Enable player controller.
         PlayerController.Instance.enabled = true;
+        PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Lawnmower", false);
     }
     private void OnTriggerEnter(Collider other)
     {
