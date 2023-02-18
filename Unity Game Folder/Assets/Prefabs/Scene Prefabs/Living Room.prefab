@@ -3913,6 +3913,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
   m_PrefabInstance: {fileID: 3577812435337781916}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &6137747107191939165 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7244982341080433345, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+  m_PrefabInstance: {fileID: 3577812435337781916}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4456615243677498794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4430,6 +4435,14 @@ PrefabInstance:
       propertyPath: active
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6137747107191939165}
     - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
       propertyPath: lights.Array.data[0]
       value: 

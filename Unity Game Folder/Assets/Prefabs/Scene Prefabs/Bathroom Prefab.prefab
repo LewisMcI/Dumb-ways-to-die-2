@@ -4438,6 +4438,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 044fd02c8ce09a84c9146ec6262f2cd4, type: 3}
+--- !u!23 &4027140501486723468 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8147331928722836213, guid: 044fd02c8ce09a84c9146ec6262f2cd4, type: 3}
+  m_PrefabInstance: {fileID: 4111111591359059079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4505608746706137964 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 044fd02c8ce09a84c9146ec6262f2cd4, type: 3}
@@ -5030,6 +5035,10 @@ MonoBehaviour:
   keepRotation: 1
   lights:
   - {fileID: 351330165741130064}
+  bulbs:
+  - {fileID: 4027140501486723468}
+  emissionOn: {fileID: 2100000, guid: 2187e073d2f56024794019ea129aeadc, type: 2}
+  emissionOff: {fileID: 2100000, guid: d9b07a2279ba89b48b0aaa19358d87c1, type: 2}
 --- !u!1001 &7808503193905182686
 PrefabInstance:
   m_ObjectHideFlags: 0

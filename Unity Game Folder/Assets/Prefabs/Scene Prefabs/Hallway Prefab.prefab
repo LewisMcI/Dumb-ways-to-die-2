@@ -1023,7 +1023,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2340.1577
+  m_Intensity: 3183.0989
   m_Range: 16
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3883,6 +3883,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
   m_PrefabInstance: {fileID: 230292144737491651}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &7474128691354130434 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7244982341080433345, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+  m_PrefabInstance: {fileID: 230292144737491651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3512845138912521716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4189,6 +4194,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
   m_PrefabInstance: {fileID: 3846733078653257549}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5902264553853191564 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7244982341080433345, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+  m_PrefabInstance: {fileID: 3846733078653257549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4281750068275475401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4354,6 +4364,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5902264553853191564}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.data[1]
+      value: 
+      objectReference: {fileID: 7474128691354130434}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
       propertyPath: lights.Array.data[0]
       value: 
       objectReference: {fileID: 2720252913675342562}
@@ -4389,6 +4411,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  bulbs: []
+  emissionOn: {fileID: 0}
+  emissionOff: {fileID: 0}
 --- !u!1001 &5117569601988487130
 PrefabInstance:
   m_ObjectHideFlags: 0

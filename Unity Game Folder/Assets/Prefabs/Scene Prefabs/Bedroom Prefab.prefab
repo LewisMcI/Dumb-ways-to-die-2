@@ -6175,7 +6175,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 1, y: 1}
   - {x: 1, y: 0}
-  - {x: 0.022318333, y: -0.30999207}
+  - {x: 0.022318274, y: -0.30999207}
   - {x: 0.022318333, y: 0.12949216}
   - {x: 1.5815818, y: 0.12949204}
   - {x: 1.5815818, y: -0.3099922}
@@ -8587,6 +8587,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: bulbs.Array.data[0]
+      value: 
+      objectReference: {fileID: 962551125267711452}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
       propertyPath: lights.Array.data[0]
       value: 
       objectReference: {fileID: 8907421009724771879}
@@ -8734,6 +8742,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 433929141970192613, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
       propertyPath: m_Name
       value: Main_Light
@@ -8748,6 +8760,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2187e073d2f56024794019ea129aeadc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+--- !u!23 &962551125267711452 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7244982341080433345, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
+  m_PrefabInstance: {fileID: 7624860438717515549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7951750928188743926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f6405a4dba8f0743885cadb3fb7e65d, type: 3}
