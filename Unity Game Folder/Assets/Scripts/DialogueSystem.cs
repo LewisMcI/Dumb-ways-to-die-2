@@ -12,7 +12,7 @@ public class DialogueSystem : Interactable
         public float speed = 0.1f;
         public float waitBetweenLines = 0.2f;
     }
-    public TextMeshProUGUI dialogueText;
+    private TextMeshProUGUI dialogueText;
 
     bool complete = false;
     bool interactable = true;
@@ -28,7 +28,7 @@ public class DialogueSystem : Interactable
             GetComponent<AudioSource>().Play();
             StopAllCoroutines();
             StartCoroutine(StartDialogue());
-            dialogueText.transform.parent.gameObject.SetActive(true);
+            GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -43,17 +43,17 @@ public class DialogueSystem : Interactable
             yield return new WaitForSeconds(dialogue.waitBetweenLines);
         }
         yield return new WaitForSeconds(waitAfterComplete);
-        dialogueText.transform.parent.gameObject.SetActive(false);
-        dialogueText.text = "";
+        GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(false);
+        GameUI.Instance.DialogueText.text = "";
     }
 
     IEnumerator UpdateDialogue(Dialogue dialogue)
     {
-        dialogueText.text = "";
+        GameUI.Instance.DialogueText.text = "";
         foreach (char character in dialogue.text.ToCharArray())
         {
             yield return new WaitForFixedUpdate();
-            dialogueText.text += character;
+            GameUI.Instance.DialogueText.text += character;
             yield return null;
         }
         complete = true;
