@@ -76,7 +76,7 @@ public class InteractionSystem : MonoBehaviour
 
     private void CastRay()
     {
-        if (!PlayerController.Instance.Dead && GameManager.Instance.EnableControls && Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit, 3f))
+        if (!PlayerController.Instance.Dead && GameManager.Instance.EnableControls && Physics.SphereCast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), .025f, out hit, 3f))
         {
             if (hit.transform.GetComponent<Interactable>() && hit.transform.GetComponent<Interactable>().CanInteract)
             {

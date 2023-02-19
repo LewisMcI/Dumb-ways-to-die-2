@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 2080504642040627835}
   - component: {fileID: 6518627951243747133}
   - component: {fileID: 5428630052881065541}
+  - component: {fileID: 8401918470040075431}
   m_Layer: 0
   m_Name: Bookcase_Drawer_B
   m_TagString: Untagged
@@ -276,6 +277,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5935279, y: 0.13345154, z: 0.013986577}
   m_Center: {x: -0.00000016766792, y: 0.001118972, z: 0.0016906976}
+--- !u!114 &8401918470040075431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2856744769949564424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  text: Open
+  keepRotation: 1
 --- !u!1 &4207699009861118056
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,8 +541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
+  type: 1
+  text: Open
   keepRotation: 1
 --- !u!65 &7161551623546555151
 BoxCollider:
