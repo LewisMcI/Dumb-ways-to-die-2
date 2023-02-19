@@ -24,8 +24,8 @@ public class PivotSettings : MonoBehaviour
     public bool open = false;
 
 
-    public Quaternion GetStartingAngle { get => startingAngle; }
-    public Vector3 GetStartingPos { get => startingPos; }
+    public Quaternion StartingAngle { get => startingAngle; set => startingAngle = value;}
+    public Vector3 StartingPos { get => startingPos; set => startingPos = value;}
 
     private void Start()
     {
