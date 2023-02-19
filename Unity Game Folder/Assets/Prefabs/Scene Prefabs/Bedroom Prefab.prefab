@@ -546,7 +546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317282721745252037}
   m_LocalRotation: {x: 0.51021564, y: -0.48957112, z: -0.48957133, w: 0.5102157}
-  m_LocalPosition: {x: 0.479, y: 1.151, z: -2.77}
+  m_LocalPosition: {x: 0.479, y: 0.62499994, z: -2.767}
   m_LocalScale: {x: 1.0003409, y: 1.25, z: 1.2494677}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3157,7 +3157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4285850884162297668}
   m_LocalRotation: {x: 0.51021564, y: -0.48957112, z: -0.48957133, w: 0.5102157}
-  m_LocalPosition: {x: 6.414, y: 1.151, z: 1.216}
+  m_LocalPosition: {x: 6.414, y: 0.62499994, z: 1.2189999}
   m_LocalScale: {x: 1.0003409, y: 1.25, z: 1.2494677}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11012,7 +11012,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9050732608926932528}
   m_LocalRotation: {x: 0.51021564, y: -0.48957112, z: -0.48957133, w: 0.5102157}
-  m_LocalPosition: {x: 0.479, y: 1.151, z: 2.099}
+  m_LocalPosition: {x: 0.479, y: 0.625, z: 2.102}
   m_LocalScale: {x: 1.0003409, y: 1.25, z: 1.2494677}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11895,6 +11895,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: lights.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
       propertyPath: bulbs.Array.data[0]
       value: 
       objectReference: {fileID: 962551125267711452}
@@ -11902,6 +11906,22 @@ PrefabInstance:
       propertyPath: lights.Array.data[0]
       value: 
       objectReference: {fileID: 8907421009724771879}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: lights.Array.data[1]
+      value: 
+      objectReference: {fileID: 317282721745252037}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: lights.Array.data[2]
+      value: 
+      objectReference: {fileID: 9050732608926932528}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: lights.Array.data[3]
+      value: 
+      objectReference: {fileID: 4285850884162297668}
+    - target: {fileID: 6874107674068389774, guid: db889e970a8e879449db44f004cc97fe, type: 3}
+      propertyPath: lights.Array.data[4]
+      value: 
+      objectReference: {fileID: 4285850884162297668}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db889e970a8e879449db44f004cc97fe, type: 3}
 --- !u!4 &5485522312969843595 stripped
