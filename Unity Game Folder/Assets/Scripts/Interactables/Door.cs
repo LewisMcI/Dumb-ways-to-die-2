@@ -63,7 +63,6 @@ public class Door : Interactable
         }
 
         float dot = Quaternion.Dot(transform.parent.rotation.normalized, PlayerController.Instance.transform.rotation.normalized);
-        Debug.Log(dot);
         // Infront of player
         if (dot > -0.7f  && dot < 0.7f)
         {
