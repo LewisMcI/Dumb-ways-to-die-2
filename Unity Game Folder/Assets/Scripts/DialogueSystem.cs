@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueSystem : Interactable
+public class DialogueSystem : MonoBehaviour
 {
     [System.Serializable]
     public class Dialogue
@@ -12,24 +12,18 @@ public class DialogueSystem : Interactable
         public float speed = 0.1f;
         public float waitBetweenLines = 0.2f;
     }
-    private TextMeshProUGUI dialogueText;
 
-    bool complete = false;
-    bool interactable = true;
+    private bool complete = false;
     public float waitAfterComplete = 2.0f;
 
     [SerializeField]
     public List<Dialogue> dialogues = new List<Dialogue>();
 
-    public override void Action()
+    public void TriggerDialogue()
     {
-        if (interactable)
-        {
-            GetComponent<AudioSource>().Play();
-            StopAllCoroutines();
-            StartCoroutine(StartDialogue());
-            GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(true);
-        }
+        StopAllCoroutines();
+        StartCoroutine(StartDialogue());
+        GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(true);
     }
 
     IEnumerator StartDialogue()

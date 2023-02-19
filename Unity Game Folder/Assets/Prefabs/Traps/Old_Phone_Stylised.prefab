@@ -261,7 +261,9 @@ GameObject:
   - component: {fileID: 6671842839098021888}
   - component: {fileID: 6565576231412482023}
   - component: {fileID: 6565576231412482045}
+  - component: {fileID: 662668445788202014}
   - component: {fileID: 6565576231412482020}
+  - component: {fileID: 262705714}
   m_Layer: 0
   m_Name: Old_Phone_Stylised
   m_TagString: Untagged
@@ -312,11 +314,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 92449a14e9ab0ce41b5252dabfbfc6d9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: af55d2862eeee3f40a0a6ad0a71609cf, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -398,6 +400,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &662668445788202014
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331204668447490746}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 407c52c1a875c3043a3c24535749df5b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6565576231412482020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,9 +432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
-  text: Answer
-  keepRotation: 1
   waitAfterComplete: 2
   dialogues:
   - text: Good Morning Mr. Gavinson, this is Dr. Davidson.
@@ -422,6 +441,21 @@ MonoBehaviour:
       be taking your medication.
     speed: 4
     waitBetweenLines: 1
+--- !u!114 &262705714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331204668447490746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67bfca49bd594a743aa83ff82192cf04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Answer
+  keepRotation: 1
 --- !u!1 &6581000908280086262
 GameObject:
   m_ObjectHideFlags: 0
