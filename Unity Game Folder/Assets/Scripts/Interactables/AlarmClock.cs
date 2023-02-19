@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class AlarmClock : Interactable
 {
+    #region fields
+    [SerializeField]
+    private bool enable;
+    #endregion
+
     #region methods
     private void Awake()
     {
-        StartCoroutine(StartAlarm());
-        StartCoroutine(StopAlarm());
+        if (enable)
+        {
+            StartCoroutine(StartAlarm());
+            StartCoroutine(StopAlarm());
+        }
     }
 
     public override void Action()
