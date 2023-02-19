@@ -13,7 +13,7 @@ public class Bed : Interactable
     #region methods
     private void Awake()
     {
-        startingPosition = new Vector3(transform.position.x, transform.position.y +.75f, transform.position.z - 4);
+        startingPosition = new Vector3(transform.position.x, transform.position.y - .1f, transform.position.z);
     }
 
     private void Update()
