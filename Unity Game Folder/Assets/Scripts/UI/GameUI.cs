@@ -16,6 +16,9 @@ public class GameUI : MonoBehaviour
     private Animator dotAnim;
 
     [SerializeField]
+    private TextMeshProUGUI dialogueText;
+
+    [SerializeField]
     private Animator blinkAnim;
 
     public GameObject pauseMenu;
@@ -40,6 +43,11 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI InteractText
     {
         get { return interactText; }
+    }
+
+    public TextMeshProUGUI DialogueText
+    {
+        get { return dialogueText; }
     }
     #endregion
 

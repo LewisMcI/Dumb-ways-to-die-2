@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,8 +18,8 @@ public class GameManager : MonoBehaviour
     private GameUI gameUI;
 
     // Instatiating variables.
-    private bool enableControls = true;
-    private bool enableCamera = true;
+    private bool enableControls = false;
+    private bool enableCamera = false;
     private bool isPaused;
     #endregion
 
@@ -66,6 +68,8 @@ public class GameManager : MonoBehaviour
 
         // InitTasks
         InitTasks();
+
+        StartCoroutine(EnablePlayer());
     }
 
     /// <summary>
@@ -114,6 +118,13 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private IEnumerator EnablePlayer()
+    {
+        yield return new WaitForSeconds(3.3f);
+        enableControls = true;
+        enableCamera = true;
     }
     #endregion
 }
