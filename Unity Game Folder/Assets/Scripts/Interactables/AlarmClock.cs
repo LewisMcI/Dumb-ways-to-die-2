@@ -5,9 +5,10 @@ using UnityEngine;
 public class AlarmClock : Interactable
 {
     #region methods
-    private void Start()
+    private void Awake()
     {
-        Alarm();
+        StartCoroutine(StartAlarm());
+        StartCoroutine(StopAlarm());
     }
 
     public override void Action()
@@ -25,6 +26,18 @@ public class AlarmClock : Interactable
         GetComponent<AudioSource>().Play();
         // Play animation
         GetComponent<Animator>().SetBool("Alarm", true);
+    }
+
+    private IEnumerator StartAlarm()
+    {
+        yield return new WaitForSeconds(0.25f);
+        Alarm();
+    }
+
+    private IEnumerator StopAlarm()
+    {
+        yield return new WaitForSeconds(15f);
+        Action();
     }
     #endregion
 }
