@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 156.33911, g: 178.08522, b: 272.68268, a: 1}
+  m_IndirectSpecularColor: {r: 156.4297, g: 177.84949, b: 272.28284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14121,13 +14121,83 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2687659769623876997, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
+    - {fileID: 7116139532578071768, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
 --- !u!4 &4480756605994552863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1669794308441053673, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
   m_PrefabInstance: {fileID: 4480756605994552862}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4480756605994552864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7130784966631469076, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
+  m_PrefabInstance: {fileID: 4480756605994552862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4480756605994552865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7396095780218532521, guid: 0d407404d62ac4340a2dcd5cb61ee35b, type: 3}
+  m_PrefabInstance: {fileID: 4480756605994552862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4480756605994552866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480756605994552864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  text: Pick Up
+  keepRotation: 1
+--- !u!64 &4480756605994552867
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480756605994552864}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 587366007896238738, guid: a41fffbeab51d0441b9005b62327f5c3, type: 3}
+--- !u!114 &4480756605994552868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480756605994552865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  text: Pick Up
+  keepRotation: 1
+--- !u!64 &4480756605994552869
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480756605994552865}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2232952877369940510, guid: a41fffbeab51d0441b9005b62327f5c3, type: 3}
 --- !u!1 &4764194951597966840
 GameObject:
   m_ObjectHideFlags: 0
