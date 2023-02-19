@@ -190,16 +190,16 @@ public class InteractionSystem : MonoBehaviour
             // Start Coroutine for each
             foreach (PivotSettings pivotObject in pivotMultiple.listOfPivotSettings)
             {
-                StartCoroutine(PivotObjectEnumerator(pivotObject.transform.GetChild(0).gameObject));
+                StartCoroutine(PivotObjectEnumerator(pivotObject.gameObject, pivotObj.GetComponent<Interactable>()));
             }
         }
         else
         {
-            StartCoroutine(PivotObjectEnumerator(pivotObj));
+            StartCoroutine(PivotObjectEnumerator(pivotObj, pivotObj.GetComponent<Interactable>()));
         }
     }
 
-    IEnumerator PivotObjectEnumerator(GameObject pivotObj)
+    IEnumerator PivotObjectEnumerator(GameObject pivotObj, Interactable interactable)
     {
         PivotSettings pivotSettings = pivotObj.GetComponent<PivotSettings>();
         if (pivotSettings == null)
@@ -220,9 +220,9 @@ public class InteractionSystem : MonoBehaviour
         bool objState = pivotSettings.currentState;
         bool usingMovement = pivotSettings.usingMovement;
         if (pivotSettings.open)
-            pivotObj.transform.GetComponent<Interactable>().Text = "Close";
+            interactable.Text = "Close";
         else
-            pivotObj.transform.GetComponent<Interactable>().Text = "Open";
+            interactable.Text = "Open";
 
         Quaternion startingAngle;
         Quaternion endingAngle;
