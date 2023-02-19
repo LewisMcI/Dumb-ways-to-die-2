@@ -230,17 +230,17 @@ public class InteractionSystem : MonoBehaviour
         Vector3 endingPos;
         if (objState == false)
         {
-            startingAngle = pivotSettings.GetStartingAngle;
+            startingAngle = pivotSettings.StartingAngle;
             endingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
-            startingPos = pivotSettings.GetStartingPos;
+            startingPos = pivotSettings.StartingPos;
             endingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorOpen");
         }
         else
         {
-            endingAngle = pivotSettings.GetStartingAngle;
+            endingAngle = pivotSettings.StartingAngle;
             startingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
-            endingPos = pivotSettings.GetStartingPos;
+            endingPos = pivotSettings.StartingPos;
             startingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorClose");
         }
