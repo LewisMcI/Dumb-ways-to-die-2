@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
-
 public class DialogueSystem : Interactable
 {
     [System.Serializable]
@@ -30,6 +28,7 @@ public class DialogueSystem : Interactable
             GetComponent<AudioSource>().Play();
             StopAllCoroutines();
             StartCoroutine(StartDialogue());
+            dialogueText.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -44,6 +43,7 @@ public class DialogueSystem : Interactable
             yield return new WaitForSeconds(dialogue.waitBetweenLines);
         }
         yield return new WaitForSeconds(waitAfterComplete);
+        dialogueText.transform.parent.gameObject.SetActive(false);
         dialogueText.text = "";
     }
 
