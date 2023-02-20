@@ -60,14 +60,16 @@ public class Plate : Interactable
             // Snap to position
             jam.transform.position = new Vector3(-6.9f, 1.39f, 8.3f);
             jam.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-            //jam.transform.position = new Vector3(-6.75f, 1.5f, 8.3f);
-            //jam.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
             // Play open jam animation
             jam.GetComponent<Animator>().SetTrigger("Open");
 
             GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
         }
-        else if (collision.transform.name == "Knife" && jam)
+    }
+    
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.transform.name == "Knife" && jam)
         {
             if (knife == null)
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
@@ -77,7 +79,6 @@ public class Plate : Interactable
             knife.name = "Knife Jam";
             // Change mesh
             knife.GetComponent<MeshFilter>().mesh = knifeJam;
-
         }
     }
     #endregion

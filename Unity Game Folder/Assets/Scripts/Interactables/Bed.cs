@@ -48,7 +48,7 @@ public class Bed : Interactable
         // TODO: FIX this!!!
 
         // Advance level
-        GameManager.Instance.CurrLevel++;
+        GameSettings.Instance.currLevel++;
         SceneManager.LoadScene("Loading");
     }
     #endregion

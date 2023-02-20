@@ -14,10 +14,10 @@ public class Loading : MonoBehaviour
     private bool loaded;
     #endregion
     #region methods
-    private void Start()
+    private void Awake()
     {
         string scene = "";
-        switch (GameManager.Instance.CurrLevel)
+        switch (GameSettings.Instance.currLevel)
         {
             case 1:
                 scene = "Level 2";
@@ -58,6 +58,7 @@ public class Loading : MonoBehaviour
         asyncLoad = SceneManager.LoadSceneAsync(scene);
         asyncLoad.allowSceneActivation = false;
         yield return (asyncLoad.progress > 0.9f);
+        yield return new WaitForSeconds(5);
         loaded = true;
         loadingUI.SetActive(false);
         continueUI.SetActive(true);

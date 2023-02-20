@@ -27,6 +27,8 @@ public class GameSettings : MonoBehaviour
     [HideInInspector]
     public int displayMode;
 
+    public int currLevel = 1;
+
     public static GameSettings Instance;
 
     private const string DEFAULT_VALUE = "masterVolume=10,musicVolume=-50,vfxVolume=-50,sensitivity=3,loadTutorial=False,quality=2,displayMode=0";
