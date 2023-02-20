@@ -14,6 +14,7 @@ public class LightSwitch : Interactable
     private Material emissionOn, emissionOff;
     [SerializeField]
     private bool flip = true;
+    private bool awake;
 
     private bool isOff;
     #endregion
@@ -22,6 +23,7 @@ public class LightSwitch : Interactable
     private void Start()
     {
         Action();
+        awake = true;
     }
 
     public override void Action()
@@ -41,7 +43,8 @@ public class LightSwitch : Interactable
             transform.parent.localScale = (lights[0].activeSelf) ? new Vector3(1.0f, -1.0f, 1.0f) : Vector3.one;
 
         // Player audio
-        AudioManager.Instance.PlayAudio("Switch");
+        if (awake)
+            AudioManager.Instance.PlayAudio("Switch");
     }
     #endregion
 }

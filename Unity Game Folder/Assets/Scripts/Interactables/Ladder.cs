@@ -8,9 +8,18 @@ public class Ladder : Interactable
     #region methods
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name == "treehouseFINFinal")
+        Debug.Log(collision.transform.name);
+        if (collision.transform.name == "treehouse(FixedFinal)")
         {
             TreehouseSnap(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.name == "treehouse(FixedFinal)")
+        {
+            TreehouseSnap(other.gameObject);
         }
     }
 
@@ -24,9 +33,9 @@ public class Ladder : Interactable
         treehouse.GetComponent<Collider>().enabled = false;
         // Snap to treehouse
         transform.parent = treehouse.transform;
-        transform.localPosition = new Vector3(2.68f, -3.7f, 0.07f);
-        transform.localRotation = Quaternion.Euler(0.85f, 270.0f, -166f);
-        transform.localScale = new Vector3(2.097808f, 1.932703f, 1.946055f);
+        transform.localPosition = new Vector3(-2.33f, 0.98f, -3.28f);
+        transform.localRotation = Quaternion.Euler(0.85f, 90, -80.952f);
+        transform.localScale = new Vector3(2.249109f, 1.932703f, 1.946055f);
         // Make climable
         GetComponent<Interactable>().Type = InteractableType.Other;
         GetComponent<Interactable>().Text = "Climb";
