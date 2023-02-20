@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class Phone : Interactable
 {
+    #region fields
+    [SerializeField]
+    private bool ring;
+    #endregion
+
     #region methods
     private void Awake()
     {
-        StartCoroutine(StartAlarm());
+        if (ring)
+            StartCoroutine(StartAlarm());
+        else
+            CanInteract = false;
     }
 
     public override void Action()
