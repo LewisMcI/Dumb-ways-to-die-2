@@ -25,12 +25,12 @@ public class Bomb : MonoBehaviour
         {
             if (PlayerController.Instance)
             {
-                GameManager.Instance.EnableControls = false;
-                GameManager.Instance.EnableCamera = false;
                 TopdownPlayerController tdPC = PlayerController.Instance.GetComponent<TopdownPlayerController>();
-                Camera.main.GetComponent<CameraController>().FreezeRotation = true;
                 if (tdPC)
                     tdPC.enabled = false;
+                GameManager.Instance.EnableControls = false;
+                GameManager.Instance.EnableCamera = false;
+                Camera.main.GetComponent<CameraController>().FreezeRotation = true;
             }
         }
         else
