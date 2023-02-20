@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private float restartTimer = 5f;
     private bool dead;
-    private bool canMove = true;
+    private bool canMove;
 
     private Rigidbody rig;
     private Rigidbody[] limbs;
@@ -312,12 +312,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator OpenNotepadAfterAwake()
     {
-        while (anim.GetCurrentAnimatorStateInfo(0).IsName("WakeUp"))
-            yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(3.3f);
         notepad.SetActive(true);
 
         GameManager.Instance.taskManager.FindNotepadText();
-
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
         canMove = true;
