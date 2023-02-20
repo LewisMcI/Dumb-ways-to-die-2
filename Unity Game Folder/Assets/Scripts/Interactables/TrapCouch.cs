@@ -16,7 +16,7 @@ public class TrapCouch : Interactable
     private GameObject tv;
 
     [SerializeField]
-    private VideoClip[] clips;
+    private VideoClip clip;
     #endregion
 
     #region methods
@@ -97,19 +97,7 @@ public class TrapCouch : Interactable
         {
             if (!tv.transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
             {
-                int random = Random.Range(0, 3);
-                switch (random)
-                {
-                    case 0:
-                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[0];
-                        break;
-                    case 1:
-                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[1];
-                        break;
-                    case 2:
-                        tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clips[2];
-                        break;
-                }
+                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clip;
                 tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
                 tv.transform.GetChild(1).gameObject.SetActive(true);
                 tv.GetComponent<WatchTV>().CanInteract = false;
