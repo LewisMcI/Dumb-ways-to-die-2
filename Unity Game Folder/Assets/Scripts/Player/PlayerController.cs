@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Trigger jump animation
                 anim.SetBool("Jumping", false);
-                Camera.main.GetComponent<CameraController>().FollowHeadTime = 8.0f;
+                Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
                 // Reset
                 isJumping = false;
             }
@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            Camera.main.GetComponent<CameraController>().FollowHeadTime = 8.0f;
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
             // Reset collider
             transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f, 0.0f);
             transform.GetChild(0).GetComponent<CapsuleCollider>().height = 1.8f;
