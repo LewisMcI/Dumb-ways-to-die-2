@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Restart()
     {
+        GameManager.Instance.taskManager.ResetAllTraps();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
