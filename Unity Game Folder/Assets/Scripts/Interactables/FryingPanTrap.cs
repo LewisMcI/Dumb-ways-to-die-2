@@ -6,6 +6,9 @@ public class FryingPanTrap : MonoBehaviour
 {
     #region fields
     private bool triggered;
+
+    [SerializeField]
+    AudioSource doingggSFX;
     #endregion
 
     #region methods
@@ -40,6 +43,11 @@ public class FryingPanTrap : MonoBehaviour
 
     private void TriggerPlayer()
     {
+        try
+        {
+            doingggSFX.Play();
+        }
+        catch { }
         Trigger();
         PlayerController.Instance.EnableRagdoll();
         PlayerController.Instance.AddRagdollForce(-transform.forward * 50f);
