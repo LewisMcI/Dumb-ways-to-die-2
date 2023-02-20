@@ -27,7 +27,7 @@ public class GameSettings : MonoBehaviour
     [HideInInspector]
     public int displayMode;
 
-    public int currLevel = 1;
+    public int currLevel;
 
     public static GameSettings Instance;
 

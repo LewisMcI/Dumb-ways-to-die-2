@@ -26,6 +26,8 @@ public class DynamicSky : MonoBehaviour
     [SerializeField]
     private Cubemap daySkybox, nightSkybox;
 
+    [SerializeField]
+    private bool morning;
     private bool isNight;
 
     public static DynamicSky Instance;
@@ -41,7 +43,11 @@ public class DynamicSky : MonoBehaviour
         // Get sky
         skyVolume.sharedProfile.TryGet<PhysicallyBasedSky>(out sky);
         // Set starting time
-        targetTime = timeOfDay;
+        if (morning)
+        {
+            timeOfDay = 5.0f;
+            targetTime = 7.0f;
+        }
 
         UpdateTime();
 
