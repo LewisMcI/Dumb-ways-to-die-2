@@ -47,22 +47,9 @@ public class Bed : Interactable
         GameManager.Instance.taskManager.ResetAllTraps();
         // TODO: FIX this!!!
 
-        if (SceneManager.GetActiveScene().name == "Level 1")
-        {
-            SceneManager.LoadScene("Level 2");
-        }
-        else if (SceneManager.GetActiveScene().name == "Level 2")
-        {
-            SceneManager.LoadScene("Level 3");
-        }
-        else if (SceneManager.GetActiveScene().name == "Level 3")
-        {
-            SceneManager.LoadScene("Level 4");
-        }
-        else if (SceneManager.GetActiveScene().name == "Level 4")
-        {
-            SceneManager.LoadScene("Level 5");
-        }
+        // Advance level
+        GameManager.Instance.CurrLevel++;
+        SceneManager.LoadScene("Loading");
     }
     #endregion
 }
