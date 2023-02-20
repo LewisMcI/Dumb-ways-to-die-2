@@ -17,6 +17,11 @@ public class InteractionSystem : MonoBehaviour
     #endregion
 
     #region properties
+    public Transform PickupTransform
+    {
+        get { return pickupTransform; }
+        set { pickupTransform = value; }
+    }
     public GameObject PickedUpObject
     {
         get { return pickedUpObject;}

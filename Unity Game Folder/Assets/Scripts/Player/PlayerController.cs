@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     #region fields
+    [SerializeField]
+    private GameObject character;
+
     [Header("Movement")]
     [SerializeField]
     private float moveSpeed;
@@ -173,7 +177,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void EnableRagdoll()
+    public void EnableRagdoll()
     {
         GameManager.Instance.EnableControls = false;
         anim.enabled = false;
@@ -184,7 +188,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DisableRagdoll()
+    public void DisableRagdoll()
     {
         foreach (Rigidbody rig in limbs)
         {
@@ -270,6 +274,37 @@ public class PlayerController : MonoBehaviour
         // Enable ragdoll physics
         EnableRagdoll();
     }
+
+    public void ResetCharacter()
+    {
+        // Set position
+        transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
+        // Destroy current active character
+        Destroy(transform.GetChild(0).gameObject);
+        // Spawn new character
+        GameObject newCharacter = Instantiate(character);
+        newCharacter.transform.parent = transform;
+        newCharacter.transform.localPosition = new Vector3(0.0f, -0.993f, 0.0f);
+        newCharacter.transform.localRotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+        newCharacter.name = "Character";
+
+        // Reset variables
+        groundCheck = newCharacter.transform.GetChild(2);
+        anim = newCharacter.GetComponent<Animator>();
+        anim.SetBool("WakeUp", false);
+        limbs = newCharacter.transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
+        foreach (Transform child in newCharacter.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == "Notepad")
+                notepad = child.gameObject;
+            if (child.name == "PAUSETEXT")
+                GameUI.Instance.pauseText = child.gameObject;
+        }
+        playerCam = Camera.main;
+        InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);
+        DisableRagdoll();
+    }
+
     private IEnumerator OpenNotepadAfterAwake()
     {
         while (anim.GetCurrentAnimatorStateInfo(0).IsName("WakeUp"))
