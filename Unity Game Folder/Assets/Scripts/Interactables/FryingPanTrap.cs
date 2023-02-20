@@ -43,6 +43,7 @@ public class FryingPanTrap : MonoBehaviour
         PlayerController.Instance.EnableRagdoll();
         PlayerController.Instance.AddRagdollForce(-transform.forward * 50f);
         GameManager.Instance.EnableControls = false;
+        Camera.main.GetComponent<CameraController>().FreezeRotation = true;
         StartCoroutine(Recover());
     }
 
@@ -51,6 +52,7 @@ public class FryingPanTrap : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         PlayerController.Instance.ResetCharacter();
         GameManager.Instance.EnableControls = true;
+        Camera.main.GetComponent<CameraController>().FreezeRotation = false;
     }
     #endregion
 }

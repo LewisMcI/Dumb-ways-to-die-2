@@ -17,6 +17,15 @@ public class CameraController : MonoBehaviour
     private Transform head;
     [SerializeField]
     private GameObject gameSettingsPrefab;
+    private bool freezeRotation;
+    #endregion
+
+    #region properties
+    public bool FreezeRotation
+    {
+        get { return freezeRotation; } 
+        set { freezeRotation = value; }
+    }
     #endregion
 
     #region methods
@@ -66,7 +75,8 @@ public class CameraController : MonoBehaviour
         // Get axis
         Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X") * GameSettings.Instance.sensitivity, Input.GetAxis("Mouse Y") * GameSettings.Instance.sensitivity);
         // Smoothen rotation
-        currMouseDelta = Vector2.SmoothDamp(currMouseDelta, targetMouseDelta, ref currMouseDeltaVel, lookSmoothTime * Time.deltaTime);
+        if (!freezeRotation)
+            currMouseDelta = Vector2.SmoothDamp(currMouseDelta, targetMouseDelta, ref currMouseDeltaVel, lookSmoothTime * Time.deltaTime);
 
         cameraPitch -= currMouseDelta.y;
         cameraPitch = Mathf.Clamp(cameraPitch, -60.0f, 60.0f);
