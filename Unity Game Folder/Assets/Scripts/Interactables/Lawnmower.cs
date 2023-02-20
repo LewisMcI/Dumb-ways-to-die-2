@@ -35,6 +35,7 @@ public class Lawnmower : Interactable
 
     private int noToWin;
     bool active = false;
+    bool usable = true;
     [SerializeField]
     private List<BoxCollider> walls;
 
@@ -46,58 +47,63 @@ public class Lawnmower : Interactable
     private void Awake()
     {
         noToSpawnGrass = Random.Range(minSpawnGrass, maxSpawnGrass);
-        noOfGrass = grassMaster.childCount;
+        for (int i = 0; i < grassMaster.childCount; i++)
+        {
+            noOfGrass += grassMaster.GetChild(i).childCount;
+        }
+        Debug.Log(noOfGrass);
         noToWin = (int)(noOfGrass * (1-percentDestroyedToWin));
-
+        Debug.Log(noToWin);
         initRotation = associatedCam.transform.rotation;
         initPosition = associatedCam.transform.position;
     }
     public override void Action()
     {
-        active = true;
-        lawnmowerStartup.Play();
-        GameObject player;
-        // Find player
-        try
+        if (usable)
         {
-            player = PlayerController.Instance.gameObject;
+            active = true;
+            lawnmowerStartup.Play();
+            GameObject player;
+            // Find player
+            try
+            {
+                player = PlayerController.Instance.gameObject;
+            }
+            catch
+            {
+                Debug.Log("Cannot find PlayerController instance");
+                throw new System.Exception("Could not find PlayerController Instance");
+            }
+
+            // Disable player controller.
+            PlayerController.Instance.enabled = false;
+            StopCoroutine(moveCameraToPlayer(player));
+            StartCoroutine(moveCameraFromPlayer(player));
+
+
+            // Move player to position
+            player.transform.position = playerPosition.position;
+            player.transform.rotation = playerPosition.rotation;
+
+            // Add lawnmower as child to player to control movement.
+            transform.parent = player.transform;
+
+            Rigidbody playerRB = player.GetComponent<Rigidbody>();
+            // Get old angular drag.
+            initAngularDrag = playerRB.angularDrag;
+            // Set new angular drag on player.
+            playerRB.angularDrag = 1.0f;
+
+            // Play player lawnmower animation
+            PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Lawnmower", true);
+
+            // Enable Invisible Walls
+            foreach (var wall in walls)
+            {
+                wall.enabled = true;
+            }
+            }
         }
-        catch
-        {
-            Debug.Log("Cannot find PlayerController instance");
-            throw new System.Exception("Could not find PlayerController Instance");
-        }
-
-        // Disable player controller.
-        PlayerController.Instance.enabled = false;
-        StopCoroutine(moveCameraToPlayer(player));
-        StartCoroutine(moveCameraFromPlayer(player));
-        // Enable new camera.
-        PlayerController.Instance.EnableNewCamera(PlayerController.SelectCam.outsideCam);
-
-
-        // Move player to position
-        player.transform.position = playerPosition.position;
-        player.transform.rotation = playerPosition.rotation;
-
-        // Add lawnmower as child to player to control movement.
-        transform.parent = player.transform;
-
-        Rigidbody playerRB = player.GetComponent<Rigidbody>();
-        // Get old angular drag.
-        initAngularDrag = playerRB.angularDrag;
-        // Set new angular drag on player.
-        playerRB.angularDrag = 1.0f;
-
-        // Play player lawnmower animation
-        PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Lawnmower", true);
-
-        // Enable Invisible Walls
-        foreach (var wall in walls)
-        {
-            wall.enabled = true;
-        }
-    }
 
     private void Update()
     {
@@ -157,7 +163,7 @@ public class Lawnmower : Interactable
     private void OnTriggerEnter(Collider other)
     {
         // If hit grass
-        if (other.name.Contains("Grass Patch"))
+        if (other.name.Contains("Grass Piece"))
         {
             // Destroy grass
             Destroy(other.gameObject);
@@ -172,12 +178,12 @@ public class Lawnmower : Interactable
                 newRb.AddForce(-transform.forward * 2, ForceMode.Impulse);
 
             }
-            else if (grassMaster.childCount <= noToWin)
+            else if (noOfGrass <= noToWin)
             {
                 Debug.Log("Complete");
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Mow Lawn");
                 ExitLawnmower();
-                Destroy(this);
+                usable = false;
             }
 
         }
@@ -232,7 +238,12 @@ public class Lawnmower : Interactable
 
         Quaternion startQuat = PlayerController.Instance.CameraTransform.rotation;
 
-        for (float i = 0; i < 50; i++)
+        // init
+        associatedCam.transform.position = startPos;
+        associatedCam.transform.rotation = startQuat;
+        // Enable new camera.
+        PlayerController.Instance.EnableNewCamera(PlayerController.SelectCam.outsideCam);
+        for (float i = 1; i < 50; i++)
         {
             yield return new WaitForSeconds(1.0f / 50);
             associatedCam.transform.position = Vector3.Lerp(startPos, initPosition, i / 50);
