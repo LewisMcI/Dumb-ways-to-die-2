@@ -34,7 +34,7 @@ public class FryingPanTrap : MonoBehaviour
 
         transform.GetChild(0).GetChild(0).GetComponent<Collider>().enabled = true;
         transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = true;
-        transform.GetChild(1).GetChild(0).GetComponent<LineRenderer>().enabled = false;
+        transform.GetChild(1).GetComponent<LineRenderer>().enabled = false;
     }
 
     private void TriggerPlayer()
