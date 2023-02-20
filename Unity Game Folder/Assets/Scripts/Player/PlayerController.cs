@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && isGrounded && !isCrouching && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
         {
-            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 5.0f;
             // Add force
             rig.velocity = new Vector3(0, jumpForce, 0);
             // Trigger jump animation

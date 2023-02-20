@@ -35,6 +35,7 @@ public class FryingPanTrap : MonoBehaviour
         transform.GetChild(0).GetChild(0).GetComponent<Collider>().enabled = true;
         transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = true;
         transform.GetChild(1).GetComponent<LineRenderer>().enabled = false;
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
     }
 
     private void TriggerPlayer()
@@ -53,6 +54,7 @@ public class FryingPanTrap : MonoBehaviour
         PlayerController.Instance.ResetCharacter();
         GameManager.Instance.EnableControls = true;
         Camera.main.GetComponent<CameraController>().FreezeRotation = false;
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
     }
     #endregion
 }
