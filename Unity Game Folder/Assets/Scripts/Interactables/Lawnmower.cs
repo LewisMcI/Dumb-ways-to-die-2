@@ -37,6 +37,9 @@ public class Lawnmower : Interactable
     bool active = false;
     [SerializeField]
     private List<BoxCollider> walls;
+
+    private Vector3 initPosition;
+    private Quaternion initRotation;
     #endregion
 
     #region methods
@@ -45,6 +48,9 @@ public class Lawnmower : Interactable
         noToSpawnGrass = Random.Range(minSpawnGrass, maxSpawnGrass);
         noOfGrass = grassMaster.childCount;
         noToWin = (int)(noOfGrass * (1-percentDestroyedToWin));
+
+        initRotation = associatedCam.transform.rotation;
+        initPosition = associatedCam.transform.position;
     }
     public override void Action()
     {
@@ -62,10 +68,13 @@ public class Lawnmower : Interactable
             throw new System.Exception("Could not find PlayerController Instance");
         }
 
-        // Enable new camera.
-        PlayerController.Instance.EnableNewCamera(PlayerController.SelectCam.outsideCam);
         // Disable player controller.
         PlayerController.Instance.enabled = false;
+        StopCoroutine(moveCameraToPlayer(player));
+        StartCoroutine(moveCameraFromPlayer(player));
+        // Enable new camera.
+        PlayerController.Instance.EnableNewCamera(PlayerController.SelectCam.outsideCam);
+
 
         // Move player to position
         player.transform.position = playerPosition.position;
@@ -88,7 +97,6 @@ public class Lawnmower : Interactable
         {
             wall.enabled = true;
         }
-        player.AddComponent<TopdownPlayerController>();
     }
 
     private void Update()
@@ -137,16 +145,13 @@ public class Lawnmower : Interactable
             Debug.Log("Cannot find PlayerController instance");
             throw new System.Exception("Could not find PlayerController Instance");
         }
-        // Remove Topdown Controller
-        Destroy(player.GetComponent<TopdownPlayerController>());
-        // ReEnable player camera.
-        PlayerController.Instance.ReEnablePlayer();
+        StopCoroutine(moveCameraFromPlayer(player));
+        StartCoroutine(moveCameraToPlayer(player));
+
         // Unchild lawnmower.
         transform.parent = null;
         // Set new angular drag on player.
         player.GetComponent<Rigidbody>().angularDrag = initAngularDrag;
-        // Enable player controller.
-        PlayerController.Instance.enabled = true;
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Lawnmower", false);
     }
     private void OnTriggerEnter(Collider other)
@@ -220,4 +225,50 @@ public class Lawnmower : Interactable
         // Add backwards force
         PlayerController.Instance.AddRagdollForce(new Vector3(100, 200, 0));
     }
+
+    IEnumerator moveCameraFromPlayer(GameObject player)
+    {
+        Vector3 startPos = PlayerController.Instance.CameraTransform.position;
+
+        Quaternion startQuat = PlayerController.Instance.CameraTransform.rotation;
+
+        for (float i = 0; i < 50; i++)
+        {
+            yield return new WaitForSeconds(1.0f / 50);
+            associatedCam.transform.position = Vector3.Lerp(startPos, initPosition, i / 50);
+            associatedCam.transform.rotation = Quaternion.Lerp(startQuat, initRotation, i / 50);
+        }
+
+        player.AddComponent<TopdownPlayerController>();
+    }
+
+    IEnumerator moveCameraToPlayer(GameObject player)
+    {
+        // Remove Topdown Controller
+        Destroy(player.GetComponent<TopdownPlayerController>());
+        Vector3 startPos = associatedCam.transform.position;
+        Vector3 endPos = PlayerController.Instance.CameraTransform.position;
+
+        Quaternion startQuat = associatedCam.transform.rotation;
+        Quaternion endQuat = PlayerController.Instance.CameraTransform.rotation;
+
+        for (float i = 0; i < 50; i++)
+        {
+            associatedCam.transform.position = Vector3.Lerp(startPos, endPos, i / 50);
+            associatedCam.transform.rotation = Quaternion.Lerp(startQuat, endQuat, i / 50);
+
+            yield return new WaitForSeconds(1.0f / 50);
+        }
+        // ReEnable player camera.
+        PlayerController.Instance.ReEnablePlayer();
+        // Enable player controller.
+        PlayerController.Instance.enabled = true;
+
+        associatedCam.transform.position = startPos;
+        associatedCam.transform.rotation = startQuat;
+        // Remove Topdown Controller
+        Destroy(player.GetComponent<TopdownPlayerController>());
+    }
+
+
 }

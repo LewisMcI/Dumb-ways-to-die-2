@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Camera playerCam, toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam;
 
+    public Transform CameraTransform { get => playerCam.transform; }
     private float restartTimer = 5f;
     private bool dead;
 
