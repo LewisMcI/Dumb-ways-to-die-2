@@ -157,7 +157,7 @@ public class Lawnmower : Interactable
     private void OnTriggerEnter(Collider other)
     {
         // If hit grass
-        if (other.name.Contains("SM_Env_Grass_Patch"))
+        if (other.name.Contains("Grass Patch"))
         {
             // Destroy grass
             Destroy(other.gameObject);
