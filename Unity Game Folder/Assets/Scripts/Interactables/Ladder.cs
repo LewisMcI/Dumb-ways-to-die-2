@@ -8,7 +8,6 @@ public class Ladder : Interactable
     #region methods
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.transform.name);
         if (collision.transform.name == "treehouse(FixedFinal)")
         {
             TreehouseSnap(collision.gameObject);
