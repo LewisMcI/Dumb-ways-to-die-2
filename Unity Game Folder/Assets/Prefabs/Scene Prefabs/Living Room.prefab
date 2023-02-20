@@ -1557,6 +1557,8 @@ GameObject:
   - component: {fileID: 8062455860559421325}
   - component: {fileID: 1207297320171215886}
   - component: {fileID: 1117932661326441515}
+  - component: {fileID: 2596186026536937170}
+  - component: {fileID: 555930730558093696}
   m_Layer: 0
   m_Name: LDoor
   m_TagString: Untagged
@@ -1630,6 +1632,35 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2596186026536937170
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326641566896327371}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2232952877369940510, guid: a41fffbeab51d0441b9005b62327f5c3, type: 3}
+--- !u!114 &555930730558093696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326641566896327371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  text: Open
+  keepRotation: 1
 --- !u!1 &2600955113014085750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,6 +1672,7 @@ GameObject:
   - component: {fileID: 146828709839129178}
   - component: {fileID: 6311683705756849370}
   - component: {fileID: 5375483191675076480}
+  - component: {fileID: 8643729037117408429}
   m_Layer: 0
   m_Name: RDoor
   m_TagString: Untagged
@@ -1714,6 +1746,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8643729037117408429
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2600955113014085750}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 587366007896238738, guid: a41fffbeab51d0441b9005b62327f5c3, type: 3}
 --- !u!1 &2804213611871590772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3089,9 +3135,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3424928325687278907}
-  - component: {fileID: 7179210125993405927}
-  - component: {fileID: 6052525762285465620}
-  - component: {fileID: 2606540692572167354}
   m_Layer: 0
   m_Name: PivotMultiple
   m_TagString: Untagged
@@ -3116,49 +3159,6 @@ Transform:
   m_Father: {fileID: 3828184173430065538}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7179210125993405927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6858754747094982107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00c7642bda57dcb4bac809b25ae7cce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listOfPivotSettings:
-  - {fileID: 2674510815649789823}
-  - {fileID: 3634178867267090098}
---- !u!65 &6052525762285465620
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6858754747094982107}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.53898317, y: 0.15356031, z: 0.06447219}
-  m_Center: {x: -0.044746194, y: 0.15612864, z: 0.17489207}
---- !u!114 &2606540692572167354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6858754747094982107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a44f8bf3799f8347b110d36da0d2c28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  text: Open
-  keepRotation: 1
 --- !u!1 &6860342554203488423
 GameObject:
   m_ObjectHideFlags: 0
