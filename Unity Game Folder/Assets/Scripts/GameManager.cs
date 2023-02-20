@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private bool enableControls = false;
     private bool enableCamera = false;
     private bool isPaused;
+
+    private int currLevel = 1;
     #endregion
 
     #region properties
@@ -37,6 +39,11 @@ public class GameManager : MonoBehaviour
     public bool IsPaused
     {
         get { return isPaused; }
+    }
+    public int CurrLevel
+    {
+        get { return currLevel; }
+        set { currLevel = value; }
     }
     #endregion
 
