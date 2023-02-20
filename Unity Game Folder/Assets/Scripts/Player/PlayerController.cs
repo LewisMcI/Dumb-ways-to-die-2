@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private float restartTimer = 5f;
     private bool dead;
+    private bool canMove = false;
 
     private Rigidbody rig;
     private Rigidbody[] limbs;
@@ -70,23 +71,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Controls
-        if (GameManager.Instance.EnableControls)
+        if (canMove)
         {
-            Jump();
-            Crouch();
-        }
+            // Controls
+            if (GameManager.Instance.EnableControls)
+            {
+                Jump();
+                Crouch();
+            }
 
-        // Book
-        if (Input.GetButtonDown("Pause Game") && !dead)
-        {
-            GameManager.Instance.PauseGame();
-        }
+            // Book
+            if (Input.GetButtonDown("Pause Game") && !dead)
+            {
+                GameManager.Instance.PauseGame();
+            }
 
-        // Notepad
-        if (Input.GetButtonDown("Notepad"))
-        {
-            anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+            // Notepad
+            if (Input.GetButtonDown("Notepad"))
+            {
+                anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+            }
+
         }
 
         // Death
@@ -315,7 +320,7 @@ public class PlayerController : MonoBehaviour
 
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
-
+        canMove = true;
     }
 
     public enum SelectCam

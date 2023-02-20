@@ -12,6 +12,8 @@ public class LightSwitch : Interactable
     private MeshRenderer[] bulbs;
     [SerializeField]
     private Material emissionOn, emissionOff;
+    [SerializeField]
+    private bool flip = true;
 
     private bool isOff;
     #endregion
@@ -35,7 +37,8 @@ public class LightSwitch : Interactable
             bulb.material = (isOff) ? emissionOn : emissionOff;
 
         // Switch scale
-        transform.parent.localScale = (lights[0].activeSelf) ? new Vector3(1.0f, -1.0f, 1.0f) : Vector3.one;
+        if (flip)
+            transform.parent.localScale = (lights[0].activeSelf) ? new Vector3(1.0f, -1.0f, 1.0f) : Vector3.one;
 
         // Player audio
         AudioManager.Instance.PlayAudio("Switch");
