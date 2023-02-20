@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private float restartTimer = 5f;
     private bool dead;
-    private bool canMove = false;
+    private bool canMove = true;
 
     private Rigidbody rig;
     private Rigidbody[] limbs;
