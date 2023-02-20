@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Camera playerCam, toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam;
 
+    public Transform CameraTransform { get => playerCam.transform; }
     private float restartTimer = 5f;
     private bool dead;
-    private bool canMove;
 
     private Rigidbody rig;
     private Rigidbody[] limbs;
@@ -71,27 +71,23 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (canMove)
+        // Controls
+        if (GameManager.Instance.EnableControls)
         {
-            // Controls
-            if (GameManager.Instance.EnableControls)
-            {
-                Jump();
-                Crouch();
-            }
+            Jump();
+            Crouch();
+        }
 
-            // Book
-            if (Input.GetButtonDown("Pause Game") && !dead)
-            {
-                GameManager.Instance.PauseGame();
-            }
+        // Book
+        if (Input.GetButtonDown("Pause Game") && !dead && GameManager.Instance.EnableControls)
+        {
+            GameManager.Instance.PauseGame();
+        }
 
-            // Notepad
-            if (Input.GetButtonDown("Notepad"))
-            {
-                anim.SetBool("Notepad", !anim.GetBool("Notepad"));
-            }
-
+        // Notepad
+        if (Input.GetButtonDown("Notepad") && GameManager.Instance.EnableControls)
+        {
+            anim.SetBool("Notepad", !anim.GetBool("Notepad"));
         }
 
         // Death
@@ -318,7 +314,6 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.taskManager.FindNotepadText();
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
-        canMove = true;
     }
 
     public enum SelectCam
