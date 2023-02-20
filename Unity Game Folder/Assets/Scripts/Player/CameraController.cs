@@ -21,6 +21,11 @@ public class CameraController : MonoBehaviour
     #endregion
 
     #region properties
+    public float FollowHeadTime
+    {
+        get { return followHeadTime; }
+        set { followHeadTime = value; }
+    }
     public bool FreezeRotation
     {
         get { return freezeRotation; } 
