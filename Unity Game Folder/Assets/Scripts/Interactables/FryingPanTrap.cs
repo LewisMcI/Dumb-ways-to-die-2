@@ -9,10 +9,19 @@ public class FryingPanTrap : MonoBehaviour
     #endregion
 
     #region methods
+    private void Awake()
+    {
+        transform.GetChild(0).GetChild(0).GetComponent<Collider>().enabled = false;
+        transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.transform.name);
         if (other.transform.name == "Character" && !triggered)
+        {
+            TriggerPlayer();
+        }
+        else if (!triggered)
         {
             Trigger();
         }
@@ -22,6 +31,15 @@ public class FryingPanTrap : MonoBehaviour
     {
         triggered = true;
         GetComponent<Animator>().SetTrigger("Trigger");
+
+        transform.GetChild(0).GetChild(0).GetComponent<Collider>().enabled = true;
+        transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = true;
+        transform.GetChild(1).GetChild(0).GetComponent<LineRenderer>().enabled = false;
+    }
+
+    private void TriggerPlayer()
+    {
+        Trigger();
         PlayerController.Instance.EnableRagdoll();
         PlayerController.Instance.AddRagdollForce(-transform.forward * 50f);
         GameManager.Instance.EnableControls = false;
