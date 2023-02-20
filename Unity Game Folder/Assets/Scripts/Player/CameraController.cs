@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     [Range(0f, 0.5f)]
     private float lookSmoothTime;
     [SerializeField]
-    [Range(0f, 10f)]
+    [Range(0f, 15f)]
     private float followHeadTime;
     [SerializeField]
     private Transform head;
@@ -21,6 +21,11 @@ public class CameraController : MonoBehaviour
     #endregion
 
     #region properties
+    public float FollowHeadTime
+    {
+        get { return followHeadTime; }
+        set { followHeadTime = value; }
+    }
     public bool FreezeRotation
     {
         get { return freezeRotation; } 

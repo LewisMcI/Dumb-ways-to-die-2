@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && isGrounded && !isCrouching && !anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Land"))
         {
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 5.0f;
             // Add force
             rig.velocity = new Vector3(0, jumpForce, 0);
             // Trigger jump animation
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Trigger jump animation
                 anim.SetBool("Jumping", false);
+                Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
                 // Reset
                 isJumping = false;
             }
@@ -154,6 +156,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
         {
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
             // Scale collider
             float reductionScale = 0.7f;
             transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f * reductionScale, 0.0f);
@@ -166,6 +169,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
             // Reset collider
             transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f, 0.0f);
             transform.GetChild(0).GetComponent<CapsuleCollider>().height = 1.8f;
