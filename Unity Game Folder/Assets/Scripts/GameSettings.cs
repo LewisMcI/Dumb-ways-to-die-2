@@ -31,7 +31,7 @@ public class GameSettings : MonoBehaviour
 
     public static GameSettings Instance;
 
-    private const string DEFAULT_VALUE = "masterVolume=10,musicVolume=-50,vfxVolume=-50,sensitivity=3,loadTutorial=False,quality=2,displayMode=0";
+    private const string DEFAULT_VALUE = "masterVolume=10,musicVolume=-10,vfxVolume=-10,sensitivity=3,loadTutorial=False,quality=2,displayMode=0";
     private void Start()
     {
         if (Instance != null)
