@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Book
-        if (Input.GetButtonDown("Pause Game") && !dead && GameManager.Instance.EnableControls)
+        if (Input.GetButtonDown("Pause Game") && !dead && GameManager.Instance.EnableControls || Input.GetButtonDown("Pause Game") && GameManager.Instance.IsPaused)
         {
             GameManager.Instance.PauseGame();
         }
