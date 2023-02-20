@@ -47,16 +47,29 @@ public class GameSettings : MonoBehaviour
 
     private void LoadSettings()
     {
+        string saveString;
         // Get file as String
-        string saveString = File.ReadAllText(Application.dataPath + "/Resources/options.txt");
+        try
+        {
+            saveString = File.ReadAllText(Application.dataPath + "/Resources/options.txt");
+        }
+        catch
+        {
+            SetDefaultSettings();
+            LoadSettings();
+            return;
+        }
         // Remove Whitespace
         saveString = Regex.Replace(saveString, @"\s+", "");
 
+        Debug.Log("Save String: " + saveString);
         char[] listOfChar = saveString.ToCharArray();
 
-        if (listOfChar.Length == 0)
+        if (listOfChar.Length <= 1 || listOfChar == null || listOfChar.Length == 0)
         {
             SetDefaultSettings();
+            LoadSettings();
+            return;
         }
 
         List<string> values = new List<string>() ;
@@ -128,6 +141,7 @@ public class GameSettings : MonoBehaviour
         vfxVolume = (int)vfxVol;
         string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + sensitivity + ",loadTutorial=" + loadTutorial +",quality=" + qualitySetting + ",displayMode=" + displayMode;
 
+        Debug.Log(text);
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", text);
     }
     public void ResetUI()
