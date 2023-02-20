@@ -302,6 +302,8 @@ public class PlayerController : MonoBehaviour
         }
         playerCam = Camera.main;
         InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);
+        notepad.SetActive(true);
+        GameManager.Instance.taskManager.FindNotepadText();
         DisableRagdoll();
     }
 
