@@ -71,9 +71,6 @@ public class GameManager : MonoBehaviour
         InitTasks();
 
         StartCoroutine(EnablePlayer());
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     /// <summary>
