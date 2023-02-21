@@ -36,7 +36,6 @@ public class CameraController : MonoBehaviour
     #region methods
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         if (GameSettings.Instance == null)
         {
             try
@@ -54,14 +53,7 @@ public class CameraController : MonoBehaviour
     {
         if (GameManager.Instance.EnableCamera)
         {
-            if (Cursor.lockState != CursorLockMode.None)
-                CameraLook();
-            else
-                Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (Time.timeScale == 0)
-        {
-            Cursor.lockState = CursorLockMode.None;
+            CameraLook();
         }
 
         // Rotate camera towards book when paused

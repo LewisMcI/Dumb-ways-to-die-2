@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour
         InitTasks();
 
         StartCoroutine(EnablePlayer());
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     /// <summary>
@@ -94,19 +97,22 @@ public class GameManager : MonoBehaviour
         // Paused
         if (isPaused)
         {
-            GameUI.Instance.pauseMenu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            GameUI.Instance.pauseMenu.SetActive(true);
             enableControls = false;
             EnableCamera = false;
         }
         // Unpaused
         else
         {
-            enableControls = true;
-            EnableCamera = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             GameUI.Instance.pauseMenu.SetActive(false);
             GameUI.Instance.settingsMenu.SetActive(false);
             GameUI.Instance.pauseText.SetActive(true);
+            enableControls = true;
+            EnableCamera = true;
         }
 
         // Trigger book animation

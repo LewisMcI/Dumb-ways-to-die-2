@@ -70,27 +70,33 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Controls
-        if (GameManager.Instance.EnableControls)
+        if (!dead)
         {
-            Jump();
-            Crouch();
-        }
+            // Controls
+            if (GameManager.Instance.EnableControls)
+            {
+                Jump();
+                Crouch();
+            }
+            else
+            {
+                anim.SetBool("Jumping", false);
+                anim.SetBool("Crouching", false);
+            }
 
-        // Book
-        if (Input.GetButtonDown("Pause Game") && !dead && GameManager.Instance.EnableControls || Input.GetButtonDown("Pause Game") && GameManager.Instance.IsPaused)
-        {
-            GameManager.Instance.PauseGame();
-        }
+            // Book
+            if (Input.GetButtonDown("Pause Game") && !dead && GameManager.Instance.EnableControls || Input.GetButtonDown("Pause Game") && GameManager.Instance.IsPaused)
+            {
+                GameManager.Instance.PauseGame();
+            }
 
-        // Notepad
-        if (Input.GetButtonDown("Notepad") && GameManager.Instance.EnableControls)
-        {
-            anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+            // Notepad
+            if (Input.GetButtonDown("Notepad") && GameManager.Instance.EnableControls)
+            {
+                anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+            }
         }
-
-        // Death
-        if (dead)
+        else if (dead)
         {
             if (restartTimer <= 0.0f)
                 GameManager.Instance.Restart();
@@ -101,11 +107,20 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (GameManager.Instance.EnableControls)
+        if (!dead)
         {
-            Move();
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            if (GameManager.Instance.EnableControls)
+            {
+                Move();
+            }
+            else
+            {
+                rig.velocity = new Vector3(0.0f, rig.velocity.y, 0.0f);
+                anim.SetFloat("dirX", 0.0f);
+                anim.SetFloat("dirY", 0.0f);
+            }
         }
     }
     private void Move()
