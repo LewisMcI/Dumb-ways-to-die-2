@@ -35,6 +35,7 @@ public class Bed : Interactable
 
     IEnumerator GoToSleep()
     {
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
         Vector3 currentPosition = PlayerController.Instance.transform.position;
         float time = 1.0f;
         float iterations = 100;

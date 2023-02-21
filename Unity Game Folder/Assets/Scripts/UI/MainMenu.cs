@@ -7,12 +7,14 @@ public class MainMenu : MonoBehaviour
 {
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.None;
         try
         {
             GameSettings.Instance.ResetUI();
         }
         catch { }
     }
+
     public void Play()
     {
         if (GameSettings.Instance.loadTutorial == true)
