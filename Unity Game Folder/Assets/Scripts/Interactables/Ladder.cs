@@ -32,7 +32,7 @@ public class Ladder : Interactable
         treehouse.GetComponent<Collider>().enabled = false;
         // Snap to treehouse
         transform.parent = treehouse.transform;
-        transform.localPosition = new Vector3(-2.33f, 0.98f, -3.28f);
+        transform.localPosition = new Vector3(-2.33f, 1.05f, -3.71f);
         transform.localRotation = Quaternion.Euler(0.85f, 90, -80.952f);
         transform.localScale = new Vector3(2.249109f, 1.932703f, 1.946055f);
         // Make climable
@@ -42,7 +42,7 @@ public class Ladder : Interactable
 
     public override void Action()
     {
-        PlayerController.Instance.transform.position = new Vector3(12.8f, 5.2f, 11.0f);
+        PlayerController.Instance.transform.position = new Vector3(12.38533f, 5.190731f, 10.819f);
     }
     #endregion
 }
