@@ -222,7 +222,6 @@ public class InteractionSystem : MonoBehaviour
         pivotSettings.open = !pivotSettings.open;
         // Setting up values for object
         pivotSettings.inUse = true;
-        bool objState = pivotSettings.currentState;
         bool usingMovement = pivotSettings.usingMovement;
         if (pivotSettings.open)
             interactable.Text = "Close";
@@ -233,34 +232,31 @@ public class InteractionSystem : MonoBehaviour
         Quaternion endingAngle;
         Vector3 startingPos;
         Vector3 endingPos;
-        if (objState == false)
+        if (pivotSettings.open)
         {
-            startingAngle = pivotSettings.StartingAngle;
+            startingAngle = Quaternion.Euler(pivotSettings.startingAngle);
             endingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
-            startingPos = pivotSettings.StartingPos;
+            startingPos = pivotSettings.startingPos;
             endingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorOpen");
         }
         else
         {
-            endingAngle = pivotSettings.StartingAngle;
+            endingAngle = Quaternion.Euler(pivotSettings.startingAngle);
             startingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
-            endingPos = pivotSettings.StartingPos;
+            endingPos = pivotSettings.startingPos;
             startingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorClose");
         }
-        int smoothness = pivotSettings.smoothness;
-        float time = pivotSettings.timeToOpen;
-
-        for (float i = 0; i <= smoothness; i++)
+        float speed = 1 / pivotSettings.speed;
+        for (float i = 0; i < speed; i += Time.deltaTime)
         {
             if (usingMovement)
             {
-                pivotObj.transform.parent.localPosition = Vector3.Lerp(startingPos, endingPos, i / smoothness);
+                pivotObj.transform.parent.localPosition = Vector3.Lerp(startingPos, endingPos, i / speed);
             }
-            pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i / smoothness);
-            pivotSettings.currentState = !objState;
-            yield return new WaitForSeconds(time/smoothness);
+            pivotObj.transform.parent.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i / speed);
+            yield return new WaitForFixedUpdate();
         }
         pivotSettings.inUse = false;
     }

@@ -18,6 +18,8 @@ public class Lawnmower : Interactable
     public VisualEffect explosionVFX;
     public AudioSource explosionSFX;
 
+    public ParticleSystem cutGrass;
+
     public AudioSource lawnmowerStartup;
     public AudioClip lawnMowerContinuous;
     public AudioClip lawnmowerEnd;
@@ -74,7 +76,7 @@ public class Lawnmower : Interactable
                 Debug.Log("Cannot find PlayerController instance");
                 throw new System.Exception("Could not find PlayerController Instance");
             }
-
+            player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             // Disable player controller.
             PlayerController.Instance.enabled = false;
             StopCoroutine(moveCameraToPlayer(player));
@@ -185,6 +187,7 @@ public class Lawnmower : Interactable
                 ExitLawnmower();
                 usable = false;
             }
+            cutGrass.Play();
 
         }
         if (other.name == "Bomb"|| other.name == "Block of Grass(Clone)")

@@ -9,6 +9,7 @@ public class Door : Interactable
     PivotSettings openingForward;
     [SerializeField]
     PivotSettings openingBackward;
+
     private void Start()
     {
         StartCoroutine(fixDoors());
@@ -19,29 +20,29 @@ public class Door : Interactable
         yield return new WaitForSeconds(0.1f);
         if (openingForward.open == true)
         {
-            openingBackward.StartingPos = openingForward.endingPos;
-            openingBackward.StartingAngle = Quaternion.Euler(openingForward.endingAngle);
+            openingBackward.startingPos = openingForward.endingPos;
+            openingBackward.startingAngle = openingForward.endingAngle;
 
-            Vector3 startingPos = openingForward.StartingPos;
-            openingForward.StartingPos = openingForward.endingPos;
+            Vector3 startingPos = openingForward.startingPos;
+            openingForward.startingPos = openingForward.endingPos;
             openingForward.endingPos = startingPos;
 
-            Quaternion startingAngle = openingForward.StartingAngle;
-            openingForward.StartingAngle = Quaternion.Euler(openingForward.endingAngle);
-            openingForward.endingAngle = startingAngle.eulerAngles;
+            Vector3 startingAngle = openingForward.startingAngle;
+            openingForward.startingAngle = openingForward.endingAngle;
+            openingForward.endingAngle = startingAngle;
         }
         else if (openingBackward.open == true)
         {
-            openingForward.StartingPos = openingBackward.endingPos;
-            openingForward.StartingAngle = Quaternion.Euler(openingBackward.endingAngle);
+            openingForward.startingPos = openingBackward.endingPos;
+            openingForward.startingAngle = openingBackward.endingAngle;
 
-            Vector3 startingPos = openingBackward.StartingPos;
-            openingBackward.StartingPos = openingBackward.endingPos;
+            Vector3 startingPos = openingBackward.startingPos;
+            openingBackward.startingPos = openingBackward.endingPos;
             openingBackward.endingPos = startingPos;
 
-            Quaternion startingAngle = openingBackward.StartingAngle;
-            openingBackward.StartingAngle = Quaternion.Euler(openingBackward.endingAngle);
-            openingBackward.endingAngle = startingAngle.eulerAngles;
+            Vector3 startingAngle = openingBackward.startingAngle;
+            openingBackward.startingAngle = openingBackward.endingAngle;
+            openingBackward.endingAngle = startingAngle;
         }
     }
     public override void Action()
@@ -109,33 +110,33 @@ public class Door : Interactable
         Vector3 endingPos;
         if (pivotSettings.open == true)
         {
-            startingAngle = pivotSettings.StartingAngle;
+            startingAngle = Quaternion.Euler(pivotSettings.startingAngle);
             endingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
-            startingPos = pivotSettings.StartingPos;
+            startingPos = pivotSettings.startingPos;
             endingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorOpen");
         }
         else
         {
-            endingAngle = pivotSettings.StartingAngle;
+            endingAngle = Quaternion.Euler(pivotSettings.startingAngle);
             startingAngle = Quaternion.Euler(pivotSettings.endingAngle.x, pivotSettings.endingAngle.y, pivotSettings.endingAngle.z);
-            endingPos = pivotSettings.StartingPos;
+            endingPos = pivotSettings.startingPos;
             startingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorClose");
         }
-        int smoothness = pivotSettings.smoothness;
-        float time = pivotSettings.timeToOpen;
 
-        for (float i = 0; i <= smoothness; i++)
+        float speed = 1 / pivotSettings.speed;
+        for (float i = 0; i < speed; i+=Time.deltaTime)
         {
             if (usingMovement)
             {
-                transform.localPosition = Vector3.Lerp(startingPos, endingPos, i / smoothness);
+                transform.localPosition = Vector3.Lerp(startingPos, endingPos, i / speed);
             }
-            transform.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i / smoothness);
-            pivotSettings.currentState = !pivotSettings.currentState;
-            yield return new WaitForSeconds(time / smoothness);
+
+            transform.localRotation = Quaternion.Lerp(startingAngle, endingAngle, i / speed);
+            yield return new WaitForFixedUpdate();
         }
+
         pivotSettings.inUse = false;
     }
 }

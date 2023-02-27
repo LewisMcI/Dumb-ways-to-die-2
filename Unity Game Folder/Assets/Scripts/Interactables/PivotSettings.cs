@@ -4,32 +4,28 @@ using UnityEngine;
 
 public class PivotSettings : MonoBehaviour
 {
-    private Quaternion startingAngle;
+    [HideInInspector]
+    public bool inUse = false;
+    [HideInInspector]
+    public Vector3 startingPos;
+    [HideInInspector]
+    public Vector3 startingAngle;
+
+    public Vector3 endingPos;
+
     public Vector3 endingAngle;
 
     public bool usingMovement = false;
-    private Vector3 startingPos;
-    public Vector3 endingPos;
 
-    [Range(1,200)]
-    public int smoothness = 50;
-    [Range(0.1f,10)]
-    public float timeToOpen = 2.0f;
-
-    public bool currentState = false;
-
-    [HideInInspector]
-    public bool inUse = false;
+    public float openSpeed = 1.75f;
 
     public bool open = false;
 
-
-    public Quaternion StartingAngle { get => startingAngle; set => startingAngle = value;}
-    public Vector3 StartingPos { get => startingPos; set => startingPos = value;}
+    public float speed { get => openSpeed; }
 
     private void Start()
     {
-        startingAngle = transform.localRotation;
+        startingAngle = transform.localRotation.eulerAngles;
         startingPos = transform.localPosition;
     }
 }
