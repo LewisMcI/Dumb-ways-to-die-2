@@ -9,16 +9,14 @@ public class DialogueSystem : MonoBehaviour
     public class Dialogue
     {
         public string text;
-        public float speed = 0.1f;
-        public float waitBetweenLines = 0.2f;
+        public float speed = 5.0f;
+        public float holdAfterFinished = 3.0f;
     }
-
-    private bool complete = false;
-    public float waitAfterComplete = 2.0f;
 
     [SerializeField]
     public List<Dialogue> dialogues = new List<Dialogue>();
 
+    bool complete = true;
     public void TriggerDialogue()
     {
         StopAllCoroutines();
@@ -30,13 +28,12 @@ public class DialogueSystem : MonoBehaviour
     {
         foreach(Dialogue dialogue in dialogues)
         {
-            complete = false;
             StartCoroutine(UpdateDialogue(dialogue));
-            while (!complete)
+            if (!complete)
                 yield return new WaitForFixedUpdate();
-            yield return new WaitForSeconds(dialogue.waitBetweenLines);
+            yield return new WaitForSeconds(dialogue.holdAfterFinished);
         }
-        yield return new WaitForSeconds(waitAfterComplete);
+        yield return new WaitForSeconds(2.0f);
         GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(false);
         GameUI.Instance.DialogueText.text = "";
     }
@@ -44,12 +41,14 @@ public class DialogueSystem : MonoBehaviour
     IEnumerator UpdateDialogue(Dialogue dialogue)
     {
         GameUI.Instance.DialogueText.text = "";
-        foreach (char character in dialogue.text.ToCharArray())
+
+        float speed = 1 / dialogue.speed;
+        for (float i = 0; i < speed; i+=Time.deltaTime)
         {
+            int value = (int)Mathf.Lerp(0, dialogue.text.Length - 1, i / speed);
+            GameUI.Instance.DialogueText.text = dialogue.text.Substring(0, value);
             yield return new WaitForFixedUpdate();
-            GameUI.Instance.DialogueText.text += character;
-            yield return null;
         }
-        complete = true;
+        GameUI.Instance.DialogueText.text = dialogue.text;
     }
 }

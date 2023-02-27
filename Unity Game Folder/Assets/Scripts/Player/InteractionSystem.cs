@@ -248,6 +248,7 @@ public class InteractionSystem : MonoBehaviour
             startingPos = pivotSettings.endingPos;
             //AudioManager.Instance.PlayAudio("DoorClose");
         }
+
         float speed = 1 / pivotSettings.speed;
         for (float i = 0; i < speed; i += Time.deltaTime)
         {
