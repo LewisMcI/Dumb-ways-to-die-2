@@ -78,9 +78,9 @@ public class Lawnmower : Interactable
             }
             player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             // Disable player controller.
-            PlayerController.Instance.enabled = false;
-            StopCoroutine(moveCameraToPlayer(player));
-            StartCoroutine(moveCameraFromPlayer(player));
+/*            PlayerController.Instance.enabled = false;*/
+/*            StopCoroutine(moveCameraToPlayer(player));
+            StartCoroutine(moveCameraFromPlayer(player));*/
 
 
             // Move player to position
@@ -153,8 +153,8 @@ public class Lawnmower : Interactable
             Debug.Log("Cannot find PlayerController instance");
             throw new System.Exception("Could not find PlayerController Instance");
         }
-        StopCoroutine(moveCameraFromPlayer(player));
-        StartCoroutine(moveCameraToPlayer(player));
+/*        StopCoroutine(moveCameraFromPlayer(player));
+        StartCoroutine(moveCameraToPlayer(player));*/
 
         // Unchild lawnmower.
         transform.parent = null;
@@ -208,7 +208,9 @@ public class Lawnmower : Interactable
         Destroy(other.gameObject);
         explosionVFX.Play();
         // Disable player controller.
-        PlayerController.Instance.GetComponent<TopdownPlayerController>().enabled = false;
+        TopdownPlayerController tdPC = PlayerController.Instance.GetComponent<TopdownPlayerController>();
+        if (tdPC)
+            tdPC.enabled = false;
         lawnmowerStartup.Stop();
         lawnmowerStartup.PlayOneShot(lawnmowerEnd);
         GameObject player;
