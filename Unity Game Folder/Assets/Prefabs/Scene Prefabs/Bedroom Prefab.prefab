@@ -226,13 +226,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0.003069929, y: 0.6525561, z: 0.042}
   endingAngle: {x: -0.012, y: 0, z: 1.133}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0.003069929, y: 0.6525561, z: 0.042}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &115274535869178598
 GameObject:
@@ -319,13 +319,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: -0.2266675, y: 0.301753, z: 0.2}
   endingAngle: {x: -90, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: -0.2266675, y: 0.301753, z: 0.2}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &128387389227663084
 GameObject:
@@ -584,13 +584,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0.3724289, y: 0.194, z: 0.2}
   endingAngle: {x: -90, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0.3724289, y: 0.194, z: 0.2}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &317282721745252037
 GameObject:
@@ -854,13 +854,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0.3724289, y: 0.077, z: 0.2}
   endingAngle: {x: -90, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0.3724289, y: 0.077, z: 0.2}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &681358329794432855
 GameObject:
@@ -1353,13 +1353,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0.4}
   endingAngle: {x: 0, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0.4}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &1006393103086635283
 GameObject:
@@ -1742,13 +1742,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0.4}
   endingAngle: {x: 0, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0.4}
+  smoothness: 50
+  timeToOpen: 1
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &1495761133198584904
 GameObject:
@@ -2607,13 +2607,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0.00308084, y: 0.4284226, z: 0.042}
   endingAngle: {x: 0.006, y: 0, z: -0.544}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0.00308084, y: 0.4284226, z: 0.042}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &2678958998220068172
 GameObject:
@@ -2980,13 +2980,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0.4}
   endingAngle: {x: 0, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0.4}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &3531511104359482640
 GameObject:
@@ -3165,13 +3165,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: -0.2266675, y: 0.079, z: 0.2}
   endingAngle: {x: -90, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: -0.2266675, y: 0.079, z: 0.2}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &3691977724584620433
 GameObject:
@@ -3217,13 +3217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0.4}
   endingAngle: {x: 0, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0.4}
+  smoothness: 50
+  timeToOpen: 1
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &3842472239013926860
 GameObject:
@@ -3953,13 +3953,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: -0.2266675, y: 0.195, z: 0.2}
   endingAngle: {x: -90, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: -0.2266675, y: 0.195, z: 0.2}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &4505452597256521535
 GameObject:
@@ -4038,13 +4038,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0}
   endingAngle: {x: 0, y: -91, z: 0}
   usingMovement: 0
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &4891958749287849286
 GameObject:
@@ -4356,13 +4356,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0.4}
   endingAngle: {x: 0, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0.4}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &5294916879639064544
 GameObject:
@@ -5595,13 +5595,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0}
   endingAngle: {x: 0, y: 91, z: 0}
   usingMovement: 0
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &6606538286375972218
 GameObject:
@@ -6671,13 +6671,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0.3724289, y: 0.301753, z: 0.2}
   endingAngle: {x: -90, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0.3724289, y: 0.301753, z: 0.2}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &7681167164031509907
 GameObject:
@@ -7430,13 +7430,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0.429, z: 0.042}
   endingAngle: {x: 0.006, y: 0, z: -0.544}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0.429, z: 0.042}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &8176975164270442045
 GameObject:
@@ -8133,13 +8133,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inUse: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  startingAngle: {x: 0, y: 0, z: 0}
-  endingPos: {x: 0, y: 0, z: 0.4}
   endingAngle: {x: 0, y: 0, z: 0}
   usingMovement: 1
-  openSpeed: 1.75
+  endingPos: {x: 0, y: 0, z: 0.4}
+  smoothness: 50
+  timeToOpen: 0.5
+  currentState: 0
+  inUse: 0
   open: 0
 --- !u!1 &8669770310289114842
 GameObject:
@@ -8701,7 +8701,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e266da949e4fd7b41932c424871cacc6, type: 2}
+  - {fileID: 2100000, guid: 8095c5f2f854cf3448eac742357ef04f, type: 2}
   - {fileID: 2100000, guid: 7726d32a26d1230439e02f204302e478, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -10835,7 +10835,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e266da949e4fd7b41932c424871cacc6, type: 2}
+  - {fileID: 2100000, guid: 8095c5f2f854cf3448eac742357ef04f, type: 2}
   - {fileID: 2100000, guid: 7726d32a26d1230439e02f204302e478, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -11152,7 +11152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e266da949e4fd7b41932c424871cacc6, type: 2}
+  - {fileID: 2100000, guid: 8095c5f2f854cf3448eac742357ef04f, type: 2}
   - {fileID: 2100000, guid: 7726d32a26d1230439e02f204302e478, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
