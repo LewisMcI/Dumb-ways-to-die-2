@@ -5,18 +5,13 @@ using UnityEngine;
 public class AlarmClock : Interactable
 {
     #region fields
-    [SerializeField]
-    private bool enable;
     #endregion
 
     #region methods
     private void Awake()
     {
-        if (enable)
-        {
-            StartCoroutine(StartAlarm());
-            StartCoroutine(StopAlarm());
-        }
+        StartCoroutine(StartAlarm());
+        StartCoroutine(StopAlarm());
     }
 
     public override void Action()
@@ -25,7 +20,8 @@ public class AlarmClock : Interactable
         GetComponent<AudioSource>().Stop();
         // Stop animation
         GetComponent<Animator>().SetBool("Alarm", false);
-        CanInteract = false;
+
+        Destroy(this);
     }
 
     public void Alarm()
