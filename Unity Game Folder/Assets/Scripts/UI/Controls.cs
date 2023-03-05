@@ -7,19 +7,17 @@ using UnityEngine.UI;
 public class Controls : MonoBehaviour
 {
     #region fields
-    [SerializeField]
-    private GameObject loading;
     #endregion
 
     #region methods
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !loading.activeSelf)
+        if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine(Continue(0.5f));
             GetComponent<Image>().enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
-            loading.SetActive(true);
+            SceneManager.LoadScene("Loading");
         }
     }
 

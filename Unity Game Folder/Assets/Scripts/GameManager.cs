@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     #region fields
+    int noOfLevels = 5;
     // Managers
     public static GameManager Instance;
     public TaskManager taskManager;
@@ -116,6 +115,11 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Book", IsPaused);
     }
 
+    public void MoveToNextLevel()
+    {
+        GameSettings.Instance.currLevel++;
+        SceneManager.LoadScene("Loading");
+    }
     /// <summary>
     ///  Restarts current scene.
     /// </summary>

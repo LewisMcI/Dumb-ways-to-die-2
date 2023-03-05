@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,22 +14,25 @@ public class Loading : MonoBehaviour
     #region methods
     private void Awake()
     {
-        string scene = "";
+        string scene;
         switch (GameSettings.Instance.currLevel)
         {
             case 1:
-                scene = "Level 2";
+                scene = "Level 1";
                 break;
             case 2:
-                scene = "Level 3";
+                scene = "Level 2";
                 break;
             case 3:
-                scene = "Level 4";
+                scene = "Level 3";
                 break;
             case 4:
-                scene = "Level 5";
+                scene = "Level 4";
                 break;
             case 5:
+                scene = "Level 5";
+                break;
+            default:
                 scene = "Main Menu";
                 break;
         }

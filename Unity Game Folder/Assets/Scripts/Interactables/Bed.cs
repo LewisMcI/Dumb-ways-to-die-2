@@ -30,6 +30,7 @@ public class Bed : Interactable
         {
             GameUI.Instance.ReverseBlink();
             StartCoroutine(GoToSleep());
+            CanInteract = false;
         }
     }
 
@@ -49,8 +50,7 @@ public class Bed : Interactable
         // TODO: FIX this!!!
 
         // Advance level
-        GameSettings.Instance.currLevel++;
-        SceneManager.LoadScene("Loading");
+        GameManager.Instance.MoveToNextLevel();
     }
     #endregion
 }

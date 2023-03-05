@@ -16,8 +16,20 @@ public class MainMenu : MonoBehaviour
         catch { }
     }
 
-    public void Play()
+    public void Continue()
     {
+        if (GameSettings.Instance.loadTutorial == true)
+        {
+            GameSettings.Instance.loadTutorial = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void NewGame()
+    {
+        GameSettings.Instance.ResetLevel();
         if (GameSettings.Instance.loadTutorial == true)
         {
             GameSettings.Instance.loadTutorial = false;

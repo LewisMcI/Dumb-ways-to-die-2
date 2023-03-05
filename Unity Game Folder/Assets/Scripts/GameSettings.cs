@@ -27,11 +27,11 @@ public class GameSettings : MonoBehaviour
     [HideInInspector]
     public int displayMode;
 
-    public int currLevel;
+    public int currLevel = 1;
 
     public static GameSettings Instance;
 
-    private const string DEFAULT_VALUE = "masterVolume=10,musicVolume=-10,vfxVolume=-10,sensitivity=3,loadTutorial=False,quality=2,displayMode=0";
+    private const string DEFAULT_VALUE = "masterVolume=10,musicVolume=-10,vfxVolume=-10,sensitivity=3,loadTutorial=False,quality=2,displayMode=0,lastLevel=1";
     private void Start()
     {
         if (Instance != null)
@@ -47,6 +47,10 @@ public class GameSettings : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", DEFAULT_VALUE);
     }
 
+    public void ResetLevel()
+    {
+        currLevel = 1;
+    }
     private void LoadSettings()
     {
         string saveString;
@@ -92,38 +96,58 @@ public class GameSettings : MonoBehaviour
         if (values[0] == "masterVolume")
             masterMixer.SetFloat("MasterVolume", int.Parse(values[1]));
         else
-            Debug.Log("Could not load");
+            Debug.Log("MasterVolume not found in Game Settings.");
+
         if (values[2] == "musicVolume")
         {
             musicVolume = int.Parse(values[3]);
             masterMixer.SetFloat("MusicVolume", musicVolume);
         }
         else
-            Debug.Log("Could not load");
+            Debug.Log("musicVolume not found in Game Settings.");
         if (values[4] == "vfxVolume")
         {
             vfxVolume = int.Parse(values[5]);
-            if (!masterMixer.SetFloat("VFXVolume", vfxVolume)) 
+            if (!masterMixer.SetFloat("VFXVolume", vfxVolume))
                 Debug.Log("why");
         }
         else
-            Debug.Log("Could not load");
+            Debug.Log("VFXVolume not found in Game Settings.");
         if (values[6] == "sensitivity")
             sensitivity = float.Parse(values[7]);
         else
-            Debug.Log("Could not load");
+        {
+            Debug.Log("Sensitivity not found in Game Settings.");
+            sensitivity = 3;
+        }
         if (values[8] == "loadTutorial")
             loadTutorial = bool.Parse(values[9]);
         else
-            Debug.Log("Could not load");
+        {
+            Debug.Log("Load Tutorial not found in Game Settings.");
+            loadTutorial = false;
+        }
         if (values[10] == "quality")
             qualitySetting = int.Parse(values[11]);
         else
-            Debug.Log("Could not load");
+        {
+            Debug.Log("Quality Setting not found in Game Settings.");
+            qualitySetting = 0;
+
+        }
         if (values[12] == "displayMode")
             displayMode = int.Parse(values[13]);
         else
-            Debug.Log("Could not load");
+        {
+            Debug.Log("Display mode not found in Game Settings.");
+            displayMode = 0;
+        }
+        if (values[14] == "lastLevel")
+            // TODO: Remove when we add a continue button.
+            currLevel = 1;
+            //currLevel = int.Parse(values[15]);
+        else
+            Debug.Log("Current Level not found in Game Settings.");
 
         ResetUI();
     }
@@ -141,7 +165,7 @@ public class GameSettings : MonoBehaviour
             return;
         musicVolume = (int)musicVol;
         vfxVolume = (int)vfxVol;
-        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + sensitivity + ",loadTutorial=" + loadTutorial +",quality=" + qualitySetting + ",displayMode=" + displayMode;
+        string text = "masterVolume=" + "10" + ",musicVolume=" + musicVolume + ",vfxVolume=" + vfxVolume + ",sensitivity=" + sensitivity + ",loadTutorial=" + loadTutorial +",quality=" + qualitySetting + ",displayMode=" + displayMode + ",lastLevel=" + currLevel;
 
         Debug.Log(text);
         File.WriteAllText(Application.dataPath + "/Resources/options.txt", text);
