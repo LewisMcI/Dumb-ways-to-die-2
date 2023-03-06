@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
 
     public Transform CameraTransform { get => playerCam.transform; }
     private float restartTimer = 5f;
+    private Rigidbody[] limbs;
     private bool dead;
 
+    [SerializeField]
+    private ParticleSystem[] electricFX;
+
     private Rigidbody rig;
-    private Rigidbody[] limbs;
     private Animator anim;
 
     public static PlayerController Instance;
@@ -46,6 +49,11 @@ public class PlayerController : MonoBehaviour
     {
         get { return dead; }
         set { dead = value; }
+    }
+
+    public ParticleSystem[] ElectricFX
+    {
+        get { return electricFX; }
     }
     #endregion
 
@@ -225,7 +233,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EnableNewCamera(SelectCam camera)
+    public void EnableNewCamera(SelectCam? camera)
     {
         GameManager.Instance.EnableCamera = false;
         // Switch cameras
@@ -268,30 +276,26 @@ public class PlayerController : MonoBehaviour
         playerCam.tag = "MainCamera";
     }
 
-    public void Die(SelectCam camera, float delay)
+    public void Die(float delay, bool ragdoll = true, SelectCam? camera = null)
     {
-        GameManager.Instance.EnableCamera = false;
-        GameManager.Instance.EnableControls = false;
-        EnableNewCamera(camera);
+        if (camera != null)
+        {
+            GameManager.Instance.EnableCamera = false;
+            GameManager.Instance.EnableControls = false;
+            EnableNewCamera(camera);
+        }
         dead = true;
         Debug.Log(dead);
 
-        StartCoroutine(KillPlayer(delay));
-    }
-    public void Die(float delay)
-    {
-        GameManager.Instance.EnableControls = false;
-        dead = true;
-        Debug.Log(dead);
-
-        StartCoroutine(KillPlayer(delay));
+        StartCoroutine(KillPlayer(delay, ragdoll));
     }
 
-    IEnumerator KillPlayer(float delay)
+    IEnumerator KillPlayer(float delay, bool ragdoll = false)
     {
         yield return new WaitForSeconds(delay);
         // Enable ragdoll physics
-        EnableRagdoll();
+        if (ragdoll)
+            EnableRagdoll();
     }
 
     public void ResetCharacter()

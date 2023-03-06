@@ -73,7 +73,7 @@ public class TrapCabinet : Interactable
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirX", 0);
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirY", 0);
         float delay = 0.5f;
-        PlayerController.Instance.Die(PlayerController.SelectCam.bathroomCam, delay);
+        PlayerController.Instance.Die(delay, true, PlayerController.SelectCam.bathroomCam);
         yield return new WaitForSeconds(delay);
         // Add backwards force
         PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));

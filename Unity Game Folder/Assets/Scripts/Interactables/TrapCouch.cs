@@ -75,7 +75,7 @@ public class TrapCouch : Interactable
     {
         transition = true;
         float delay = 1f;
-        PlayerController.Instance.GetComponent<PlayerController>().Die(PlayerController.SelectCam.couchCam, delay);
+        PlayerController.Instance.GetComponent<PlayerController>().Die(delay, true, PlayerController.SelectCam.couchCam);
         yield return new WaitForSeconds(delay);
         transition = false;
         // Add upward force

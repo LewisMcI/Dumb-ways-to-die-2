@@ -78,7 +78,7 @@ public class TrapToaster : Interactable
         GameManager.Instance.EnableControls = false;
         GetComponent<Animator>().SetTrigger("Explode");
         float delay = 0.5f;
-        PlayerController.Instance.Die(PlayerController.SelectCam.toasterCam, delay);
+        PlayerController.Instance.Die(delay, true, PlayerController.SelectCam.toasterCam);
         yield return new WaitForSeconds(delay);
         // Add backwards force
         PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
