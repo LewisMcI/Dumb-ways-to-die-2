@@ -348,5 +348,18 @@ public class PlayerController : MonoBehaviour
         bathroomCam,
         outsideCam
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.relativeVelocity.magnitude > 30)
+        {
+            Debug.Log(collision.relativeVelocity.magnitude);
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            dead = true; 
+            EnableRagdoll();
+            AddRagdollForce(-transform.forward * 50f);
+            Camera.main.GetComponent<CameraController>().FreezeRotation = true;
+        }
+    }
     #endregion
 }

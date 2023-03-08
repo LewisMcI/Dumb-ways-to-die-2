@@ -53,9 +53,7 @@ public class Lawnmower : Interactable
         {
             noOfGrass += grassMaster.GetChild(i).childCount;
         }
-        Debug.Log(noOfGrass);
         noToWin = (int)(noOfGrass * (1-percentDestroyedToWin));
-        Debug.Log(noToWin);
         initRotation = associatedCam.transform.rotation;
         initPosition = associatedCam.transform.position;
     }

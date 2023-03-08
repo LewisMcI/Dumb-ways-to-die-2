@@ -9,6 +9,8 @@ public class Bomb : MonoBehaviour
     public AudioSource clickSFX;
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast"))
+            return;
         clickSFX.Play();
         StartCoroutine(KillPlayer(other.gameObject));
     }
@@ -19,7 +21,6 @@ public class Bomb : MonoBehaviour
         explosionSFX.Play();
         explosionVFX.Play();
 
-        Debug.Log(other.name);
         // Disable both player controllers.
         if (other.name == "Character")
         {
@@ -39,12 +40,10 @@ public class Bomb : MonoBehaviour
             if (!otherRb)
                 otherRb = other.AddComponent<Rigidbody>();
             otherRb.AddForce(new Vector3(0.0f, 1000.0f, 0.0f));
-            Debug.Log("Should destroy");
             Destroy(gameObject);
             yield break;
         }
 
-        Debug.Log("KIll Player");
         // Unchild lawnmower.
         transform.parent = null;
 
