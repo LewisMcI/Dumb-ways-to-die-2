@@ -432,15 +432,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitAfterComplete: 4
   dialogues:
   - text: Good Morning Mr. Gavinson, this is Dr. Davidson.
-    speed: 1
-    waitBetweenLines: 2
+    speed: 0.5
+    holdAfterFinished: 4
   - text: We haven't heard from you in a while so this is just a quick reminder to
       be taking your medication.
-    speed: 1
-    waitBetweenLines: 2
+    speed: 0.5
+    holdAfterFinished: 4
 --- !u!114 &262705714
 MonoBehaviour:
   m_ObjectHideFlags: 0

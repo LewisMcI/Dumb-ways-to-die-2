@@ -7,8 +7,6 @@ public class CarBattery : Interactable
     #region fields
     [SerializeField]
     private Clothes clothes;
-    [SerializeField]
-    private ParticleSystem[] effects;
     #endregion
 
     #region methods
@@ -18,11 +16,6 @@ public class CarBattery : Interactable
         foreach (Clothing clothing in clothes.Clothings)
         {
             clothing.Electric = false;
-        }
-        // Disable effects
-        foreach (ParticleSystem effect in effects)
-        {
-            effect.Stop();
         }
         // Stop sfx
         transform.parent.GetComponent<AudioSource>().Stop();

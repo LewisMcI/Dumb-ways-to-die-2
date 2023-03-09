@@ -23,6 +23,7 @@ public class Clothing : Interactable
         if (electric)
         {
             StartCoroutine(KillPlayer());
+            transform.parent.GetComponent<Clothes>().EnableVFX();
         }
         else
         {
@@ -54,6 +55,7 @@ public class Clothing : Interactable
         {
             effect.Play();
         }
+        yield return new WaitForSeconds(0.2f);
         PlayerController.Instance.Die(0.0f, false, PlayerController.SelectCam.outsideCam);
         // Play animation
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Electrecute");

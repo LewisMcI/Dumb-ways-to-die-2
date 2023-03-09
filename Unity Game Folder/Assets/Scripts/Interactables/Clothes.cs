@@ -23,5 +23,23 @@ public class Clothes : MonoBehaviour
         // Mark task as complete if all clothes collected
         GameManager.Instance.taskManager.UpdateTaskCompletion("Get Clothes");
     }
+
+    public void EnableVFX()
+    {
+        StartCoroutine(PlayVFX());
+    }
+
+    IEnumerator PlayVFX()
+    {
+        foreach (ParticleSystem particleEffect in transform.parent.GetComponentsInChildren<ParticleSystem>())
+        {
+            particleEffect.Play();
+        }
+        yield return new WaitForSeconds(0.75f);
+        foreach (ParticleSystem particleEffect in transform.parent.GetComponentsInChildren<ParticleSystem>())
+        {
+            particleEffect.Stop();
+        }
+    }
     #endregion
 }

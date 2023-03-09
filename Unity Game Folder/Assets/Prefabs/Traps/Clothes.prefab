@@ -197,6 +197,7 @@ MonoBehaviour:
   type: 3
   text: Collect
   keepRotation: 1
+  electric: 0
 --- !u!1 &4315134231634068871
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4315134231634068871}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.1086, y: -0.76757, z: 2.311}
+  m_LocalPosition: {x: 9.1086, y: -0.7, z: 2.311}
   m_LocalScale: {x: 0.95368004, y: 0.95368004, z: 0.95368004}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -311,6 +312,7 @@ MonoBehaviour:
   type: 3
   text: Collect
   keepRotation: 1
+  electric: 0
 --- !u!1 &4764194951922906977
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +414,7 @@ MonoBehaviour:
   type: 3
   text: Collect
   keepRotation: 1
+  electric: 0
 --- !u!65 &4809963858133129745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -488,6 +491,7 @@ MonoBehaviour:
   type: 3
   text: Collect
   keepRotation: 1
+  electric: 0
 --- !u!1 &4764194953081592252
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,11 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e44937d2ebe634caed88af3a5629aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clothes:
-  - {fileID: 4764194951922906976}
-  - {fileID: 1862591379723934411}
-  - {fileID: 4764194952889006324}
-  - {fileID: 4315134231634068870}
+  clothings: []
 --- !u!1 &8505974945995660649
 GameObject:
   m_ObjectHideFlags: 0
