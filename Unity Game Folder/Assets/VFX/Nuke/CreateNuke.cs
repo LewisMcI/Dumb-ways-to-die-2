@@ -1,3 +1,4 @@
+using EZCameraShake;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class CreateNuke : MonoBehaviour
         {
             nuke.SetActive(true);
             audio.Play();
+            CameraShaker.Instance.ShakeOnce(12.0f, 4f, 1.0f, 4.0f);
         }
     }
 }
