@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class LineOfSight : MonoBehaviour
 {
     #region variables
@@ -19,6 +18,8 @@ public class LineOfSight : MonoBehaviour
     float distance = 10;
     [SerializeField]
     float height = 1.0f;
+    [SerializeField]
+    int segments = 10;
 
     // Scan for Objects frequency
     [SerializeField]
@@ -34,17 +35,25 @@ public class LineOfSight : MonoBehaviour
     // List of Objects currently in Line of Sight.
     List<GameObject> objs = new List<GameObject>();
     // List of Colliders in the surrounding sphere.
-    Collider[] colliders = new Collider[25];
-    // 
+    Collider[] colliders = new Collider[40];
+
+    // Count of colliders in surrounding sphere - Has its own variable because colliders will have null values
     int count;
+    // Interval inbetween each scan
     float scanInterval;
+    // Keeps track of next scan time.
     float scanTimer;
+    // Our Line of Sight sensors mesh.
     Mesh Sensor;
-    #endregion
+
+    // Getter for objects currently in Line of Sight.
     public List<GameObject> Objs { get => objs; }
+    #endregion
+
 
     private void Awake()
     {
+        // Set starting scan interval
         scanInterval = 1.0f / scanFrequency;
     }
 
@@ -59,29 +68,42 @@ public class LineOfSight : MonoBehaviour
     }
     public bool InSight(GameObject obj)
     {
+        // Stores the origin, destination and direction.
         Vector3 origin = transform.position;
-        Vector3 dest = obj.transform.position;
-        Vector3 direction = dest - origin;
+        Vector3 destination = obj.transform.position;
+        Vector3 direction = destination - origin;
 
+        // If the object is above or below our line of sight.
         if (direction.y < 0 || direction.y > height)
             return false;
 
+        // Reset y direction so that our delta angle is not affected
         direction.y = 0;
+        // Calculate delta angle.
         float deltaAngle = Vector3.Angle(direction, transform.forward);
+        // If object is outside of our line of sight.   
         if (deltaAngle > angle)
             return false;
 
+        // Place origin in the center of our object.
         origin.y += height / 2;
-        dest.y = origin.y;
-        if (Physics.Linecast(origin, dest, blockLayers))
+        // Reflect this in our destination.
+        destination.y = origin.y;
+        // Shoot a linecast from our origin to our destination and check for any block layers.
+        if (Physics.Linecast(origin, destination, blockLayers))
             return false;
+
+        // If we have reached this far, the object is in the Line of Sight.
         return true;
     }
+
     private void Scan()
     {
+        // Check in sphere for colliders.
         count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, targetLayers, QueryTriggerInteraction.Collide);
 
         objs.Clear();
+        // For each collider, check if in light of sight and if so, add to list.
         for (int i = 0; i < count; ++i)
         {
             GameObject obj = colliders[i].gameObject;
@@ -90,17 +112,24 @@ public class LineOfSight : MonoBehaviour
         }
     }
 
+    /* Creates our cone mesh
+     * This is created in inspector so that we can edit its parameters
+     * segments, angle, distance and height.
+     */
     Mesh CreateSensorMesh()
     {
+        // Create new mesh.
         Mesh mesh = new Mesh();
 
-        int segments = 10;
+        // Declare number of triangles and vertices.
         int numTriangles = (segments * 4) + 4;
         int numVertices = numTriangles * 3;
 
+        // Allocate arrays.
         Vector3[] vertices = new Vector3[numVertices];
         int[] triangles = new int[numVertices];
 
+        // Declare preset values.
         Vector3 bottomCenter = Vector3.zero;
         Vector3 bottomLeft = Quaternion.Euler(0, -angle, 0) * Vector3.forward * distance;
         Vector3 bottomRight = Quaternion.Euler(0, angle, 0) * Vector3.forward * distance;
@@ -111,7 +140,7 @@ public class LineOfSight : MonoBehaviour
 
         int index = 0;
 
-        // Left Side
+        // Create Left Side of Mesh.
         vertices[index++] = bottomCenter;
         vertices[index++] = bottomLeft;
         vertices[index++] = topLeft;
@@ -120,7 +149,7 @@ public class LineOfSight : MonoBehaviour
         vertices[index++] = topCenter;
         vertices[index++] = bottomCenter;
 
-        // Right Side
+        // Create Right Side of Mesh.
         vertices[index++] = bottomCenter;
         vertices[index++] = topCenter;
         vertices[index++] = topRight;
@@ -129,17 +158,19 @@ public class LineOfSight : MonoBehaviour
         vertices[index++] = bottomRight;
         vertices[index++] = bottomCenter;
 
+        // Flip our angle and generate our deltaAngle
         float currentAngle = -angle;
         float deltaAngle = (angle * 2) / segments;
         for (int i = 0; i < segments; ++i)
         {
+            // Reset our preset values.
             bottomLeft = Quaternion.Euler(0, currentAngle, 0) * Vector3.forward * distance;
             bottomRight = Quaternion.Euler(0, currentAngle + deltaAngle, 0) * Vector3.forward * distance;
 
             topRight = bottomRight + Vector3.up * height;
             topLeft = bottomLeft + Vector3.up * height;
 
-            // Far Side
+            // Create Far Side of Mesh.
             vertices[index++] = bottomLeft;
             vertices[index++] = bottomRight;
             vertices[index++] = topRight;
@@ -147,16 +178,18 @@ public class LineOfSight : MonoBehaviour
             vertices[index++] = topRight;
             vertices[index++] = topLeft;
             vertices[index++] = bottomLeft;
-            // Top
+
+            // Create Top Side of Mesh.
             vertices[index++] = topCenter;
             vertices[index++] = topLeft;
             vertices[index++] = topRight;
 
-            // Bottom
+            // Create Bottom Side of Mesh.
             vertices[index++] = bottomCenter;
             vertices[index++] = bottomRight;
             vertices[index++] = bottomLeft;
 
+            // Increment angle.
             currentAngle += deltaAngle;
         }
         
@@ -164,24 +197,34 @@ public class LineOfSight : MonoBehaviour
         {
             triangles[i] = i;
         }
+        // Pass through our values to our generated mesh.
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
 
         return mesh;
     }
+    /* Called when value is changed in inspector.
+     * Used such that when a value is editted in inspector, this is reflected in scene.
+     */
     private void OnValidate()
     {
         Sensor = CreateSensorMesh();
     }
+    /* Called when Gizmos are drawn.
+     * Used to render our Line of Sight and Spheres representing Targets found.
+     */
     private void OnDrawGizmos()
     {
+        // If we have generated the mesh
         if (Sensor)
         {
+            // Draw mesh
             Gizmos.color = sensorColour;
             Gizmos.DrawMesh(Sensor, transform.position, transform.rotation);
         }
 
+        // Render all spheres nearby
      /*   Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distance);
         for (int i = 0; i < count; ++i)
@@ -190,6 +233,8 @@ public class LineOfSight : MonoBehaviour
         }
 
         Gizmos.color = sensorColour;*/
+
+        // Render Spheres at all objects within Line of Sight.
         foreach (var Object in objs)
         {
             Gizmos.DrawSphere(Object.transform.position, 1.0f);
