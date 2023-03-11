@@ -112,7 +112,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4769868870469769079}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.36, y: 1.06, z: -13}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -261,7 +261,8 @@ MonoBehaviour:
   steeringBehvaiours:
   - {fileID: 5688208673159407426}
   - {fileID: 5688208673159407427}
-  playerLineOfSight: {fileID: 5688208674704079915}
+  robotLineOfSight: {fileID: 5688208674704079915}
+  distanceToAttack: 1
 --- !u!114 &5688208673159407426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +338,7 @@ MonoBehaviour:
   angle: 45
   distance: 10
   height: 2
+  segments: 10
   scanFrequency: 30
   targetLayers:
     serializedVersion: 2

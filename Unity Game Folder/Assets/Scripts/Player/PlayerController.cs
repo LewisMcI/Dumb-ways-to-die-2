@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rig;
     private Animator anim;
 
+    private bool canDieFromCollision = true;
+
     public static PlayerController Instance;
     #endregion
 
@@ -71,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         rig = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-        limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
+        limbs = transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
         StartCoroutine(OpenNotepadAfterAwake());
     }
@@ -351,15 +354,56 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.relativeVelocity.magnitude > 30)
+        if (canDieFromCollision && collision.relativeVelocity.magnitude > 20)
         {
-            Debug.Log(collision.relativeVelocity.magnitude);
+            Debug.Log("Player ragdolled by speed: " + collision.relativeVelocity.magnitude);
             Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
-            dead = true; 
-            EnableRagdoll();
-            AddRagdollForce(-transform.forward * 50f);
-            Camera.main.GetComponent<CameraController>().FreezeRotation = true;
+            ThrowPlayerBackwards(50f, 2.0f);
         }
+    }
+
+    public void DisableDeathFromCollision(float time = 0)
+    {
+        canDieFromCollision = false;
+        if (time == 0)
+        {
+            Debug.Log("Death from Collision disabled until next respawn or next edit.");
+            return;
+        }
+        StartCoroutine(ReEnableDeathFromCollision(time));
+    }
+
+    IEnumerator ReEnableDeathFromCollision(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        canDieFromCollision = true;
+    }
+
+    public void ThrowPlayerBackwards(float force, float timeTilLEnds, bool recover = false)
+    {
+        EnableRagdoll();
+        AddRagdollForce(-transform.forward * force);
+        GameManager.Instance.EnableControls = false;
+        CameraController camController = Camera.main.GetComponent<CameraController>();
+        camController.FreezeRotation = true;
+        float followHeadTime = camController.FollowHeadTime;
+        camController.FollowHeadTime = 0.0f;
+        if (recover)
+            StartCoroutine(Recover(timeTilLEnds, followHeadTime));
+        else
+        {
+            Debug.Log("dieing?");
+            Die(timeTilLEnds);
+        }
+    }
+
+    private IEnumerator Recover(float timeTillEnds, float followHeadTime)
+    {
+        yield return new WaitForSeconds(timeTillEnds);
+        PlayerController.Instance.ResetCharacter();
+        GameManager.Instance.EnableControls = true;
+        Camera.main.GetComponent<CameraController>().FreezeRotation = false;
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
     }
     #endregion
 }

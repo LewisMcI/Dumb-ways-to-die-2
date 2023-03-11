@@ -8,7 +8,8 @@ public class RobotAgent : SteeringAgent
     protected enum State
     {
         Patrol,
-        ChaseTarget
+        ChaseTarget, 
+        Attacking
     }
     
     // Current state of Robot.
@@ -17,6 +18,8 @@ public class RobotAgent : SteeringAgent
     // Line of Sight script of Robot.
     [SerializeField]
     LineOfSight robotLineOfSight;
+    [SerializeField]
+    float distanceToAttack;
 
     /* Called on Play().
      * Used to generate NavMesh automatically without having to manually build on every scene edit.
@@ -31,38 +34,51 @@ public class RobotAgent : SteeringAgent
      */
     protected override void CooperativeArbitration()
     {
-        // If LineOfSight has detected objects.
-        if (robotLineOfSight.Objs != null)
-            // If there are objects in line of sight.
-            if (robotLineOfSight.Objs.Count > 0)
-            {
-                ChangeState(State.ChaseTarget);
-            }
-            else
-            {
-                ChangeState(State.Patrol);
-            }
-        else
-        {
-            ChangeState(State.Patrol);
-        }
-
         // TODO: FIX
         foreach (var behaviour in steeringBehvaiours)
         {
             behaviour.enabled = false;
         }
-        if (currentState == State.ChaseTarget)
+        // If LineOfSight has detected objects.
+        if (robotLineOfSight.Objs != null)
+            // If there are objects in line of sight.
+            if (robotLineOfSight.Objs.Count > 0)
+            {
+                if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack)
+                    AttackPlayer();
+                else
+                    ChasePlayer();
+            }
+            else
+            {
+                Patrol();
+            }
+        else
         {
-            ChaseTarget chasePlayerScript = GetComponent<ChaseTarget>();
-            if (chasePlayerScript)
-                chasePlayerScript.enabled = true;
+            Patrol();
         }
-        else if (currentState == State.Patrol)
-            GetComponent<Patrol>().enabled = true;
-
         base.CooperativeArbitration();
     }
+
+    void AttackPlayer()
+    {
+       /* PlayerController.Instance.*/
+        ChangeState(State.Attacking);
+    }
+    void ChasePlayer()
+    {
+
+        ChaseTarget chasePlayerScript = GetComponent<ChaseTarget>();
+        if (chasePlayerScript)
+            chasePlayerScript.enabled = true;
+        ChangeState(State.ChaseTarget);
+    }
+    void Patrol()
+    {
+        GetComponent<Patrol>().enabled = true;
+        ChangeState(State.Patrol);
+    }
+
 
     protected void ChangeState(State newState)
     {
