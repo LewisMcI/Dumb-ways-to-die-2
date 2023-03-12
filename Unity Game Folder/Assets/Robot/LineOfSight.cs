@@ -33,7 +33,7 @@ public class LineOfSight : MonoBehaviour
     #endregion
 
     // List of Objects currently in Line of Sight.
-    List<GameObject> objs = new List<GameObject>();
+    public  List<GameObject> objs = new List<GameObject>();
     // List of Colliders in the surrounding sphere.
     Collider[] colliders = new Collider[40];
 
@@ -225,19 +225,26 @@ public class LineOfSight : MonoBehaviour
         }
 
         // Render all spheres nearby
-     /*   Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, distance);
-        for (int i = 0; i < count; ++i)
-        {
-            Gizmos.DrawSphere(colliders[i].transform.position, 1.0f);
-        }
+        /*   Gizmos.color = Color.red;
+           Gizmos.DrawWireSphere(transform.position, distance);
+           for (int i = 0; i < count; ++i)
+           {
+               Gizmos.DrawSphere(colliders[i].transform.position, 1.0f);
+           }
 
-        Gizmos.color = sensorColour;*/
+           Gizmos.color = sensorColour;*/
 
         // Render Spheres at all objects within Line of Sight.
         foreach (var Object in objs)
         {
+            if (Object == null)
+            {
+                objs.Remove(Object);
+                continue;
+            }
+          
             Gizmos.DrawSphere(Object.transform.position, 1.0f);
         }
+
     }
 }

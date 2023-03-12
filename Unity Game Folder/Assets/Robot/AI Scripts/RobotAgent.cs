@@ -21,11 +21,17 @@ public class RobotAgent : SteeringAgent
     [SerializeField]
     float distanceToAttack;
 
+    [SerializeField]
+    float timeBetweenStuns = 8.0f;
+
+    float timeTillNextAttack;
+
     /* Called on Play().
      * Used to generate NavMesh automatically without having to manually build on every scene edit.
      */
     private void Awake()
     {
+        timeTillNextAttack = Time.time + timeBetweenStuns;
         UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
@@ -34,40 +40,56 @@ public class RobotAgent : SteeringAgent
      */
     protected override void CooperativeArbitration()
     {
-        // TODO: FIX
-        foreach (var behaviour in steeringBehvaiours)
+        if (Time.time > timeTillNextAttack)
         {
-            behaviour.enabled = false;
-        }
-        // If LineOfSight has detected objects.
-        if (robotLineOfSight.Objs != null)
-            // If there are objects in line of sight.
-            if (robotLineOfSight.Objs.Count > 0)
+            agent.isStopped = false;
+            // TODO: FIX
+            foreach (var behaviour in steeringBehvaiours)
             {
-                if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack)
-                    AttackPlayer();
-                else
-                    ChasePlayer();
+                behaviour.enabled = false;
             }
+            // If LineOfSight has detected objects.
+            if (robotLineOfSight.Objs != null)
+                // If there are objects in line of sight.
+                if (robotLineOfSight.Objs.Count > 0)
+                {
+                    if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack)
+                        AttackPlayer();
+                    else
+                        ChasePlayer();
+                }
+                else
+                {
+                    Patrol();
+                }
             else
             {
                 Patrol();
             }
+        }
         else
         {
-            Patrol();
+            Idle();
         }
         base.CooperativeArbitration();
     }
 
+    private void Idle()
+    {
+        agent.isStopped = true;
+    }
+
     void AttackPlayer()
     {
-       /* PlayerController.Instance.*/
+        PlayerController.Instance.DisableDeathFromCollision(4.0f);
+        PlayerController.Instance.ThrowPlayerBackwards(25.0f, 1.0f, true);
+        timeTillNextAttack = Time.time + timeBetweenStuns;
         ChangeState(State.Attacking);
+
+        robotLineOfSight.Objs.Clear();
     }
     void ChasePlayer()
     {
-
         ChaseTarget chasePlayerScript = GetComponent<ChaseTarget>();
         if (chasePlayerScript)
             chasePlayerScript.enabled = true;
