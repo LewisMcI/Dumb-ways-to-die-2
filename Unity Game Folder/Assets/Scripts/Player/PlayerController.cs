@@ -292,6 +292,13 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Functions
 
+    /// <summary>
+    /// Player dies and the game restarts after the time given.
+    /// </summary>
+    /// <param name="delay">Delay before the game restarts.</param>
+    /// <param name="ragdoll">Should the player ragdoll?</param>
+    /// <param name="camera">what camera will we switch to.</param>
+    /// <param name="force">Force if player is thrown.</param>
     public void Die(float delay, bool ragdoll = true, SelectCam? camera = null, Vector3? force = null)
     {
         if (camera != null)
@@ -306,6 +313,13 @@ public class PlayerController : MonoBehaviour
             force = Vector3.zero;
         StartCoroutine(KillPlayer(delay, force.Value, ragdoll));
     }
+    /// <summary>
+    /// Throws player in direction relative to player.
+    /// </summary>
+    /// <param name="force">Force to throw player.</param>
+    /// <param name="direction">Direction to throw player.</param>
+    /// <param name="timeTillEnds">Time till either the game ends, or till the player recovers.</param>
+    /// <param name="recover">Should the player recover after being thrown?</param>
     public void ThrowPlayerInRelativeDirection(float force, Direction direction, float timeTillEnds, bool recover = false)
     {
         EnableRagdoll();
@@ -381,6 +395,8 @@ public class PlayerController : MonoBehaviour
             Die(delay, true, null, forceInDirection);
         }
     }
+    #endregion
+    #region Misc
     private IEnumerator Recover(float timeTillEnds, float followHeadTime)
     {
         yield return new WaitForSeconds(timeTillEnds);
@@ -399,8 +415,6 @@ public class PlayerController : MonoBehaviour
             AddRagdollForce(force);
         }
     }
-    #endregion
-    #region Misc
     public void EnableNewCamera(SelectCam? camera)
     {
         GameManager.Instance.EnableCamera = false;
@@ -443,6 +457,16 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
     }
+    public void ReEnablePlayer()
+    {
+        GameManager.Instance.EnableCamera = true;
+        Camera currentCam = Camera.main;
+        currentCam.tag = "Untagged";
+        currentCam.enabled = false;
+
+        playerCam.enabled = true;
+        playerCam.tag = "MainCamera";
+    }
     #endregion
     #region Collision
 
@@ -471,18 +495,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         canDieFromCollision = true;
-    }
-    #endregion
-    #region unsure
-    public void ReEnablePlayer()
-    {
-        GameManager.Instance.EnableCamera = true;
-        Camera currentCam = Camera.main;
-        currentCam.tag = "Untagged";
-        currentCam.enabled = false;
-
-        playerCam.enabled = true;
-        playerCam.tag = "MainCamera";
     }
     #endregion
     #endregion
