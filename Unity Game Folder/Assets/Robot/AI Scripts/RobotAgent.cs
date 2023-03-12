@@ -82,7 +82,7 @@ public class RobotAgent : SteeringAgent
     void AttackPlayer()
     {
         PlayerController.Instance.DisableDeathFromCollision(4.0f);
-        PlayerController.Instance.ThrowPlayerBackwards(25.0f, 1.0f, true);
+        PlayerController.Instance.ThrowPlayerInRelativeDirection(25.0f, Direction.backwards, 1.0f, true);
         timeTillNextAttack = Time.time + timeBetweenStuns;
         ChangeState(State.Attacking);
 

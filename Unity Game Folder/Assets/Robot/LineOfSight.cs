@@ -35,7 +35,7 @@ public class LineOfSight : MonoBehaviour
     // List of Objects currently in Line of Sight.
     public  List<GameObject> objs = new List<GameObject>();
     // List of Colliders in the surrounding sphere.
-    Collider[] colliders = new Collider[40];
+    public Collider[] colliders = new Collider[40];
 
     // Count of colliders in surrounding sphere - Has its own variable because colliders will have null values
     int count;
@@ -234,7 +234,8 @@ public class LineOfSight : MonoBehaviour
 
            Gizmos.color = sensorColour;*/
 
-        // Render Spheres at all objects within Line of Sight.
+/*        // Render Spheres at all objects within Line of Sight.
+        objs.RemoveAll(s => s == null);
         foreach (var Object in objs)
         {
             if (Object == null)
@@ -244,7 +245,7 @@ public class LineOfSight : MonoBehaviour
             }
           
             Gizmos.DrawSphere(Object.transform.position, 1.0f);
-        }
+        }*/
 
     }
 }
