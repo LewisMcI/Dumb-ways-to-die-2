@@ -45,7 +45,6 @@ public class LineOfSight : MonoBehaviour
     float scanTimer;
     // Our Line of Sight sensors mesh.
     Mesh Sensor;
-
     // Getter for objects currently in Line of Sight.
     public List<GameObject> Objs { get => objs; }
     #endregion

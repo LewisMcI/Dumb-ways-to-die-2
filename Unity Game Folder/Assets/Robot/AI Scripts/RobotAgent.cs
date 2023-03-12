@@ -26,6 +26,10 @@ public class RobotAgent : SteeringAgent
 
     float timeTillNextAttack;
 
+    // Control player states
+    bool canMove = true;
+    bool canStun = true;
+    bool canKill = true;
     /* Called on Play().
      * Used to generate NavMesh automatically without having to manually build on every scene edit.
      */
@@ -40,7 +44,7 @@ public class RobotAgent : SteeringAgent
      */
     protected override void CooperativeArbitration()
     {
-        if (Time.time > timeTillNextAttack)
+        if (Time.time > timeTillNextAttack && canMove)
         {
             agent.isStopped = false;
             // TODO: FIX
@@ -53,7 +57,7 @@ public class RobotAgent : SteeringAgent
                 // If there are objects in line of sight.
                 if (robotLineOfSight.Objs.Count > 0)
                 {
-                    if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack)
+                    if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && canKill)
                         AttackPlayer();
                     else
                         ChasePlayer();
