@@ -56,7 +56,7 @@ public class Clothing : Interactable
             effect.Play();
         }
         yield return new WaitForSeconds(0.2f);
-        PlayerController.Instance.Die(0.0f, false, PlayerController.SelectCam.outsideCam);
+        PlayerController.Instance.Die(0.0f, false, SelectCam.outsideCam);
         // Play animation
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Electrecute");
         PlayerController.Instance.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, PlayerController.Instance.GetComponent<Rigidbody>().velocity.y, 0.0f);

@@ -20,6 +20,8 @@ public class TrapToaster : Interactable
 
     [SerializeField]
     private bool kills = true;
+    [SerializeField]
+    private float delay = 0.5f;
     #endregion
 
     #region methods
@@ -74,14 +76,10 @@ public class TrapToaster : Interactable
 
     IEnumerator KillPlayer()
     {
-        // Disable controls
-        GameManager.Instance.EnableControls = false;
         GetComponent<Animator>().SetTrigger("Explode");
-        float delay = 0.5f;
-        PlayerController.Instance.Die(delay, true, PlayerController.SelectCam.toasterCam);
+        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(100, 10, 0), delay, SelectCam.toasterCam);
+        
         yield return new WaitForSeconds(delay);
-        // Add backwards force
-        PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
         Destroy(bread);
         AudioManager.Instance.PlayAudio("Explosion");
         explosionVFX.SetActive(true);

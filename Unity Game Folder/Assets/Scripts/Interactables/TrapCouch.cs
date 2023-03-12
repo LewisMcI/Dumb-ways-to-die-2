@@ -13,6 +13,8 @@ public class TrapCouch : Interactable
     private Quaternion originalRot;
     private bool transition, sitting;
     [SerializeField]
+    float delay = 1.0f;
+    [SerializeField]
     private GameObject tv;
 
     [SerializeField]
@@ -74,12 +76,9 @@ public class TrapCouch : Interactable
     IEnumerator TriggerTrap()
     {
         transition = true;
-        float delay = 1f;
-        PlayerController.Instance.GetComponent<PlayerController>().Die(delay, true, PlayerController.SelectCam.couchCam);
+        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 100, 0), delay, SelectCam.couchCam);
         yield return new WaitForSeconds(delay);
         transition = false;
-        // Add upward force
-        PlayerController.Instance.AddRagdollForce(new Vector3(0, 100, 0));
         // Enable collision
         PlayerController.Instance.GetComponent<Rigidbody>().isKinematic = false;
         // Play animation

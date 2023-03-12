@@ -243,7 +243,7 @@ public class Lawnmower : Interactable
         associatedCam.transform.position = startPos;
         associatedCam.transform.rotation = startQuat;
         // Enable new camera.
-        PlayerController.Instance.EnableNewCamera(PlayerController.SelectCam.outsideCam);
+        PlayerController.Instance.EnableNewCamera(SelectCam.outsideCam);
         for (float i = 1; i < 50; i++)
         {
             yield return new WaitForSeconds(1.0f / 50);
