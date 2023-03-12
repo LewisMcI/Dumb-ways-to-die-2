@@ -10,6 +10,9 @@ public class TrapCabinet : Interactable
     private Animator anim;
 
     public bool kills = false;
+
+    [SerializeField]
+    float delay = 0.5f;
     #endregion
 
     #region methods
@@ -66,17 +69,16 @@ public class TrapCabinet : Interactable
 
     IEnumerator TriggerTrap()
     {
-        // Disable controls
-        GameManager.Instance.EnableControls = false;
         // Reset player velocity and animation
         PlayerController.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirX", 0);
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirY", 0);
-        float delay = 0.5f;
-        PlayerController.Instance.Die(delay, true, PlayerController.SelectCam.bathroomCam);
+
+        // Throw Player
+        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(100, 10, 0), delay, SelectCam.bathroomCam);
+
+        // Wait before playing noise.
         yield return new WaitForSeconds(delay);
-        // Add backwards force
-        PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
         GetComponent<AudioSource>().Play();
     }
     #endregion

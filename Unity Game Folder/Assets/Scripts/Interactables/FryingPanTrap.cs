@@ -49,7 +49,7 @@ public class FryingPanTrap : MonoBehaviour
         catch { }
         PlayerController.Instance.DisableDeathFromCollision(5.0f);
         Trigger();
-        PlayerController.Instance.ThrowPlayerBackwards(50f, 2.0f, true);
+        PlayerController.Instance.ThrowPlayerInRelativeDirection(50f, Direction.backwards, 2.0f, true);
     }
     #endregion
 }

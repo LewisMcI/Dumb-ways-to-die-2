@@ -2,7 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum Direction
+{
+    backwards,
+    forwards,
+    up,
+    down,
+    right,
+    left
+}
+public enum SelectCam
+{
+    toasterCam,
+    fridgeCam,
+    couchCam,
+    bathroomCam,
+    outsideCam,
+    invalid = 100
+}
 public class PlayerController : MonoBehaviour
 {
     #region fields
@@ -61,6 +78,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region methods
+    #region UnityCalls
     void Awake()
     {
         if (Instance == null)
@@ -134,6 +152,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    #endregion
+    #region Movement
     private void Move()
     {
         // Get axis
@@ -206,7 +226,8 @@ public class PlayerController : MonoBehaviour
             isCrouching = false;
         }
     }
-
+    #endregion
+    #region Ragdoll
     public void EnableRagdoll()
     {
         GameManager.Instance.EnableControls = false;
@@ -236,72 +257,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EnableNewCamera(SelectCam? camera)
-    {
-        GameManager.Instance.EnableCamera = false;
-        // Switch cameras
-        Camera currentCam = Camera.main;
-        currentCam.tag = "Untagged";
-        currentCam.enabled = false;
-        switch (camera)
-        {
-            case SelectCam.toasterCam:
-                toasterCam.enabled = true;
-                toasterCam.tag = "MainCamera";
-                break;
-            case SelectCam.fridgeCam:
-                fridgeCam.enabled = true;
-                fridgeCam.tag = "MainCamera";
-                break;
-            case SelectCam.couchCam:
-                couchCam.enabled = true;
-                couchCam.tag = "MainCamera";
-                break;
-            case SelectCam.bathroomCam:
-                bathroomCam.enabled = true;
-                bathroomCam.tag = "MainCamera";
-                break;
-            case SelectCam.outsideCam:
-                outsideCam.enabled = true;
-                outsideCam.tag = "MainCamera";
-                break;
-        }
-    }
-
-    public void ReEnablePlayer()
-    {
-        GameManager.Instance.EnableCamera = true;
-        Camera currentCam = Camera.main;
-        currentCam.tag = "Untagged";
-        currentCam.enabled = false;
-
-        playerCam.enabled = true;
-        playerCam.tag = "MainCamera";
-    }
-
-    public void Die(float delay, bool ragdoll = true, SelectCam? camera = null)
-    {
-        if (camera != null)
-        {
-            GameManager.Instance.EnableCamera = false;
-            GameManager.Instance.EnableControls = false;
-            EnableNewCamera(camera);
-        }
-        dead = true;
-        Debug.Log(dead);
-
-        StartCoroutine(KillPlayer(delay, ragdoll));
-    }
-
-    IEnumerator KillPlayer(float delay, bool ragdoll = false)
-    {
-        yield return new WaitForSeconds(delay);
-        // Enable ragdoll physics
-        if (ragdoll)
-            EnableRagdoll();
-    }
-
-    public void ResetCharacter()
+    public void ResetCharacterAfterRagdoll()
     {
         // Set position
         transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
@@ -333,6 +289,151 @@ public class PlayerController : MonoBehaviour
         DisableRagdoll();
     }
 
+    #endregion
+    #region Functions
+
+    public void Die(float delay, bool ragdoll = true, SelectCam? camera = null, Vector3? force = null)
+    {
+        if (camera != null)
+        {
+            GameManager.Instance.EnableCamera = false;
+            GameManager.Instance.EnableControls = false;
+            EnableNewCamera(camera);
+        }
+        dead = true;
+        Debug.Log(dead);
+        if (force == null)
+            force = Vector3.zero;
+        StartCoroutine(KillPlayer(delay, force.Value, ragdoll));
+    }
+    public void ThrowPlayerInRelativeDirection(float force, Direction direction, float timeTillEnds, bool recover = false)
+    {
+        EnableRagdoll();
+        switch(direction)
+        {
+            case Direction.backwards:
+                AddRagdollForce(-transform.forward * force);
+                break;
+            case Direction.forwards:
+                AddRagdollForce(transform.forward * force);
+                break;
+            case Direction.up:
+                AddRagdollForce(transform.up * force);
+                break;
+            case Direction.down:
+                AddRagdollForce(-transform.up * force);
+                break;
+            case Direction.right:
+                AddRagdollForce(transform.right * force);
+                break;
+            case Direction.left:
+                AddRagdollForce(-transform.right * force);
+                break;
+        }
+           
+        GameManager.Instance.EnableControls = false;
+        CameraController camController = Camera.main.GetComponent<CameraController>();
+        camController.FreezeRotation = true;
+        float followHeadTime = camController.FollowHeadTime;
+        camController.FollowHeadTime = 0.0f;
+        if (recover)
+            StartCoroutine(Recover(timeTillEnds, followHeadTime));
+        else
+        {
+            Die(timeTillEnds);
+        }
+    }
+    /// <summary>
+    ///  Throws player with direction and force given.
+    /// </summary>
+    /// <param name="forceInDirection">Power and Direction to Throw Player.</param>
+    /// <param name="delay">Delay before player is thrown.</param>
+    /// <param name="newCam">Camera to switch to.</param>
+    /// <param name="recover">Should the player recover after being thrown?</param>
+    /// <param name="timeTillRecover">How long should it take before the player recovers.</param>
+    public void ThrowPlayerInDirection(Vector3 forceInDirection, float delay = 0, SelectCam newCam = SelectCam.invalid, bool recover = false, float timeTillRecover = 0)
+    {
+        // Disable Camera movement
+        CameraController camController = Camera.main.GetComponent<CameraController>();
+        GameManager.Instance.EnableControls = false;
+        camController.FreezeRotation = true;
+
+        float followHeadTime = camController.FollowHeadTime;
+        camController.FollowHeadTime = 0.0f;
+
+        // Prevent additional death from collision
+        DisableDeathFromCollision(delay * 2);
+        
+        EnableNewCamera(newCam);
+
+        if (recover)
+        {
+            // Ragdoll
+            EnableRagdoll();
+            AddRagdollForce(forceInDirection);
+
+            // Recover
+            StartCoroutine(Recover(timeTillRecover, followHeadTime));
+        }
+        else
+        {
+            // Die after delay
+            Die(delay, true, null, forceInDirection);
+        }
+    }
+    private IEnumerator Recover(float timeTillEnds, float followHeadTime)
+    {
+        yield return new WaitForSeconds(timeTillEnds);
+        PlayerController.Instance.ResetCharacterAfterRagdoll();
+        GameManager.Instance.EnableControls = true;
+        Camera.main.GetComponent<CameraController>().FreezeRotation = false;
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
+    }
+    IEnumerator KillPlayer(float delay, Vector3 force, bool ragdoll = false)
+    {
+        yield return new WaitForSeconds(delay);
+        // Enable ragdoll physics
+        if (ragdoll)
+        {
+            EnableRagdoll();
+            AddRagdollForce(force);
+        }
+    }
+    #endregion
+    #region Misc
+    public void EnableNewCamera(SelectCam? camera)
+    {
+        GameManager.Instance.EnableCamera = false;
+        // Switch cameras
+        Camera currentCam = Camera.main;
+        currentCam.tag = "Untagged";
+        currentCam.enabled = false;
+        switch (camera)
+        {
+            case SelectCam.toasterCam:
+                toasterCam.enabled = true;
+                toasterCam.tag = "MainCamera";
+                break;
+            case SelectCam.fridgeCam:
+                fridgeCam.enabled = true;
+                fridgeCam.tag = "MainCamera";
+                break;
+            case SelectCam.couchCam:
+                couchCam.enabled = true;
+                couchCam.tag = "MainCamera";
+                break;
+            case SelectCam.bathroomCam:
+                bathroomCam.enabled = true;
+                bathroomCam.tag = "MainCamera";
+                break;
+            case SelectCam.outsideCam:
+                outsideCam.enabled = true;
+                outsideCam.tag = "MainCamera";
+                break;
+            case SelectCam.invalid:
+                break;
+        }
+    }
     private IEnumerator OpenNotepadAfterAwake()
     {
         yield return new WaitForSeconds(3.3f);
@@ -342,15 +443,8 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
     }
-
-    public enum SelectCam
-    {
-        toasterCam,
-        fridgeCam,
-        couchCam,
-        bathroomCam,
-        outsideCam
-    }
+    #endregion
+    #region Collision
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -358,7 +452,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player ragdolled by speed: " + collision.relativeVelocity.magnitude);
             Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
-            ThrowPlayerBackwards(50f, 2.0f);
+            ThrowPlayerInRelativeDirection(50f, Direction.backwards, 2.0f);
         }
     }
 
@@ -378,32 +472,18 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         canDieFromCollision = true;
     }
-
-    public void ThrowPlayerBackwards(float force, float timeTilLEnds, bool recover = false)
+    #endregion
+    #region unsure
+    public void ReEnablePlayer()
     {
-        EnableRagdoll();
-        AddRagdollForce(-transform.forward * force);
-        GameManager.Instance.EnableControls = false;
-        CameraController camController = Camera.main.GetComponent<CameraController>();
-        camController.FreezeRotation = true;
-        float followHeadTime = camController.FollowHeadTime;
-        camController.FollowHeadTime = 0.0f;
-        if (recover)
-            StartCoroutine(Recover(timeTilLEnds, followHeadTime));
-        else
-        {
-            Debug.Log("dieing?");
-            Die(timeTilLEnds);
-        }
-    }
+        GameManager.Instance.EnableCamera = true;
+        Camera currentCam = Camera.main;
+        currentCam.tag = "Untagged";
+        currentCam.enabled = false;
 
-    private IEnumerator Recover(float timeTillEnds, float followHeadTime)
-    {
-        yield return new WaitForSeconds(timeTillEnds);
-        PlayerController.Instance.ResetCharacter();
-        GameManager.Instance.EnableControls = true;
-        Camera.main.GetComponent<CameraController>().FreezeRotation = false;
-        Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
+        playerCam.enabled = true;
+        playerCam.tag = "MainCamera";
     }
+    #endregion
     #endregion
 }
