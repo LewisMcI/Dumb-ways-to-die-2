@@ -1567,6 +1567,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7414676413322908569}
+  - component: {fileID: 3066381337840531752}
+  - component: {fileID: 7724418955512574006}
   m_Layer: 0
   m_Name: Root Bone.039
   m_TagString: Untagged
@@ -1590,6 +1592,34 @@ Transform:
   m_Father: {fileID: 9148227441441279230}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3066381337840531752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370494300381456228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924238cfd57a1a047b889558a1c9a6a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constraint: {fileID: 0}
+  maxDist: 0
+  speed: 1
+--- !u!65 &7724418955512574006
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370494300381456228}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0005052672, y: 0.00040456033, z: 0.0006942599}
+  m_Center: {x: 0.00003607921, y: 0.00016220316, z: 0.00036863104}
 --- !u!1 &3378827534292586148
 GameObject:
   m_ObjectHideFlags: 0

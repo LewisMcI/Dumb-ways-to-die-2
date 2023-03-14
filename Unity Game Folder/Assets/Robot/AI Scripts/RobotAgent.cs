@@ -25,6 +25,9 @@ public class RobotAgent : SteeringAgent
     float timeBetweenStuns = 8.0f;
 
     float timeTillNextAttack;
+    [SerializeField]
+    PunchingGlove punchingGlove;
+
 
     // Control player states
     bool canMove = true;
@@ -85,11 +88,11 @@ public class RobotAgent : SteeringAgent
 
     void AttackPlayer()
     {
-        PlayerController.Instance.DisableDeathFromCollision(4.0f);
-        PlayerController.Instance.ThrowPlayerInRelativeDirection(25.0f, Direction.backwards, 1.0f, true);
         timeTillNextAttack = Time.time + timeBetweenStuns;
         ChangeState(State.Attacking);
 
+        transform.LookAt(PlayerController.Instance.transform);
+        punchingGlove.Action();
         robotLineOfSight.Objs.Clear();
     }
     void ChasePlayer()
