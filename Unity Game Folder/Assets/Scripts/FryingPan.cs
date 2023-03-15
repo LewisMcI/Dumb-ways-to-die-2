@@ -6,6 +6,11 @@ public class FryingPan : MonoBehaviour
 {
     #region fields
     [SerializeField]
+    private float speed;
+    private bool reached;
+    [SerializeField]
+    private LayerMask playerMask;
+    [SerializeField]
     private GameObject laser, alertLight;
     [SerializeField]
     private Material greenLight, redLight;
@@ -22,25 +27,47 @@ public class FryingPan : MonoBehaviour
 
     private void Update()
     {
-        if (!detected && Physics.Raycast(transform.position, transform.up, out hit, 3.0f))
+        // Laser movement
+        if (!reached)
+        {
+            if (transform.localPosition.x >= -0.00028f)
+                transform.localPosition -= new Vector3(speed * Time.deltaTime, transform.localPosition.y, transform.localPosition.z);
+            else
+                reached = true;
+        }
+        else if (reached)
+        {
+            if (transform.localPosition.x <= 0.00028f)
+                transform.localPosition += new Vector3(speed * Time.deltaTime, transform.localPosition.y, transform.localPosition.z);
+            else
+                reached = false;
+        }
+
+        // Laser detection
+        if (Physics.Raycast(transform.position, transform.up, out hit, 3.0f, playerMask))
         {
             if (hit.transform.tag == "Player")
             {
-                transform.root.GetChild(0).GetComponent<Animator>().SetBool("Frying Pan", true);
+                if (!detected)
+                {
+                    transform.root.GetChild(0).GetComponent<Animator>().SetBool("Frying Pan", true);
 
-                Material[] newMats = new Material[2];
-                newMats[0] = metal;
-                newMats[1] = redLight;
-                alertLight.GetComponent<Renderer>().materials = newMats;
+                    Material[] newMats = new Material[2];
+                    newMats[0] = metal;
+                    newMats[1] = redLight;
+                    alertLight.GetComponent<Renderer>().materials = newMats;
 
-                detected = true;
-                Debug.Log("greem");
+                    detected = true;
+                }
+                else
+                {
+                    StopAllCoroutines();
+                }
             }
         }
         else if (detected)
         {
             StartCoroutine(ResetDetected());
-            Debug.Log("red");
         }
     }
 
