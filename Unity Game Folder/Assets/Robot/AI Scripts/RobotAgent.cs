@@ -91,11 +91,16 @@ public class RobotAgent : SteeringAgent
         chasing = false;
         patrolling = false;
         attacking = true;
+        transform.LookAt(PlayerController.Instance.transform);
+        foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
+        {
+            currentBehaviour.enabled = false;
+        }
+        agent.isStopped = true;
 
         //timeTillNextAttack = Time.time + timeBetweenStuns;
         ChangeState(State.Attacking);
 
-        transform.LookAt(PlayerController.Instance.transform);
         punchingGlove.Action();
         robotLineOfSight.Objs.Clear();
         Debug.Log("attack");
@@ -103,6 +108,8 @@ public class RobotAgent : SteeringAgent
 
     private void ChasePlayer()
     {
+        agent.isStopped = false;
+
         patrolling = false;
         chasing = true;
         patrolling = false;
@@ -114,6 +121,7 @@ public class RobotAgent : SteeringAgent
 
     private void Patrol()
     {
+        agent.isStopped = false;
         patrolling = true;
         chasing = false;
         attacking = false;

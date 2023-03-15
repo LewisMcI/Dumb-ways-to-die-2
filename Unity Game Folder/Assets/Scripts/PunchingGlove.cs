@@ -12,10 +12,12 @@ public class PunchingGlove : MonoBehaviour
     public float speed = 1.0f;
     private Vector3 localStartingPos;
     private VisualEffect whamVFX;
+    Vector3 finalPos;
     bool shouldStop = false;
     [SerializeField]
     float distanceToHit = .5f;
 
+    bool canAttack = true;
     [SerializeField]
     LayerMask layerMask;
     private void Awake()
@@ -23,24 +25,27 @@ public class PunchingGlove : MonoBehaviour
         whamVFX = punchingGloveBone.GetComponentInChildren<VisualEffect>();
     }
     public void Action()
-    {
-        localStartingPos = constraint.localPosition;
-        Attack();
+    { 
+        if (canAttack)
+        {
+            localStartingPos = constraint.localPosition;
+            Attack();
+        }
     }
     void Attack()
     {
-        Vector3 finalPos = constraint.InverseTransformPoint(PlayerController.Instance.transform.position);
-        finalPos.y = maxDist;
-        StartCoroutine(MovePunchingGlove(localStartingPos, finalPos, speed));
+        canAttack = false;
+        finalPos = constraint.InverseTransformPoint(PlayerController.Instance.transform.position);
+
+        StartCoroutine(MovePunchingGlove(localStartingPos, speed));
     }
     void Retract()
     {
         StartCoroutine(RetractGlove(constraint.localPosition, localStartingPos, speed));
     }
     
-    IEnumerator MovePunchingGlove(Vector3 startingDistance, Vector3 finalPosition, float moveSpeed)
+    IEnumerator MovePunchingGlove(Vector3 startingDistance, float moveSpeed)
     {
-        yield return new WaitForSeconds(3.0f);
         while (shouldStop == true)
         {
             yield return new WaitForFixedUpdate();
@@ -48,19 +53,22 @@ public class PunchingGlove : MonoBehaviour
         float time = 1 / moveSpeed;
         for (float i = 0; i < time; i += Time.deltaTime)
         {
+            finalPos = constraint.InverseTransformPoint(PlayerController.Instance.transform.position);
+            finalPos.y = maxDist;
+
             if (ShootRay())
             {
                 shouldStop = false;
                 yield break;
             }
-            float x = Mathf.Lerp(startingDistance.x, finalPosition.x, (i / time) * 2);
-            float y = Mathf.Lerp(startingDistance.y, finalPosition.y, (i / time));
-            float z = Mathf.Lerp(startingDistance.z, finalPosition.z, (i / time) * 2);
+            float x = Mathf.Lerp(startingDistance.x, finalPos.x, (i +.9f/ time));
+            float y = Mathf.Lerp(startingDistance.y, finalPos.y, (i / time));
+            float z = Mathf.Lerp(startingDistance.z, finalPos.z, (i +.9f / time));
 
             constraint.localPosition = new Vector3(x, y, z);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();  
         }
-        constraint.localPosition = finalPosition;
+        constraint.localPosition = finalPos;
         Retract();
     }
 
@@ -77,6 +85,7 @@ public class PunchingGlove : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         constraint.localPosition = finalPosition;
+        canAttack = true;
     }
 
     bool ShootRay()
@@ -87,7 +96,7 @@ public class PunchingGlove : MonoBehaviour
         {
             whamVFX.Play();
             Debug.Log("Hit" + hit.collider.name);
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") || hit.collider.name == "Character")
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") || hit.collider.name == "Character" || hit.collider.name == "Main Camera")
             {
                 PlayerController.Instance.DisableDeathFromCollision(4.0f);
                 PlayerController.Instance.ThrowPlayerInRelativeDirection(25.0f, Direction.backwards, 1.0f, true);
