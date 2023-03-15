@@ -27,7 +27,7 @@ public class PunchingGlove : MonoBehaviour
     }
     void Retract()
     {
-        Debug.Log("Retracting: " + constraint.transform.localPosition.y + " " + startingDist);
+        //Debug.Log("Retracting: " + constraint.transform.localPosition.y + " " + startingDist);
         StartCoroutine(MovePunchingGlove(constraint.transform.localPosition.y, startingDist, speed, false));
     }
     IEnumerator MovePunchingGlove(float startingDistance, float maxDistance, float moveSpeed, bool shouldRetract)
@@ -58,14 +58,14 @@ public class PunchingGlove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.layer.ToString());
-        Debug.Log("Collide");
+        //Debug.Log(other.gameObject.layer.ToString());
+        //Debug.Log("Collide");
         if (canCollide)
         {
-            Debug.Log("Collide");
+            //Debug.Log("Collide");
             if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                Debug.Log("HIT PLAYER");
+                //Debug.Log("HIT PLAYER");
                 PlayerController.Instance.DisableDeathFromCollision(4.0f);
                 PlayerController.Instance.ThrowPlayerInRelativeDirection(25.0f, Direction.backwards, 1.0f, true);
             }
