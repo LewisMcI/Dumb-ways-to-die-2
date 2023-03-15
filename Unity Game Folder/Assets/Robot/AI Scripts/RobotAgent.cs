@@ -43,13 +43,6 @@ public class RobotAgent : SteeringAgent
         UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            StartCoroutine(TransitionTV());
-        }
-    }
     IEnumerator TransitionTV()
     {
         tv1.Stop();

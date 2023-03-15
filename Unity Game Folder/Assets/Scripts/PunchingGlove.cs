@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PunchingGlove : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PunchingGlove : MonoBehaviour
     public float maxDist;
     public float speed = 1.0f;
     private Vector3 localStartingPos;
-
+    private VisualEffect whamVFX;
     bool shouldStop = false;
     [SerializeField]
     float distanceToHit = .5f;
@@ -18,8 +19,8 @@ public class PunchingGlove : MonoBehaviour
     [SerializeField]
     LayerMask layerMask;
     private void Awake()
-    {/*
-        Action();*/
+    {
+        whamVFX = punchingGloveBone.GetComponentInChildren<VisualEffect>();
     }
     public void Action()
     {
@@ -84,6 +85,7 @@ public class PunchingGlove : MonoBehaviour
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(punchingGloveBone.transform.position, punchingGloveBone.transform.TransformDirection(Vector3.forward), out hit, distanceToHit, layerMask))
         {
+            whamVFX.Play();
             Debug.Log("Hit" + hit.collider.name);
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") || hit.collider.name == "Character")
             {
