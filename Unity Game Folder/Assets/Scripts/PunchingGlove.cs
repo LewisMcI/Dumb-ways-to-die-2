@@ -36,8 +36,8 @@ public class PunchingGlove : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
         }
-        moveSpeed = 1 / moveSpeed;
-        for (float i = 0; i < moveSpeed; i += Time.deltaTime)
+        float time = 1 / moveSpeed;
+        for (float i = 0; i < time; i += Time.deltaTime)
         {
             if (shouldStop)
             {
@@ -45,7 +45,7 @@ public class PunchingGlove : MonoBehaviour
                 canCollide = false;
                 yield break;
             }
-            float value = Mathf.Lerp(startingDistance, maxDistance, i / moveSpeed);
+            float value = Mathf.Lerp(startingDistance, maxDistance, i / time);
             constraint.localPosition = new Vector3(constraint.transform.localPosition.x, value, constraint.transform.localPosition.z);
             yield return new WaitForFixedUpdate();
         }
