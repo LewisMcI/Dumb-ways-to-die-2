@@ -300,8 +300,11 @@ MonoBehaviour:
   distanceToAttack: 3
   timeBetweenStuns: 8
   punchingGlove: {fileID: 340020097941546492}
-  tv1: {fileID: 3777415215467956752}
-  tv2: {fileID: 2567845255605495076}
+  expressions:
+  - {fileID: 32900000, guid: 825bd735060cc7941957da7b6abc3531, type: 3}
+  - {fileID: 32900000, guid: 2a8eca19666e33c498eb44752de6d204, type: 3}
+  tvExpression: {fileID: 3777415215467956752}
+  tvStatic: {fileID: 7495518460738922923}
 --- !u!114 &5688208673159407426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,11 +620,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1136446833389266735, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
   m_PrefabInstance: {fileID: 299059984163454510}
   m_PrefabAsset: {fileID: 0}
---- !u!328 &2567845255605495076 stripped
-VideoPlayer:
-  m_CorrespondingSourceObject: {fileID: 2847586540942596874, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
-  m_PrefabInstance: {fileID: 299059984163454510}
-  m_PrefabAsset: {fileID: 0}
 --- !u!328 &3777415215467956752 stripped
 VideoPlayer:
   m_CorrespondingSourceObject: {fileID: 3479710654548882494, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
@@ -660,5 +658,10 @@ Transform:
 --- !u!4 &7115759503715134903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7414676413322908569, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
+  m_PrefabInstance: {fileID: 299059984163454510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!328 &7495518460738922923 stripped
+VideoPlayer:
+  m_CorrespondingSourceObject: {fileID: 7792097254287955845, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
   m_PrefabInstance: {fileID: 299059984163454510}
   m_PrefabAsset: {fileID: 0}

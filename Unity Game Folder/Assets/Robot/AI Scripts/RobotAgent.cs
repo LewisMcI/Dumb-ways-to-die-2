@@ -96,7 +96,7 @@ public class RobotAgent : SteeringAgent
         ChangeState(State.Attacking);
 
         transform.LookAt(PlayerController.Instance.transform);
-        //punchingGlove.Action();
+        punchingGlove.Action();
         robotLineOfSight.Objs.Clear();
         Debug.Log("attack");
     }
