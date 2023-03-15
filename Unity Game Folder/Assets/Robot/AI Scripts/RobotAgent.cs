@@ -91,7 +91,6 @@ public class RobotAgent : SteeringAgent
         chasing = false;
         patrolling = false;
         attacking = true;
-        transform.LookAt(PlayerController.Instance.transform);
         foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
         {
             currentBehaviour.enabled = false;
