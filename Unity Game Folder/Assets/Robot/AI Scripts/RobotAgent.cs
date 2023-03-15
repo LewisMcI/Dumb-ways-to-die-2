@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Video;
 
 public class RobotAgent : SteeringAgent
 {
+    #region fields
     protected enum State
     {
         Patrol,
@@ -12,72 +16,67 @@ public class RobotAgent : SteeringAgent
         Attacking
     }
     
-    // Current state of Robot.
     private State currentState;
 
-    // Line of Sight script of Robot.
     [SerializeField]
     LineOfSight robotLineOfSight;
     [SerializeField]
-    float distanceToAttack;
+    private float distanceToAttack;
 
     [SerializeField]
-    float timeBetweenStuns = 8.0f;
+    private float timeBetweenStuns = 8.0f;
 
-    float timeTillNextAttack;
     [SerializeField]
-    PunchingGlove punchingGlove;
+    private PunchingGlove punchingGlove;
 
+    [SerializeField]
+    private VideoPlayer tv1, tv2;
 
-    // Control player states
-    bool canMove = true;
-    bool canStun = true;
-    bool canKill = true;
-    /* Called on Play().
-     * Used to generate NavMesh automatically without having to manually build on every scene edit.
-     */
+    bool patrolling, chasing, attacking;
+    bool transitionTV;
+    #endregion
+
+    #region methods
     private void Awake()
     {
-        timeTillNextAttack = Time.time + timeBetweenStuns;
+        // Used to generate NavMesh automatically without having to manually build on every scene edit
         UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
-    /* Cooperative Arbitration
-     * 
-     */
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            StartCoroutine(TransitionTV());
+        }
+    }
+    IEnumerator TransitionTV()
+    {
+        tv1.Stop();
+        tv2.Stop();
+        tv1.Play();
+        tv2.Play();
+        yield return new WaitForSeconds(0.3f);
+        transitionTV = !transitionTV;
+        tv1.transform.localPosition = (!transitionTV) ? new Vector3(tv1.transform.localPosition.x, -0.000175f, tv1.transform.localPosition.z) : new Vector3(tv1.transform.localPosition.x, 0.0f, tv1.transform.localPosition.z);
+        tv2.transform.localPosition = (transitionTV) ? new Vector3(tv2.transform.localPosition.x, -0.000175f, tv2.transform.localPosition.z) : new Vector3(tv2.transform.localPosition.x, 0.0f, tv2.transform.localPosition.z);
+    }
+
     protected override void CooperativeArbitration()
     {
-        if (Time.time > timeTillNextAttack && canMove)
+        // If there are objects in line of sight
+        if (robotLineOfSight.Objs.Count > 0)
         {
-            agent.isStopped = false;
-            // TODO: FIX
-            foreach (var behaviour in steeringBehvaiours)
-            {
-                behaviour.enabled = false;
-            }
-            // If LineOfSight has detected objects.
-            if (robotLineOfSight.Objs != null)
-                // If there are objects in line of sight.
-                if (robotLineOfSight.Objs.Count > 0)
-                {
-                    if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && canKill)
-                        AttackPlayer();
-                    else
-                        ChasePlayer();
-                }
-                else
-                {
-                    Patrol();
-                }
-            else
-            {
-                Patrol();
-            }
+            if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && !attacking)
+                AttackPlayer();
+            else if (!chasing)
+                ChasePlayer();
         }
-        else
+        else if (!patrolling)
         {
-            Idle();
+            Patrol();
         }
+
         base.CooperativeArbitration();
     }
 
@@ -86,32 +85,47 @@ public class RobotAgent : SteeringAgent
         agent.isStopped = true;
     }
 
-    void AttackPlayer()
+    private void AttackPlayer()
     {
-        timeTillNextAttack = Time.time + timeBetweenStuns;
+        chasing = false;
+        patrolling = false;
+        attacking = true;
+
+        //timeTillNextAttack = Time.time + timeBetweenStuns;
         ChangeState(State.Attacking);
 
         transform.LookAt(PlayerController.Instance.transform);
         punchingGlove.Action();
         robotLineOfSight.Objs.Clear();
-    }
-    void ChasePlayer()
-    {
-        ChaseTarget chasePlayerScript = GetComponent<ChaseTarget>();
-        if (chasePlayerScript)
-            chasePlayerScript.enabled = true;
-        ChangeState(State.ChaseTarget);
-    }
-    void Patrol()
-    {
-        GetComponent<Patrol>().enabled = true;
-        ChangeState(State.Patrol);
+        Debug.Log("attack");
     }
 
+    private void ChasePlayer()
+    {
+        patrolling = false;
+        chasing = true;
+        patrolling = false;
+
+        EnableSteeringBehaviour(steeringBehvaiours[1]);
+        ChangeState(State.ChaseTarget);
+        Debug.Log("chase");
+    }
+
+    private void Patrol()
+    {
+        patrolling = true;
+        chasing = false;
+        attacking = false;
+
+        EnableSteeringBehaviour(steeringBehvaiours[0]);
+        ChangeState(State.Patrol);
+        Debug.Log("patrol");
+    }
 
     protected void ChangeState(State newState)
     {
         currentState = newState;
-        Debug.Log("Change state to: " + currentState);
+        //Debug.Log("Change state to: " + currentState);
     }
+    #endregion
 }
