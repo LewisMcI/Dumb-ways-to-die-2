@@ -16,6 +16,8 @@ public class BreakDishwasher : MonoBehaviour
     private Material metal;
     [SerializeField]
     private GameObject smoke;
+    [SerializeField]
+    RobotBearTrap robotBearTrap;
     #endregion
 
     #region methods
@@ -35,6 +37,7 @@ public class BreakDishwasher : MonoBehaviour
             newMats[0] = metal;
             newMats[1] = redLight;
             alertLight.GetComponent<Renderer>().materials = newMats;
+            Destroy(robotBearTrap);
         }
     }
     #endregion
