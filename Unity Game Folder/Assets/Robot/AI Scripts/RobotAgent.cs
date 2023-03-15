@@ -30,10 +30,11 @@ public class RobotAgent : SteeringAgent
     private PunchingGlove punchingGlove;
 
     [SerializeField]
-    private VideoPlayer tv1, tv2;
+    private VideoClip[] expressions;
+    [SerializeField]
+    private VideoPlayer tvExpression, tvStatic;
 
     bool patrolling, chasing, attacking;
-    bool transitionTV;
     #endregion
 
     #region methods
@@ -43,23 +44,14 @@ public class RobotAgent : SteeringAgent
         UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
-    private void Update()
+    IEnumerator TransitionTV(VideoClip clip)
     {
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            StartCoroutine(TransitionTV());
-        }
-    }
-    IEnumerator TransitionTV()
-    {
-        tv1.Stop();
-        tv2.Stop();
-        tv1.Play();
-        tv2.Play();
-        yield return new WaitForSeconds(0.3f);
-        transitionTV = !transitionTV;
-        tv1.transform.localPosition = (!transitionTV) ? new Vector3(tv1.transform.localPosition.x, -0.000175f, tv1.transform.localPosition.z) : new Vector3(tv1.transform.localPosition.x, 0.0f, tv1.transform.localPosition.z);
-        tv2.transform.localPosition = (transitionTV) ? new Vector3(tv2.transform.localPosition.x, -0.000175f, tv2.transform.localPosition.z) : new Vector3(tv2.transform.localPosition.x, 0.0f, tv2.transform.localPosition.z);
+        tvExpression.clip = clip;
+        tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
+        tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
+        yield return new WaitForSeconds(0.25f);
+        tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, -0.000175f, tvExpression.transform.localPosition.z);
+        tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
     }
 
     protected override void CooperativeArbitration()
@@ -68,13 +60,22 @@ public class RobotAgent : SteeringAgent
         if (robotLineOfSight.Objs.Count > 0)
         {
             if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && !attacking)
+            {
                 AttackPlayer();
+            }
             else if (!chasing)
+            {
                 ChasePlayer();
+            }
+            if (tvExpression.clip != expressions[1])
+                StartCoroutine(TransitionTV(expressions[1]));
         }
         else if (!patrolling)
         {
             Patrol();
+
+            if (tvExpression.clip != expressions[0])
+                StartCoroutine(TransitionTV(expressions[0]));
         }
 
         base.CooperativeArbitration();
@@ -95,7 +96,7 @@ public class RobotAgent : SteeringAgent
         ChangeState(State.Attacking);
 
         transform.LookAt(PlayerController.Instance.transform);
-        punchingGlove.Action();
+        //punchingGlove.Action();
         robotLineOfSight.Objs.Clear();
         Debug.Log("attack");
     }

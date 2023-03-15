@@ -292,8 +292,12 @@ MonoBehaviour:
   distanceToAttack: 3
   timeBetweenStuns: 8
   punchingGlove: {fileID: 4710295127902561799}
-  tv1: {fileID: 3777415215467956752}
-  tv2: {fileID: 2567845255605495076}
+  expressions:
+  - {fileID: 32900000, guid: 825bd735060cc7941957da7b6abc3531, type: 3}
+  - {fileID: 32900000, guid: 2a8eca19666e33c498eb44752de6d204, type: 3}
+  - {fileID: 32900000, guid: 18f864193ee27fb4b9d0b7f45035260b, type: 3}
+  tvExpression: {fileID: 3777415215467956752}
+  tvStatic: {fileID: 7495518460738922923}
 --- !u!114 &5688208673159407426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,11 +611,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1136446833389266735, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
   m_PrefabInstance: {fileID: 299059984163454510}
   m_PrefabAsset: {fileID: 0}
---- !u!328 &2567845255605495076 stripped
-VideoPlayer:
-  m_CorrespondingSourceObject: {fileID: 2847586540942596874, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
-  m_PrefabInstance: {fileID: 299059984163454510}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3089504313885563210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3370494300381456228, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
@@ -682,5 +681,10 @@ VideoPlayer:
 --- !u!4 &6394889116940969993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6672448700442187303, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
+  m_PrefabInstance: {fileID: 299059984163454510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!328 &7495518460738922923 stripped
+VideoPlayer:
+  m_CorrespondingSourceObject: {fileID: 7792097254287955845, guid: 490717a14ee4cf14fa149abb0931a913, type: 3}
   m_PrefabInstance: {fileID: 299059984163454510}
   m_PrefabAsset: {fileID: 0}
