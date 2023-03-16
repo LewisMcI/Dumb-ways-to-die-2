@@ -33,6 +33,8 @@ public class RobotAgent : SteeringAgent
     private VideoClip[] expressions;
     [SerializeField]
     private VideoPlayer tvExpression, tvStatic;
+    [SerializeField]
+    RobotBearTrap bearTrap;
 
     bool patrolling, chasing, attacking;
     #endregion
@@ -56,6 +58,7 @@ public class RobotAgent : SteeringAgent
 
     protected override void CooperativeArbitration()
     {
+        TryPlaceBearTrap();
         // If there are objects in line of sight
         if (robotLineOfSight.Objs.Count > 0)
         {
@@ -79,6 +82,10 @@ public class RobotAgent : SteeringAgent
         }
 
         base.CooperativeArbitration();
+    }
+    void TryPlaceBearTrap()
+    {
+        bearTrap.Place();
     }
 
     private void Idle()

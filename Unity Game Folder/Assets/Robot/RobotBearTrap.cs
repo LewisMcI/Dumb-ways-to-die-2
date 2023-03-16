@@ -10,21 +10,27 @@ public class RobotBearTrap : MonoBehaviour
     [SerializeField]
     Animator animator;
     [SerializeField]
-    float timeBetweenPlacements = 5.0f;
-    [SerializeField]
-    float randomTimeBetweenPlacements = 3.0f;
+    float timeBetweenPlacements = 4.0f;
     [SerializeField]
     int maxTraps = 2;
 
+    [SerializeField]
+    Transform trapPos;
+
     float timeTillNextPlace;
     List<GameObject> traps = new List<GameObject>();
+
+    [SerializeField]
+    bool canPlace = false;
     // Place Beartrap at position
     public void Place()
     {
+        if (!canPlace)
+            return;
         if (Time.time > timeTillNextPlace && traps.Count < 5)
         {
             Debug.Log("Placed");
-            timeTillNextPlace = Time.time + timeBetweenPlacements + Random.Range(-randomTimeBetweenPlacements, randomTimeBetweenPlacements);
+            timeTillNextPlace = Time.time + timeBetweenPlacements;
             Debug.Log(timeTillNextPlace);
             StartCoroutine(PlaceTrap());
         } 
@@ -34,7 +40,7 @@ public class RobotBearTrap : MonoBehaviour
     {
         animator.SetTrigger("Bear Trap");
         yield return new WaitForSeconds(2.0f);
-        GameObject newObject = Instantiate(bearTrap, transform.position + new Vector3(-.10f, 0.04f, 1.64f), Quaternion.identity, null);
+        GameObject newObject = Instantiate(bearTrap, trapPos.position, trapPos.rotation, null);
         newObject.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
         traps.Add(newObject);
         animator.ResetTrigger("Bear Trap");

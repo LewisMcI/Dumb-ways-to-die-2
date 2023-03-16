@@ -8,6 +8,7 @@ public class Explosive : Interactable
     BoxCollider boxCollider;
 
     VisualEffect explosiveVFX;
+    AudioSource explosiveSFX;
     [SerializeField]
     LayerMask breakLayer;
     [SerializeField]
@@ -22,6 +23,7 @@ public class Explosive : Interactable
     {
         boxCollider = GetComponent<BoxCollider>();
         explosiveVFX = GetComponent<VisualEffect>();
+        explosiveSFX = GetComponent<AudioSource>();
         StartCoroutine(ActivateExplosive());
     }
 
@@ -43,6 +45,7 @@ public class Explosive : Interactable
     {
         Debug.Log("Hit");
         explosiveVFX.Play();
+        explosiveSFX.Play();
         boxCollider.enabled = false;
         Destroy(GetComponent<Rigidbody>());
         GetComponent<MeshRenderer>().enabled = false;
