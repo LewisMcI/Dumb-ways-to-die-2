@@ -9,10 +9,11 @@ public class TaskManager : MonoBehaviour
 {
 
     bool randomTasks = false;
-    TextMeshPro[] notepadText = new TextMeshPro[3];
+
+    TextMeshPro notepadText;
     
     // Todays Current Tasks
-    public Task[] todaysTasks = new Task[3];
+    public Task[] todaysTasks;
     public Task[] TodaysTasks { get => todaysTasks; }
 
     private void Awake()
@@ -22,7 +23,7 @@ public class TaskManager : MonoBehaviour
         {
             throw new NotImplementedException("RandomTasks not implemented yet");
         }
-        if (todaysTasks.Length < 3)
+        if (todaysTasks.Length == 0)
         {
             throw new Exception("Not Enough Traps in GameManager");
         }
@@ -37,12 +38,11 @@ public class TaskManager : MonoBehaviour
     }
     public void FindNotepadText()
     {
-        notepadText[0] = GameObject.Find("Notepad Task One").GetComponent<TextMeshPro>();
-        notepadText[1] = GameObject.Find("Notepad Task Two").GetComponent<TextMeshPro>();
-        notepadText[2] = GameObject.Find("Notepad Task Three").GetComponent<TextMeshPro>();
-
+        notepadText = GameObject.Find("Notepad Text").GetComponent<TextMeshPro>();
+        Debug.Log("Found Notepad Text");
         GameObject.Find("Notepad").SetActive(false);
         UpdateNotepad();
+        Debug.Log("Set Notepad Text");
     }
 
     /* AllTasksComplete
@@ -64,15 +64,31 @@ public class TaskManager : MonoBehaviour
     */
     private void UpdateNotepad()
     {
-        for (int i = 0; i < 3; i++)
+        string newText = "";
+        // First Task
+        if (todaysTasks[0].stepsComplete >= todaysTasks[0].steps)
+            newText = newText + "<s>";
+         newText = newText + "1. " + todaysTasks[0].taskName;
+ 
+        if (todaysTasks[0].steps > 1)
+            newText = newText + " (" + todaysTasks[0].stepsComplete + " / " + todaysTasks[0].steps + ")";
+        if (todaysTasks[0].stepsComplete >= todaysTasks[0].steps)
+            newText = newText + "</s>";
+        // New Tasks
+        for (int i = 1; i < todaysTasks.Length; i++)
         {
-            string newText = todaysTasks[i].taskName;
+            newText = newText + "\n";
+            if (todaysTasks[i].stepsComplete >= todaysTasks[i].steps)
+                newText = newText + "<s>";
+            newText = newText + i + ". " + todaysTasks[i].taskName;
             if (todaysTasks[i].steps > 1)
                 newText = newText + " (" + todaysTasks[i].stepsComplete + " / " + todaysTasks[i].steps + ")";
             if (todaysTasks[i].stepsComplete >= todaysTasks[i].steps)
-                newText = "<s>" + newText + "</s>";
-            notepadText[i].text = newText;
+                newText = newText + "</s>";
         }
+        Debug.Log(todaysTasks[0].taskName);
+        Debug.Log(newText);
+        notepadText.text = newText;
     }
 
     /* UpdateTaskCompletion
@@ -92,25 +108,26 @@ public class TaskManager : MonoBehaviour
                     DynamicSky.Instance.AdvanceTime();
                     // Play time pass SFX
                     DynamicSky.Instance.transform.GetComponent<AudioSource>().Play();
-
-                    foreach (var text in notepadText)
-                    {
 #pragma warning disable CS0642 // Possible mistaken empty statement
-                        if (text.text.Replace(" ", "").Contains(task.name.Replace(" ", "")));
+                    if (notepadText.text.Replace(" ", "").Contains(task.taskName.Replace(" ", ""))) ;
 #pragma warning restore CS0642 // Possible mistaken empty statement
-                        {
-                            GameUI.Instance.NotifyAnim.SetTrigger("Notify");
-                            task.taskComplete = true;
-                            UpdateNotepad();
-                            return;
-                        }
+                    {
+                        GameUI.Instance.NotifyAnim.SetTrigger("Notify");
+                        task.taskComplete = true;
+                        UpdateNotepad();
+                        return;
                     }
-                    throw new Exception("Trying to complete task that is not on notepad");
+                        throw new Exception("Trying to complete task that is not on notepad");
                 }
                 UpdateNotepad();
                 return;
             }
         }
         throw new Exception("Trying to complete task that does not exist");
+    }
+
+    public override string ToString()
+    {
+        return "";
     }
 }

@@ -284,9 +284,14 @@ public class PlayerController : MonoBehaviour
         }
         playerCam = Camera.main;
         InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);
+        DisableRagdoll();
+        StartCoroutine(WaitBeforeFindingNotepad());
+    }
+    IEnumerator WaitBeforeFindingNotepad()
+    {
+        yield return new WaitForSeconds(.2f);
         notepad.SetActive(true);
         GameManager.Instance.taskManager.FindNotepadText();
-        DisableRagdoll();
     }
 
     #endregion
@@ -400,8 +405,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Recover(float timeTillEnds, float followHeadTime)
     {
         yield return new WaitForSeconds(timeTillEnds);
-        PlayerController.Instance.ResetCharacterAfterRagdoll();
         GameManager.Instance.EnableControls = true;
+        ResetCharacterAfterRagdoll();
         Camera.main.GetComponent<CameraController>().FreezeRotation = false;
         Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
     }
