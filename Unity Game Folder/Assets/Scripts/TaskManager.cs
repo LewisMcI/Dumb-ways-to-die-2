@@ -17,6 +17,7 @@ public class TaskManager : MonoBehaviour
 
     private void Awake()
     {
+        ResetAllTraps();
         if (randomTasks)
         {
             throw new NotImplementedException("RandomTasks not implemented yet");
