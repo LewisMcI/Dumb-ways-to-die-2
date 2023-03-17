@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class TrapFridge : Interactable
 {
+    [SerializeField]
+    VisualEffect vfx;
     #region methods
     public override void Action()
     {
@@ -40,6 +43,7 @@ public class TrapFridge : Interactable
         PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
         GetComponent<Animator>().SetTrigger("Activate");
         GetComponent<AudioSource>().Play();
+        vfx.Play();
     }
     #endregion
 }
