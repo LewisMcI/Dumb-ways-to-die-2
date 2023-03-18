@@ -44,7 +44,6 @@ public class TrapCabinet : Interactable
     {
         if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
             return;
-
         // Open and shoot if not cut
         if (cut)
             anim.SetTrigger("Open");
@@ -55,8 +54,16 @@ public class TrapCabinet : Interactable
             if (Physics.BoxCast(transform.GetChild(0).GetChild(0).transform.position, new Vector3(0.3f, 0.2f, 0.6f), Vector3.right, out hit, Quaternion.identity, 3f))
             {
                 if (hit.transform.tag == "Player" || hit.transform.tag == "MainCamera")
+                {
                     StartCoroutine(TriggerTrap());
+
+                    anim.SetTrigger("Shoot Smoke");
+
+                    GetComponent<Collider>().enabled = false;
+                    return;
+                }
             }
+            StartCoroutine(TriggerUntrapped());
             anim.SetTrigger("Shoot Smoke");
         }
         else if (!cut && !kills)
@@ -79,6 +86,12 @@ public class TrapCabinet : Interactable
 
         // Wait before playing noise.
         yield return new WaitForSeconds(delay);
+        GetComponent<AudioSource>().Play();
+    }
+    IEnumerator TriggerUntrapped()
+    {
+        yield return new WaitForSeconds(delay);
+        GetComponent<AudioSource>().enabled = true;
         GetComponent<AudioSource>().Play();
     }
     #endregion
