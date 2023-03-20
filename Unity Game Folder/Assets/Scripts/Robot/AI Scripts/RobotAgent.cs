@@ -27,7 +27,7 @@ public class RobotAgent : SteeringAgent
     private float timeBetweenStuns = 8.0f;
 
     [SerializeField]
-    private PunchingGlove punchingGlove;
+    private RobotPunchingGlove punchingGlove;
 
     [SerializeField]
     private VideoClip[] expressions;

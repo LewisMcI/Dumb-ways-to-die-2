@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserDetection : MonoBehaviour
+public class RobotLaserDetection : MonoBehaviour
 {
     #region fields
     [SerializeField]

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1035.0275, g: 609.7282, b: 545.4995, a: 1}
+  m_IndirectSpecularColor: {r: 1035.1699, g: 609.8594, b: 545.5813, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1870,8 +1870,9 @@ MonoBehaviour:
   bearTrap: {fileID: 3956900541914304802, guid: 809395a7873c76b4dbfffdd371ffe973, type: 3}
   animator: {fileID: 790127020}
   timeBetweenPlacements: 30
-  randomTimeBetweenPlacements: 10
   maxTraps: 5
+  trapPos: {fileID: 0}
+  canPlace: 0
 --- !u!1001 &804374871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6965,9 +6966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyer: {fileID: 804374872}
-  fryingPan: {fileID: 623510400}
-  alertLight: {fileID: 1639181989}
-  redLight: {fileID: 2100000, guid: e1f7e45df2702d54dac5be129a68719a, type: 2}
+  laserDetection: {fileID: 623510400}
   smoke: {fileID: 1697264613}
   robotBearTrap: {fileID: 790741680}
 --- !u!65 &1605538768
@@ -7172,11 +7171,6 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8449980898188476074, guid: 7062e7b75eaa8414a9bbdb58bab66f33, type: 3}
   m_PrefabInstance: {fileID: 743265824}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1639181989 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1631021868274384569, guid: f148086c2fa6aa14f9dcf703753d4d88, type: 3}
-  m_PrefabInstance: {fileID: 5688208673815520996}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1697264613 stripped
 GameObject:

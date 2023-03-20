@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakDishwasher : MonoBehaviour
+public class RobotBreakDishwasher : MonoBehaviour
 {
     #region fields
     [SerializeField]
     private GameObject destroyer;
     [SerializeField]
-    private LaserDetection laserDetection;
+    private RobotLaserDetection laserDetection;
     [SerializeField]
     private GameObject smoke;
     [SerializeField]

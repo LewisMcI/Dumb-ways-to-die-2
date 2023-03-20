@@ -18,7 +18,7 @@ public class Explosive : Interactable
     [SerializeField]
     GameObject rootBone;
     [SerializeField]
-    PunchingGlove punchingGlove;
+    RobotPunchingGlove punchingGlove;
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
