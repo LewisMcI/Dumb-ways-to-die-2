@@ -11,6 +11,8 @@ public class BearTrap : MonoBehaviour
     #region methods
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            return;
         if (!triggered)
         {
             if (other.transform.parent && other.transform.parent.tag == "Player")
