@@ -2903,7 +2903,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4769868870469769079}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.09
+  m_Radius: 0.125
   m_Speed: 4
   m_Acceleration: 20
   avoidancePriority: 50
@@ -2984,10 +2984,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bearTrap: {fileID: 3956900541914304802, guid: 809395a7873c76b4dbfffdd371ffe973, type: 3}
   animator: {fileID: 47518194010686388}
-  timeBetweenPlacements: 30
+  timeBetweenPlacements: 20
   maxTraps: 5
-  trapPos: {fileID: 0}
-  canPlace: 0
+  trapPos: {fileID: 8641293659158642704}
+  canPlace: 1
 --- !u!1 &4805543921174373661
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,47 +3412,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   objs: []
-  colliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  colliders: []
 --- !u!1 &5693550560575330204
 GameObject:
   m_ObjectHideFlags: 0
@@ -10486,8 +10446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248d8b2977f134a459b46065475ee4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.0005
-  degreesToRotate: 70
+  speed: 0.00035
+  degreesToRotate: 40
   range: 3
   playerMask:
     serializedVersion: 2

@@ -33,8 +33,10 @@ public class LineOfSight : MonoBehaviour
     #endregion
 
     // List of Objects currently in Line of Sight.
-    public  List<GameObject> objs = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject> objs = new List<GameObject>();
     // List of Colliders in the surrounding sphere.
+    [HideInInspector]
     public Collider[] colliders = new Collider[40];
 
     // Count of colliders in surrounding sphere - Has its own variable because colliders will have null values
@@ -49,7 +51,7 @@ public class LineOfSight : MonoBehaviour
     public List<GameObject> Objs { get => objs; }
     #endregion
 
-
+    #region methods
     private void Awake()
     {
         // Set starting scan interval
@@ -247,4 +249,5 @@ public class LineOfSight : MonoBehaviour
         }*/
 
     }
+    #endregion
 }
