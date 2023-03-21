@@ -22,16 +22,13 @@ public class RobotBearTrap : MonoBehaviour
 
     [SerializeField]
     bool canPlace = false;
+
     // Place Beartrap at position
     public void Place()
     {
-        if (!canPlace)
-            return;
-        if (Time.time > timeTillNextPlace && traps.Count < 5)
+        if (canPlace && Time.time > timeTillNextPlace && traps.Count < 5)
         {
-            Debug.Log("Placed");
             timeTillNextPlace = Time.time + timeBetweenPlacements;
-            Debug.Log(timeTillNextPlace);
             StartCoroutine(PlaceTrap());
         } 
     }
@@ -45,6 +42,4 @@ public class RobotBearTrap : MonoBehaviour
         traps.Add(newObject);
         animator.ResetTrigger("Bear Trap");
     }
-
-
 }

@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183524306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.23248011, y: -0, z: 0.0000000074505797, w: 0.9726012}
   m_LocalPosition: {x: 0, y: 0.2677, z: 0.0257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5294591435691724237}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.886, y: 0, z: 0}
 --- !u!108 &183524309
 Light:
   m_ObjectHideFlags: 0
@@ -45,13 +45,13 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 131072
+  m_Intensity: 524288
   m_Range: 10
-  m_SpotAngle: 96.4
-  m_InnerSpotAngle: 9
+  m_SpotAngle: 95
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -64,7 +64,7 @@ Light:
       e02: 0
       e03: 0
       e10: 0
-      e11: 0.44705158
+      e11: 0.04470516
       e12: 0
       e13: 0
       e20: 0
@@ -75,7 +75,7 @@ Light:
       e31: 0
       e32: 1
       e33: 0
-    m_UseCullingMatrixOverride: 1
+    m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -91,7 +91,7 @@ Light:
   m_ColorTemperature: 1500
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
-  m_UseBoundingSphereOverride: 1
+  m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 1
   m_ShadowAngle: 0
@@ -107,10 +107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 20
+  m_Intensity: 22
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
-  m_InnerSpotPercent: 70
+  m_InnerSpotPercent: 90
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
@@ -122,11 +122,11 @@ MonoBehaviour:
   m_NonLightmappedOnly: 0
   m_ShapeWidth: 0.5
   m_ShapeHeight: 0.5
-  m_AspectRatio: 0.5
+  m_AspectRatio: 0.05
   m_ShapeRadius: 1
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
-  m_CustomSpotLightShadowCone: 9
+  m_CustomSpotLightShadowCone: 1
   m_MaxSmoothness: 0.99
   m_ApplyRangeAttenuation: 1
   m_DisplayAreaLightEmissiveMesh: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_ObsoleteCustomShadowResolution: 512
   m_ObsoleteContactShadows: 0
   m_PointlightHDType: 0
-  m_SpotLightShape: 1
+  m_SpotLightShape: 0
   m_AreaLightShape: 0
 --- !u!1 &569243175
 GameObject:
@@ -3121,8 +3121,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 4769868870469769079}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.125
-  m_Speed: 4
+  m_Radius: 0.075
+  m_Speed: 2
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 700
@@ -3152,14 +3152,15 @@ MonoBehaviour:
   - {fileID: 5688208673159407426}
   - {fileID: 5688208673159407427}
   robotLineOfSight: {fileID: 5688208674704079915}
-  distanceToAttack: 6
-  timeBetweenStuns: 8
-  punchingGlove: {fileID: 340020097941546492}
+  distanceToAttack: 8
+  tvExpression: {fileID: 3777415215467956752}
+  tvStatic: {fileID: 7495518460738922923}
   expressions:
   - {fileID: 32900000, guid: 825bd735060cc7941957da7b6abc3531, type: 3}
   - {fileID: 32900000, guid: 2a8eca19666e33c498eb44752de6d204, type: 3}
-  tvExpression: {fileID: 3777415215467956752}
-  tvStatic: {fileID: 7495518460738922923}
+  punchingGlove: {fileID: 340020097941546492}
+  followTime: 3
+  attackCooldown: 5
   bearTrap: {fileID: 790741680}
 --- !u!114 &5688208673159407426
 MonoBehaviour:
@@ -3173,7 +3174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1535456b06797449e7139185d17613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToTarget: 1
+  distanceToTarget: 3
   patrolLineRenderer: {fileID: 0}
 --- !u!114 &5688208673159407427
 MonoBehaviour:
@@ -3187,7 +3188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d47005ec72f1542bc85e31344f6f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToTarget: 1
+  distanceToTarget: 6
 --- !u!114 &790741680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3628,7 +3629,7 @@ MonoBehaviour:
     m_Bits: 64
   blockLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 13
   objs: []
   colliders:
   - {fileID: 0}
@@ -3844,6 +3845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constraint: {fileID: 6394889116940969998}
+  endBone: {fileID: 7115759503715134903}
   whamVFX: {fileID: 569243177}
 --- !u!1 &6062912408038326305
 GameObject:
@@ -4325,7 +4327,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116228369627
@@ -4459,7 +4461,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116384716388
@@ -4593,7 +4595,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116442410714
@@ -4727,7 +4729,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116572100418
@@ -4861,7 +4863,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116574292441
@@ -4995,7 +4997,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116663168828
@@ -5129,7 +5131,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116715102570
@@ -5263,7 +5265,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116718906070
@@ -5397,7 +5399,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116834771877
@@ -5531,7 +5533,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116892020780
@@ -5665,7 +5667,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116903567699
@@ -5799,7 +5801,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116938508322
@@ -5873,7 +5875,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6394889116940969998}
   m_LocalRotation: {x: 0.70710695, y: -1.065814e-14, z: -3.5527133e-15, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -0.0005245219, z: 0}
+  m_LocalPosition: {x: 0, y: -0.000525, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5964,7 +5966,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889116965514743
@@ -6098,7 +6100,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117028990023
@@ -6232,7 +6234,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117108726074
@@ -6366,7 +6368,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117138402797
@@ -6500,7 +6502,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117369491360
@@ -6634,7 +6636,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117370959820
@@ -6768,7 +6770,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117409539599
@@ -6902,7 +6904,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117414822375
@@ -7036,7 +7038,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117442113886
@@ -7170,7 +7172,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117515297362
@@ -7304,7 +7306,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117541984972
@@ -7438,7 +7440,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117595346814
@@ -7572,7 +7574,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117710845140
@@ -7706,7 +7708,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117804620126
@@ -7840,7 +7842,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117809037723
@@ -7974,7 +7976,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117824828238
@@ -8108,7 +8110,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117881952586
@@ -8242,7 +8244,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117882981730
@@ -8376,7 +8378,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889117948552568
@@ -8510,7 +8512,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118001793105
@@ -8644,7 +8646,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118055243954
@@ -8778,7 +8780,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118156114308
@@ -8912,7 +8914,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118192646100
@@ -9046,7 +9048,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118209973363
@@ -9180,7 +9182,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118228178532
@@ -9314,7 +9316,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118231015325
@@ -9448,7 +9450,7 @@ MonoBehaviour:
     m_WorldUpAxis: 2
     m_MaintainOffset: 1
     m_ConstrainedAxes:
-      x: 1
+      x: 0
       y: 1
       z: 1
 --- !u!114 &6394889118239015512

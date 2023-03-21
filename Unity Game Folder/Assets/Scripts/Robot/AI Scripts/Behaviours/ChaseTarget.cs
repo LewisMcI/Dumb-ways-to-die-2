@@ -7,6 +7,11 @@ public class ChaseTarget : SteeringBehaviour
 	{
 		Vector3 targetPosition = PlayerController.Instance.transform.position;
 
-		return targetPosition;
+        if ((transform.position - targetPosition).magnitude < distanceToTarget)
+		{
+			targetPosition = transform.position;
+        }
+
+        return targetPosition;
 	}
 }

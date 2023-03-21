@@ -9,14 +9,15 @@ using UnityEngine.Video;
 public class RobotAgent : SteeringAgent
 {
     #region fields
-    protected enum State
+    protected enum RobotState
     {
-        Patrol,
-        ChaseTarget, 
-        Attacking
+        Patrolling,
+        Chasing, 
+        Attacking,
+        Idle
     }
     
-    private State currentState;
+    private RobotState currentState = RobotState.Idle;
 
     [SerializeField]
     LineOfSight robotLineOfSight;
@@ -24,123 +25,165 @@ public class RobotAgent : SteeringAgent
     private float distanceToAttack;
 
     [SerializeField]
-    private float timeBetweenStuns = 8.0f;
+    private VideoPlayer tvExpression, tvStatic;
+    [SerializeField]
+    private VideoClip[] expressions;
 
     [SerializeField]
     private RobotPunchingGlove punchingGlove;
+    [SerializeField]
+    private float followTime, attackCooldown;
+    private float followTimer, attackTimer;
 
-    [SerializeField]
-    private VideoClip[] expressions;
-    [SerializeField]
-    private VideoPlayer tvExpression, tvStatic;
     [SerializeField]
     RobotBearTrap bearTrap;
-
-    bool patrolling, chasing, attacking;
     #endregion
 
     #region methods
     private void Awake()
     {
-        // Used to generate NavMesh automatically without having to manually build on every scene edit
+        // Generate NavMesh
         UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
     IEnumerator TransitionTV(VideoClip clip)
     {
+        // Change video clip
         tvExpression.clip = clip;
+        // Switch to static screen
         tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
+        // Wait for load
         yield return new WaitForSeconds(0.25f);
+        // Switch to expression screen
         tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, -0.000175f, tvExpression.transform.localPosition.z);
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
     }
 
     protected override void CooperativeArbitration()
     {
-        TryPlaceBearTrap();
         // If there are objects in line of sight
         if (robotLineOfSight.Objs.Count > 0)
         {
-            if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && !attacking)
+            // Player within attack range
+            if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f)
             {
-                AttackPlayer();
+                if (currentState != RobotState.Attacking)
+                {
+                    SwitchAttack();
+                }
+                else
+                {
+                    TryAttackPlayer();
+                }
             }
-            else if (!chasing)
+            // Player not in attack range
+            else if (currentState != RobotState.Chasing)
             {
-                ChasePlayer();
+                SwitchChase();
             }
+
+            // Reset
+            if (followTimer != followTime)
+                followTimer = followTime;
+
+            // Switch to angry expression
             if (tvExpression.clip != expressions[1])
                 StartCoroutine(TransitionTV(expressions[1]));
         }
-        else if (!patrolling)
+        else if (currentState != RobotState.Patrolling)
         {
-            Patrol();
+            if (followTimer <= 0.0f)
+            {
+                SwitchPatrol();
 
-            if (tvExpression.clip != expressions[0])
-                StartCoroutine(TransitionTV(expressions[0]));
+                // Switch to neutral expression
+                if (tvExpression.clip != expressions[0])
+                    StartCoroutine(TransitionTV(expressions[0]));
+            }
+            else
+            {
+                followTimer -= DefaultUpdateTimeInSecondsForAI;
+            }
+        }
+
+        // Place beartraps when patrolling
+        if (currentState == RobotState.Patrolling)
+        {
+            TryPlaceBearTrap();
+        }
+
+        if (attackTimer > 0.0f)
+        {
+            attackTimer -= DefaultUpdateTimeInSecondsForAI;
         }
 
         base.CooperativeArbitration();
     }
-    void TryPlaceBearTrap()
+
+    protected void ChangeState(RobotState newState)
     {
-        bearTrap.Place();
+        currentState = newState;
+        Debug.Log("Change state to: " + currentState);
     }
 
-    private void Idle()
+    private void SwitchIdle()
     {
+        // Disable movement
         agent.isStopped = true;
-    }
 
-    private void AttackPlayer()
-    {
-        chasing = false;
-        patrolling = false;
-        attacking = true;
+        // Disable active behaviours
         foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
         {
             currentBehaviour.enabled = false;
         }
-        agent.isStopped = true;
-
-        //timeTillNextAttack = Time.time + timeBetweenStuns;
-        ChangeState(State.Attacking);
-
-        punchingGlove.Action();
-        robotLineOfSight.Objs.Clear();
-        Debug.Log("attack");
+        // Switch state
+        ChangeState(RobotState.Idle);
     }
 
-    private void ChasePlayer()
+    private void SwitchAttack()
     {
+        // Switch state
+        ChangeState(RobotState.Attacking);
+    }
+
+    private void SwitchChase()
+    {
+        // Enable movement
         agent.isStopped = false;
 
-        patrolling = false;
-        chasing = true;
-        patrolling = false;
-
+        // Change to chase behaviour
         EnableSteeringBehaviour(steeringBehvaiours[1]);
-        ChangeState(State.ChaseTarget);
-        Debug.Log("chase");
+        // Switch state
+        ChangeState(RobotState.Chasing);
     }
 
-    private void Patrol()
+    private void SwitchPatrol()
     {
+        // Enable movement
         agent.isStopped = false;
-        patrolling = true;
-        chasing = false;
-        attacking = false;
 
+        // Change to patrol behaviour
         EnableSteeringBehaviour(steeringBehvaiours[0]);
-        ChangeState(State.Patrol);
-        Debug.Log("patrol");
+        // Switch state
+        ChangeState(RobotState.Patrolling);
     }
 
-    protected void ChangeState(State newState)
+    private void TryPlaceBearTrap()
     {
-        currentState = newState;
-        //Debug.Log("Change state to: " + currentState);
+        bearTrap.Place();
+    }
+
+    private void TryAttackPlayer()
+    {
+        // Has attack cooldown finished
+        if (attackTimer <= 0.0f)
+        {
+            // Punch
+            punchingGlove.Action();
+            // Reset
+            attackTimer = attackCooldown;
+        }
     }
     #endregion
 }
