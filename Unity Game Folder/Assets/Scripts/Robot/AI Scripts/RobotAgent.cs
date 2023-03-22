@@ -36,7 +36,7 @@ public class RobotAgent : SteeringAgent
     private float followTimer, attackTimer;
 
     [SerializeField]
-    RobotBearTrap bearTrap;
+    private RobotBearTrap bearTrap;
 
     private bool activated;
     #endregion
@@ -54,6 +54,13 @@ public class RobotAgent : SteeringAgent
     {
         // Generate NavMesh
         UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+
+        // Disable movement
+        agent.isStopped = true;
+
+        // Switch to static screen
+        tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
+        tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
     }
 
     IEnumerator TransitionTV(VideoClip clip)
@@ -129,6 +136,24 @@ public class RobotAgent : SteeringAgent
             {
                 attackTimer -= DefaultUpdateTimeInSecondsForAI;
             }
+
+            if (!punchingGlove && !bearTrap)
+            {
+                // Disable movement
+                agent.isStopped = true;
+
+                // Disable active behaviours
+                foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
+                {
+                    currentBehaviour.enabled = false;
+                }
+
+                // Switch to static screen
+                tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
+                tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
+                GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
+                activated = false;
+            }
         }
 
         base.CooperativeArbitration();
@@ -197,6 +222,13 @@ public class RobotAgent : SteeringAgent
             // Reset
             attackTimer = attackCooldown;
         }
+    }
+
+    public void Switch()
+    {
+        // Switch to expression screen
+        tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, -0.000175f, tvExpression.transform.localPosition.z);
+        tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
     }
     #endregion
 }

@@ -17,6 +17,7 @@ public class ActivateBunker : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             lights.SetActive(true);
+            robot.Switch();
             robot.Activated = true;
         }
     }

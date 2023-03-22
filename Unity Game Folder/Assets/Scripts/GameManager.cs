@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         Task[] tempTasks = taskManager.TodaysTasks;
         if(!tempTasks[0])
             throw new Exception("Failed to Initialize Tasks");
-        Debug.Log("Breakfast task is: " + tempTasks[0].name + ", Midday Task is: " + tempTasks[1].name + ", Final Task is: " + tempTasks[2].name);
+        //Debug.Log("Breakfast task is: " + tempTasks[0].name + ", Midday Task is: " + tempTasks[1].name + ", Final Task is: " + tempTasks[2].name);
     }
 
     /// <summary>
