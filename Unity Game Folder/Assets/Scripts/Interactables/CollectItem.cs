@@ -7,7 +7,8 @@ public class CollectItem : Interactable
     public enum ObjectsToPickup
     {
         CarKeys = 0,
-        Pills = 1
+        Pills = 1,
+        Rubbish = 2
     };
 
     [SerializeField]
@@ -27,6 +28,9 @@ public class CollectItem : Interactable
                 break;
             case ObjectsToPickup.Pills:
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Take Meds");
+                break;
+            case ObjectsToPickup.Rubbish:
+                GameManager.Instance.taskManager.UpdateTaskCompletion("Clean Kitchen");
                 break;
             default:
                 Debug.Log("This Object does not exist and cannot be picked up");
