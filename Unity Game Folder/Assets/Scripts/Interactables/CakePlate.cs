@@ -45,6 +45,9 @@ public class CakePlate : MonoBehaviour
             cake.transform.localPosition = new Vector3(0.0f, 0.016f, 0.0f);
             cake.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, -180.0f);
             cake.transform.localScale = new Vector3(0.038f, 0.038f, 0.081f);
+
+            // Increase
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Make Cake");
         }
     }
     #endregion

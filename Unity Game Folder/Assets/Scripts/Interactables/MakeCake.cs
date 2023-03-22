@@ -92,9 +92,10 @@ public class MakeCake : Interactable
         // Ingredient collision
         if (ingredientsRequired.Contains(collision.transform.gameObject))
         {
-            // Increase mix
+            // Increase
             ingredientsAdded++;
             IncreaseMix();
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Make Cake");
 
             // Destroy ingredient
             InteractionSystem.Instance.DropObject();
