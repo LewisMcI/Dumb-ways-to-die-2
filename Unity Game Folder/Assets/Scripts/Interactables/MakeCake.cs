@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MakeCake : Interactable
 {
@@ -16,6 +17,9 @@ public class MakeCake : Interactable
     private GameObject oven, ovenDoor;
     [SerializeField]
     private GameObject smokeVFX;
+
+    [SerializeField]
+    private VisualEffect fireVfx;
     #endregion
 
     #region methods
@@ -46,8 +50,11 @@ public class MakeCake : Interactable
 
             if (deadly)
             {
+                // Check if hit
+                fireVfx.Play();
                 PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 10, -10), 1.0f, SelectCam.toasterCam);
                 Debug.Log("FIRE!!!");
+                Destroy(gameObject);
             }
             else
             {
