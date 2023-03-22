@@ -17,7 +17,7 @@ public class ActivateFloorCutscene : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Player")
+        if (other.transform.tag == "Player" && GameManager.Instance.taskManager.AllTasksComplete())
         {
             GameManager.Instance.EnableControls = false;
             GameManager.Instance.EnableCamera = false;
