@@ -14,6 +14,7 @@ public class Pill : Interactable
         // Disable interaciton
         CanInteract = false;
         Destroy(gameObject, 0.5f);
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Take Meds");
     }
     #endregion
 }
