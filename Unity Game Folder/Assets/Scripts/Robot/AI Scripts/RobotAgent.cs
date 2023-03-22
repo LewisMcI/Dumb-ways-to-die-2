@@ -37,6 +37,16 @@ public class RobotAgent : SteeringAgent
 
     [SerializeField]
     RobotBearTrap bearTrap;
+
+    private bool activated;
+    #endregion
+
+    #region properties
+    public bool Activated
+    {
+        get { return activated; }
+        set { activated = value; }
+    }
     #endregion
 
     #region methods
@@ -62,60 +72,63 @@ public class RobotAgent : SteeringAgent
 
     protected override void CooperativeArbitration()
     {
-        // If there are objects in line of sight
-        if (robotLineOfSight.Objs.Count > 0)
+        if (activated)
         {
-            // Player within attack range
-            if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f)
+            // If there are objects in line of sight
+            if (robotLineOfSight.Objs.Count > 0)
             {
-                if (currentState != RobotState.Attacking)
+                // Player within attack range
+                if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f)
                 {
-                    SwitchAttack();
+                    if (currentState != RobotState.Attacking)
+                    {
+                        SwitchAttack();
+                    }
+                    else
+                    {
+                        TryAttackPlayer();
+                    }
+                }
+                // Player not in attack range
+                else if (currentState != RobotState.Chasing)
+                {
+                    SwitchChase();
+                }
+
+                // Reset
+                if (followTimer != followTime)
+                    followTimer = followTime;
+
+                // Switch to angry expression
+                if (tvExpression.clip != expressions[1])
+                    StartCoroutine(TransitionTV(expressions[1]));
+            }
+            else if (currentState != RobotState.Patrolling)
+            {
+                if (followTimer <= 0.0f)
+                {
+                    SwitchPatrol();
+
+                    // Switch to neutral expression
+                    if (tvExpression.clip != expressions[0])
+                        StartCoroutine(TransitionTV(expressions[0]));
                 }
                 else
                 {
-                    TryAttackPlayer();
+                    followTimer -= DefaultUpdateTimeInSecondsForAI;
                 }
             }
-            // Player not in attack range
-            else if (currentState != RobotState.Chasing)
+
+            // Place beartraps when patrolling
+            if (currentState == RobotState.Patrolling)
             {
-                SwitchChase();
+                TryPlaceBearTrap();
             }
 
-            // Reset
-            if (followTimer != followTime)
-                followTimer = followTime;
-
-            // Switch to angry expression
-            if (tvExpression.clip != expressions[1])
-                StartCoroutine(TransitionTV(expressions[1]));
-        }
-        else if (currentState != RobotState.Patrolling)
-        {
-            if (followTimer <= 0.0f)
+            if (attackTimer > 0.0f)
             {
-                SwitchPatrol();
-
-                // Switch to neutral expression
-                if (tvExpression.clip != expressions[0])
-                    StartCoroutine(TransitionTV(expressions[0]));
+                attackTimer -= DefaultUpdateTimeInSecondsForAI;
             }
-            else
-            {
-                followTimer -= DefaultUpdateTimeInSecondsForAI;
-            }
-        }
-
-        // Place beartraps when patrolling
-        if (currentState == RobotState.Patrolling)
-        {
-            TryPlaceBearTrap();
-        }
-
-        if (attackTimer > 0.0f)
-        {
-            attackTimer -= DefaultUpdateTimeInSecondsForAI;
         }
 
         base.CooperativeArbitration();
