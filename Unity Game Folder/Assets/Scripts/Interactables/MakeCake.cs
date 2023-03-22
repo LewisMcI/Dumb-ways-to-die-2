@@ -47,7 +47,6 @@ public class MakeCake : Interactable
             if (deadly)
             {
                 PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 10, -10), 1.0f, SelectCam.toasterCam);
-                //StartCoroutine(StartTimer());
                 Debug.Log("FIRE!!!");
             }
             else
@@ -56,11 +55,6 @@ public class MakeCake : Interactable
             }
             opened = true;
         }
-    }
-
-    IEnumerator KillPlayer()
-    {
-        yield return new WaitForSeconds(3.0f);
     }
 
     IEnumerator StartTimer()
