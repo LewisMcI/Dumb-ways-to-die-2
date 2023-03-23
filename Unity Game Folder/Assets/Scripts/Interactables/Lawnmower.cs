@@ -56,6 +56,8 @@ public class Lawnmower : Interactable
         noToWin = (int)(noOfGrass * (1-percentDestroyedToWin));
         initRotation = associatedCam.transform.rotation;
         initPosition = associatedCam.transform.position;
+
+        Debug.Log("INIT POS " + initPosition);
     }
     public override void Action()
     {
@@ -251,6 +253,9 @@ public class Lawnmower : Interactable
             associatedCam.transform.rotation = Quaternion.Lerp(startQuat, initRotation, i / 50);
         }
 
+        Debug.Log("INIT POS2 " + initPosition);
+        Debug.Log("INIT POS but real " + startPos);
+        Debug.Log(" cam pos: " + associatedCam.transform.position);
         player.AddComponent<TopdownPlayerController>();
     }
 
