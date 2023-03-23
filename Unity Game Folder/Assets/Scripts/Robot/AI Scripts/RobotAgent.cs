@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Video;
@@ -52,8 +49,6 @@ public class RobotAgent : SteeringAgent
     #region methods
     private void Awake()
     {
-        // Generate NavMesh
-        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
 
         // Disable movement
         agent.isStopped = true;
