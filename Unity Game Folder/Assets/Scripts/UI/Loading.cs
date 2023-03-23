@@ -30,7 +30,7 @@ public class Loading : MonoBehaviour
                 scene = "Level 4";
                 break;
             case 5:
-                scene = "Level 5";
+                scene = "Robot Test";
                 break;
             default:
                 scene = "Main Menu";
