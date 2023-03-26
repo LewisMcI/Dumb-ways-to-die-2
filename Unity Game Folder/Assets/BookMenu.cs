@@ -14,6 +14,16 @@ public class BookMenu : MonoBehaviour
     TextMeshProUGUI musicVolSlider;
     [SerializeField]
     TextMeshProUGUI sfxVolSlider;
+    [SerializeField]
+    GameObject qualitySettingsCircle;
+    [SerializeField]
+    GameObject displaySettingsCircle;
+
+    [SerializeField]
+    GameObject[] qualitySettingsObjs;
+    [SerializeField]
+    GameObject[] displaySettingsObjs;
+
 
     [SerializeField]
     string mainMenuSceneName;
@@ -116,6 +126,56 @@ public class BookMenu : MonoBehaviour
         for (int i = 0; i < currentSFXValue; i++)
         {
             sfxVolSlider.text += "-";
+        }
+    }
+
+    void LowQualityLevel()
+    {
+        ChangeQualityLevel(0);
+    }
+    void MedQualityLevel()
+    {
+        ChangeQualityLevel(1);
+    }
+    void HighQualityLevel()
+    {
+        ChangeQualityLevel(2);
+    }
+
+    public void ChangeQualityLevel(int index)
+    {
+        qualitySettingsCircle.transform.position = qualitySettingsObjs[index].transform.position;
+        GameSettings.Instance.SetQualitySettings(index);
+        QualitySettings.SetQualityLevel(index, false);
+    }
+    void Windowed()
+    {
+        ChangeScreenSettings(0);
+    }
+    void Fullscreen()
+    {
+        ChangeScreenSettings(1);
+    }
+    void ExclusiveFullscreen()
+    {
+        ChangeScreenSettings(2);
+    }
+
+    public void ChangeScreenSettings(int index)
+    {
+        displaySettingsCircle.transform.position = displaySettingsObjs[index].transform.position;
+        GameSettings.Instance.SetDisplayMode(index);
+        if (index == 0)
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+        else if (index == 1)
+        {
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
     }
 }
