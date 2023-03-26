@@ -172,11 +172,11 @@ public class GameSettings : MonoBehaviour
     }
     public void ResetUI()
     {
-        ResetDropdowns();
-        ResetSliders();
+        BookMenu[] book = Resources.FindObjectsOfTypeAll<BookMenu>() as BookMenu[];
+        book[0].Reset(vfxVolume, musicVolume, qualitySetting, displayMode);
     }
 
-    void ResetSliders()
+/*    void ResetSliders()
     {
         List<String> names = new List<String> { "VFX Slider",
             "Music Slider",
@@ -196,7 +196,7 @@ public class GameSettings : MonoBehaviour
                     slider.gameObject.SetActive(false);
                     slider.value = values[i];
                     slider.gameObject.SetActive(true);
-                    /*                Debug.Log("Found");*/
+                    *//*                Debug.Log("Found");*//*
                     return;
                 }
             }
@@ -210,7 +210,6 @@ public class GameSettings : MonoBehaviour
         List<int> values = new List<int> { qualitySetting,
             displayMode
         };
-        Dropdown[] dropdowns = Resources.FindObjectsOfTypeAll<Dropdown>() as Dropdown[];
         foreach (var dropdown in dropdowns)
         {
             for (int i = 0; i < names.Count; i++)
@@ -220,12 +219,12 @@ public class GameSettings : MonoBehaviour
                     dropdown.gameObject.SetActive(false);
                     dropdown.value = values[i];
                     dropdown.gameObject.SetActive(true);
-                    /*                Debug.Log("Found");*/
+                    *//*                Debug.Log("Found");*//*
                     return;
                 }
             }
         }
-    }
+    }*/
     public void SetVFXVolume(int value)
     {
         masterMixer.SetFloat("VFXVolume", value);

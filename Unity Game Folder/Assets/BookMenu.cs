@@ -33,6 +33,16 @@ public class BookMenu : MonoBehaviour
     float maxSFXValue = 15;
     float currentSFXValue = 15;
 
+    public void Reset(float musicVolume, float sfxVolume, int qualitySetting, int displaySetting)
+    {
+        currentMusicValue = (musicVolume + 80.0f) / 80.0f * maxMusicValue;
+        currentSFXValue = (sfxVolume + 80.0f) / 80.0f * maxSFXValue;
+        PassMusicVolume();
+        PassSFXVolume();
+        ChangeQualityLevel(qualitySetting);
+        ChangeScreenSettings(displaySetting);
+    }
+
     void PauseGame()
     {
         GameManager.Instance.PauseGame();
