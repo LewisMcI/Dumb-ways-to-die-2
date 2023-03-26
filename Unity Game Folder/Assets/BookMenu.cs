@@ -32,6 +32,21 @@ public class BookMenu : MonoBehaviour
     float currentMusicValue = 15;
     float maxSFXValue = 15;
     float currentSFXValue = 15;
+    private void Awake()
+    {
+        try { GameSettings.Instance.ResetUI(); } catch { }
+    }
+    void PlayGame()
+    {
+        GameSettings.Instance.ResetLevel();
+        if (GameSettings.Instance.loadTutorial == true)
+        {
+            GameSettings.Instance.loadTutorial = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
     public void Reset(float musicVolume, float sfxVolume, int qualitySetting, int displaySetting)
     {

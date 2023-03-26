@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            GameUI.Instance.pauseMenu.SetActive(true);
             enableControls = false;
             EnableCamera = false;
         }
@@ -104,8 +103,6 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            GameUI.Instance.pauseMenu.SetActive(false);
-            GameUI.Instance.settingsMenu.SetActive(false);
             enableControls = true;
             EnableCamera = true;
         }

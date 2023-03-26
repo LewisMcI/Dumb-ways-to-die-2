@@ -21,9 +21,6 @@ public class GameUI : MonoBehaviour
     [SerializeField]
     private Animator blinkAnim;
 
-    public GameObject pauseMenu;
-
-    public GameObject settingsMenu;
 
     public static GameUI Instance;
     #endregion
@@ -90,10 +87,5 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    public void SettingsMenu()
-    {
-        pauseMenu.SetActive(!pauseMenu.activeSelf);
-        settingsMenu.SetActive(!settingsMenu.activeSelf);
-    }
     #endregion
 }
