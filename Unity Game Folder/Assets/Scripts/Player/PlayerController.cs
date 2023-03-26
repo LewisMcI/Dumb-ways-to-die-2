@@ -279,8 +279,6 @@ public class PlayerController : MonoBehaviour
         {
             if (child.name == "Notepad")
                 notepad = child.gameObject;
-            if (child.name == "PAUSETEXT")
-                GameUI.Instance.pauseText = child.gameObject;
         }
         playerCam = Camera.main;
         InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);

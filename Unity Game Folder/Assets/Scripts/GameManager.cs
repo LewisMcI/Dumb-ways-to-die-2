@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
             GameUI.Instance.pauseMenu.SetActive(false);
             GameUI.Instance.settingsMenu.SetActive(false);
-            GameUI.Instance.pauseText.SetActive(true);
             enableControls = true;
             EnableCamera = true;
         }

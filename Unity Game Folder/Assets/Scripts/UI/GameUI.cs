@@ -22,7 +22,6 @@ public class GameUI : MonoBehaviour
     private Animator blinkAnim;
 
     public GameObject pauseMenu;
-    public GameObject pauseText;
 
     public GameObject settingsMenu;
 
@@ -94,7 +93,6 @@ public class GameUI : MonoBehaviour
     public void SettingsMenu()
     {
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        pauseText.SetActive(!pauseText.activeSelf);
         settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
     #endregion
