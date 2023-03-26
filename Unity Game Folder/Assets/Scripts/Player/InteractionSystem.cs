@@ -134,6 +134,7 @@ public class InteractionSystem : MonoBehaviour
 
     private void PickupObject(GameObject objectToPickup)
     {
+        objectToPickup.layer = LayerMask.NameToLayer("IgnorePlayer");
         // Remove parent
         objectToPickup.transform.parent = null;
         objectToPickup.GetComponent<Interactable>().Interacting = true;
@@ -144,8 +145,6 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.GetComponent<Rigidbody>().useGravity = false;
         // Add angular drag
         objectToPickup.GetComponent<Rigidbody>().angularDrag = 5.0f;
-        // Ignore raycasts
-        objectToPickup.layer = 2;
         // Reset tag if tagged trapped
         if (objectToPickup.transform.tag == "Trapped")
             objectToPickup.transform.tag = "Untagged";

@@ -52,8 +52,8 @@ public class BookMenu : MonoBehaviour
     {
         currentMusicValue = (musicVolume + 80.0f) / 80.0f * maxMusicValue;
         currentSFXValue = (sfxVolume + 80.0f) / 80.0f * maxSFXValue;
-        PassMusicVolume();
-        PassSFXVolume();
+        PassMusicVolume(true);
+        PassSFXVolume(true);
         ChangeQualityLevel(qualitySetting);
         ChangeScreenSettings(displaySetting);
     }
@@ -114,11 +114,13 @@ public class BookMenu : MonoBehaviour
         }
     }
 
-    void PassMusicVolume()
+    void PassMusicVolume(bool setSetting = false)
     {
-        int newValue = (int)((currentMusicValue / maxMusicValue * 80.0f) - 80.0f);
-        Debug.Log(newValue);
-        GameSettings.Instance.SetMusicVolume(newValue);
+        if (!setSetting)
+        {
+            int newValue = (int)((currentMusicValue / maxMusicValue * 80.0f) - 80.0f);
+            GameSettings.Instance.SetMusicVolume(newValue);
+        }
         musicVolSlider.text = "";
         for (int i = 0; i < currentMusicValue; i++)
         {
@@ -142,11 +144,13 @@ public class BookMenu : MonoBehaviour
         }
     }
 
-    void PassSFXVolume()
+    void PassSFXVolume(bool setSetting = false)
     {
-        int newValue = (int)((currentSFXValue / maxSFXValue * 80.0f) - 80.0f);
-        Debug.Log(newValue);
-        GameSettings.Instance.SetVFXVolume(newValue);
+        if (!setSetting)
+        {
+            int newValue = (int)((currentSFXValue / maxSFXValue * 80.0f) - 80.0f);
+            GameSettings.Instance.SetVFXVolume(newValue);
+        }
         sfxVolSlider.text = "";
         for (int i = 0; i < currentSFXValue; i++)
         {
