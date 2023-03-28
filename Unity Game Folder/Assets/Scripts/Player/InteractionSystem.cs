@@ -50,7 +50,7 @@ public class InteractionSystem : MonoBehaviour
         }
         else if (Input.GetButtonDown("Throw") && pickedUpObject)
         {
-            ThrowObject();
+            StartCoroutine(ThrowObject());
         }
         else
         {
@@ -166,10 +166,13 @@ public class InteractionSystem : MonoBehaviour
         catch { }
     }
 
-    private void ThrowObject()
+    IEnumerator ThrowObject()
     {
         // Add force
-        pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 15000f * Time.deltaTime);
+        float force = 20000f * Time.deltaTime;
+        yield return new WaitForFixedUpdate();
+        force = 20000f * Time.deltaTime;
+        pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force);
         pickedUpObject.GetComponent<Interactable>().Interacting = false;
         // Play sfx
         AudioManager.Instance.PlayAudio("Whoosh");
@@ -178,6 +181,7 @@ public class InteractionSystem : MonoBehaviour
         pickedUpObject.layer = 0;
         pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
         pickedUpObject = null;
+        yield return null;
     }
 
     public void PivotObject(GameObject pivotObj)
