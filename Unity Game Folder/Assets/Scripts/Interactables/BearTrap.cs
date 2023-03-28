@@ -20,12 +20,16 @@ public class BearTrap : MonoBehaviour
             {
                 StartCoroutine(TrapPlayer(other.gameObject));
             }
+            if (other.transform.name == "Cut Teddy")
+            {
+                StartCoroutine(TrapBear(other.gameObject));
+            }
             else if (other.gameObject.layer != LayerMask.NameToLayer("Trapped"))
             {
                 // Return if object is pivot interactable
                 if (other.GetComponent<Interactable>() && other.GetComponent<Interactable>().Type == Interactable.InteractableType.Pivot)
                     return;
-                StartCoroutine(TrapItem(other.gameObject));
+                StartCoroutine(TrapObject(other.gameObject));
             }
         }
     }
@@ -54,7 +58,31 @@ public class BearTrap : MonoBehaviour
         Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
     }
 
-    IEnumerator TrapItem(GameObject obj)
+    IEnumerator TrapBear(GameObject bear)
+    {
+        // Trigger
+        GetComponent<Animator>().SetTrigger("Bear");
+        triggered = true;
+
+        // Disable
+        if (bear.GetComponent<Interactable>())
+        {
+            bear.GetComponent<Interactable>().CanInteract = false;
+        }
+        if (bear.GetComponent<Rigidbody>() == null)
+        {
+            bear.AddComponent<Rigidbody>();
+        }
+        bear.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        bear.GetComponent<Rigidbody>().isKinematic = true;
+
+        // Mark as trapped
+        bear.gameObject.layer = LayerMask.NameToLayer("Trapped");
+
+        yield return null;
+    }
+
+        IEnumerator TrapObject(GameObject obj)
     {
         // Trigger
         GetComponent<Animator>().SetTrigger("Trigger");
