@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
                 Jump();
                 Crouch();
             }
-            else
+            else if (isCrouching || isJumping)
             {
                 anim.SetBool("Jumping", false);
                 anim.SetBool("Crouching", false);
@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
+            StartCoroutine(ResetCrouch());
             // Reset collider
             transform.GetChild(0).GetComponent<CapsuleCollider>().center = new Vector3(0.0f, 0.9f, 0.0f);
             transform.GetChild(0).GetComponent<CapsuleCollider>().height = 1.8f;
@@ -226,6 +226,13 @@ public class PlayerController : MonoBehaviour
             isCrouching = false;
         }
     }
+
+    private IEnumerator ResetCrouch()
+    {
+        yield return new WaitForSeconds(0.25f);
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
+    }
+
     #endregion
     #region Ragdoll
     public void EnableRagdoll()

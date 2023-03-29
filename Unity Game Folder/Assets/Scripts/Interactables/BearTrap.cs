@@ -13,76 +13,124 @@ public class BearTrap : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             return;
+
         if (!triggered)
         {
-            if (other.transform.parent && other.transform.parent.tag == "Player")
+            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                GetComponent<Animator>().SetTrigger("Trigger");
-                // Snap to position while keeping original y
-                other.transform.parent.position = new Vector3(transform.position.x, other.transform.parent.position.y, transform.position.z);
-                // Reset
-                other.transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                other.GetComponent<Animator>().SetFloat("dirX", 0);
-                other.GetComponent<Animator>().SetFloat("dirY", 0);
-                StartCoroutine(TrapPlayer());
+                StartCoroutine(TrapPlayer(other.gameObject));
             }
-            else if (other != null && other.gameObject && other.transform.tag != "Trapped" && other.GetComponent<Interactable>().Type != Interactable.InteractableType.Pivot)
+            if (other.transform.name == "Cut Teddy")
             {
-                GetComponent<Animator>().SetTrigger("Trigger");
-                // Remove rigidbody of collided object if exists
-                if (other.GetComponent<Rigidbody>())
-                    Destroy(other.GetComponent<Rigidbody>());
-                // Set as parent if not player
-                other.transform.parent = transform;
-                // Disable collider
-                other.GetComponent<Collider>().enabled = false;
-                // Snap to position
-                other.transform.localPosition = new Vector3(0.0f, 0.25f, 0.0f);
-                StartCoroutine(TrapItem(other.gameObject));
-                // Set tag
-                other.tag = "Trapped";
+                StartCoroutine(TrapBear(other.gameObject));
+            }
+            else if (other.gameObject.layer != LayerMask.NameToLayer("Trapped"))
+            {
+                // Return if object is pivot interactable
+                if (other.GetComponent<Interactable>() && other.GetComponent<Interactable>().Type == Interactable.InteractableType.Pivot)
+                    return;
+                StartCoroutine(TrapObject(other.gameObject));
             }
         }
     }
 
-    IEnumerator TrapPlayer()
+    IEnumerator TrapPlayer(GameObject player)
     {
+        // Trigger
+        GetComponent<Animator>().SetTrigger("Trigger");
         triggered = true;
 
-        // Disable controls
+        // Disable
         GameManager.Instance.EnableControls = false;
-        yield return new WaitForSeconds(3f);
-        // Enable controls
-        GameManager.Instance.EnableControls = true;
+        player.transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+        player.GetComponent<Animator>().SetBool("Crouching", true);
 
+        yield return new WaitForSeconds(3f);
+
+        // Enable
+        GameManager.Instance.EnableControls = true;
+        player.GetComponent<Animator>().SetBool("Crouching", false);
+
+        // Reset
         triggered = false;
+        yield return new WaitForSeconds(0.25f);
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
     }
 
-    IEnumerator TrapItem(GameObject obj)
+    IEnumerator TrapBear(GameObject bear)
     {
+        // Trigger
+        GetComponent<Animator>().SetTrigger("Bear");
         triggered = true;
 
-        // Disable interaction
-        if (obj.GetComponent<Interactable>())
-            obj.GetComponent<Interactable>().CanInteract = false;
-        yield return new WaitForSeconds(3f);
-        if (obj != null)
+        // Disable
+        if (bear.GetComponent<Interactable>())
         {
-            // Reset parent
-            obj.transform.parent = null;
-            // Add rigidbody if it doesn't exist
-            if (!obj.GetComponent<Rigidbody>())
-                obj.AddComponent<Rigidbody>();
-            // Add force
-            obj.GetComponent<Rigidbody>().AddForce(Vector3.up * 150f * Time.deltaTime + Vector3.forward * 150f * Time.deltaTime, ForceMode.VelocityChange);
-            // Enable interaction
-            if (obj.GetComponent<Interactable>())
-                obj.GetComponent<Interactable>().CanInteract = true;
-            // Enable collider
-            obj.GetComponent<Collider>().enabled = true;
+            bear.GetComponent<Interactable>().CanInteract = false;
         }
+        if (bear.GetComponent<Rigidbody>() == null)
+        {
+            bear.AddComponent<Rigidbody>();
+        }
+        bear.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        bear.GetComponent<Rigidbody>().isKinematic = true;
 
+        // Mark as trapped
+        bear.gameObject.layer = LayerMask.NameToLayer("Trapped");
+
+        yield return null;
+    }
+
+        IEnumerator TrapObject(GameObject obj)
+    {
+        // Trigger
+        GetComponent<Animator>().SetTrigger("Trigger");
+        triggered = true;
+
+        // Disable
+        if (obj.GetComponent<Interactable>())
+        {
+            obj.GetComponent<Interactable>().CanInteract = false;
+        }
+        if (obj.GetComponent<Rigidbody>() == null)
+        {
+            obj.AddComponent<Rigidbody>();
+        }
+        obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        obj.GetComponent<Rigidbody>().isKinematic = true;
+
+        // Mark as trapped
+        obj.gameObject.layer = LayerMask.NameToLayer("Trapped");
+
+        yield return new WaitForSeconds(3f);
+
+        // Enable
+        if (obj.GetComponent<Interactable>())
+        {
+            obj.GetComponent<Interactable>().CanInteract = true;
+        }
+        obj.GetComponent<Rigidbody>().isKinematic = false;
+
+        // Calculate force in random direction
+        float z = Random.Range(0, 2);
+        float x = Random.Range(0, 2);
+        z = (z == 0) ? -1 : 1;
+        x = (x == 0) ? -1 : 1;
+        Vector3 force = new Vector3(x * 100 * Time.deltaTime, 100 * Time.deltaTime, z * 100 * Time.deltaTime);
+        yield return new WaitForFixedUpdate();
+        force = new Vector3(x * 100 * Time.deltaTime, 100 * Time.deltaTime, z * 100 * Time.deltaTime);
+        // Add force
+        obj.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
+
+        // Reset
         triggered = false;
+
+        // Wait until out of collider
+        yield return new WaitForSeconds(0.5f);
+
+        // Mark as untrapped
+        obj.gameObject.layer = LayerMask.NameToLayer("Default");
     }
     #endregion
 }
