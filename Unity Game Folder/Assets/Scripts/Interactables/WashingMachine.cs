@@ -6,18 +6,13 @@ using UnityEngine.Video;
 public class WashingMachine : Interactable
 {
     #region fields
-    [SerializeField]
-    private GameObject washingMachine;
-    [SerializeField]
-    private BoxCollider trigger;
     #endregion
-
+    bool active = false;
     #region methods
     public override void Action()
     {
-        trigger.isTrigger = !trigger.isTrigger;
-        washingMachine.SetActive(!washingMachine.activeSelf);
-        if (washingMachine.activeSelf == true)
+        active = !active;
+        if (active == true)
         {
             Text = "Turn Off";
             AudioManager.Instance.PlayAudio("Washing Machine");
@@ -28,19 +23,17 @@ public class WashingMachine : Interactable
             AudioManager.Instance.StopAudio("Washing Machine");
         }
     }
-    private void OnTriggerStay(Collider other)
+
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision");
-        if (washingMachine.activeSelf)
+        if (!active) return;
+        try
         {
-            try
-            {
-                if (Random.Range(0, 10) > 5)
-                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 30, -30));
-                else
-                    other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 30, 30));
-            }
-            catch { }
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f, 0.5f), 200.0f, Random.Range(0.1f, 0.5f)));
+        }
+        catch
+        {
+            collision.gameObject.AddComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f, 0.5f), 2000.0f, Random.Range(0.1f, 0.5f)));
         }
     }
     #endregion
