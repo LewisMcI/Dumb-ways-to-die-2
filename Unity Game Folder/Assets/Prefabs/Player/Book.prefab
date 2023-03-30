@@ -97,10 +97,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -7141,7 +7141,7 @@ MonoBehaviour:
   - {x: 0.669018, y: 0.145338}
   - {x: 0.66855, y: 0.145506}
   - {x: 0.30849805, y: 0.14442721}
-  - {x: 0.6687629, y: 0.14610066}
+  - {x: 0.668763, y: 0.14610066}
   - {x: 0.6687659, y: 0.14546977}
   - {x: 0.6685507, y: 0.14550596}
   - {x: 0.67797947, y: 0.14212108}
@@ -7459,7 +7459,7 @@ MonoBehaviour:
   - {x: 0.489623, y: 0.570687}
   - {x: 0.487317, y: 0.570685}
   - {x: 0.487317, y: 0.57068604}
-  - {x: 0.48967507, y: 0.570688}
+  - {x: 0.48967507, y: 0.57068807}
   - {x: 0.489978, y: 0.21580699}
   - {x: 0.487317, y: 0.57118094}
   - {x: 0.487317, y: 0.57049}
@@ -7730,7 +7730,7 @@ MonoBehaviour:
   - {x: 0.321278, y: 0.077735}
   - {x: 0.6540457, y: 0.07316831}
   - {x: 0.32122138, y: 0.07770872}
-  - {x: 0.32123107, y: 0.07833199}
+  - {x: 0.32123104, y: 0.07833199}
   - {x: 0.32120383, y: 0.07775511}
   - {x: 0.32431018, y: 0.04244788}
   - {x: 0.32066113, y: 0.077698916}
@@ -7746,7 +7746,7 @@ MonoBehaviour:
   - {x: 0.6545324, y: 0.07253042}
   - {x: 0.65312254, y: 0.04169157}
   - {x: 0.6540445, y: 0.07254499}
-  - {x: 0.6538403, y: 0.04021296}
+  - {x: 0.65384024, y: 0.04021296}
   - {x: 0.65361047, y: 0.041677}
   - {x: 0.6536, y: 0.041677}
   - {x: 0.653171, y: 0.040863}
@@ -8317,9 +8317,9 @@ MonoBehaviour:
   - {x: 0.23532957, y: -0.23683774, z: -0.9426176, w: -1}
   - {x: 0.22122774, y: -0.25231266, z: -0.94201726, w: -1}
   - {x: 0.22272928, y: -0.25400558, z: -0.9412082, w: -1}
-  - {x: -0.0033263844, y: 0.00334765, z: -0.99998885, w: -1}
-  - {x: -0.0033319818, y: 0.0033420827, z: -0.99998885, w: -1}
-  - {x: -0.0031148966, y: 0.0035331172, z: -0.9999889, w: -1}
+  - {x: -0.003326385, y: 0.0033476504, z: -0.99998885, w: -1}
+  - {x: -0.003331982, y: 0.003342083, z: -0.99998885, w: -1}
+  - {x: -0.0031148968, y: 0.0035331177, z: -0.9999889, w: -1}
   - {x: 0.65462476, y: -0.7464989, z: -0.1191884, w: -1}
   - {x: 0.6546233, y: -0.7465, z: -0.119189166, w: -1}
   - {x: 0.6546251, y: -0.7464986, z: -0.11918818, w: -1}
@@ -8635,9 +8635,9 @@ MonoBehaviour:
   - {x: -0.3027851, y: -0.9530589, z: 0, w: -1}
   - {x: -0.30278504, y: -0.9530588, z: 0.0004256294, w: -1}
   - {x: -0.72664857, y: -0.6870087, z: 0.00097523525, w: -1}
-  - {x: -0.7266486, y: -0.6870086, z: 0.0009815666, w: -1}
-  - {x: -0.30278498, y: -0.95305854, z: 0.0008521973, w: -1}
-  - {x: -0.30278498, y: -0.95305854, z: 0.0008586534, w: -1}
+  - {x: -0.72664857, y: -0.6870086, z: 0.0009963268, w: -1}
+  - {x: -0.30278498, y: -0.95305854, z: 0.00087802135, w: -1}
+  - {x: -0.30278498, y: -0.95305854, z: 0.00087156537, w: -1}
   - {x: -0.7266489, y: -0.687009, z: 0, w: -1}
   - {x: -0.7266489, y: -0.687009, z: 0, w: -1}
   - {x: -0.98397166, y: -0.1783249, z: 0, w: -1}
@@ -8905,9 +8905,9 @@ MonoBehaviour:
   - {x: 0.14907578, y: 0.1700359, z: 0.9740966, w: -1}
   - {x: 0.13868634, y: 0.13957515, z: 0.9804514, w: -1}
   - {x: 0.16550069, y: 0.18874586, z: 0.9679796, w: -1}
-  - {x: -0.010388514, y: -0.01045486, z: 0.9998914, w: -1}
-  - {x: -0.009708064, y: -0.0110515915, z: 0.9998918, w: -1}
-  - {x: -0.010393879, y: -0.010449508, z: 0.9998914, w: -1}
+  - {x: -0.010388515, y: -0.0104548605, z: 0.9998914, w: -1}
+  - {x: -0.009708065, y: -0.011051592, z: 0.9998918, w: -1}
+  - {x: -0.01039388, y: -0.010449509, z: 0.9998914, w: -1}
   - {x: 0.07660058, y: 0.08736973, z: 0.9932265, w: -1}
   - {x: 0.07660322, y: 0.087367415, z: 0.9932265, w: -1}
   - {x: 0.07659087, y: 0.08737901, z: 0.9932264, w: -1}
@@ -8917,13 +8917,13 @@ MonoBehaviour:
   - {x: -0.037972394, y: -0.03821482, z: 0.99854785, w: -1}
   - {x: -0.040295508, y: -0.045948986, z: 0.99813074, w: -1}
   - {x: 0.07660953, y: 0.08736109, z: 0.9932266, w: -1}
-  - {x: -0.007325839, y: -0.008353708, z: 0.9999383, w: -1}
+  - {x: -0.0073258383, y: -0.008353708, z: 0.9999383, w: -1}
   - {x: -0.00732571, y: -0.008353838, z: 0.9999383, w: -1}
   - {x: -0.0073351045, y: -0.008345602, z: 0.9999383, w: -1}
   - {x: -0.028602643, y: -0.03261561, z: 0.9990586, w: -1}
   - {x: -0.028602067, y: -0.032616183, z: 0.9990586, w: -1}
   - {x: -0.028602622, y: -0.032615624, z: 0.9990586, w: -1}
-  - {x: -0.0073257154, y: -0.008353831, z: 0.9999383, w: -1}
+  - {x: -0.007325715, y: -0.008353831, z: 0.9999383, w: -1}
   - {x: -0.028602067, y: -0.032616176, z: 0.9990586, w: -1}
   - {x: -0.116310075, y: -0.13263343, z: 0.9843172, w: -1}
   - {x: -0.12457238, y: -0.1253738, z: 0.98425764, w: -1}
@@ -10410,10 +10410,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -10926,10 +10926,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -11073,10 +11073,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -11355,10 +11355,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -11466,10 +11466,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -12170,7 +12170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4410934298012945060
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12427,10 +12427,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -12538,10 +12538,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -12649,10 +12649,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -12930,10 +12930,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -13178,10 +13178,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -13623,10 +13623,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -13766,10 +13766,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -13877,10 +13877,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
@@ -13906,7 +13906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8998347848333603616
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14301,10 +14301,10 @@ MonoBehaviour:
   - Void ChangeScene(System.String)
   - Void IncreaseMusicVol()
   - Void DecreaseMusicVol()
-  - Void PassMusicVolume()
+  - Void PassMusicVolume(Boolean)
   - Void IncreaseSFXVol()
   - Void DecreaseSFXVol()
-  - Void PassSFXVolume()
+  - Void PassSFXVolume(Boolean)
   - Void LowQualityLevel()
   - Void MedQualityLevel()
   - Void HighQualityLevel()
