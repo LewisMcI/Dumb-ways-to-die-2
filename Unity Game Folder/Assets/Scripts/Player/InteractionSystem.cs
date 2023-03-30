@@ -169,10 +169,10 @@ public class InteractionSystem : MonoBehaviour
     IEnumerator ThrowObject()
     {
         // Add force
-        float force = 20000f * Time.deltaTime;
+        float force = 350f * Time.deltaTime;
         yield return new WaitForFixedUpdate();
-        force = 20000f * Time.deltaTime;
-        pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force);
+        force = 350f * Time.deltaTime;
+        pickedUpObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force, ForceMode.VelocityChange);
         pickedUpObject.GetComponent<Interactable>().Interacting = false;
         // Play sfx
         AudioManager.Instance.PlayAudio("Whoosh");
