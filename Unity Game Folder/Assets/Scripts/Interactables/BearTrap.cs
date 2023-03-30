@@ -20,7 +20,7 @@ public class BearTrap : MonoBehaviour
             {
                 StartCoroutine(TrapPlayer(other.gameObject));
             }
-            if (other.transform.name == "Cut Teddy")
+            else if (other.transform.name == "Cut Teddy")
             {
                 StartCoroutine(TrapBear(other.gameObject));
             }
