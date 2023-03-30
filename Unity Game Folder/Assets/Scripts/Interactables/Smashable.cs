@@ -67,7 +67,7 @@ public class Smashable : MonoBehaviour
                     newRb = piece.GetComponent<Rigidbody>();
 
                     // Adds explosive force to separate objects.
-                    newRb.AddExplosionForce(10, Vector3.down, 10);
+                    newRb.AddExplosionForce(20, Vector3.down, 20);
                     // Audio
                     AudioManager.Instance.PlayAudio("Bottle Smash");
                 }
@@ -76,7 +76,7 @@ public class Smashable : MonoBehaviour
                     newRb = piece.AddComponent<Rigidbody>();
 
                     // Adds explosive force to separate objects.
-                    newRb.AddExplosionForce(10, Vector3.down, 10);
+                    newRb.AddExplosionForce(20, Vector3.down, 20);
                     // Audio
                     AudioManager.Instance.PlayAudio("Bottle Smash");
                 }
