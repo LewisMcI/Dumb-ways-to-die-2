@@ -16,9 +16,17 @@ public class CollectItem : Interactable
 
     [SerializeField]
     AudioSource associatedAudio;
-
+    private void Update()
+    {
+        if (GameManager.Instance.taskManager.CurrentTasks == GameManager.Instance.taskManager.afterTransitionTasks)
+            Text = "Take Pill";
+        else
+            Text = "I need to take these before bed.";
+    }
     public override void Action()
     {
+        if (GameManager.Instance.taskManager.CurrentTasks != GameManager.Instance.taskManager.afterTransitionTasks)
+            return;
         if (associatedAudio != null)
             associatedAudio.Play();
         switch (objectToPickup)
