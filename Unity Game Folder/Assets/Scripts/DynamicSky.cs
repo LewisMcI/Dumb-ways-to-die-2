@@ -146,7 +146,7 @@ public class DynamicSky : MonoBehaviour
 
     public void AdvanceTime()
     {
-        targetTime += 18.0f / (GameManager.Instance.taskManager.todaysTasks.Length + 1);
+        targetTime += 18.0f / (GameManager.Instance.taskManager.CurrentTasks.Length + 1);
     }
     #endregion
 }

@@ -458,9 +458,11 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    private IEnumerator OpenNotepadAfterAwake()
+    public IEnumerator OpenNotepadAfterAwake()
     {
         yield return new WaitForSeconds(3.3f);
+
+
         notepad.SetActive(true);
 
         GameManager.Instance.taskManager.FindNotepadText();

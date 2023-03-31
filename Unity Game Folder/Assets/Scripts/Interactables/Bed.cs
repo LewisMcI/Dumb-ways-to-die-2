@@ -18,15 +18,15 @@ public class Bed : Interactable
 
     private void Update()
     {
-        if (GameManager.Instance.taskManager.AllTasksComplete())
+        if (GameManager.Instance.taskManager.CurrentTasks == GameManager.Instance.taskManager.afterTransitionTasks && GameManager.Instance.taskManager.AllTasksComplete())
             Text = "Sleep";
         else
-            Text = "You can't sleep just yet";
+            Text = "It's too early to sleep";
     }
 
     public override void Action()
     {
-        if (GameManager.Instance.taskManager.AllTasksComplete())
+        if (GameManager.Instance.taskManager.CurrentTasks == GameManager.Instance.taskManager.afterTransitionTasks && GameManager.Instance.taskManager.AllTasksComplete())
         {
             GameUI.Instance.ReverseBlink();
             StartCoroutine(GoToSleep());

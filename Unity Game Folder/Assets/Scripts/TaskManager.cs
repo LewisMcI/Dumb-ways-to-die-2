@@ -13,8 +13,11 @@ public class TaskManager : MonoBehaviour
     TextMeshPro notepadText;
     
     // Todays Current Tasks
-    public Task[] todaysTasks;
-    public Task[] TodaysTasks { get => todaysTasks; }
+    private Task[] currentTasks;
+    public Task[] CurrentTasks { get => currentTasks; }
+    public Task[] beforeTransitionTasks;
+    public Task[] afterTransitionTasks;
+
 
     private void Awake()
     {
@@ -23,7 +26,21 @@ public class TaskManager : MonoBehaviour
         {
             throw new NotImplementedException("RandomTasks not implemented yet");
         }
-        if (todaysTasks.Length == 0)
+        if (currentTasks.Length == 0)
+        {
+            throw new Exception("Not Enough Traps in GameManager");
+        }
+    }
+    public void SetUp()
+    {
+        currentTasks = beforeTransitionTasks;
+    }
+
+    public void SwapTasksOver()
+    {
+        currentTasks = afterTransitionTasks;
+        ResetAllTraps();
+        if (currentTasks.Length == 0)
         {
             throw new Exception("Not Enough Traps in GameManager");
         }
@@ -31,7 +48,7 @@ public class TaskManager : MonoBehaviour
 
     public void ResetAllTraps()
     {
-        foreach(var task in todaysTasks)
+        foreach(var task in currentTasks)
         {
             task.Reset();
         }
@@ -50,7 +67,7 @@ public class TaskManager : MonoBehaviour
     */
     public bool AllTasksComplete()
     {
-        foreach(var task in todaysTasks)
+        foreach(var task in currentTasks)
         {
             if (task.taskComplete == false && !task.isDependent)
             {
@@ -66,27 +83,27 @@ public class TaskManager : MonoBehaviour
     {
         string newText = "";
         // First Task
-        if (todaysTasks[0].stepsComplete >= todaysTasks[0].steps)
+        if (currentTasks[0].stepsComplete >= currentTasks[0].steps)
             newText = newText + "<s>";
-         newText = newText + "1. " + todaysTasks[0].taskName;
+         newText = newText + "1. " + currentTasks[0].taskName;
  
-        if (todaysTasks[0].steps > 1)
-            newText = newText + " (" + todaysTasks[0].stepsComplete + " / " + todaysTasks[0].steps + ")";
-        if (todaysTasks[0].stepsComplete >= todaysTasks[0].steps)
+        if (currentTasks[0].steps > 1)
+            newText = newText + " (" + currentTasks[0].stepsComplete + " / " + currentTasks[0].steps + ")";
+        if (currentTasks[0].stepsComplete >= currentTasks[0].steps)
             newText = newText + "</s>";
         // New Tasks
-        for (int i = 1; i < todaysTasks.Length; i++)
+        for (int i = 1; i < currentTasks.Length; i++)
         {
             newText = newText + "\n";
-            if (todaysTasks[i].stepsComplete >= todaysTasks[i].steps)
+            if (currentTasks[i].stepsComplete >= currentTasks[i].steps)
                 newText = newText + "<s>";
-            newText = newText + i + ". " + todaysTasks[i].taskName;
-            if (todaysTasks[i].steps > 1)
-                newText = newText + " (" + todaysTasks[i].stepsComplete + " / " + todaysTasks[i].steps + ")";
-            if (todaysTasks[i].stepsComplete >= todaysTasks[i].steps)
+            newText = newText + i + ". " + currentTasks[i].taskName;
+            if (currentTasks[i].steps > 1)
+                newText = newText + " (" + currentTasks[i].stepsComplete + " / " + currentTasks[i].steps + ")";
+            if (currentTasks[i].stepsComplete >= currentTasks[i].steps)
                 newText = newText + "</s>";
         }
-        Debug.Log(todaysTasks[0].taskName);
+        Debug.Log(currentTasks[0].taskName);
         Debug.Log(newText);
         notepadText.text = newText;
     }
@@ -97,7 +114,7 @@ public class TaskManager : MonoBehaviour
      */
     public void UpdateTaskCompletion(string taskName)
     {
-        foreach (var task in todaysTasks)
+        foreach (var task in currentTasks)
         {
             if (taskName == task.taskName)
             {

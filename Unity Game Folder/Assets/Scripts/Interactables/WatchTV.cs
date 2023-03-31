@@ -14,7 +14,7 @@ public class WatchTV : Interactable
     #region methods
     public override void Action()
     {
-        if (!transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
+/*        if (!transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
         {
             int random = Random.Range(0, 3);
             switch (random)
@@ -31,7 +31,7 @@ public class WatchTV : Interactable
             }
             transform.GetChild(0).GetComponent<VideoPlayer>().Play();
             CanInteract = false;
-        }
+        }*/
     }
     #endregion
 }

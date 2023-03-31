@@ -24,6 +24,10 @@ public class TrapCouch : Interactable
     #region methods
     private void Update()
     {
+        if (GameManager.Instance.taskManager.AllTasksComplete())
+            Text = "Watch TV";
+        else
+            Text = "I'm too stressed right now.";
         // Trigger get up
         if (sitting && Input.GetButtonDown("Interact"))
         {
@@ -59,6 +63,8 @@ public class TrapCouch : Interactable
 
     public override void Action()
     {
+        if (!GameManager.Instance.taskManager.AllTasksComplete())
+            return;
         // Disable controls
         GameManager.Instance.EnableControls = false;
         GameManager.Instance.EnableCamera = false;
@@ -114,6 +120,8 @@ public class TrapCouch : Interactable
 
         GameManager.Instance.EnableControls = false;
         GameManager.Instance.EnableCamera = false;
+
+        GameManager.Instance.TransitionDay();
     }
 
     IEnumerator UnsetSitting()
@@ -130,6 +138,7 @@ public class TrapCouch : Interactable
 
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
+        Destroy(this);
     }
     #endregion
 }

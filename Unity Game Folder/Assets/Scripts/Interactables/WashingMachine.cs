@@ -36,5 +36,17 @@ public class WashingMachine : Interactable
             collision.gameObject.AddComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f, 0.5f), 2000.0f, Random.Range(0.1f, 0.5f)));
         }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!active) return;
+        try
+        {
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f, 0.5f), 20.0f, Random.Range(0.1f, 0.5f)));
+        }
+        catch
+        {
+            collision.gameObject.AddComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f, 0.5f), 200.0f, Random.Range(0.1f, 0.5f)));
+        }
+    }
     #endregion
 }

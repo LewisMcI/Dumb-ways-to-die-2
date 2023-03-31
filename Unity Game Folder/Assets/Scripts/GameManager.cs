@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void InitTasks()
     {
-        Task[] tempTasks = taskManager.TodaysTasks;
+        taskManager.SetUp();
+        Task[] tempTasks = taskManager.CurrentTasks;
         if(!tempTasks[0])
             throw new Exception("Failed to Initialize Tasks");
         //Debug.Log("Breakfast task is: " + tempTasks[0].name + ", Midday Task is: " + tempTasks[1].name + ", Final Task is: " + tempTasks[2].name);
@@ -130,6 +131,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3.3f);
         enableControls = true;
         enableCamera = true;
+    }
+
+    public void TransitionDay()
+    {
+        taskManager.SwapTasksOver();
+
+        StartCoroutine(PlayerController.Instance.OpenNotepadAfterAwake());
     }
     #endregion
 }
