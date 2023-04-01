@@ -21,7 +21,6 @@ public class GoToWork : Interactable
         if (GameManager.Instance.taskManager.AllTasksComplete())
         {
             // TODO: Add ReverseBlink animation equivalent for leaving to work.
-            GameUI.Instance.ReverseBlink();
             StartCoroutine(LeaveForWork());
         }
     }
@@ -29,14 +28,17 @@ public class GoToWork : Interactable
     IEnumerator LeaveForWork()
     {
         GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
         Vector3 currentPosition = PlayerController.Instance.transform.position;
-        float time = 2.0f;
-        yield return new WaitForSeconds(time);
+        GameUI.Instance.ReverseBlink();
+        yield return new WaitForSeconds(2.4f);
         // TODO: Add Blink animation equivalent for coming home.
         Transform pcTransform = PlayerController.Instance.transform;
         pcTransform.rotation = Quaternion.Euler(pcTransform.rotation.x, 90, pcTransform.rotation.z);
         GameManager.Instance.TransitionDay();
+        yield return new WaitForSeconds(2.4f);
         GameManager.Instance.EnableControls = true;
+        GameManager.Instance.EnableCamera = true;
     }
     #endregion
 }
