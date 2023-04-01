@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,6 +44,14 @@ public class Task : ScriptableObject
         // Reset gameobject
         if (spawn)
         {
+            if (string.IsNullOrEmpty(nameOfPosition))
+            {
+                throw new Exception("Position Name is Null or Empty for Task: " + taskName);
+            }
+            if (associatedTrap == null)
+            {
+                throw new Exception("Unassigned Associated Trap for Task: " + taskName);
+            }
             GameObject pos = GameObject.Find(nameOfPosition);
             Destroy(pos.transform.GetChild(0).gameObject);
             GameObject trap = Instantiate(associatedTrap);
