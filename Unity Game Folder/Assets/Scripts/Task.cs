@@ -54,7 +54,10 @@ public class Task : ScriptableObject
                 throw new Exception("Unassigned Associated Trap for Task: " + taskName);
             }
             GameObject pos = GameObject.Find(nameOfPosition);
-            Destroy(pos.transform.GetChild(0).gameObject);
+            if (pos.transform.childCount > 0)
+            {
+                Destroy(pos.transform.GetChild(0).gameObject);
+            }
             GameObject trap = Instantiate(associatedTrap);
             trap.transform.parent = pos.transform;
             trap.transform.localPosition = Vector3.zero;
