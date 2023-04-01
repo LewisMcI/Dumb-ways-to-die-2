@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2821278876520365161}
   - component: {fileID: 2812415347654830235}
   - component: {fileID: 9198499975637133393}
+  - component: {fileID: 5835742358808019280}
   - component: {fileID: 2913886478315755102}
-  - component: {fileID: 4272906078244283743}
   m_Layer: 2
   m_Name: Plate
   m_TagString: Untagged
@@ -99,6 +99,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.90035975, y: 0.37555444, z: 0.7821191}
   m_Center: {x: -0.10084599, y: 0.18775555, z: 0.022129226}
+--- !u!65 &5835742358808019280
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833927324072907479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40163642, y: 0.033248063, z: 0.40163574}
+  m_Center: {x: -0.00000030547383, y: 0.01662415, z: -0.00000095365885}
 --- !u!114 &2913886478315755102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,17 +128,3 @@ MonoBehaviour:
   text: 
   keepRotation: 1
   knifeJam: {fileID: -4267261970615031764, guid: 34ed7c6a79ee478498277d9c096247cd, type: 3}
---- !u!64 &4272906078244283743
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2833927324072907479}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: d9406edc5b6e2c44bb55b604247297a6, type: 3}

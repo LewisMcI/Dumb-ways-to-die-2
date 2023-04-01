@@ -53,12 +53,7 @@ public class MakeCake : Interactable
                 // Check if hit
                 fireVfx.Play();
                 PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 10, -10), 1.0f, SelectCam.toasterCam);
-                Debug.Log("FIRE!!!");
                 Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("ok");
             }
             opened = true;
         }

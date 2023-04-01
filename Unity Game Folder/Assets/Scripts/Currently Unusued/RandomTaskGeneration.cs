@@ -89,7 +89,7 @@ public class RandomTaskGeneration : MonoBehaviour
         }
 
         // Traps are initialized?
-        if (task.associatedTraps.Length == 0)
+        if (task.associatedTrap == null)
         {
             Debug.Log("Tasks not initialized");
             throw new System.Exception("Tasks are not initialized in the TaskManager");
@@ -106,15 +106,14 @@ public class RandomTaskGeneration : MonoBehaviour
         }
         // Instantiate Trap
         GameObject newTrap;
-        if (task.associatedTraps.Length == 1)
+        if (task.associatedTrap == null)
         {
-            newTrap = Instantiate(task.associatedTraps[0], new Vector3(0, 0, 0), Quaternion.identity, positionObj.transform);
+            newTrap = Instantiate(task.associatedTrap, new Vector3(0, 0, 0), Quaternion.identity, positionObj.transform);
         }
         else
         {
-            int randomIndex = Random.Range(0, task.associatedTraps.Length);
-            Debug.Log("New Trap is '" + task.associatedTraps[randomIndex].name + "'");
-            newTrap = Instantiate(task.associatedTraps[randomIndex], new Vector3(0, 0, 0), Quaternion.identity, positionObj.transform);
+            Debug.Log("New Trap is '" + task.associatedTrap.name + "'");
+            newTrap = Instantiate(task.associatedTrap, new Vector3(0, 0, 0), Quaternion.identity, positionObj.transform);
         }
         newTrap.transform.localPosition = Vector3.zero;
         newTrap.transform.localRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
