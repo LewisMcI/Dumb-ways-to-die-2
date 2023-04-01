@@ -29,11 +29,12 @@ public class Task : ScriptableObject
     [HideInInspector]
     public int stepsComplete;
 
-    // Initialize coolDown with editor's value
+    // Might be needed later
+    /*
     private void OnEnable()
     {
         Reset();
-    }
+    }*/
 
     public void Reset()
     {
