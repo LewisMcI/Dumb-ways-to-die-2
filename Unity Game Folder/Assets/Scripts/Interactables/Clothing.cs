@@ -51,9 +51,12 @@ public class Clothing : Interactable
         // Disable controls
         GameManager.Instance.EnableControls = false;
         // Start player electric fx
-        foreach (ParticleSystem effect in PlayerController.Instance.ElectricFX)
+        foreach (Transform child in PlayerController.Instance.GetComponentsInChildren<Transform>(true))
         {
-            effect.Play();
+            if (child.name == "ElectricityFX")
+            {
+                child.GetComponent<ParticleSystem>().Play();
+            }
         }
         yield return new WaitForSeconds(0.2f);
         PlayerController.Instance.Die(0.0f, false, SelectCam.outsideCam);
@@ -64,9 +67,12 @@ public class Clothing : Interactable
         AudioManager.Instance.PlayAudio("Tase");
         yield return new WaitForSeconds(0.75f);
         // Stop player electric fx
-        foreach (ParticleSystem effect in PlayerController.Instance.ElectricFX)
+        foreach (Transform child in PlayerController.Instance.GetComponentsInChildren<Transform>(true))
         {
-            effect.Stop();
+            if (child.name == "ElectricityFX")
+            {
+                child.GetComponent<ParticleSystem>().Stop();
+            }
         }
         // Ragdoll
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().enabled = false;

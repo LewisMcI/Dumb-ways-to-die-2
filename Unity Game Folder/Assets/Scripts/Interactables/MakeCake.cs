@@ -145,6 +145,8 @@ public class MakeCake : Interactable
                 mix.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
         }
+        // Play sfx
+        AudioManager.Instance.PlayAudio("Cloth");
     }
     #endregion
 }

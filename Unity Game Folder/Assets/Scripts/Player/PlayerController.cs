@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public enum Direction
 {
@@ -53,9 +54,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody[] limbs;
     private bool dead;
 
-    [SerializeField]
-    private ParticleSystem[] electricFX;
-
     private Rigidbody rig;
     private Animator anim;
 
@@ -69,11 +67,6 @@ public class PlayerController : MonoBehaviour
     {
         get { return dead; }
         set { dead = value; }
-    }
-
-    public ParticleSystem[] ElectricFX
-    {
-        get { return electricFX; }
     }
     #endregion
 
