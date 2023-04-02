@@ -55,7 +55,7 @@ public class Clothing : Interactable
         {
             if (child.name == "ElectricityFX")
             {
-                child.GetComponent<ParticleSystem>().Play();
+                child.gameObject.SetActive(true);
             }
         }
         yield return new WaitForSeconds(0.2f);
@@ -71,7 +71,7 @@ public class Clothing : Interactable
         {
             if (child.name == "ElectricityFX")
             {
-                child.GetComponent<ParticleSystem>().Stop();
+                child.gameObject.SetActive(false);
             }
         }
         // Ragdoll

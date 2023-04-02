@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 public enum Direction
 {
@@ -24,9 +23,6 @@ public enum SelectCam
 public class PlayerController : MonoBehaviour
 {
     #region fields
-    [SerializeField]
-    private GameObject character;
-
     [Header("Movement")]
     [SerializeField]
     private float moveSpeed;
@@ -71,7 +67,8 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region methods
-    #region UnityCalls
+
+    #region unity calls
     void Awake()
     {
         if (Instance == null)
@@ -86,12 +83,20 @@ public class PlayerController : MonoBehaviour
         rig = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         limbs =  transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
-        DisableRagdoll();
         StartCoroutine(OpenNotepadAfterAwake());
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EnableRagdoll();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ResetCharacterAfterRagdoll();
+        }
+
         if (!dead)
         {
             // Controls
@@ -146,7 +151,8 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-    #region Movement
+
+    #region movement
     private void Move()
     {
         // Get axis
@@ -227,15 +233,22 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-    #region Ragdoll
+
+    #region ragdoll
     public void EnableRagdoll()
     {
         GameManager.Instance.EnableControls = false;
         anim.enabled = false;
+        if (!dead)
+        {
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            Camera.main.GetComponent<CameraController>().FreezeRotation = true;
+        }
+
         foreach (Rigidbody rig in limbs)
         {
             rig.isKinematic = false;
-            rig.detectCollisions = true;
+            rig.GetComponent<Collider>().enabled = true;
         }
     }
 
@@ -244,7 +257,15 @@ public class PlayerController : MonoBehaviour
         foreach (Rigidbody rig in limbs)
         {
             rig.isKinematic = true;
-            rig.detectCollisions = false;
+            rig.GetComponent<Collider>().enabled = false;
+        }
+
+        GameManager.Instance.EnableControls = true;
+        anim.enabled = true;
+        if (!dead)
+        {
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 15.0f;
+            Camera.main.GetComponent<CameraController>().FreezeRotation = false;
         }
     }
 
@@ -259,6 +280,10 @@ public class PlayerController : MonoBehaviour
 
     public void ResetCharacterAfterRagdoll()
     {
+        DisableRagdoll();
+        transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
+
+        /*
         // Set position
         transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
         // Destroy current active character
@@ -284,6 +309,7 @@ public class PlayerController : MonoBehaviour
         InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);
         DisableRagdoll();
         StartCoroutine(WaitBeforeFindingNotepad());
+        */
     }
     IEnumerator WaitBeforeFindingNotepad()
     {
@@ -291,10 +317,9 @@ public class PlayerController : MonoBehaviour
         notepad.SetActive(true);
         GameManager.Instance.taskManager.FindNotepadText();
     }
-
     #endregion
-    #region Functions
 
+    #region death
     /// <summary>
     /// Player dies and the game restarts after the time given.
     /// </summary>
@@ -354,7 +379,9 @@ public class PlayerController : MonoBehaviour
         float followHeadTime = camController.FollowHeadTime;
         camController.FollowHeadTime = 0.0f;
         if (recover)
+        {
             StartCoroutine(Recover(timeTillEnds, followHeadTime));
+        }
         else
         {
             Die(timeTillEnds);
@@ -399,7 +426,8 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-    #region Misc
+
+    #region misc
     private IEnumerator Recover(float timeTillEnds, float followHeadTime)
     {
         yield return new WaitForSeconds(timeTillEnds);
@@ -408,6 +436,7 @@ public class PlayerController : MonoBehaviour
         Camera.main.GetComponent<CameraController>().FreezeRotation = false;
         Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
     }
+
     IEnumerator KillPlayer(float delay, Vector3 force, bool ragdoll = false)
     {
         yield return new WaitForSeconds(delay);
@@ -418,6 +447,7 @@ public class PlayerController : MonoBehaviour
             AddRagdollForce(force);
         }
     }
+
     public void EnableNewCamera(SelectCam? camera)
     {
         GameManager.Instance.EnableCamera = false;
@@ -451,6 +481,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
     public IEnumerator OpenNotepadAfterAwake()
     {
         yield return new WaitForSeconds(3.3f);
@@ -462,6 +493,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
     }
+
     public void ReEnablePlayer()
     {
         GameManager.Instance.EnableCamera = true;
@@ -473,7 +505,8 @@ public class PlayerController : MonoBehaviour
         playerCam.tag = "MainCamera";
     }
     #endregion
-    #region Collision
+
+    #region collision
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -496,11 +529,12 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ReEnableDeathFromCollision(time));
     }
 
-    IEnumerator  ReEnableDeathFromCollision(float waitTime)
+    IEnumerator ReEnableDeathFromCollision(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         canDieFromCollision = true;
     }
     #endregion
+
     #endregion
 }
