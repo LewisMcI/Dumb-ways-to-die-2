@@ -282,10 +282,38 @@ public class PlayerController : MonoBehaviour
     {
         DisableRagdoll();
         transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
+
+        /*
+        // Set position
+        transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
+        // Destroy current active character
+        Destroy(transform.GetChild(0).gameObject);
+        // Spawn new character
+        GameObject newCharacter = Instantiate(character);
+        newCharacter.transform.parent = transform;
+        newCharacter.transform.localPosition = new Vector3(0.0f, -0.993f, 0.0f);
+        newCharacter.transform.localRotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+        newCharacter.name = "Character";
+
+        // Reset variables
+        groundCheck = newCharacter.transform.GetChild(2);
+        anim = newCharacter.GetComponent<Animator>();
+        anim.SetBool("WakeUp", false);
+        limbs = newCharacter.transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
+        foreach (Transform child in newCharacter.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == "Notepad")
+                notepad = child.gameObject;
+        }
+        playerCam = Camera.main;
+        InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);
+        DisableRagdoll();
+        StartCoroutine(WaitBeforeFindingNotepad());
+        */
     }
     IEnumerator WaitBeforeFindingNotepad()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(.2f);
         notepad.SetActive(true);
         GameManager.Instance.taskManager.FindNotepadText();
     }
@@ -405,11 +433,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeTillEnds);
         GameManager.Instance.EnableControls = true;
         ResetCharacterAfterRagdoll();
-        if (!dead)
-        {
-            Camera.main.GetComponent<CameraController>().FreezeRotation = false;
-            Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
-        }
+        Camera.main.GetComponent<CameraController>().FreezeRotation = false;
+        Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
     }
 
     IEnumerator KillPlayer(float delay, Vector3 force, bool ragdoll = false)
@@ -488,10 +513,7 @@ public class PlayerController : MonoBehaviour
         if (canDieFromCollision && collision.relativeVelocity.magnitude > 20)
         {
             Debug.Log("Player ragdolled by speed: " + collision.relativeVelocity.magnitude);
-            if (!dead)
-            {
-                Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
-            }
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
             ThrowPlayerInRelativeDirection(50f, Direction.backwards, 2.0f);
         }
     }
