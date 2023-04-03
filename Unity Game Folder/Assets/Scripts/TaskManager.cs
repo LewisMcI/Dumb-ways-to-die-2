@@ -150,7 +150,7 @@ public class TaskManager : MonoBehaviour
                 return task;
             }
         }
-        throw new Exception("Trying to get task that does not exist");
+        return null;
     }
 
     public override string ToString()
