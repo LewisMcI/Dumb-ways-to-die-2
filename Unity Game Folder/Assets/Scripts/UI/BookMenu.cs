@@ -52,11 +52,15 @@ public class BookMenu : MonoBehaviour
 
     public void Reset(float musicVolume, float sfxVolume, int qualitySetting, int displaySetting)
     {
+        if (!musicVolSlider) return;
         currentMusicValue = (musicVolume + 80.0f) / 80.0f * maxMusicValue;
-        currentSFXValue = (sfxVolume + 80.0f) / 80.0f * maxSFXValue;
         PassMusicVolume(true);
+        if (!sfxVolSlider) return;
+        currentSFXValue = (sfxVolume + 80.0f) / 80.0f * maxSFXValue; 
         PassSFXVolume(true);
+        if (qualitySettingsObjs.Length == 0) return;
         ChangeQualityLevel(qualitySetting);
+        if (displaySettingsObjs.Length == 0) return;
         ChangeScreenSettings(displaySetting);
     }
 
