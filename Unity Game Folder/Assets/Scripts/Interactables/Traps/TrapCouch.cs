@@ -28,8 +28,9 @@ public class TrapCouch : Interactable
             Text = "Watch TV";
         else
             Text = "I'm too stressed right now.";
+
         // Trigger get up
-        if (sitting && Input.GetButtonDown("Interact"))
+        if (Input.GetButtonDown("Interact") && sitting && GameManager.Instance.EnableControls)
         {
             StartCoroutine(UnsetSitting());
         }
@@ -79,6 +80,18 @@ public class TrapCouch : Interactable
             StartCoroutine(SetSitting());
     }
 
+    IEnumerator Blink()
+    {
+        GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
+        GameUI.Instance.ReverseBlink();
+        yield return new WaitForSeconds(2.4f);
+        GameManager.Instance.TransitionDay();
+        yield return new WaitForSeconds(2.4f);
+        GameManager.Instance.EnableControls = true;
+        GameManager.Instance.EnableCamera = true;
+    }
+
     IEnumerator TriggerTrap()
     {
         transition = true;
@@ -121,7 +134,7 @@ public class TrapCouch : Interactable
         GameManager.Instance.EnableControls = false;
         GameManager.Instance.EnableCamera = false;
 
-        GameManager.Instance.TransitionDay();
+        StartCoroutine(Blink());
     }
 
     IEnumerator UnsetSitting()
