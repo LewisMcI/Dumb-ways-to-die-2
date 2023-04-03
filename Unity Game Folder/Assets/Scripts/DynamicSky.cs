@@ -30,6 +30,11 @@ public class DynamicSky : MonoBehaviour
     private bool morning;
     private bool isNight;
 
+    [SerializeField]
+    private GameObject[] outsideLights;
+    [SerializeField]
+    private Material emission;
+
     public static DynamicSky Instance;
     #endregion
 
@@ -146,7 +151,14 @@ public class DynamicSky : MonoBehaviour
 
     public void AdvanceTime()
     {
-        targetTime += 18.0f / (GameManager.Instance.taskManager.CurrentTasks.Length + 1);
+        timeOfDay = 18.0f;
+        UpdateTime();
+
+        foreach(GameObject light in outsideLights)
+        {
+            light.transform.GetChild(2).GetComponent<MeshRenderer>().material = emission;
+            light.transform.GetChild(4).gameObject.SetActive(true);
+        }
     }
     #endregion
 }

@@ -35,7 +35,8 @@ public class CollectItem : Interactable
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Find Car Keys");
                 break;
             case ObjectsToPickup.Pills:
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Take Meds");
+                if (GameManager.Instance.taskManager.GetTask("Take Meds").stepsComplete < 1)
+                    GameManager.Instance.taskManager.UpdateTaskCompletion("Take Meds");
                 break;
             case ObjectsToPickup.Rubbish:
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Clean Kitchen");

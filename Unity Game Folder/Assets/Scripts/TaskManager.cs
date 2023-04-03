@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class TaskManager : MonoBehaviour
 {
@@ -44,6 +43,7 @@ public class TaskManager : MonoBehaviour
         {
             throw new Exception("Not Enough Traps in GameManager");
         }
+        DynamicSky.Instance.AdvanceTime();
     }
 
     public void ResetAllTraps()
@@ -121,8 +121,6 @@ public class TaskManager : MonoBehaviour
                 task.stepsComplete++;
                 if (task.stepsComplete >= task.steps)
                 {
-                    // Advance time
-                    DynamicSky.Instance.AdvanceTime();
                     // Play time pass SFX
                     DynamicSky.Instance.transform.GetComponent<AudioSource>().Play();
 #pragma warning disable CS0642 // Possible mistaken empty statement
@@ -141,6 +139,18 @@ public class TaskManager : MonoBehaviour
             }
         }
         throw new Exception("Trying to complete task that does not exist");
+    }
+
+    public Task GetTask(string taskName)
+    {
+        foreach (var task in currentTasks)
+        {
+            if (taskName == task.taskName)
+            {
+                return task;
+            }
+        }
+        throw new Exception("Trying to get task that does not exist");
     }
 
     public override string ToString()
