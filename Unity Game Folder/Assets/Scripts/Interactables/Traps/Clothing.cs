@@ -29,22 +29,12 @@ public class Clothing : Interactable
         {
             // Disable object
             gameObject.SetActive(false);
+            transform.parent.GetComponent<Clothes>().Check();
             AudioManager.Instance.PlayAudio("Cloth");
             // Play grab animation
             Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
             if (!anim.GetBool("Notepad"))
                 anim.SetTrigger("Grab");
-
-            if (transform.parent.GetComponent<Clothes>().Lining)
-            {
-                // Mark task as complete if all clothes collected
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Collect Washing");
-            }
-            else
-            {
-                // Mark task as complete if all clothes collected
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Get Clothes");
-            }
         }
     }
 

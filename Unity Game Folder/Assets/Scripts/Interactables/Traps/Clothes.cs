@@ -8,19 +8,12 @@ public class Clothes : MonoBehaviour
     #region fields
     [SerializeField]
     private Clothing[] clothings;
-    [SerializeField]
-    private bool lining;
     #endregion
 
     #region properties
     public Clothing[] Clothings
     { 
         get { return clothings; } 
-    }
-
-    public bool Lining
-    {
-        get { return lining; }
     }
     #endregion
 
