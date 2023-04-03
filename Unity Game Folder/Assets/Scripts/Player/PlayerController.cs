@@ -513,7 +513,10 @@ public class PlayerController : MonoBehaviour
         if (canDieFromCollision && collision.relativeVelocity.magnitude > 20)
         {
             Debug.Log("Player ragdolled by speed: " + collision.relativeVelocity.magnitude);
-            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            if (!dead)
+            {
+                Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            }
             ThrowPlayerInRelativeDirection(50f, Direction.backwards, 2.0f);
         }
     }
