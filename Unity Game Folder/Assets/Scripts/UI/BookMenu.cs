@@ -36,7 +36,7 @@ public class BookMenu : MonoBehaviour
     {
         try { GameSettings.Instance.ResetUI(); } catch { }
         Cursor.lockState = CursorLockMode.None;
-
+        Cursor.visible = true;
     }
     void PlayGame()
     {
