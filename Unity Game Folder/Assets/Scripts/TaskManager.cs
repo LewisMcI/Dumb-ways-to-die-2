@@ -141,6 +141,18 @@ public class TaskManager : MonoBehaviour
         throw new Exception("Trying to complete task that does not exist");
     }
 
+    public Task GetTask(string taskName)
+    {
+        foreach (var task in currentTasks)
+        {
+            if (taskName == task.taskName)
+            {
+                return task;
+            }
+        }
+        throw new Exception("Trying to get task that does not exist");
+    }
+
     public override string ToString()
     {
         return "";
