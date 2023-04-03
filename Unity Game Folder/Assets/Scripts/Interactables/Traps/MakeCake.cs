@@ -8,10 +8,8 @@ public class MakeCake : Interactable
 {
     #region fields
     [SerializeField]
-    private GameObject tray, icing;
-    [SerializeField]
     private GameObject[] ingredientsRequired;
-    private GameObject mix, cooked, iced;
+    private GameObject mix, cooked;
     private int ingredientsAdded;
     private bool added, started, opened, deadly;
 
@@ -29,7 +27,6 @@ public class MakeCake : Interactable
     {
         mix = transform.GetChild(0).gameObject;
         cooked = transform.GetChild(1).gameObject;
-        iced = transform.GetChild(2).gameObject;
         CanInteract = false;
     }
 
@@ -43,7 +40,6 @@ public class MakeCake : Interactable
             oven.GetComponent<Animator>().SetBool("Switch", true);
             StartCoroutine(StartTimer());
             started = true;
-            CanInteract = true;
         }
 
         if (started && ovenDoor.GetComponent<PivotSettings>().open)
@@ -60,7 +56,6 @@ public class MakeCake : Interactable
                 Destroy(gameObject);
             }
             opened = true;
-            CanInteract = true;
         }
     }
 
@@ -72,6 +67,7 @@ public class MakeCake : Interactable
         ovenDoor.transform.GetChild(0).GetComponent<Interactable>().CanInteract = true;
         // Hide bowl
         GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
         mix.gameObject.SetActive(false);
         // Show cooked cake
         cooked.gameObject.SetActive(true);
@@ -110,7 +106,7 @@ public class MakeCake : Interactable
         }
 
         // Oven collision
-        if (collision.gameObject == tray)
+        if (collision.transform.name == "Inside")
         {
             // Disable collider
             collision.gameObject.GetComponent<Collider>().enabled = false;
@@ -125,24 +121,6 @@ public class MakeCake : Interactable
 
             // Mark as added
             added = true;
-        }
-
-        // Icing collision
-        if (collision.gameObject == icing && added)
-        {
-            // Drop
-            InteractionSystem.Instance.DropObject();
-            // Destroy
-            Destroy(collision.gameObject);
-            Destroy(cooked);
-            // Swap
-            cooked.SetActive(false);
-            iced.SetActive(true);
-            GetComponent<BoxCollider>().center = new Vector3(0.0f, 0.0f, 0.0016f);
-            GetComponent<BoxCollider>().size = new Vector3(0.0104f, 0.01f, 0.0029f);
-
-            // Increase
-            GameManager.Instance.taskManager.UpdateTaskCompletion("Make Cake");
         }
     }
 

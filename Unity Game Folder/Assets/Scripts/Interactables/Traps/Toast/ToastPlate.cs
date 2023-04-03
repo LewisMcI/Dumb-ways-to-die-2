@@ -41,8 +41,6 @@ public class ToastPlate : Interactable
             bread.GetComponent<Bread>().CanInteract = false;
             // Reset text
             bread.GetComponent<Bread>().Text = "";
-            // Mark as placed
-            bread.GetComponent<Bread>().Placed = true;
 
             GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
         }

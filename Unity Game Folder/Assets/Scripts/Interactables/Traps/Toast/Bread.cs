@@ -6,10 +6,13 @@ public class Bread : Interactable
 {
     #region fields
     [SerializeField]
+    private GameObject knife, jam;
+    [SerializeField]
     private Mesh breadJam;
+    [SerializeField]
+    private AudioSource spreadSFX, eatSFX;
 
-    private GameObject knife;
-    private bool toasted, placed;
+    private bool toasted;
     #endregion
 
     #region properties
@@ -17,50 +20,48 @@ public class Bread : Interactable
     {
         set { toasted = value; }
     }
-    public bool Placed
-    {
-        set { placed = value; }
-    }
     #endregion
 
     #region methods
     public override void Action()
     {
-        // Play SFX
-        AudioManager.Instance.PlayAudio("Eat");
-        // Play eat FX
+        // Play fx
+        eatSFX.Play();
         Camera.main.transform.Find("VFX").transform.Find("Eating Effect").GetComponent<ParticleSystem>().Play();
 
-        CanInteract = false;
-        transform.GetComponent<Renderer>().enabled = false;
+        // Disable
+        GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 1.0f);
 
-        GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
         // Play grab animation
         Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
         if (!anim.GetBool("Notepad"))
             anim.SetTrigger("Grab");
+
+        // Update
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name == "Knife Jam" && placed)
+        // Knife collision
+        if (collision.gameObject == knife && toasted && jam.GetComponent<Jam>().Opened)
         {
-            if (knife == null)
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
-
-            knife = collision.gameObject;
-
             // Play sfx
-            AudioManager.Instance.PlayAudio("Spread");
+            spreadSFX.Play();
+
             // Change mesh
             GetComponent<MeshFilter>().mesh = breadJam;
+
             // Make interactable
             GetComponent<Bread>().Type = InteractableType.Other;
             GetComponent<Bread>().CanInteract = true;
-            // Change text
             GetComponent<Bread>().Text = "Eat";
-            // Enable collider
             GetComponent<Collider>().enabled = true;
+
+            // Update
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Make Jam Toast");
         }
     }
     #endregion

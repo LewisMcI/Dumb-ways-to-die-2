@@ -211,8 +211,8 @@ GameObject:
   - component: {fileID: 7396658965123824202}
   - component: {fileID: 7387280235816501974}
   - component: {fileID: 7364985872576149148}
-  - component: {fileID: 2244545697021361288}
   - component: {fileID: 9049730112542354493}
+  - component: {fileID: 2244545697021361288}
   - component: {fileID: 7021406132177227280}
   m_Layer: 0
   m_Name: Toaster
@@ -304,6 +304,26 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43518122780723362, guid: 0ee165f36b1d05e418f2f5be09edea15, type: 2}
+--- !u!95 &9049730112542354493
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409766189126280974}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 021e1f45710532944bbde4465e60ec7d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2244545697021361288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,26 +345,7 @@ MonoBehaviour:
   plate: {fileID: 0}
   explosionVFX: {fileID: 9195834626261036612}
   kills: 0
---- !u!95 &9049730112542354493
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7409766189126280974}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 021e1f45710532944bbde4465e60ec7d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  delay: 0.5
 --- !u!82 &7021406132177227280
 AudioSource:
   m_ObjectHideFlags: 0

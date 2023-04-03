@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private float jumpForce;
-    [SerializeField]
-    private float sprintMultiplier = 1.2f;
 
     [Header("Check Sphere")]
     [SerializeField]
@@ -56,7 +54,6 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
 
     private bool canDieFromCollision = true;
-    private bool sprinting = false;
 
     public static PlayerController Instance;
     #endregion
@@ -91,11 +88,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-            sprinting = true;
-        else
-            sprinting = false;
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             EnableRagdoll();
@@ -168,8 +160,6 @@ public class PlayerController : MonoBehaviour
         // If moving diagonally normalise vector so that speed remains the same
         if (dir.magnitude > 1.0f)
             dir.Normalize();
-        if (sprinting)
-            dir *= sprintMultiplier;
         // Set animation parameters
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
@@ -292,38 +282,10 @@ public class PlayerController : MonoBehaviour
     {
         DisableRagdoll();
         transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
-
-        /*
-        // Set position
-        transform.position = new Vector3(transform.GetChild(0).GetChild(0).GetChild(0).position.x, 1.46f, transform.GetChild(0).GetChild(0).GetChild(0).position.z);
-        // Destroy current active character
-        Destroy(transform.GetChild(0).gameObject);
-        // Spawn new character
-        GameObject newCharacter = Instantiate(character);
-        newCharacter.transform.parent = transform;
-        newCharacter.transform.localPosition = new Vector3(0.0f, -0.993f, 0.0f);
-        newCharacter.transform.localRotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
-        newCharacter.name = "Character";
-
-        // Reset variables
-        groundCheck = newCharacter.transform.GetChild(2);
-        anim = newCharacter.GetComponent<Animator>();
-        anim.SetBool("WakeUp", false);
-        limbs = newCharacter.transform.GetChild(0).GetComponentsInChildren<Rigidbody>();
-        foreach (Transform child in newCharacter.GetComponentsInChildren<Transform>(true))
-        {
-            if (child.name == "Notepad")
-                notepad = child.gameObject;
-        }
-        playerCam = Camera.main;
-        InteractionSystem.Instance.PickupTransform = Camera.main.transform.GetChild(0);
-        DisableRagdoll();
-        StartCoroutine(WaitBeforeFindingNotepad());
-        */
     }
     IEnumerator WaitBeforeFindingNotepad()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(0.2f);
         notepad.SetActive(true);
         GameManager.Instance.taskManager.FindNotepadText();
     }
@@ -443,8 +405,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeTillEnds);
         GameManager.Instance.EnableControls = true;
         ResetCharacterAfterRagdoll();
-        Camera.main.GetComponent<CameraController>().FreezeRotation = false;
-        Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
+        if (!dead)
+        {
+            Camera.main.GetComponent<CameraController>().FreezeRotation = false;
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = followHeadTime;
+        }
     }
 
     IEnumerator KillPlayer(float delay, Vector3 force, bool ragdoll = false)
@@ -523,7 +488,10 @@ public class PlayerController : MonoBehaviour
         if (canDieFromCollision && collision.relativeVelocity.magnitude > 20)
         {
             Debug.Log("Player ragdolled by speed: " + collision.relativeVelocity.magnitude);
-            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            if (!dead)
+            {
+                Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            }
             ThrowPlayerInRelativeDirection(50f, Direction.backwards, 2.0f);
         }
     }
