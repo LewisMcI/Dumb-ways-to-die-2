@@ -148,15 +148,18 @@ public class DynamicSky : MonoBehaviour
 
         isNight = true;
     }
-
+    private void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.Backspace)) AdvanceTime();
+    }
     public void AdvanceTime()
     {
-        timeOfDay = 18.0f;
+        timeOfDay = 19.0f;
         UpdateTime();
 
         foreach(GameObject light in outsideLights)
         {
-            light.transform.GetChild(2).GetComponent<MeshRenderer>().material = emission;
+            light.transform.GetChild(0).GetComponent<MeshRenderer>().material = emission;
             light.transform.GetChild(4).gameObject.SetActive(true);
         }
     }
