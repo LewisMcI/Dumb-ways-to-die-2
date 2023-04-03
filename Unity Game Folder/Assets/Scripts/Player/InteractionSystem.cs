@@ -5,8 +5,6 @@ using UnityEngine;
 public class InteractionSystem : MonoBehaviour
 {
     #region fields
-    private RaycastHit hit;
-
     [SerializeField]
     private Transform pickupTransform;
     private GameObject pickedUpObject;
@@ -81,7 +79,8 @@ public class InteractionSystem : MonoBehaviour
 
     private void CastRay()
     {
-        if (!PlayerController.Instance.Dead && GameManager.Instance.EnableControls && Physics.SphereCast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), .025f, out hit, 3f))
+        RaycastHit hit;
+        if (!PlayerController.Instance.Dead && GameManager.Instance.EnableControls && Physics.SphereCast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f)), 0.025f, out hit, 3.0f))
         {
             if (hit.transform.GetComponent<Interactable>() && hit.transform.GetComponent<Interactable>().CanInteract)
             {
@@ -91,13 +90,17 @@ public class InteractionSystem : MonoBehaviour
                         GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
+                        {
                             PickupObject(hit.transform.gameObject);
+                        }
                         break;
                     case Interactable.InteractableType.Pivot:
                         GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
+                        {
                             PivotObject(hit.transform.gameObject);
+                        }
                         break;
                     case Interactable.InteractableType.Trap:
                         if (hit.transform.GetComponent<Interactable>().Text != "")
@@ -106,7 +109,9 @@ public class InteractionSystem : MonoBehaviour
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         }
                         if (Input.GetButtonDown("Interact") || pickedUpObject && Input.GetButtonUp("Interact"))
+                        {
                             hit.transform.GetComponent<Interactable>().Action();
+                        }
                         break;
                     case Interactable.InteractableType.Other:
                         if (hit.transform.GetComponent<Interactable>().Text != "")
@@ -115,7 +120,9 @@ public class InteractionSystem : MonoBehaviour
                             GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         }
                         if (Input.GetButtonDown("Interact"))
+                        {
                             hit.transform.GetComponent<Interactable>().Action();
+                        }
                         break;
                 }
             }
