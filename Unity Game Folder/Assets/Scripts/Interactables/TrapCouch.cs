@@ -90,6 +90,7 @@ public class TrapCouch : Interactable
         yield return new WaitForSeconds(2.4f);
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
+        StartCoroutine(UnsetSitting());
     }
 
     IEnumerator TriggerTrap()
