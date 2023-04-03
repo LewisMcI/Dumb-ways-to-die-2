@@ -18,12 +18,6 @@ public class Clothes : MonoBehaviour
     #endregion
 
     #region methods
-    public void Check()
-    {
-        // Mark task as complete if all clothes collected
-        GameManager.Instance.taskManager.UpdateTaskCompletion("Get Clothes");
-    }
-
     public void EnableVFX()
     {
         StartCoroutine(PlayVFX());
