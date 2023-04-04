@@ -26,6 +26,7 @@ public class WashingMachine : Interactable
     private void OnTriggerStay(Collider other)
     {
         if (!active) return;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player")) return;
         try
         {
             other.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f, 0.5f), 20.0f, Random.Range(0.1f, 0.5f)));
