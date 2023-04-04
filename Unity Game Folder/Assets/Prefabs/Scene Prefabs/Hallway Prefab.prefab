@@ -5288,7 +5288,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.553905, y: 0.60057795, z: 1.0793483}
   m_Center: {x: -0.004307896, y: 0.013989881, z: -0.039657146}
---- !u!82 &2364101419758120770
+--- !u!82 &8697227049483018530
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5297,12 +5297,12 @@ AudioSource:
   m_GameObject: {fileID: 5708743930327094873}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
-  m_audioClip: {fileID: 8300000, guid: d6df5201d506c9547a2cafb6d718a8c7, type: 3}
+  OutputAudioMixerGroup: {fileID: 7565817093503927049, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.8
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5344,7 +5344,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5397,8 +5397,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  text: Use
+  text: Swap Music
   keepRotation: 1
+  audioClips:
+  - {fileID: 8300000, guid: 84a4c4f98fd10304bb4d15d4d994ece5, type: 3}
+  - {fileID: 8300000, guid: d6df5201d506c9547a2cafb6d718a8c7, type: 3}
 --- !u!1001 &4971413440210622351
 PrefabInstance:
   m_ObjectHideFlags: 0
