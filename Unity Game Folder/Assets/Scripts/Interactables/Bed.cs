@@ -7,14 +7,11 @@ public class Bed : Interactable
 {
     #region fields
 
-    private Vector3 startingPosition;
+    public Vector3 bedPosition;
+    public Vector3 bedRotation;
     #endregion
 
     #region methods
-    private void Awake()
-    {
-        startingPosition = new Vector3(transform.position.x, transform.position.y - .1f, transform.position.z);
-    }
 
     private void Update()
     {
@@ -26,29 +23,27 @@ public class Bed : Interactable
 
     public override void Action()
     {
+
         if (GameManager.Instance.taskManager.CurrentTasks == GameManager.Instance.taskManager.afterTransitionTasks && GameManager.Instance.taskManager.AllTasksComplete())
         {
             GameUI.Instance.ReverseBlink();
+            Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
+            PlayerController.Instance.transform.position = bedPosition;
+            PlayerController.Instance.transform.rotation = Quaternion.Euler(bedRotation);
+            GameManager.Instance.EnableCamera = false;
+            GameManager.Instance.EnableControls = false;
+            PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Sleep");
             StartCoroutine(GoToSleep());
             CanInteract = false;
         }
     }
 
+
     IEnumerator GoToSleep()
     {
-        Camera.main.GetComponent<CameraController>().FollowHeadTime = 0.0f;
-        Vector3 currentPosition = PlayerController.Instance.transform.position;
-        float time = 1.0f;
-        float iterations = 100;
-        for (float i = 0; i < iterations; i++)
-        {
-            PlayerController.Instance.transform.position = Vector3.Lerp(currentPosition, startingPosition, i / iterations);
-            yield return new WaitForSeconds(time / iterations);
-        }
-
+        yield return new WaitForSeconds(2.0f);
         GameManager.Instance.taskManager.ResetAllTraps();
         // TODO: FIX this!!!
-
         // Advance level
         GameManager.Instance.MoveToNextLevel();
     }
