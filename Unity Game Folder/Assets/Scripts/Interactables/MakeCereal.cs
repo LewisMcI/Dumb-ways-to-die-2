@@ -18,7 +18,7 @@ public class MakeCereal : Interactable
             GameManager.Instance.taskManager.UpdateTaskCompletion("Make Cereal");
             // Play effects
             GetComponent<AudioSource>().Play();
-            Camera.main.transform.Find("VFX").transform.Find("Eating Effect").GetComponent<ParticleSystem>().Play();
+            Camera.main.transform.Find("VFX").transform.Find("Cereal Eating Effect").GetComponent<ParticleSystem>().Play();
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
             GetComponent<Renderer>().enabled = false;
