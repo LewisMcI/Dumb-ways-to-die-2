@@ -24,7 +24,7 @@ public class Loading : MonoBehaviour
                 scene = "Level 2";
                 break;
             case 3:
-                scene = "Level 3";
+                scene = "Temp End Scene";
                 break;
             case 4:
                 scene = "Level 4";
