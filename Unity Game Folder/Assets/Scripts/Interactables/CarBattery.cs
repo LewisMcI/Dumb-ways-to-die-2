@@ -23,6 +23,7 @@ public class CarBattery : Interactable
         transform.parent.GetComponent<Animator>().SetTrigger("Trigger");
         // Play switch sfx
         AudioManager.Instance.PlayAudio("Switch");
+        Destroy(this);
     }
     #endregion
 }
