@@ -75,9 +75,14 @@ public class BearTrap : MonoBehaviour
         }
         bear.GetComponent<Rigidbody>().velocity = Vector3.zero;
         bear.GetComponent<Rigidbody>().isKinematic = true;
+        bear.GetComponent<Collider>().enabled = false;
 
         // Mark as trapped
         bear.gameObject.layer = LayerMask.NameToLayer("Trapped");
+
+        yield return new WaitForSeconds(1.0f);
+
+        GetComponent<AudioSource>().Stop();
 
         yield return null;
     }
@@ -99,6 +104,7 @@ public class BearTrap : MonoBehaviour
         }
         obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
         obj.GetComponent<Rigidbody>().isKinematic = true;
+        obj.GetComponent<Collider>().enabled = false;
 
         // Mark as trapped
         obj.gameObject.layer = LayerMask.NameToLayer("Trapped");
@@ -111,6 +117,7 @@ public class BearTrap : MonoBehaviour
             obj.GetComponent<Interactable>().CanInteract = true;
         }
         obj.GetComponent<Rigidbody>().isKinematic = false;
+        obj.GetComponent<Collider>().enabled = true;
 
         // Calculate force in random direction
         float z = Random.Range(0, 2);
