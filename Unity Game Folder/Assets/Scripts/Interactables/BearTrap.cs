@@ -79,6 +79,10 @@ public class BearTrap : MonoBehaviour
         // Mark as trapped
         bear.gameObject.layer = LayerMask.NameToLayer("Trapped");
 
+        yield return new WaitForSeconds(1.0f);
+
+        GetComponent<AudioSource>().Stop();
+
         yield return null;
     }
 
