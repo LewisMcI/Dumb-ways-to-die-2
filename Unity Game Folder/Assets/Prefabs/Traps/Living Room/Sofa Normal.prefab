@@ -257,8 +257,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1569000230024759006}
-  - component: {fileID: 4222900247413015817}
-  - component: {fileID: 1494952564881690640}
   m_Layer: 0
   m_Name: Sit Right
   m_TagString: Untagged
@@ -282,38 +280,6 @@ Transform:
   m_Father: {fileID: 1464471721092349560}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4222900247413015817
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723685858689461593}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.01801159, y: 0.02587308, z: 0.015324371}
-  m_Center: {x: -0.008932065, y: 0.0021150727, z: 0.00042295642}
---- !u!114 &1494952564881690640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723685858689461593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b83ab36b9d4ec04ab7902fe2a2e8f92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
-  text: Sit
-  keepRotation: 1
-  spring: 0
-  delay: 1
-  tv: {fileID: 6277822687498924692}
-  clip: {fileID: 32900000, guid: 18f864193ee27fb4b9d0b7f45035260b, type: 3}
 --- !u!1 &2062466139849782128
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,8 +757,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.017961841, y: 0.02587308, z: 0.01532437}
-  m_Center: {x: 0.00905636, y: 0.0021150727, z: 0.00042295642}
+  m_Size: {x: 0.034136046, y: 0.025873078, z: 0.01532437}
+  m_Center: {x: 0.00096925034, y: 0.0021150724, z: 0.00042295642}
 --- !u!114 &6341306526267692188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,7 +789,6 @@ GameObject:
   - component: {fileID: 8317098484622483658}
   - component: {fileID: 3178725560109996875}
   - component: {fileID: 4114767368413440583}
-  - component: {fileID: 1994908642707407658}
   m_Layer: 0
   m_Name: Tv
   m_TagString: Untagged
@@ -879,23 +844,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08795283, y: 0.049665865, z: 0.05222636}
   m_Center: {x: 0.002444495, y: 0.070087224, z: 0.0008142539}
---- !u!114 &1994908642707407658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6277822687498924692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b488df09d76c2c4ebc70344459161a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 3
-  text: Turn On
-  keepRotation: 1
-  clips: []
-  trap: 1
 --- !u!1 &7866324329419283259
 GameObject:
   m_ObjectHideFlags: 0

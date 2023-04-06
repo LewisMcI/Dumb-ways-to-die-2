@@ -84,6 +84,7 @@ public class TrapCouch : Interactable
     {
         GameManager.Instance.EnableControls = false;
         GameManager.Instance.EnableCamera = false;
+        yield return new WaitForSeconds(1.5f);
         GameUI.Instance.ReverseBlink();
         yield return new WaitForSeconds(2.4f);
         GameManager.Instance.TransitionDay();
@@ -112,25 +113,12 @@ public class TrapCouch : Interactable
         transition = false;
         sitting = true;
 
-        if (tv.GetComponent<WatchTV>() && tv.GetComponent<WatchTV>().enabled)
+        if (!tv.transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
         {
-            if (!tv.transform.GetChild(0).GetComponent<VideoPlayer>().isPlaying)
-            {
-                tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clip;
-                tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
-                tv.transform.GetChild(1).gameObject.SetActive(true);
-                tv.GetComponent<WatchTV>().CanInteract = false;
-            }
-            else
-            {
-                tv.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            if (tv.GetComponent<WatchTV>().trap)
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Sit and Watch TV");
-            tv.GetComponent<WatchTV>().enabled = false;
-        }
-        else if (tv.GetComponent<WatchTV>() && !tv.GetComponent<WatchTV>().enabled && !tv.transform.GetChild(1).gameObject.activeSelf)
+            tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clip;
+            tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
             tv.transform.GetChild(1).gameObject.SetActive(true);
+        }
 
         GameManager.Instance.EnableControls = false;
         GameManager.Instance.EnableCamera = false;
@@ -140,15 +128,12 @@ public class TrapCouch : Interactable
 
     IEnumerator UnsetSitting()
     {
-        Debug.Log("Unset");
         transition = true;
-        GameObject tv = GameObject.Find("Tv");
-        if (tv.transform.GetChild(1).gameObject.activeSelf)
-            tv.transform.GetChild(1).gameObject.SetActive(false);
         yield return new WaitForSeconds(1.0f);
         transition = false;
         sitting = false;
         tv.transform.GetChild(0).GetComponent<VideoPlayer>().Stop();
+        tv.transform.GetChild(1).gameObject.SetActive(false);
 
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
