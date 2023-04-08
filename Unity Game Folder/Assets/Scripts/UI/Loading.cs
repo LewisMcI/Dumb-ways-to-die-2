@@ -24,10 +24,10 @@ public class Loading : MonoBehaviour
                 scene = "Level 2";
                 break;
             case 3:
-                scene = "Temp End Scene";
+                scene = "Level 3";
                 break;
             case 4:
-                scene = "Level 4";
+                scene = "Temp End Scene";
                 break;
             case 5:
                 scene = "Robot Test";
