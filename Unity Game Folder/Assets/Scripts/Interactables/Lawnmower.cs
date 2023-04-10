@@ -78,6 +78,7 @@ public class Lawnmower : Interactable
             }
             player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             // Disable player controller.
+            InteractionSystem.Instance.enabled = false;
             PlayerController.Instance.enabled = false;
             StopCoroutine(moveCameraToPlayer(player));
             StartCoroutine(moveCameraFromPlayer(player));
@@ -104,8 +105,8 @@ public class Lawnmower : Interactable
             {
                 wall.enabled = true;
             }
-            }
         }
+    }
 
     private void Update()
     {
@@ -153,6 +154,11 @@ public class Lawnmower : Interactable
             Debug.Log("Cannot find PlayerController instance");
             throw new System.Exception("Could not find PlayerController Instance");
         }
+
+        // Enable player controller.
+        InteractionSystem.Instance.enabled = true;
+        PlayerController.Instance.enabled = true;
+
         StopCoroutine(moveCameraFromPlayer(player));
         StartCoroutine(moveCameraToPlayer(player));
 
@@ -227,6 +233,7 @@ public class Lawnmower : Interactable
         // Unchild lawnmower.
         transform.parent = null;
         // Enable player controller.
+        InteractionSystem.Instance.enabled = true;
         PlayerController.Instance.enabled = true;
         float delay = 0.1f;
         PlayerController.Instance.Die(delay);
