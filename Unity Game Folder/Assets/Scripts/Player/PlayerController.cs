@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private float jumpForce;
+    [SerializeField]
+    private float sprintMultiplier = 1.2f;
 
     [Header("Check Sphere")]
     [SerializeField]
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
 
     private bool canDieFromCollision = true;
+    private bool sprinting = false;
 
     public static PlayerController Instance;
     #endregion
@@ -88,6 +91,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift))
+            sprinting = true;
+        else
+            sprinting = false;
         if (Input.GetKeyDown(KeyCode.P))
         {
             EnableRagdoll();
@@ -163,6 +170,8 @@ public class PlayerController : MonoBehaviour
         // Set animation parameters
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
+        if (sprinting)
+            dir *= sprintMultiplier;
         // Set velocity
         float currSpeed = (isCrouching) ? moveSpeed / 2 : moveSpeed;
         Vector3 vel = ((transform.right * dir.x + transform.forward * dir.y) * currSpeed) * Time.fixedDeltaTime;
