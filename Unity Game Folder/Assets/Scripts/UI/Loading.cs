@@ -11,6 +11,7 @@ public class Loading : MonoBehaviour
 
     private bool loaded;
     #endregion
+
     #region methods
     private void Awake()
     {
@@ -27,10 +28,10 @@ public class Loading : MonoBehaviour
                 scene = "Level 3";
                 break;
             case 4:
-                scene = "Temp End Scene";
+                scene = "Level 4";
                 break;
             case 5:
-                scene = "Robot Test";
+                scene = "Level 5";
                 break;
             default:
                 scene = "Main Menu";
