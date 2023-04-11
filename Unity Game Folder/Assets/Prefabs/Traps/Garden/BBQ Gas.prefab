@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5812855011919588993}
   - component: {fileID: 7885828634666700604}
   - component: {fileID: 5098066799132556726}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Dial_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 4303459341338305675}
   - component: {fileID: 697657364627683274}
   - component: {fileID: 1782169566551091285}
-  - component: {fileID: 9200665049805624637}
-  m_Layer: 2
+  - component: {fileID: 990881420564035029}
+  m_Layer: 0
   m_Name: BBQ Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,8 +169,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9200665049805624637
-BoxCollider:
+--- !u!64 &990881420564035029
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -179,9 +179,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.93541235, y: 0.3528801, z: 0.48304525}
-  m_Center: {x: 0.00069091533, y: -0.03613014, z: -0.23244415}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1685188281828891169, guid: 513ded8456f17494596daca6e76e9f8b, type: 3}
 --- !u!1 &1144117661398773677
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ GameObject:
   - component: {fileID: 3196499702362810514}
   - component: {fileID: 4475850228906974741}
   - component: {fileID: 2935772746063046260}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Gas_Valve_Knob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,6 +282,7 @@ GameObject:
   - component: {fileID: 3656726306986643411}
   - component: {fileID: 2241904332668545644}
   - component: {fileID: 2047651471981836670}
+  - component: {fileID: 8404385859861172564}
   m_Layer: 2
   m_Name: BBQ
   m_TagString: Untagged
@@ -320,10 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1ebb04b2e6f7843947cbceb22e729e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
-  text: 
-  keepRotation: 1
   lighter: {fileID: 0}
+  gasBottle: {fileID: 0}
   chickens:
   - {fileID: 7785084556984948838}
   - {fileID: 2252327369461160695}
@@ -362,6 +362,102 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &8404385859861172564
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477949356739342848}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 62f83c65e9ac2144c995d9ed40e9165a, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2045161216147331877
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105994433819400224}
   - component: {fileID: 682564335426990978}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3062850691893996551}
   - component: {fileID: 6114956417834983496}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BBQ_Hood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1348221355368799161}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BBQ_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +609,7 @@ GameObject:
   - component: {fileID: 6638968089663578094}
   - component: {fileID: 6888145371067423132}
   - component: {fileID: 3239623698805141522}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +706,7 @@ GameObject:
   - component: {fileID: 355177880690728339}
   - component: {fileID: 869106723623963179}
   - component: {fileID: 3982966670471798123}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7421371465840589914}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Gas_Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -754,7 +850,7 @@ GameObject:
   - component: {fileID: 2848976529344732459}
   - component: {fileID: 5066993856231878496}
   - component: {fileID: 2199194924362649449}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Dial_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -836,7 +932,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 97868403834048152}
-  m_Layer: 2
+  - component: {fileID: 1627308881334273118}
+  m_Layer: 0
   m_Name: Coal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,6 +973,102 @@ Transform:
   m_Father: {fileID: 2290480291816892602}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1627308881334273118
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069773014439750923}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: cbfdf159aaca46e43a99a92a36bf58b0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5344117881375997890
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,7 +1080,7 @@ GameObject:
   - component: {fileID: 6181532917727854649}
   - component: {fileID: 4448316900047326763}
   - component: {fileID: 943047849304890313}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Gass_Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -970,7 +1163,7 @@ GameObject:
   - component: {fileID: 3042235475765837341}
   - component: {fileID: 2201396160289118910}
   - component: {fileID: 4208971150538031161}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Dial_004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1052,7 +1245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3632621763331278635}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1086,6 +1279,7 @@ GameObject:
   - component: {fileID: 5868826998726796364}
   - component: {fileID: 5684854902489776693}
   - component: {fileID: 4982058507259279484}
+  - component: {fileID: 8857112615191511414}
   m_Layer: 0
   m_Name: Stylized Explosion
   m_TagString: Untagged
@@ -1117,8 +1311,8 @@ VisualEffect:
   m_GameObject: {fileID: 6859345854512381063}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 8be0c1e6700498c46b00fd7b8abb67b4, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_ResourceVersion: 1
@@ -1185,6 +1379,102 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!82 &8857112615191511414
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859345854512381063}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 5268c7edeb4275644a08643ddb80f632, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7229132128245473611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,7 +1486,8 @@ GameObject:
   - component: {fileID: 5206443999503533426}
   - component: {fileID: 8159032132226709035}
   - component: {fileID: 3519134034172436095}
-  m_Layer: 2
+  - component: {fileID: 1984935265923911512}
+  m_Layer: 0
   m_Name: BBQ Gas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1295,6 +1586,102 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!82 &1984935265923911512
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229132128245473611}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 61651632a2e2538459124fb5f5f2915a, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 8
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7533509526877187487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,7 +1693,7 @@ GameObject:
   - component: {fileID: 3125358082706587500}
   - component: {fileID: 8288480825201224387}
   - component: {fileID: 8627335609846766325}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Wheel001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1391,7 +1778,7 @@ GameObject:
   - component: {fileID: 1806813794014992999}
   - component: {fileID: 2650759012951789650}
   - component: {fileID: 3771493264753223269}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BBQ_Hood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1525,7 +1912,7 @@ GameObject:
   - component: {fileID: 6864450842168337118}
   - component: {fileID: 6821713691679164163}
   - component: {fileID: 2781418436377339781}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Grill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1726,7 +2113,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9028780dcee3e4c42983a16e29b87b1a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1770,7 +2157,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1821,7 +2208,7 @@ GameObject:
   - component: {fileID: 4355211128718472577}
   - component: {fileID: 4147016594810602615}
   - component: {fileID: 6012298262865400534}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Gas_Valve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1967,7 +2354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2049,7 +2436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2131,7 +2518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2195,6 +2582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BBQ Chicken (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7796427795162248452, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
+      propertyPath: bbq
+      value: 
+      objectReference: {fileID: 3656726306986643411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
 --- !u!4 &1443983551559041101 stripped
@@ -2280,7 +2671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2362,7 +2753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2444,7 +2835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2526,7 +2917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2608,7 +2999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2690,7 +3081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2754,6 +3145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BBQ Chicken
       objectReference: {fileID: 0}
+    - target: {fileID: 7796427795162248452, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
+      propertyPath: bbq
+      value: 
+      objectReference: {fileID: 3656726306986643411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
 --- !u!4 &7440506806390473436 stripped
@@ -2766,6 +3161,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4602759310989044100, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
   m_PrefabInstance: {fileID: 6046755524264341986}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &5365996585499662482
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785084556984948838}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f905344dac71684c9af28f5ef5b1ba6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &6216067218249907027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2839,7 +3254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -2903,6 +3318,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BBQ Chicken (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7796427795162248452, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
+      propertyPath: bbq
+      value: 
+      objectReference: {fileID: 3656726306986643411}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fddbb49cd99176f4199a9b9189a60115, type: 3}
 --- !u!1 &7422696376947704191 stripped
@@ -2988,7 +3407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -3070,7 +3489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -3152,7 +3571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -3234,7 +3653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -3316,7 +3735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -3398,7 +3817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
@@ -3480,7 +3899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d147e31c0b8c58b4a9f065599f68ce88, type: 3}

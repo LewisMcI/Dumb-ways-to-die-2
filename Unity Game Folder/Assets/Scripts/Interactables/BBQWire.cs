@@ -12,13 +12,25 @@ public class BBQWire : Interactable
     private VisualEffect gasVFX;
     #endregion
 
+    #region properties
+    public VisualEffect GasVFX
+    {
+        get { return gasVFX; }
+    }
+    #endregion
+
     #region methods
     public override void Action()
     {
+        // Update
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Make BBQ");
         bbq.GetComponent<Animator>().SetTrigger("Connect");
         bbq.Connect();
+        // Disable fx
         gasVFX.Stop();
-        GetComponent<AudioSource>().Play();
+        gasVFX.GetComponent<AudioSource>().Stop();
+        
+        CanInteract = false;
     }
     #endregion
 }
