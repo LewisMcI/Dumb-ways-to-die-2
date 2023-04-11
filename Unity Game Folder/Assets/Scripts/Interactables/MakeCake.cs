@@ -9,7 +9,9 @@ public class MakeCake : Interactable
     #region fields
     [SerializeField]
     private GameObject[] ingredientsRequired;
-    private GameObject mix, cooked;
+    [SerializeField]
+    private GameObject insideOven, icing;
+    private GameObject tin, mix, cooked, iced;
     private int ingredientsAdded;
     private bool added, started, opened, deadly;
 
@@ -25,8 +27,10 @@ public class MakeCake : Interactable
     #region methods
     private void Awake()
     {
-        mix = transform.GetChild(0).gameObject;
+        tin = transform.GetChild(0).gameObject;
         cooked = transform.GetChild(1).gameObject;
+        mix = transform.GetChild(2).gameObject;
+        iced = transform.GetChild(3).gameObject;
         CanInteract = false;
     }
 
@@ -55,6 +59,8 @@ public class MakeCake : Interactable
                 PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 10, -10), 1.0f, SelectCam.toasterCam);
                 Destroy(gameObject);
             }
+
+            CanInteract = true;
             opened = true;
         }
     }
@@ -65,11 +71,8 @@ public class MakeCake : Interactable
         yield return new WaitForSeconds(16.0f);
         // Enable door interaction
         ovenDoor.transform.GetChild(0).GetComponent<Interactable>().CanInteract = true;
-        // Hide bowl
-        GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+        // Swap
         mix.gameObject.SetActive(false);
-        // Show cooked cake
         cooked.gameObject.SetActive(true);
 
         // Start fire after 5 seconds
@@ -104,9 +107,8 @@ public class MakeCake : Interactable
                 CanInteract = true;
             }
         }
-
         // Oven collision
-        if (collision.transform.name == "Inside")
+        else if (collision.gameObject == insideOven)
         {
             // Disable collider
             collision.gameObject.GetComponent<Collider>().enabled = false;
@@ -116,11 +118,28 @@ public class MakeCake : Interactable
             // Snap inside
             InteractionSystem.Instance.DropObject();
             transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
-            transform.localPosition = new Vector3(-4.5f, 0.95f, 10.5f);
+            transform.localPosition = new Vector3(-4.5f, 0.972f, 10.583f);
             CanInteract = false;
 
             // Mark as added
             added = true;
+        }
+        else if (collision.gameObject == icing && opened)
+        {
+            // Swap
+            tin.gameObject.SetActive(false);
+            cooked.gameObject.SetActive(false);
+            iced.gameObject.SetActive(true);
+
+            // Destroy icing
+            InteractionSystem.Instance.DropObject();
+            Destroy(collision.transform.gameObject);
+
+            // Play sfx
+            AudioManager.Instance.PlayAudio("Cloth");
+
+            // Increase
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Make Cake");
         }
     }
 
@@ -130,19 +149,19 @@ public class MakeCake : Interactable
         switch(ingredientsAdded)
         {
             case 1:
-                mix.transform.localScale = new Vector3(0.45f, 0.45f, 0.2f);
+                mix.transform.localScale = new Vector3(1.0f, 1.0f, 0.55f);
                 break;
             case 2:
-                mix.transform.localScale = new Vector3(0.725f, 0.725f, 0.4f);
+                mix.transform.localScale = new Vector3(1.0f, 1.0f, 1.1f);
                 break;
             case 3:
-                mix.transform.localScale = new Vector3(0.86f, 0.86f, 0.6f);
+                mix.transform.localScale = new Vector3(1.0f, 1.0f, 1.65f);
                 break;
             case 4:
-                mix.transform.localScale = new Vector3(0.96f, 0.96f, 0.8f);
+                mix.transform.localScale = new Vector3(1.0f, 1.0f, 2.2f);
                 break;
             case 5:
-                mix.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                mix.transform.localScale = new Vector3(1.0f, 1.0f, 2.75f);
                 break;
         }
         // Play sfx
