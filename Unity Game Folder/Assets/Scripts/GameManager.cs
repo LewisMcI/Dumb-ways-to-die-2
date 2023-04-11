@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region fields
-    int noOfLevels = 5;
     // Managers
     public static GameManager Instance;
     public TaskManager taskManager;
@@ -20,7 +19,6 @@ public class GameManager : MonoBehaviour
     private bool enableControls = false;
     private bool enableCamera = false;
     private bool isPaused;
-
     #endregion
 
     #region properties
