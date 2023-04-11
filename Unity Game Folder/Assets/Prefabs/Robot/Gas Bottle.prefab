@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3612342378333454066}
   - component: {fileID: 4304236244304266107}
   - component: {fileID: 1623460540}
+  - component: {fileID: 1623460535}
   - component: {fileID: 1623460538}
   - component: {fileID: 1623460539}
   - component: {fileID: 1623460541}
-  - component: {fileID: 1623460535}
   m_Layer: 0
   m_Name: Gas Bottle
   m_TagString: Untagged
@@ -102,6 +102,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.29383647, y: 0.29504278, z: 0.3954902}
   m_Center: {x: -0.0016871395, y: 0.00000011920999, z: 0.19737338}
+--- !u!114 &1623460535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679730167617343447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b61da25eec84e04c8a84c86790e8755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  text: Pick Up
+  keepRotation: 1
+  breakLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  sphereDistance: 1
+  rootBone: {fileID: 0}
+  punchingGlove: {fileID: 0}
 --- !u!73398921 &1623460538
 VFXRenderer:
   serializedVersion: 1
@@ -275,27 +299,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1623460535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1679730167617343447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b61da25eec84e04c8a84c86790e8755, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  text: Pick Up
-  keepRotation: 1
-  breakLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  sphereDistance: 1
-  rootBone: {fileID: 0}
-  punchingGlove: {fileID: 0}

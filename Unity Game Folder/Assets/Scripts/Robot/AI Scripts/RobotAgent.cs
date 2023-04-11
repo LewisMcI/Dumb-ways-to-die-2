@@ -131,24 +131,6 @@ public class RobotAgent : SteeringAgent
             {
                 attackTimer -= DefaultUpdateTimeInSecondsForAI;
             }
-
-            if (!punchingGlove && !bearTrap)
-            {
-                // Disable movement
-                agent.isStopped = true;
-
-                // Disable active behaviours
-                foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
-                {
-                    currentBehaviour.enabled = false;
-                }
-
-                // Switch to static screen
-                tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
-                tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
-                activated = false;
-            }
         }
 
         base.CooperativeArbitration();
@@ -224,6 +206,27 @@ public class RobotAgent : SteeringAgent
         // Switch to expression screen
         tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, -0.000175f, tvExpression.transform.localPosition.z);
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
+    }
+
+    public void CheckDeath()
+    {
+        if (!punchingGlove && !bearTrap)
+        {
+            // Disable movement
+            agent.isStopped = true;
+
+            // Disable active behaviours
+            foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
+            {
+                currentBehaviour.enabled = false;
+            }
+
+            // Switch to static screen
+            tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
+            tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
+            activated = false;
+        }
     }
     #endregion
 }

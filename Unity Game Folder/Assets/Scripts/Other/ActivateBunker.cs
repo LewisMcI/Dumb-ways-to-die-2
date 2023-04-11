@@ -14,11 +14,12 @@ public class ActivateBunker : MonoBehaviour
     #region methods
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Player")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             lights.SetActive(true);
             robot.Switch();
             robot.Activated = true;
+            Debug.Log("STARTING...");
         }
     }
     #endregion

@@ -5,16 +5,24 @@ using UnityEngine;
 public class FryingPanTrap : MonoBehaviour
 {
     #region fields
+    private GameObject fryingPan;
+    private LineRenderer laser;
     private bool triggered;
-
-    [SerializeField]
-    AudioSource doingggSFX;
     #endregion
 
     #region methods
     private void Awake()
     {
-        transform.GetChild(0).GetChild(0).GetComponent<Collider>().enabled = false;
+        if (transform.GetChild(0).GetChild(0).name == "FryingPan")
+        {
+            fryingPan = transform.GetChild(0).GetChild(0).gameObject;
+        }
+        else
+        {
+            fryingPan = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
+        }
+        laser = transform.GetChild(1).GetComponent<LineRenderer>();
+        fryingPan.GetComponent<Collider>().enabled = false;
         transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = false;
     }
 
@@ -35,16 +43,16 @@ public class FryingPanTrap : MonoBehaviour
         triggered = true;
         GetComponent<Animator>().SetTrigger("Trigger");
 
-        transform.GetChild(0).GetChild(0).GetComponent<Collider>().enabled = true;
-        transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = true;
-        transform.GetChild(1).GetComponent<LineRenderer>().enabled = false;
+        fryingPan.GetComponent<Collider>().enabled = true;
+        fryingPan.GetComponent<Interactable>().CanInteract = true;
+        laser.enabled = false;
     }
 
     private void TriggerPlayer()
     {
         try
         {
-            doingggSFX.Play();
+            GetComponent<AudioSource>().Play();
         }
         catch { }
         PlayerController.Instance.DisableDeathFromCollision(5.0f);

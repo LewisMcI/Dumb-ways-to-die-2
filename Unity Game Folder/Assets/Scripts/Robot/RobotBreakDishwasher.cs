@@ -12,10 +12,16 @@ public class RobotBreakDishwasher : MonoBehaviour
     [SerializeField]
     private GameObject smoke;
     [SerializeField]
-    RobotBearTrap robotBearTrap;
+    private RobotBearTrap robotBearTrap;
+    private RobotAgent robot;
     #endregion
 
     #region methods
+    private void Awake()
+    {
+        robot = robotBearTrap.transform.root.GetComponent<RobotAgent>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == destroyer)
@@ -29,6 +35,7 @@ public class RobotBreakDishwasher : MonoBehaviour
             Destroy(laserDetection);
             robotBearTrap.StopAllCoroutines();
             Destroy(robotBearTrap);
+            robot.CheckDeath();
 
             // Enable smoke
             smoke.gameObject.SetActive(true);

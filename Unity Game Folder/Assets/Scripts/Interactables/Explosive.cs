@@ -5,25 +5,24 @@ using UnityEngine.VFX;
 
 public class Explosive : Interactable
 {
-    BoxCollider boxCollider;
+    #region fields
+    [SerializeField]
+    private LayerMask breakLayer;
+    [SerializeField]
+    private LayerMask playerLayer;
+    [SerializeField]
+    private float sphereDistance;
+    [SerializeField]
+    private GameObject rootBone;
+    [SerializeField]
+    private RobotPunchingGlove punchingGlove;
+    private RobotAgent robot;
+    #endregion
 
-    VisualEffect explosiveVFX;
-    AudioSource explosiveSFX;
-    [SerializeField]
-    LayerMask breakLayer;
-    [SerializeField]
-    LayerMask playerLayer;
-    [SerializeField]
-    float sphereDistance;
-    [SerializeField]
-    GameObject rootBone;
-    [SerializeField]
-    RobotPunchingGlove punchingGlove;
+    #region methods
     private void Awake()
     {
-        boxCollider = GetComponent<BoxCollider>();
-        explosiveVFX = GetComponent<VisualEffect>();
-        explosiveSFX = GetComponent<AudioSource>();
+        robot = punchingGlove.transform.root.GetComponent<RobotAgent>();
         StartCoroutine(ActivateExplosive());
     }
 
@@ -38,23 +37,28 @@ public class Explosive : Interactable
             yield return new WaitForFixedUpdate();
         }
 
-        boxCollider.isTrigger = true;
+        GetComponent<BoxCollider>().isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit");
-        explosiveVFX.Play();
-        explosiveSFX.Play();
-        boxCollider.enabled = false;
-        Destroy(GetComponent<Rigidbody>());
+        // Play fx
+        GetComponent<VisualEffect>().Play();
+        GetComponent<AudioSource>().Play();
+
+        // Disable
+        GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+        Destroy(GetComponent<Rigidbody>());
+
+        // Check player collision
         if (Physics.CheckSphere(transform.position, sphereDistance, playerLayer))
         {
             Vector3 dir = (PlayerController.Instance.transform.position - transform.position).normalized;
             PlayerController.Instance.ThrowPlayerInDirection(dir, 0.2f);
             return;
         }
+        // Check robot collision
         if (Physics.CheckSphere(transform.position, sphereDistance, breakLayer))
         {
             BreakPunchingGlove();
@@ -64,10 +68,13 @@ public class Explosive : Interactable
 
     private void BreakPunchingGlove()
     {
+        // Remove
         rootBone.transform.parent = null;
         Destroy(punchingGlove);
+        robot.CheckDeath();
+        // Drop
         rootBone.AddComponent<Rigidbody>();
         rootBone.AddComponent<Interactable>();
-        
     }
+    #endregion
 }
