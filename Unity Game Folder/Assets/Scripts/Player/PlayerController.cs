@@ -466,7 +466,7 @@ public class PlayerController : MonoBehaviour
         Camera currentCam = Camera.main;
         placeholderCam = Instantiate(currentCam.gameObject, currentCam.transform.position, currentCam.transform.rotation, currentCam.transform.parent);
         placeholderCam.SetActive(false);
-        placeholderCam.tag = "";
+        placeholderCam.tag = "Untagged";
         Transform selectedCamTransform;
         currentCam.gameObject.AddComponent<LookAtPlayer>();
         try
@@ -509,7 +509,7 @@ public class PlayerController : MonoBehaviour
     {
         Camera currentCam = Camera.main;
         Destroy(currentCam.gameObject.GetComponent<LookAtPlayer>());
-        currentCam.gameObject.AddComponent<BoxCollider>();
+        currentCam.gameObject.AddComponent<BoxCollider>().size = new Vector3(0.2f, 0.2f, 0.2f);
 
         Transform selectedCamTransform = placeholderCam.transform;
         currentCam.transform.parent = selectedCamTransform.parent;
