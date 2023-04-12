@@ -366,13 +366,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inUse: 0
+  startingPos: {x: 0, y: 0, z: 0}
+  startingAngle: {x: 0, y: 0, z: 0}
+  endingPos: {x: 0, y: 0, z: 0}
   endingAngle: {x: 0, y: 120, z: 0}
   usingMovement: 0
-  endingPos: {x: 0, y: 0, z: 0}
-  smoothness: 120
-  timeToOpen: 0.25
-  currentState: 0
-  inUse: 0
+  openSpeed: 1.75
   open: 0
 --- !u!1 &1901536074247833237
 GameObject:
@@ -526,7 +526,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 239378781582670930, guid: 2f905eb94e67e03449c1632b3c68b180, type: 3}
-  - {fileID: 7741625113677808684, guid: 2f905eb94e67e03449c1632b3c68b180, type: 3}
+  - {fileID: 2100000, guid: 68ab68fd148756e45ad88b248f92d055, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -991,6 +991,7 @@ MonoBehaviour:
   plate: {fileID: 7125254053300116534}
   explosionVFX: {fileID: 3302166467403846853}
   kills: 0
+  delay: 0.5
 --- !u!95 &3448232979240359612
 Animator:
   serializedVersion: 4
@@ -1600,7 +1601,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 239378781582670930, guid: 2f905eb94e67e03449c1632b3c68b180, type: 3}
-  - {fileID: 7741625113677808684, guid: 2f905eb94e67e03449c1632b3c68b180, type: 3}
+  - {fileID: 2100000, guid: 68ab68fd148756e45ad88b248f92d055, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1696,13 +1697,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inUse: 0
+  startingPos: {x: 0, y: 0, z: 0}
+  startingAngle: {x: 0, y: 0, z: 0}
+  endingPos: {x: 0, y: 0, z: 0}
   endingAngle: {x: 0, y: 120, z: 0}
   usingMovement: 0
-  endingPos: {x: 0, y: 0, z: 0}
-  smoothness: 120
-  timeToOpen: 0.25
-  currentState: 0
-  inUse: 0
+  openSpeed: 1.75
   open: 0
 --- !u!1 &6252088125995659439
 GameObject:
@@ -1941,13 +1942,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b37dab8e0f5b044850af9119f196f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inUse: 0
+  startingPos: {x: 0, y: 0, z: 0}
+  startingAngle: {x: 0, y: 0, z: 0}
+  endingPos: {x: 0, y: 0, z: 0}
   endingAngle: {x: 5, y: 0, z: 0}
   usingMovement: 0
-  endingPos: {x: 0, y: 0, z: 0}
-  smoothness: 50
-  timeToOpen: 0.5
-  currentState: 0
-  inUse: 0
+  openSpeed: 1.75
   open: 0
 --- !u!1 &7964424158419586548
 GameObject:
