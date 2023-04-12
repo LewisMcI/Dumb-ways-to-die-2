@@ -8,6 +8,9 @@ public class FryingPanTrap : MonoBehaviour
     private GameObject fryingPan;
     private LineRenderer laser;
     private bool triggered, picked;
+
+    [SerializeField]
+    private bool attachement;
     #endregion
 
     #region properties
@@ -29,7 +32,7 @@ public class FryingPanTrap : MonoBehaviour
     #region methods
     private void Awake()
     {
-        if (transform.GetChild(0).GetChild(0).name == "Frying Pan")
+        if (!attachement)
         {
             fryingPan = transform.GetChild(0).GetChild(0).gameObject;
             fryingPan.GetComponent<Interactable>().CanInteract = false;
@@ -39,28 +42,36 @@ public class FryingPanTrap : MonoBehaviour
 
     private void Update()
     {
-        if (triggered && fryingPan.GetComponent<Interactable>().Interacting)
+        if (isActiveAndEnabled && attachement)
         {
-            GetComponent<Animator>().SetBool("Trigger", false);
-            fryingPan = null;
-            triggered = false;
-            picked = true;
+            if (triggered && fryingPan.GetComponent<Interactable>().Interacting)
+            {
+                GetComponent<Animator>().SetBool("Trigger", false);
+                fryingPan = null;
+                triggered = false;
+                picked = true;
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && !triggered)
+        if (isActiveAndEnabled && fryingPan)
         {
-            TriggerPlayer();
-        }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !triggered)
-        {
-            TriggerRobot(other.GetComponent<RobotAgent>());
-        }
-        else if (!triggered)
-        {
-            Trigger();
+            Debug.Log(other.gameObject.layer);
+            Debug.Log(other.transform.name);
+            if (other.gameObject.layer == LayerMask.NameToLayer("Player") && !triggered)
+            {
+                TriggerPlayer();
+            }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !triggered)
+            {
+                TriggerRobot(other.GetComponent<RobotAgent>());
+            }
+            else if (!triggered)
+            {
+                Trigger();
+            }
         }
     }
 
@@ -88,10 +99,26 @@ public class FryingPanTrap : MonoBehaviour
     {
         // Play fx
         GetComponent<AudioSource>().Play();
-        // Throw player
+        // Stun robot
         robot.TriggerStun();
+        // Drop pan
+        StartCoroutine(FryingPanForce());
 
         Trigger();
+    }
+
+    IEnumerator FryingPanForce()
+    {
+        yield return new WaitForSeconds(0.3f);
+        fryingPan.transform.parent = null;
+        fryingPan.AddComponent<Rigidbody>();
+
+        Vector3 force = fryingPan.transform.forward * -10.0f;
+        yield return new WaitForFixedUpdate();
+        force = fryingPan.transform.forward * -10.0f;
+        fryingPan.GetComponent<Rigidbody>().AddForce(force);
+
+        GetComponent<Animator>().SetBool("Trigger", false);
     }
     #endregion
 }

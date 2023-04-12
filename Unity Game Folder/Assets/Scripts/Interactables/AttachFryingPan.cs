@@ -15,14 +15,11 @@ public class AttachFryingPan : MonoBehaviour
     {
         trap = transform.parent.parent.GetComponent<FryingPanTrap>();
         laser = transform.parent.parent.GetChild(1).GetComponent<LineRenderer>();
-
-        // Disable trap
-        trap.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.name == "FryingPan" && !trap.Triggered && !trap.Picked)
+        if (other.transform.name == "Frying Pan" && !trap.Triggered && !trap.Picked)
         {
             // Play fx
             GetComponent<AudioSource>().Play();
@@ -43,7 +40,7 @@ public class AttachFryingPan : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.name == "FryingPan" && trap.Picked)
+        if (other.transform.name == "Frying Pan" && trap.Picked)
         {
             trap.Picked = false;
         }
