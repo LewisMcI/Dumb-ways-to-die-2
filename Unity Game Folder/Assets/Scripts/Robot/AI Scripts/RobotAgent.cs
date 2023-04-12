@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Video;
@@ -227,6 +228,30 @@ public class RobotAgent : SteeringAgent
             GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
             activated = false;
         }
+    }
+
+    public void TriggerStun()
+    {
+        StartCoroutine(Stun());
+    }
+
+    IEnumerator Stun()
+    {
+        SwitchIdle();
+
+        // Switch to static screen
+        tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
+        tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
+
+        activated = false;
+
+        yield return new WaitForSeconds(3.0f);
+
+        // Switch to expression screen
+        tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, -0.000175f, tvExpression.transform.localPosition.z);
+        tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
+
+        activated = true;
     }
     #endregion
 }

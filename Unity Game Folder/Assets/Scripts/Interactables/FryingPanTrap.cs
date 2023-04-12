@@ -7,7 +7,23 @@ public class FryingPanTrap : MonoBehaviour
     #region fields
     private GameObject fryingPan;
     private LineRenderer laser;
-    private bool triggered;
+    private bool triggered, picked;
+    #endregion
+
+    #region properties
+    public GameObject FryingPan
+    {
+        set { fryingPan = value; }
+    }
+    public bool Triggered
+    {
+        get { return triggered; }
+    }
+    public bool Picked
+    {
+        get { return picked; }
+        set { picked = value; }
+    }
     #endregion
 
     #region methods
@@ -16,21 +32,31 @@ public class FryingPanTrap : MonoBehaviour
         if (transform.GetChild(0).GetChild(0).name == "FryingPan")
         {
             fryingPan = transform.GetChild(0).GetChild(0).gameObject;
-        }
-        else
-        {
-            fryingPan = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
+            fryingPan.GetComponent<Interactable>().CanInteract = false;
         }
         laser = transform.GetChild(1).GetComponent<LineRenderer>();
-        fryingPan.GetComponent<Collider>().enabled = false;
-        transform.GetChild(0).GetChild(0).GetComponent<Interactable>().CanInteract = false;
+    }
+
+    private void Update()
+    {
+        if (triggered && fryingPan.GetComponent<Interactable>().Interacting)
+        {
+            GetComponent<Animator>().SetBool("Trigger", false);
+            fryingPan = null;
+            triggered = false;
+            picked = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.name == "Character" && !triggered)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && !triggered)
         {
             TriggerPlayer();
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !triggered)
+        {
+            TriggerRobot(other.GetComponent<RobotAgent>());
         }
         else if (!triggered)
         {
@@ -41,23 +67,31 @@ public class FryingPanTrap : MonoBehaviour
     private void Trigger()
     {
         triggered = true;
-        GetComponent<Animator>().SetTrigger("Trigger");
+        GetComponent<Animator>().SetBool("Trigger", true);
 
-        fryingPan.GetComponent<Collider>().enabled = true;
         fryingPan.GetComponent<Interactable>().CanInteract = true;
         laser.enabled = false;
     }
 
     private void TriggerPlayer()
     {
-        try
-        {
-            GetComponent<AudioSource>().Play();
-        }
-        catch { }
+        // Play fx
+        GetComponent<AudioSource>().Play();
+        // Throw player
         PlayerController.Instance.DisableDeathFromCollision(5.0f);
-        Trigger();
         PlayerController.Instance.ThrowPlayerInRelativeDirection(50f, Direction.backwards, 2.0f, true);
+
+        Trigger();
+    }
+
+    private void TriggerRobot(RobotAgent robot)
+    {
+        // Play fx
+        GetComponent<AudioSource>().Play();
+        // Throw player
+        robot.TriggerStun();
+
+        Trigger();
     }
     #endregion
 }
