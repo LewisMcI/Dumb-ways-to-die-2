@@ -244,25 +244,9 @@ public class Lawnmower : Interactable
 
     IEnumerator moveCameraFromPlayer(GameObject player)
     {
-        Vector3 startPos = PlayerController.Instance.CameraTransform.position;
-
-        Quaternion startQuat = PlayerController.Instance.CameraTransform.rotation;
-
-        // init
-        associatedCam.transform.position = startPos;
-        associatedCam.transform.rotation = startQuat;
         // Enable new camera.
-        PlayerController.Instance.EnableNewCamera(SelectCam.outsideCam);
-        for (float i = 1; i < 50; i++)
-        {
-            yield return new WaitForSeconds(1.0f / 50);
-            associatedCam.transform.position = Vector3.Lerp(startPos, initPosition, i / 50);
-            associatedCam.transform.rotation = Quaternion.Lerp(startQuat, initRotation, i / 50);
-        }
-
-        Debug.Log("INIT POS2 " + initPosition);
-        Debug.Log("INIT POS but real " + startPos);
-        Debug.Log(" cam pos: " + associatedCam.transform.position);
+        PlayerController.Instance.EnableNewCamera(SelectCam.outsideCam, 1.0f);
+        yield return new WaitForSeconds(1.1f);
         player.AddComponent<TopdownPlayerController>();
     }
 
@@ -270,26 +254,14 @@ public class Lawnmower : Interactable
     {
         // Remove Topdown Controller
         Destroy(player.GetComponent<TopdownPlayerController>());
-        Vector3 startPos = associatedCam.transform.position;
-        Vector3 endPos = PlayerController.Instance.CameraTransform.position;
+        PlayerController.Instance.ReEnablePlayerCamera(1.0f);
 
-        Quaternion startQuat = associatedCam.transform.rotation;
-        Quaternion endQuat = PlayerController.Instance.CameraTransform.rotation;
-
-        for (float i = 0; i < 50; i++)
-        {
-            associatedCam.transform.position = Vector3.Lerp(startPos, endPos, i / 50);
-            associatedCam.transform.rotation = Quaternion.Lerp(startQuat, endQuat, i / 50);
-
-            yield return new WaitForSeconds(1.0f / 50);
-        }
+        yield return new WaitForSeconds(1.1f);
         // ReEnable player camera.
         PlayerController.Instance.ReEnablePlayer();
         // Enable player controller.
         PlayerController.Instance.enabled = true;
 
-        associatedCam.transform.position = startPos;
-        associatedCam.transform.rotation = startQuat;
         // Remove Topdown Controller
         Destroy(player.GetComponent<TopdownPlayerController>());
     }

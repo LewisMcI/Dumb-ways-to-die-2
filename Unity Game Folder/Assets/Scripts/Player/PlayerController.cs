@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Camera playerCam, toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam;
 
+    private GameObject placeholderCam;
+
     public Transform CameraTransform { get => playerCam.transform; }
     private float restartTimer = 5f;
     private Rigidbody[] limbs;
@@ -342,7 +344,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.EnableCamera = false;
             GameManager.Instance.EnableControls = false;
-            EnableNewCamera(camera);
+            EnableNewCamera(camera, delay);
         }
         dead = true;
         Debug.Log(dead);
@@ -457,38 +459,76 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EnableNewCamera(SelectCam? camera)
+    public void EnableNewCamera(SelectCam? camera, float delay = 0.1f)
     {
         GameManager.Instance.EnableCamera = false;
         // Switch cameras
         Camera currentCam = Camera.main;
-        currentCam.tag = "Untagged";
-        currentCam.enabled = false;
+        placeholderCam = Instantiate(currentCam.gameObject, currentCam.transform.position, currentCam.transform.rotation, currentCam.transform.parent);
+        placeholderCam.SetActive(false);
+        placeholderCam.tag = "Untagged";
+        Transform selectedCamTransform;
+        currentCam.gameObject.AddComponent<LookAtPlayer>();
+        try
+        {
+            Destroy(currentCam.gameObject.GetComponent<BoxCollider>());
+        }
+        catch { }
         switch (camera)
         {
             case SelectCam.toasterCam:
-                toasterCam.enabled = true;
-                toasterCam.tag = "MainCamera";
+                selectedCamTransform = toasterCam.transform;
+                currentCam.transform.parent = null;
+                StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
                 break;
             case SelectCam.fridgeCam:
-                fridgeCam.enabled = true;
-                fridgeCam.tag = "MainCamera";
+                selectedCamTransform = fridgeCam.transform;
+                currentCam.transform.parent = null;
+                StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
                 break;
             case SelectCam.couchCam:
-                couchCam.enabled = true;
-                couchCam.tag = "MainCamera";
+                selectedCamTransform = couchCam.transform;
+                currentCam.transform.parent = null;
+                StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
                 break;
             case SelectCam.bathroomCam:
-                bathroomCam.enabled = true;
-                bathroomCam.tag = "MainCamera";
+                selectedCamTransform = bathroomCam.transform;
+                currentCam.transform.parent = null;
+                StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
                 break;
             case SelectCam.outsideCam:
-                outsideCam.enabled = true;
-                outsideCam.tag = "MainCamera";
+                selectedCamTransform = outsideCam.transform;
+                currentCam.transform.parent = null;
+                StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
                 break;
             case SelectCam.invalid:
                 break;
         }
+    }
+    public void ReEnablePlayerCamera(float delay = 0.1f)
+    {
+        Camera currentCam = Camera.main;
+        Destroy(currentCam.gameObject.GetComponent<LookAtPlayer>());
+        currentCam.gameObject.AddComponent<BoxCollider>().size = new Vector3(0.2f, 0.2f, 0.2f);
+
+        Transform selectedCamTransform = placeholderCam.transform;
+        currentCam.transform.parent = selectedCamTransform.parent;
+        StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
+        Destroy(placeholderCam);
+    }
+
+    public IEnumerator MoveTo(Transform objToMove, Vector3 pos, Quaternion rot, float time)
+    {
+        Vector3 startPos = objToMove.position;
+        Quaternion startRot = objToMove.rotation;
+        for (float i = 0; i < time; i += Time.deltaTime)
+        {
+            objToMove.position = Vector3.Lerp(startPos, pos, i / time);
+            objToMove.rotation = Quaternion.Lerp(startRot, rot, i / time);
+            yield return new WaitForFixedUpdate();
+        }
+        objToMove.position = pos;
+        objToMove.rotation = rot;
     }
 
     public IEnumerator OpenNotepadAfterAwake()
