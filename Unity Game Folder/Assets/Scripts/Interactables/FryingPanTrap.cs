@@ -29,7 +29,7 @@ public class FryingPanTrap : MonoBehaviour
     #region methods
     private void Awake()
     {
-        if (transform.GetChild(0).GetChild(0).name == "FryingPan")
+        if (transform.GetChild(0).GetChild(0).name == "Frying Pan")
         {
             fryingPan = transform.GetChild(0).GetChild(0).gameObject;
             fryingPan.GetComponent<Interactable>().CanInteract = false;
