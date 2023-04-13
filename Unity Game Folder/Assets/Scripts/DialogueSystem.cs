@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class DialogueSystem : MonoBehaviour
 {
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip introAudio;
+    [SerializeField]
+    AudioClip audio;
+    [SerializeField]
+    AudioClip outroAudio;
+
+
     [System.Serializable]
     public class Dialogue
     {
@@ -17,17 +27,35 @@ public class DialogueSystem : MonoBehaviour
     public List<Dialogue> dialogues = new List<Dialogue>();
 
     bool complete = true;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (!audioSource)
+            throw new System.Exception("AudioSource not added to dialogue system");
+    }
     public void TriggerDialogue()
     {
+        if (introAudio)
+            audioSource.PlayOneShot(introAudio);
         StopAllCoroutines();
         StartCoroutine(StartDialogue());
         GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(true);
     }
-
+    void PlayMurmur()
+    {
+        if (audio)
+        {
+            audioSource.Stop();
+            audioSource.PlayOneShot(audio);
+        }
+    }
     IEnumerator StartDialogue()
     {
+        yield return new WaitForSeconds(0.2f);
         foreach(Dialogue dialogue in dialogues)
         {
+            PlayMurmur();
             StartCoroutine(UpdateDialogue(dialogue));
             if (!complete)
                 yield return new WaitForFixedUpdate();
@@ -36,6 +64,10 @@ public class DialogueSystem : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(false);
         GameUI.Instance.DialogueText.text = "";
+
+
+        audioSource.Stop();
+        audioSource.PlayOneShot(outroAudio);
     }
 
     IEnumerator UpdateDialogue(Dialogue dialogue)
