@@ -42,6 +42,8 @@ public class Explosive : Interactable
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!GetComponent<BoxCollider>().isTrigger)
+            return;
         // Play fx
         GetComponent<VisualEffect>().Play();
         GetComponent<AudioSource>().Play();
