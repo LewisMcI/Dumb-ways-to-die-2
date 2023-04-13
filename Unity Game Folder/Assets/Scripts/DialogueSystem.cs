@@ -52,6 +52,7 @@ public class DialogueSystem : MonoBehaviour
     }
     IEnumerator StartDialogue()
     {
+        yield return new WaitForSeconds(0.2f);
         foreach(Dialogue dialogue in dialogues)
         {
             PlayMurmur();
@@ -65,6 +66,7 @@ public class DialogueSystem : MonoBehaviour
         GameUI.Instance.DialogueText.text = "";
 
 
+        audioSource.Stop();
         audioSource.PlayOneShot(outroAudio);
     }
 
