@@ -52,7 +52,7 @@ public class DialogueSystem : MonoBehaviour
     }
     IEnumerator StartDialogue()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         foreach(Dialogue dialogue in dialogues)
         {
             PlayMurmur();
