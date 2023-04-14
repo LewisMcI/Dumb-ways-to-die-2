@@ -20,6 +20,7 @@ public class TaskManager : MonoBehaviour
 
     private void Awake()
     {
+        SetUp();
         ResetAllTraps();
         if (randomTasks)
         {

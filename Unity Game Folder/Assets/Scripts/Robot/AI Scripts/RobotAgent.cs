@@ -36,6 +36,8 @@ public class RobotAgent : SteeringAgent
     [SerializeField]
     private RobotBearTrap bearTrap;
 
+
+
     private bool activated;
     #endregion
 
@@ -200,6 +202,13 @@ public class RobotAgent : SteeringAgent
             // Reset
             attackTimer = attackCooldown;
         }
+    }
+
+    public void Activate()
+    {
+        Switch();
+        Activated = true;
+        robotLineOfSight.Activate();
     }
 
     public void Switch()
