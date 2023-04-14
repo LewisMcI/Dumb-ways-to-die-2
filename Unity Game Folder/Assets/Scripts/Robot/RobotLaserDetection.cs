@@ -16,11 +16,13 @@ public class RobotLaserDetection : MonoBehaviour
     private bool reached;
     [SerializeField]
     private LayerMask playerMask;
+
     [SerializeField]
     private GameObject laser, alertLight;
     [SerializeField]
     private Material greenLight, redLight;
     private Material metal;
+
     private RaycastHit hit;
     private bool detected;
     #endregion
@@ -67,7 +69,11 @@ public class RobotLaserDetection : MonoBehaviour
             {
                 if (!detected)
                 {
-                    transform.root.GetChild(0).GetComponent<Animator>().SetBool("Frying Pan", true);
+                    if (transform.root.GetComponent<RobotAgent>().FryingPan)
+                    {
+                        transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", true);
+                        transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", false);
+                    }
                     ChangeRed();
 
                     detected = true;
@@ -88,7 +94,10 @@ public class RobotLaserDetection : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
 
-        transform.root.GetChild(0).GetComponent<Animator>().SetBool("Frying Pan", false);
+        if (transform.root.GetComponent<RobotAgent>().FryingPan)
+        {
+            transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
+        }
         ChangeGreen();
 
         detected = false;

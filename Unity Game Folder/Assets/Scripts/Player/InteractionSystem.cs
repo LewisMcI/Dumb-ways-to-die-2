@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class InteractionSystem : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InteractionSystem : MonoBehaviour
     [SerializeField]
     private Transform pickupTransform;
     private GameObject pickedUpObject;
+    private int layer;
     [SerializeField]
     private bool keepRotation;
 
@@ -141,6 +143,7 @@ public class InteractionSystem : MonoBehaviour
 
     private void PickupObject(GameObject objectToPickup)
     {
+        layer = objectToPickup.layer;
         objectToPickup.layer = LayerMask.NameToLayer("IgnorePlayer");
         // Remove parent
         objectToPickup.transform.parent = null;
@@ -165,7 +168,7 @@ public class InteractionSystem : MonoBehaviour
         // Reset
         try
         {
-            pickedUpObject.layer = 0;
+            pickedUpObject.layer = layer;
             pickedUpObject.GetComponent<Interactable>().Interacting = false;
             pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
             pickedUpObject = null;
@@ -185,7 +188,7 @@ public class InteractionSystem : MonoBehaviour
         AudioManager.Instance.PlayAudio("Whoosh");
 
         // Reset
-        pickedUpObject.layer = 0;
+        pickedUpObject.layer = layer;
         pickedUpObject.GetComponent<Rigidbody>().useGravity = true;
         pickedUpObject = null;
         yield return null;

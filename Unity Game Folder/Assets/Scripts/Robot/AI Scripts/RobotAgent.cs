@@ -36,6 +36,9 @@ public class RobotAgent : SteeringAgent
     [SerializeField]
     private RobotBearTrap bearTrap;
 
+    [SerializeField]
+    private GameObject fryingPan;
+
     private bool activated;
     #endregion
 
@@ -44,6 +47,10 @@ public class RobotAgent : SteeringAgent
     {
         get { return activated; }
         set { activated = value; }
+    }
+    public GameObject FryingPan
+    {
+        get { return fryingPan; }
     }
     #endregion
 
@@ -80,45 +87,69 @@ public class RobotAgent : SteeringAgent
             // If there are objects in line of sight
             if (robotLineOfSight.Objs.Count > 0)
             {
-                // Player within attack range
-                if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f)
+                foreach (GameObject obj in robotLineOfSight.Objs)
                 {
-                    if (currentState != RobotState.Attacking)
+                    if (fryingPan)
                     {
-                        SwitchAttack();
+                        // Explosive in sight
+                        if (obj.layer == LayerMask.NameToLayer("Explosive") && obj.GetComponent<Collider>().isTrigger)
+                        {
+                            transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
+                            transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
+                        }
+                    }
+
+                    // Player in sight
+                    if (obj.layer == LayerMask.NameToLayer("Player"))
+                    {
+                        // Player within attack range
+                        if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f)
+                        {
+                            if (currentState != RobotState.Attacking)
+                            {
+                                SwitchAttack();
+                            }
+                            else
+                            {
+                                TryAttackPlayer();
+                            }
+                        }
+                        // Player not in attack range
+                        else if (currentState != RobotState.Chasing)
+                        {
+                            SwitchChase();
+                        }
+
+                        // Reset
+                        if (followTimer != followTime)
+                            followTimer = followTime;
+
+                        // Switch to angry expression
+                        if (tvExpression.clip != expressions[1])
+                            StartCoroutine(TransitionTV(expressions[1]));
+                    }
+                }
+            }
+            else
+            {
+                if (currentState != RobotState.Patrolling)
+                {
+                    if (followTimer <= 0.0f)
+                    {
+                        SwitchPatrol();
+
+                        // Switch to neutral expression
+                        if (tvExpression.clip != expressions[0])
+                            StartCoroutine(TransitionTV(expressions[0]));
                     }
                     else
                     {
-                        TryAttackPlayer();
+                        followTimer -= DefaultUpdateTimeInSecondsForAI;
                     }
                 }
-                // Player not in attack range
-                else if (currentState != RobotState.Chasing)
+                if (transform.GetChild(0).GetComponent<Animator>().GetBool("Defend Front"))
                 {
-                    SwitchChase();
-                }
-
-                // Reset
-                if (followTimer != followTime)
-                    followTimer = followTime;
-
-                // Switch to angry expression
-                if (tvExpression.clip != expressions[1])
-                    StartCoroutine(TransitionTV(expressions[1]));
-            }
-            else if (currentState != RobotState.Patrolling)
-            {
-                if (followTimer <= 0.0f)
-                {
-                    SwitchPatrol();
-
-                    // Switch to neutral expression
-                    if (tvExpression.clip != expressions[0])
-                        StartCoroutine(TransitionTV(expressions[0]));
-                }
-                else
-                {
-                    followTimer -= DefaultUpdateTimeInSecondsForAI;
+                    transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", false);
                 }
             }
 
@@ -233,6 +264,7 @@ public class RobotAgent : SteeringAgent
     public void TriggerStun()
     {
         StartCoroutine(Stun());
+        StartCoroutine(FryingPanForce());
     }
 
     IEnumerator Stun()
@@ -252,6 +284,19 @@ public class RobotAgent : SteeringAgent
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
 
         activated = true;
+    }
+
+    IEnumerator FryingPanForce()
+    {
+        yield return new WaitForSeconds(0.3f);
+        fryingPan.transform.parent = null;
+        fryingPan.AddComponent<Rigidbody>();
+
+        Vector3 force = fryingPan.transform.forward * -150.0f + fryingPan.transform.up * 150.0f;
+        yield return new WaitForFixedUpdate();
+        force = fryingPan.transform.forward * -150.0f + fryingPan.transform.up * 150.0f;
+        fryingPan.GetComponent<Rigidbody>().AddForce(force);
+        fryingPan = null;
     }
     #endregion
 }

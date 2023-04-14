@@ -33,7 +33,6 @@ public class LineOfSight : MonoBehaviour
     #endregion
 
     // List of Objects currently in Line of Sight.
-    [HideInInspector]
     public List<GameObject> objs = new List<GameObject>();
     // List of Colliders in the surrounding sphere.
     [HideInInspector]

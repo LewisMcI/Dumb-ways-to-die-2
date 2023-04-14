@@ -27,7 +27,7 @@ public class RobotBreakDishwasher : MonoBehaviour
         if (other.gameObject == destroyer)
         {
             // Reset animation
-            transform.root.GetChild(0).GetComponent<Animator>().SetBool("Frying Pan", false);
+            transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
 
             // Disable scripts
             laserDetection.ChangeRed();

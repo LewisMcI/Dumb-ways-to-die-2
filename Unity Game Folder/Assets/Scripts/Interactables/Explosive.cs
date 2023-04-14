@@ -52,6 +52,7 @@ public class Explosive : Interactable
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
         Destroy(GetComponent<Rigidbody>());
+        Destroy(gameObject, 1.0f);
 
         // Check player collision
         if (Physics.CheckSphere(transform.position, sphereDistance, playerLayer))
@@ -63,8 +64,14 @@ public class Explosive : Interactable
         // Check robot collision
         if (Physics.CheckSphere(transform.position, sphereDistance, breakLayer))
         {
-            BreakPunchingGlove();
-            return;
+            if (!robot.FryingPan)
+            {
+                BreakPunchingGlove();
+            }
+            else
+            {
+                robot.transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
+            }
         }
     }
 

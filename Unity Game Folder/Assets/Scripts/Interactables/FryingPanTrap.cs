@@ -113,9 +113,9 @@ public class FryingPanTrap : MonoBehaviour
         fryingPan.transform.parent = null;
         fryingPan.AddComponent<Rigidbody>();
 
-        Vector3 force = fryingPan.transform.forward * -10.0f;
+        Vector3 force = fryingPan.transform.forward * -150.0f + fryingPan.transform.up * 150.0f;
         yield return new WaitForFixedUpdate();
-        force = fryingPan.transform.forward * -10.0f;
+        force = fryingPan.transform.forward * -150.0f + fryingPan.transform.up * 150.0f;
         fryingPan.GetComponent<Rigidbody>().AddForce(force);
 
         GetComponent<Animator>().SetBool("Trigger", false);
