@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.VFX;
 
 public class RobotPunchingGlove : MonoBehaviour
@@ -60,14 +61,7 @@ public class RobotPunchingGlove : MonoBehaviour
         else
         {
             // Retract boxing glove towards initial position
-            if (constraint.transform.localPosition.y <= -0.0007f)
-            {
-                constraint.transform.localPosition = startingPos;
-            }
-            else
-            {
-                constraint.transform.localPosition = Vector3.Lerp(constraint.transform.localPosition, startingPos, 2.5f * Time.deltaTime);
-            }
+            constraint.transform.localPosition = Vector3.Lerp(constraint.transform.localPosition, startingPos, 2f * Time.deltaTime);
         }
     }
 

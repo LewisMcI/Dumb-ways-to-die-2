@@ -85,6 +85,16 @@ public class RobotAgent : SteeringAgent
     {
         if (activated)
         {
+            if (GameManager.Instance.IsPaused)
+            {
+                GetComponent<NavMeshAgent>().enabled = false;
+                return;
+            }
+            else
+            {
+                GetComponent<NavMeshAgent>().enabled = true;
+            }
+
             // If there are objects in line of sight
             if (punchingGlove && robotLineOfSight.Objs.Count > 0)
             {
@@ -311,9 +321,9 @@ public class RobotAgent : SteeringAgent
         fryingPan.transform.parent = null;
         fryingPan.AddComponent<Rigidbody>();
 
-        Vector3 force = fryingPan.transform.forward * -150.0f + fryingPan.transform.up * 150.0f;
+        Vector3 force = (fryingPan.transform.forward * -10000.0f + fryingPan.transform.up * 10000.0f) * Time.deltaTime;
         yield return new WaitForFixedUpdate();
-        force = fryingPan.transform.forward * -150.0f + fryingPan.transform.up * 150.0f;
+        force = (fryingPan.transform.forward * -10000.0f + fryingPan.transform.up * 10000.0f) * Time.deltaTime;
         fryingPan.GetComponent<Rigidbody>().AddForce(force);
         fryingPan = null;
     }

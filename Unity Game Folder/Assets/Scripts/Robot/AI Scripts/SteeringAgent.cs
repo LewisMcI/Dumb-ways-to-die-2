@@ -75,7 +75,10 @@ public class SteeringAgent : MonoBehaviour
 	/// </summary>
 	protected virtual void UpdatePosition()
 	{
-		agent.SetDestination(TargetPosition);
+		if (agent.enabled)
+		{
+			agent.SetDestination(TargetPosition);
+		}
 	}
 
 	/// <summary>
