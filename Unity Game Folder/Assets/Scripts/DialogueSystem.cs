@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DialogueSystem : MonoBehaviour
 {
+    [SerializeField]
     AudioSource audioSource;
 
     [SerializeField]
@@ -30,14 +31,11 @@ public class DialogueSystem : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         if (!audioSource)
             throw new System.Exception("AudioSource not added to dialogue system");
     }
     public void TriggerDialogue()
     {
-        if (introAudio)
-            audioSource.PlayOneShot(introAudio);
         StopAllCoroutines();
         StartCoroutine(StartDialogue());
         GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(true);
@@ -46,16 +44,16 @@ public class DialogueSystem : MonoBehaviour
     {
         if (audio)
         {
-            audioSource.Stop();
+            audioSource.pitch = Random.Range(0.90f, 1.10f);
             audioSource.PlayOneShot(audio);
         }
     }
     IEnumerator StartDialogue()
     {
-        yield return new WaitForSeconds(0.5f);
+        audioSource.PlayOneShot(introAudio);
+        yield return new WaitForSeconds(1.0f);
         foreach(Dialogue dialogue in dialogues)
         {
-            PlayMurmur();
             StartCoroutine(UpdateDialogue(dialogue));
             if (!complete)
                 yield return new WaitForFixedUpdate();
@@ -72,15 +70,20 @@ public class DialogueSystem : MonoBehaviour
 
     IEnumerator UpdateDialogue(Dialogue dialogue)
     {
-        GameUI.Instance.DialogueText.text = "";
-
+        GameUI gameUI = GameUI.Instance;
+        gameUI.DialogueText.text = "";
         float speed = 1 / dialogue.speed;
         for (float i = 0; i < speed; i+=Time.deltaTime)
         {
             int value = (int)Mathf.Lerp(0, dialogue.text.Length - 1, i / speed);
-            GameUI.Instance.DialogueText.text = dialogue.text.Substring(0, value);
+            if (value > gameUI.DialogueText.text.Length)
+            {
+                gameUI.DialogueText.text = dialogue.text.Substring(0, value);
+
+                PlayMurmur();
+            }
             yield return new WaitForFixedUpdate();
         }
-        GameUI.Instance.DialogueText.text = dialogue.text;
+        gameUI.DialogueText.text = dialogue.text;
     }
 }
