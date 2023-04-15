@@ -44,6 +44,14 @@ public class Explosive : Interactable
     {
         if (!GetComponent<BoxCollider>().isTrigger)
             return;
+
+        // Deflect if frying pan enabled
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && robot.FryingPan)
+        {
+            StartCoroutine(Deflect());
+            return;
+        }
+
         // Play fx
         GetComponent<VisualEffect>().Play();
         GetComponent<AudioSource>().Play();
@@ -84,6 +92,14 @@ public class Explosive : Interactable
         // Drop
         rootBone.AddComponent<Rigidbody>();
         rootBone.AddComponent<Interactable>();
+    }
+
+    IEnumerator Deflect()
+    {
+        Vector3 force = (transform.forward * -2000.0f + transform.up * 1000.0f) * Time.deltaTime;
+        yield return new WaitForFixedUpdate();
+        force = (transform.forward * -2000.0f + transform.up * 1000.0f) * Time.deltaTime;
+        GetComponent<Rigidbody>().AddForce(force);
     }
     #endregion
 }
