@@ -96,6 +96,7 @@ public class Explosive : Interactable
 
     IEnumerator Deflect()
     {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
         Vector3 force = (transform.forward * -2000.0f + transform.up * 1000.0f) * Time.deltaTime;
         yield return new WaitForFixedUpdate();
         force = (transform.forward * -2000.0f + transform.up * 1000.0f) * Time.deltaTime;
