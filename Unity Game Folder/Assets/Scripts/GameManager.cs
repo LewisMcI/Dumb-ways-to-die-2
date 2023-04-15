@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private bool enableControls = false;
     private bool enableCamera = false;
     private bool isPaused;
+    private bool hasTransitioned = false;
     #endregion
 
     #region properties
@@ -35,6 +36,10 @@ public class GameManager : MonoBehaviour
     public bool IsPaused
     {
         get { return isPaused; }
+    }
+    public bool HasTransitioned
+    {
+        get { return hasTransitioned; }
     }
     #endregion
 
@@ -134,6 +139,7 @@ public class GameManager : MonoBehaviour
     public void TransitionDay()
     {
         taskManager.SwapTasksOver();
+        hasTransitioned = true;
 
         StartCoroutine(PlayerController.Instance.OpenNotepadAfterAwake());
     }
