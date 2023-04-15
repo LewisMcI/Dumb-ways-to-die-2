@@ -28,8 +28,7 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private float jumpForce;
-    [SerializeField]
-    private float sprintMultiplier = 1.2f;
+    private float sprintMultiplier = 1.5f;
 
     [Header("Check Sphere")]
     [SerializeField]
