@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 539.56696, g: 350.28027, b: 368.54224, a: 1}
+  m_IndirectSpecularColor: {r: 533.76044, g: 326.97852, b: 323.04492, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1892,7 +1892,9 @@ MonoBehaviour:
   keepRotation: 1
   lights: {fileID: 260522981}
   robot: {fileID: 89500230}
-  barricadeParents: []
+  barricadeParents:
+  - {fileID: 1649079798}
+  - {fileID: 2130770350}
 --- !u!43 &267280359
 Mesh:
   m_ObjectHideFlags: 0
@@ -6391,6 +6393,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1649079798 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1455127188574348148, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+  m_PrefabInstance: {fileID: 260522978}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1664920018
 Mesh:
   m_ObjectHideFlags: 0
@@ -7510,3 +7517,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2130770350 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8064115706069511538, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+  m_PrefabInstance: {fileID: 260522978}
+  m_PrefabAsset: {fileID: 0}
