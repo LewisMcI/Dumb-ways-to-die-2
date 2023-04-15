@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 533.76044, g: 326.97852, b: 323.04492, a: 1}
+  m_IndirectSpecularColor: {r: 539.2032, g: 350.2998, b: 368.72632, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -734,6 +734,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1003194280}
+    - target: {fileID: 3199694760837509789, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: rootBone
+      value: 
+      objectReference: {fileID: 1259229970}
+    - target: {fileID: 3199694760837509789, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: punchingGlove
+      value: 
+      objectReference: {fileID: 595104205}
     - target: {fileID: 3651356954753075225, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1078,6 +1086,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 806024993}
+    - target: {fileID: 4153863909089742180, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: rootBone
+      value: 
+      objectReference: {fileID: 1259229970}
+    - target: {fileID: 4153863909089742180, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: punchingGlove
+      value: 
+      objectReference: {fileID: 595104205}
     - target: {fileID: 4291253079306597978, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1422,6 +1438,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 447865660}
+    - target: {fileID: 4505535917003710141, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: rootBone
+      value: 
+      objectReference: {fileID: 1259229970}
+    - target: {fileID: 4505535917003710141, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: punchingGlove
+      value: 
+      objectReference: {fileID: 595104205}
     - target: {fileID: 4817347855514614360, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1474,6 +1498,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1716590034}
+    - target: {fileID: 5102328968824219625, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: rootBone
+      value: 
+      objectReference: {fileID: 1259229970}
+    - target: {fileID: 5102328968824219625, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: punchingGlove
+      value: 
+      objectReference: {fileID: 595104205}
     - target: {fileID: 5316086276917291323, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_Name
       value: Bunker(NEW)
@@ -1814,6 +1846,14 @@ PrefabInstance:
       propertyPath: robot
       value: 
       objectReference: {fileID: 89500230}
+    - target: {fileID: 8580126765188135114, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: rootBone
+      value: 
+      objectReference: {fileID: 1259229970}
+    - target: {fileID: 8580126765188135114, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: punchingGlove
+      value: 
+      objectReference: {fileID: 595104205}
     - target: {fileID: 8602830096900560622, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3246,6 +3286,17 @@ Transform:
   m_Father: {fileID: 2095008048}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 89.281, y: -90, z: 450}
+--- !u!114 &595104205 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 340020097941546492, guid: ab0c194681d596e46880eca698c627ba, type: 3}
+  m_PrefabInstance: {fileID: 1908124975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924238cfd57a1a047b889558a1c9a6a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &620174367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5403,6 +5454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9115d5005e3860841b0c9c316b6a2d7a, type: 3}
+--- !u!1 &1259229970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7525079420838077465, guid: ab0c194681d596e46880eca698c627ba, type: 3}
+  m_PrefabInstance: {fileID: 1908124975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1271419009
 PrefabInstance:
   m_ObjectHideFlags: 0

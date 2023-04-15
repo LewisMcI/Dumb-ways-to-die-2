@@ -30,15 +30,17 @@ public class RobotAgent : SteeringAgent
     [SerializeField]
     private RobotPunchingGlove punchingGlove;
     [SerializeField]
+    private RobotBearTrap bearTrap;
+    [SerializeField]
+    private RobotLaserDetection laserDetection;
+    [SerializeField]
     private float followTime, attackCooldown;
     private float followTimer, attackTimer;
 
     [SerializeField]
-    private RobotBearTrap bearTrap;
-
-    [SerializeField]
     private GameObject fryingPan;
 
+    private bool canMove = true;
     private bool activated;
     #endregion
 
@@ -57,7 +59,6 @@ public class RobotAgent : SteeringAgent
     #region methods
     private void Awake()
     {
-
         // Disable movement
         agent.isStopped = true;
 
@@ -85,7 +86,7 @@ public class RobotAgent : SteeringAgent
         if (activated)
         {
             // If there are objects in line of sight
-            if (robotLineOfSight.Objs.Count > 0)
+            if (punchingGlove && robotLineOfSight.Objs.Count > 0)
             {
                 foreach (GameObject obj in robotLineOfSight.Objs)
                 {
@@ -97,13 +98,17 @@ public class RobotAgent : SteeringAgent
                             transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
                             transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
                         }
+                        else if (transform.GetChild(0).GetComponent<Animator>().GetBool("Defend Front"))
+                        {
+                            transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", false);
+                        }
                     }
 
                     // Player in sight
                     if (obj.layer == LayerMask.NameToLayer("Player"))
                     {
                         // Player within attack range
-                        if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f)
+                        if (Vector3.Distance(robotLineOfSight.Objs[0].transform.position, transform.position) < distanceToAttack && attackTimer <= 0.0f && !transform.GetChild(0).GetComponent<Animator>().GetBool("Defend Front"))
                         {
                             if (currentState != RobotState.Attacking)
                             {
@@ -115,7 +120,7 @@ public class RobotAgent : SteeringAgent
                             }
                         }
                         // Player not in attack range
-                        else if (currentState != RobotState.Chasing)
+                        else if (canMove && currentState != RobotState.Chasing)
                         {
                             SwitchChase();
                         }
@@ -132,7 +137,7 @@ public class RobotAgent : SteeringAgent
             }
             else
             {
-                if (currentState != RobotState.Patrolling)
+                if (canMove && currentState != RobotState.Patrolling)
                 {
                     if (followTimer <= 0.0f)
                     {
@@ -240,6 +245,12 @@ public class RobotAgent : SteeringAgent
         robotLineOfSight.Activate();
     }
 
+    public void DisableMovement()
+    {
+        canMove = false;
+        SwitchIdle();
+    }
+
     public void Switch()
     {
         // Switch to expression screen
@@ -249,7 +260,7 @@ public class RobotAgent : SteeringAgent
 
     public void CheckDeath()
     {
-        if (!punchingGlove && !bearTrap)
+        if (!punchingGlove && !bearTrap && !laserDetection)
         {
             // Disable movement
             agent.isStopped = true;
@@ -272,6 +283,7 @@ public class RobotAgent : SteeringAgent
     {
         StartCoroutine(Stun());
         StartCoroutine(FryingPanForce());
+        CheckDeath();
     }
 
     IEnumerator Stun()

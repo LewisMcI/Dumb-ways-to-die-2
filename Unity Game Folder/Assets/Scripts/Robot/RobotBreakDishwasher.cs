@@ -35,6 +35,7 @@ public class RobotBreakDishwasher : MonoBehaviour
             Destroy(laserDetection);
             robotBearTrap.StopAllCoroutines();
             Destroy(robotBearTrap);
+            robot.DisableMovement();
             robot.CheckDeath();
 
             // Enable smoke

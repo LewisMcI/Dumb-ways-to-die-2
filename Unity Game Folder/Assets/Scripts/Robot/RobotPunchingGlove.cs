@@ -36,17 +36,15 @@ public class RobotPunchingGlove : MonoBehaviour
             transform.root.rotation = Quaternion.Slerp(transform.root.rotation, lookRot, 3.5f * Time.deltaTime);
 
             // Move boxing glove towards player
-            constraint.transform.position = Vector3.Lerp(constraint.transform.position, PlayerController.Instance.transform.position, 5f * Time.deltaTime);
+            constraint.transform.position = Vector3.Lerp(constraint.transform.position, PlayerController.Instance.transform.position, 8.5f * Time.deltaTime);
 
             // Collide with objects infront
-            if (Physics.SphereCast(endBone.position, 0.5f, endBone.forward, out hit, 0.5f))
+            if (Physics.SphereCast(endBone.position, 0.3f, endBone.forward, out hit, 0.5f))
             {
-                Debug.Log(hit.transform.name);
-                if (hit.transform.name != "Boxing Glove Rig" && hit.transform.gameObject.layer != 6)
+                if (hit.transform.name != "Boxing Glove Rig" && hit.transform.gameObject.layer != LayerMask.NameToLayer("Player"))
                 {
                     attack = false;
                     whamVFX.Play();
-                    Debug.Log("COLLIDED");
                 }
             }
 
@@ -68,7 +66,7 @@ public class RobotPunchingGlove : MonoBehaviour
             }
             else
             {
-                constraint.transform.localPosition = Vector3.Lerp(constraint.transform.localPosition, startingPos, 3f * Time.deltaTime);
+                constraint.transform.localPosition = Vector3.Lerp(constraint.transform.localPosition, startingPos, 2.5f * Time.deltaTime);
             }
         }
     }
