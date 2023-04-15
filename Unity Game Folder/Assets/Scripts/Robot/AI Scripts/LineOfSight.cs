@@ -48,17 +48,30 @@ public class LineOfSight : MonoBehaviour
     Mesh Sensor;
     // Getter for objects currently in Line of Sight.
     public List<GameObject> Objs { get => objs; }
+
+    [SerializeField]
+    Light sensorLight;
+    bool active = false;
     #endregion
 
     #region methods
     private void Awake()
     {
+        
         // Set starting scan interval
         scanInterval = 1.0f / scanFrequency;
     }
 
+    public void Activate()
+    {
+        sensorLight.enabled = true;
+        active = true;
+    }
+
     private void Update()
     {
+        if (!active)
+            return;
         scanTimer -= Time.deltaTime;
         if (scanTimer < 0)
         {
