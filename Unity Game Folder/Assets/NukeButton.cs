@@ -9,20 +9,25 @@ public class NukeButton : Interactable
     [SerializeField]
     private RobotAgent robot;
 
-    private Animator animator;
+    [SerializeField]
+    private Animator bombAnimator;
+    private Animator buttonAnimator;
 
     [SerializeField]
     Transform[] barricadeParents;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        buttonAnimator = GetComponent<Animator>();
     }
     public override void Action()
     {
         lights.SetActive(true);
-        animator.SetTrigger("activate");
+        buttonAnimator.SetTrigger("activate");
+        bombAnimator.SetTrigger("Open");
         StartCoroutine(ActivateRobot());
+        GetComponent<Collider>().enabled = false;
+        CanInteract = false;
     }
 
     IEnumerator ActivateRobot()
