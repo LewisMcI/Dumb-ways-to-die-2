@@ -149,12 +149,14 @@ public class InteractionSystem : MonoBehaviour
         objectToPickup.transform.parent = null;
         objectToPickup.GetComponent<Interactable>().Interacting = true;
         // Add physics
-        if (!objectToPickup.GetComponent<Rigidbody>())
-            objectToPickup.AddComponent<Rigidbody>();
+        Rigidbody rb = objectToPickup.GetComponent<Rigidbody>();
+        if (!rb)
+            rb = objectToPickup.AddComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         // Remove gravity
-        objectToPickup.GetComponent<Rigidbody>().useGravity = false;
+        rb.useGravity = false;
         // Add angular drag
-        objectToPickup.GetComponent<Rigidbody>().angularDrag = 5.0f;
+        rb.angularDrag = 5.0f;
         // Reset tag if tagged trapped
         if (objectToPickup.transform.tag == "Trapped")
             objectToPickup.transform.tag = "Untagged";
