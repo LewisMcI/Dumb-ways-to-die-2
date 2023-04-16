@@ -262,8 +262,8 @@ GameObject:
   - component: {fileID: 6565576231412482023}
   - component: {fileID: 6565576231412482045}
   - component: {fileID: 662668445788202014}
-  - component: {fileID: 6565576231412482020}
   - component: {fileID: 262705714}
+  - component: {fileID: 6565576231412482020}
   m_Layer: 0
   m_Name: Old_Phone_Stylised
   m_TagString: Untagged
@@ -420,26 +420,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6565576231412482020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6331204668447490746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogues:
-  - text: Good Morning Mr. Gavinson, this is Dr. Davidson.
-    speed: 0.5
-    holdAfterFinished: 4
-  - text: We haven't heard from you in a while so this is just a quick reminder to
-      be taking your medication.
-    speed: 0.5
-    holdAfterFinished: 4
 --- !u!114 &262705714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,6 +436,34 @@ MonoBehaviour:
   text: Answer
   keepRotation: 1
   ring: 0
+--- !u!114 &6565576231412482020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331204668447490746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Pick Up
+  keepRotation: 1
+  audioSource: {fileID: 0}
+  introAudio: {fileID: 0}
+  audio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  interactable: 0
+  dialogues:
+  - text: Good Morning Mr. Gavinson, this is Dr. Davidson.
+    speed: 0.5
+    holdAfterFinished: 4
+  - text: We haven't heard from you in a while so this is just a quick reminder to
+      be taking your medication.
+    speed: 0.5
+    holdAfterFinished: 4
 --- !u!1 &6581000908280086262
 GameObject:
   m_ObjectHideFlags: 0

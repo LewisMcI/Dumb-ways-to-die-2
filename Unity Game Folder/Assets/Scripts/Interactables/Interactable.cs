@@ -10,7 +10,7 @@ public class Interactable : MonoBehaviour
         Trap,
         Other
     }
-
+    [Header("Interactable Settings")]
     [SerializeField]
     private InteractableType type;
     [SerializeField]
@@ -19,6 +19,7 @@ public class Interactable : MonoBehaviour
     private bool keepRotation = true;
     private bool canInteract = true;
     private bool interacting = false;
+
     #endregion
 
     #region properties
