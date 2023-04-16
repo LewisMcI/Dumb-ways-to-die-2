@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.EnableCamera = false;
             GameManager.Instance.EnableControls = false;
-            EnableNewCamera(camera, delay);
+            EnableNewCamera(camera, delay / 2);
         }
         dead = true;
         Debug.Log(dead);
