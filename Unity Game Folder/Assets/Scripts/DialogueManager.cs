@@ -22,7 +22,7 @@ public class DialogueManager
     }
     void PlayMurmur(AudioSource audioSource, AudioClip audio)
     {
-        if (audio)
+        if (audio != null)
         {
             audioSource.pitch = Random.Range(0.90f, 1.10f);
             audioSource.PlayOneShot(audio);
@@ -32,11 +32,13 @@ public class DialogueManager
     {
         // Set GameUI to active
         gameUI.DialogueText.transform.parent.gameObject.SetActive(true);
-        if (introAudio)
+        if (introAudio != null)
+        { 
             audioSource.PlayOneShot(introAudio);
 
-        // Wait for intro audio to play
-        yield return new WaitForSeconds(introAudio.length);
+            // Wait for intro audio to play
+            yield return new WaitForSeconds(introAudio.length);
+        }
 
         // For each Dialogue
         foreach (Dialogue dialogue in dialogues)
@@ -66,7 +68,7 @@ public class DialogueManager
             yield return new WaitForSeconds(dialogue.holdAfterFinished);
         }
         // Play Outro Audio
-        if (outroAudio)
+        if (outroAudio != null)
         {
             audioSource.PlayOneShot(outroAudio);
 

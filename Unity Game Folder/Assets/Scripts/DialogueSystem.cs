@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class DialogueSystem : Interactable
 {
     [Header("Needed")]
     [SerializeField]
-    bool interactable = false;
-    [SerializeField]
-    AudioSource audioSource;
+    bool interactable;
     [SerializeField]
     AudioClip tickAudio;
 
@@ -28,28 +28,32 @@ public class DialogueSystem : Interactable
 
     bool complete = true;
 
+    AudioSource audioSource;
     DialogueManager dialogueManager = new DialogueManager();
-
+    
     public override void Action()
     {
         if (!interactable)
             return;
-        Debug.Log("Interacted");
-        TriggerDialogue();
-        Destroy(this);
+
+        if (TriggerDialogue())
+            interactable = false;
     }
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         if (!audioSource)
             throw new System.Exception("AudioSource not added to dialogue system");
     }
-    public void TriggerDialogue()
+    public bool TriggerDialogue()
     {
         if (dialogueManager.CanPlay())
-        { 
-            Debug.Log("CanPlay");
+        {
+            audioSource.volume = 0.1f;
             StartCoroutine(dialogueManager.StartDialogue(GameUI.Instance, dialogues.ToArray(), audioSource, tickAudio, introAudio, outroAudio));
+            return true;
         }
+        return false;
     }
 }
