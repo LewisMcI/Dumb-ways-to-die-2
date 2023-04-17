@@ -102,6 +102,7 @@ public class Explosive : Interactable
         yield return new WaitForFixedUpdate();
         force = (transform.forward * -2000.0f + transform.up * 1000.0f) * Time.deltaTime;
         GetComponent<Rigidbody>().AddForce(force);
+        robot.FryingPan.GetComponent<AudioSource>().Play();
     }
     #endregion
 }

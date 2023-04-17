@@ -276,6 +276,7 @@ public class RobotAgent : SteeringAgent
         Switch();
         Activated = true;
         robotLineOfSight.Activate();
+        GetComponent<AudioSource>().Play();
     }
 
     public void DisableMovement()
@@ -363,6 +364,7 @@ public class RobotAgent : SteeringAgent
         Debug.Log(text);
         codeText.SetActive(true);
         codeText.GetComponent<TextMeshPro>().text = text;
+        codeText.GetComponent<AudioSource>().Play();
     }
     #endregion
 }
