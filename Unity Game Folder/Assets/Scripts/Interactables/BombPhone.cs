@@ -60,10 +60,10 @@ public class BombPhone : Interactable
         {
             if (robot.Dead)
             {
-                int num1 = codeText.text.ToString()[0];
-                int num2 = codeText.text.ToString()[2];
-                int num3 = codeText.text.ToString()[4];
-                int num4 = codeText.text.ToString()[6];
+                int num1 = int.Parse(codeText.text.ToString()[0].ToString());
+                int num2 = int.Parse(codeText.text.ToString()[2].ToString());
+                int num3 = int.Parse(codeText.text.ToString()[4].ToString());
+                int num4 = int.Parse(codeText.text.ToString()[6].ToString());
                 int[] code = new int[4] { num1, num2, num3, num4 };
                 for (int i = 0; i < code.Length; i++)
                 {

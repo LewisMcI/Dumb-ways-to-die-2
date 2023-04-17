@@ -39,6 +39,8 @@ public class RobotBreakDishwasher : MonoBehaviour
 
             // Enable smoke
             smoke.gameObject.SetActive(true);
+
+            this.enabled = false;
         }
     }
     #endregion
