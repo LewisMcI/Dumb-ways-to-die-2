@@ -19,22 +19,15 @@ public class TrapCouch : Interactable
 
     [SerializeField]
     private VideoClip clip;
-
-    [SerializeField]
-    private bool trap;
-    private bool triggered;
     #endregion
 
     #region methods
     private void Update()
     {
-        if (!trap)
-        {
-            if (GameManager.Instance.taskManager.AllTasksComplete())
-                Text = "Watch TV";
-            else
-                Text = "I'm too stressed right now.";
-        }
+        if (GameManager.Instance.taskManager.AllTasksComplete())
+            Text = "Watch TV";
+        else
+            Text = "I'm too stressed right now.";
 
         // Trigger get up
         if (Input.GetButtonDown("Interact") && sitting && GameManager.Instance.EnableControls)
@@ -71,9 +64,11 @@ public class TrapCouch : Interactable
 
     public override void Action()
     {
-        if (!trap && !GameManager.Instance.taskManager.AllTasksComplete())
+        if (!GameManager.Instance.taskManager.AllTasksComplete())
             return;
-
+        // Disable controls
+        GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetBool("Sit", true);
         // Save transform
         originalPos = PlayerController.Instance.transform.position;
@@ -83,11 +78,6 @@ public class TrapCouch : Interactable
             StartCoroutine(TriggerTrap());
         else
             StartCoroutine(SetSitting());
-
-        if (trap && GameManager.Instance.taskManager.GetTask("Sit and Watch TV").stepsComplete == 0)
-        {
-            GameManager.Instance.taskManager.UpdateTaskCompletion("Sit and Watch TV");
-        }
     }
 
     IEnumerator Blink()
@@ -107,7 +97,7 @@ public class TrapCouch : Interactable
     IEnumerator TriggerTrap()
     {
         transition = true;
-        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0.0f, 500.0f, 0.0f), delay, SelectCam.couchCam);
+        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 100, 0), delay, SelectCam.couchCam);
         yield return new WaitForSeconds(delay);
         transition = false;
         // Enable collision
@@ -130,12 +120,10 @@ public class TrapCouch : Interactable
             tv.transform.GetChild(1).gameObject.SetActive(true);
         }
 
-        if (!trap)
-        {
-            StartCoroutine(Blink());
-            GameManager.Instance.EnableControls = false;
-            GameManager.Instance.EnableCamera = false;
-        }
+        GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
+
+        StartCoroutine(Blink());
     }
 
     IEnumerator UnsetSitting()

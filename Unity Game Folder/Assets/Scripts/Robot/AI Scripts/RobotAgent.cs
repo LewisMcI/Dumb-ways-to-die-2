@@ -3,9 +3,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Video;
-using UnityEngine.UI;
-using TMPro;
-using UnityEditor.Rendering.LookDev;
 
 public class RobotAgent : SteeringAgent
 {
@@ -43,10 +40,6 @@ public class RobotAgent : SteeringAgent
     [SerializeField]
     private GameObject fryingPan;
 
-    [SerializeField]
-    private GameObject codeText;
-    private int[] code;
-
     private bool canMove = true;
     private bool activated;
     #endregion
@@ -57,21 +50,9 @@ public class RobotAgent : SteeringAgent
         get { return activated; }
         set { activated = value; }
     }
-    public RobotPunchingGlove PunchingGlove
-    {
-        set { punchingGlove = value; }
-    }
-    public RobotBearTrap BearTrap
-    {
-        set { bearTrap = value; }
-    }
     public GameObject FryingPan
     {
         get { return fryingPan; }
-    }
-    public int[] Code
-    {
-        get { return code; }
     }
     #endregion
 
@@ -84,8 +65,6 @@ public class RobotAgent : SteeringAgent
         // Switch to static screen
         tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
-
-        code = new int[4];
     }
 
     IEnumerator TransitionTV(VideoClip clip)
@@ -104,8 +83,6 @@ public class RobotAgent : SteeringAgent
 
     protected override void CooperativeArbitration()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            RevealCode();
         if (activated)
         {
             if (GameManager.Instance.IsPaused)
@@ -276,7 +253,6 @@ public class RobotAgent : SteeringAgent
         Switch();
         Activated = true;
         robotLineOfSight.Activate();
-        GetComponent<AudioSource>().Play();
     }
 
     public void DisableMovement()
@@ -292,10 +268,32 @@ public class RobotAgent : SteeringAgent
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
     }
 
+    public void CheckDeath()
+    {
+        if (!punchingGlove && !bearTrap && !laserDetection)
+        {
+            // Disable movement
+            agent.isStopped = true;
+
+            // Disable active behaviours
+            foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
+            {
+                currentBehaviour.enabled = false;
+            }
+
+            // Switch to static screen
+            tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
+            tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
+            activated = false;
+        }
+    }
+
     public void TriggerStun()
     {
         StartCoroutine(Stun());
         StartCoroutine(FryingPanForce());
+        CheckDeath();
     }
 
     IEnumerator Stun()
@@ -328,43 +326,6 @@ public class RobotAgent : SteeringAgent
         force = (fryingPan.transform.forward * -10000.0f + fryingPan.transform.up * 10000.0f) * Time.deltaTime;
         fryingPan.GetComponent<Rigidbody>().AddForce(force);
         fryingPan = null;
-        CheckDeath();
-    }
-
-    public void CheckDeath()
-    {
-        if (punchingGlove == null && fryingPan == null && bearTrap == null)
-        {
-            // Disable movement
-            agent.isStopped = true;
-
-            // Disable active behaviours
-            foreach (SteeringBehaviour currentBehaviour in steeringBehvaiours)
-            {
-                currentBehaviour.enabled = false;
-            }
-
-            // Switch to static screen
-            tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
-            tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
-            GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
-            activated = false;
-
-            RevealCode();
-        }
-    }
-
-    private void RevealCode()
-    {
-        code[0] = Random.Range(0, 10);
-        code[1] = Random.Range(0, 10);
-        code[2] = Random.Range(0, 10);
-        code[3] = Random.Range(0, 10);
-        string text = code[0].ToString() + " " + code[1].ToString() + " " + code[2].ToString() + " " + code[3].ToString();
-        Debug.Log(text);
-        codeText.SetActive(true);
-        codeText.GetComponent<TextMeshPro>().text = text;
-        codeText.GetComponent<AudioSource>().Play();
     }
     #endregion
 }
