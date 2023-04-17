@@ -19,6 +19,8 @@ public class BombPhone : Interactable
     private CodeType codeType;
     [SerializeField]
     private TextMeshPro codeText;
+    [SerializeField]
+    private RobotAgent robot;
     #endregion
 
     #region methods
@@ -29,26 +31,68 @@ public class BombPhone : Interactable
 
     public override void Action()
     {
+        // Input
         switch (codeType)
         {
             case CodeType.Number:
                 if (codeText.text.Length < 8)
                 {
                     codeText.text = codeText.GetComponent<TextMeshPro>().text + value.ToString() + " ";
-                    GetComponent<Animator>().SetTrigger("Press");
+                    StartCoroutine(Click());
                     GetComponent<AudioSource>().Play();
                 }
                 break;
             case CodeType.Delete:
-                codeText.text = codeText.text.Substring(0, codeText.text.Length - 1);
-                GetComponent<Animator>().SetTrigger("Press");
-                GetComponent<AudioSource>().Play();
+                if (codeText.text.Length >= 2)
+                {
+                    codeText.text = codeText.text.Substring(0, codeText.text.Length - 2);
+                    StartCoroutine(Click());
+                    GetComponent<AudioSource>().Play();
+                }
                 break;
             case CodeType.Other:
-                GetComponent<Animator>().SetTrigger("Press");
+                StartCoroutine(Click());
                 GetComponent<AudioSource>().Play();
                 break;
         }
+        // Code complete
+        if (codeText.text.Length >= 8)
+        {
+            if (robot.Dead)
+            {
+                int num1 = codeText.text.ToString()[0];
+                int num2 = codeText.text.ToString()[2];
+                int num3 = codeText.text.ToString()[4];
+                int num4 = codeText.text.ToString()[6];
+                int[] code = new int[4] { num1, num2, num3, num4 };
+                for (int i = 0; i < code.Length; i++)
+                {
+                    if (code[i] != robot.Code[i])
+                    {
+                        ReduceTime();
+                        return;
+                    }
+                }
+                Debug.Log("SUCCESS");
+            }
+            else
+            {
+                ReduceTime();
+            }
+        }
+    }
+
+    private void ReduceTime()
+    {
+        Debug.Log("FAIL");
+    }
+
+    IEnumerator Click()
+    {
+        float startingY = transform.localPosition.y;
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, -0.02f, transform.localPosition.z), 50.0f * Time.deltaTime);
+        yield return new WaitForSeconds(0.1f);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, startingY, transform.localPosition.z), 50.0f * Time.deltaTime);
     }
     #endregion
 }

@@ -48,7 +48,9 @@ public class RobotAgent : SteeringAgent
     private int[] code;
 
     private bool canMove = true;
-    private bool activated;
+    private bool activated, dead;
+
+    public static RobotAgent Instance;
     #endregion
 
     #region properties
@@ -56,6 +58,10 @@ public class RobotAgent : SteeringAgent
     {
         get { return activated; }
         set { activated = value; }
+    }
+    public bool Dead
+    {
+        get { return dead; }
     }
     public RobotPunchingGlove PunchingGlove
     {
@@ -86,6 +92,8 @@ public class RobotAgent : SteeringAgent
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
 
         code = new int[4];
+
+        Instance = this;
     }
 
     IEnumerator TransitionTV(VideoClip clip)
@@ -349,6 +357,7 @@ public class RobotAgent : SteeringAgent
             tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
             GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
             activated = false;
+            dead = true;
 
             RevealCode();
         }
