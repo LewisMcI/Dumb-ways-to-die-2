@@ -16,6 +16,9 @@ public class NukeButton : Interactable
     [SerializeField]
     Transform[] barricadeParents;
 
+    [SerializeField]
+    private BombTimer timer;
+
     private void Awake()
     {
         buttonAnimator = GetComponent<Animator>();
@@ -26,6 +29,7 @@ public class NukeButton : Interactable
         buttonAnimator.SetTrigger("activate");
         bombAnimator.SetTrigger("Open");
         StartCoroutine(ActivateRobot());
+        StartCoroutine(ActivateTimer());
         GetComponent<Collider>().enabled = false;
         CanInteract = false;
     }
@@ -43,7 +47,12 @@ public class NukeButton : Interactable
             }
         }
         robot.Activate();
+    }
 
+    IEnumerator ActivateTimer()
+    {
+        yield return new WaitForSeconds(1.3f);
+        timer.StartTimer();
         Destroy(this);
     }
 }

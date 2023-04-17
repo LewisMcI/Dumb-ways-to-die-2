@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BombPhone : Interactable
 {
@@ -13,12 +14,27 @@ public class BombPhone : Interactable
         Other
     }
 
+    enum LightColor
+    {
+        Off,
+        Red,
+        Green
+    }
+
     #region fields
     private string value;
     [SerializeField]
     private CodeType codeType;
     [SerializeField]
     private TextMeshPro codeText;
+    [SerializeField]
+    private BombTimer timer;
+    [SerializeField]
+    private AudioSource wrongSFX, correctSFX;
+    [SerializeField]
+    private GameObject lightBulb;
+    [SerializeField]
+    private Material red, green, off;
     [SerializeField]
     private RobotAgent robot;
     #endregion
@@ -65,26 +81,44 @@ public class BombPhone : Interactable
                 int num3 = int.Parse(codeText.text.ToString()[4].ToString());
                 int num4 = int.Parse(codeText.text.ToString()[6].ToString());
                 int[] code = new int[4] { num1, num2, num3, num4 };
+                // Check numbers
                 for (int i = 0; i < code.Length; i++)
                 {
+                    // Incorrect
                     if (code[i] != robot.Code[i])
                     {
                         ReduceTime();
+                        StartCoroutine(ResetCode());
                         return;
                     }
                 }
-                Debug.Log("SUCCESS");
+                // Correct
+                StartCoroutine(ChangeLight(LightColor.Green));
+                correctSFX.Play();
             }
             else
             {
                 ReduceTime();
+                StartCoroutine(ResetCode());
+                timer.StopTimer();
             }
         }
     }
 
     private void ReduceTime()
     {
-        Debug.Log("FAIL");
+        timer.CurrentTime -= 30.0f;
+        if (timer.CurrentTime < 0.0f)
+            timer.CurrentTime = 0.0f;
+    }
+
+    IEnumerator ResetCode()
+    {
+        codeText.text = "* * * * ";
+        yield return new WaitForSeconds(0.25f);
+        codeText.text = "";
+        wrongSFX.Play();
+        StartCoroutine(ChangeLight(LightColor.Red));
     }
 
     IEnumerator Click()
@@ -93,6 +127,26 @@ public class BombPhone : Interactable
         transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, -0.02f, transform.localPosition.z), 50.0f * Time.deltaTime);
         yield return new WaitForSeconds(0.1f);
         transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, startingY, transform.localPosition.z), 50.0f * Time.deltaTime);
+    }
+
+    IEnumerator ChangeLight(LightColor color)
+    {
+        switch (color)
+        {
+            case LightColor.Green:
+                lightBulb.GetComponent<Renderer>().material = green;
+                break;
+            case LightColor.Red:
+                lightBulb.GetComponent<Renderer>().material = red;
+                break;
+            case LightColor.Off:
+                lightBulb.GetComponent<Renderer>().material = off;
+                break;
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        lightBulb.GetComponent<Renderer>().material = off;
     }
     #endregion
 }
