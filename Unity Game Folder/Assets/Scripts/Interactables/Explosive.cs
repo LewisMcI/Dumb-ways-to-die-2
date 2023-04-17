@@ -87,6 +87,7 @@ public class Explosive : Interactable
     {
         // Remove
         rootBone.transform.parent = null;
+        robot.PunchingGlove = null;
         Destroy(punchingGlove);
         robot.CheckDeath();
         // Drop

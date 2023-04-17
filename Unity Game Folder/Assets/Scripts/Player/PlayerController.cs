@@ -96,14 +96,6 @@ public class PlayerController : MonoBehaviour
             sprinting = true;
         else
             sprinting = false;
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            EnableRagdoll();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ResetCharacterAfterRagdoll();
-        }
 
         if (!dead)
         {
