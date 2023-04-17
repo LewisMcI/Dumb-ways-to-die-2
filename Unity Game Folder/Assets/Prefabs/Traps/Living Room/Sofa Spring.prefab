@@ -470,7 +470,6 @@ MonoBehaviour:
   delay: 1
   tv: {fileID: 8157113418287672349}
   clip: {fileID: 32900000, guid: 18f864193ee27fb4b9d0b7f45035260b, type: 3}
-  trap: 1
 --- !u!1 &3207659918624293362
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +536,6 @@ MonoBehaviour:
   delay: 1
   tv: {fileID: 8157113418287672349}
   clip: {fileID: 32900000, guid: 18f864193ee27fb4b9d0b7f45035260b, type: 3}
-  trap: 1
 --- !u!1 &3294397800855841706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,6 +1248,7 @@ GameObject:
   - component: {fileID: 2775374459743717475}
   - component: {fileID: 4139337341134969174}
   - component: {fileID: 7583083226548485904}
+  - component: {fileID: 3632641337363269054}
   m_Layer: 0
   m_Name: Tv
   m_TagString: Untagged
@@ -1305,3 +1304,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08795283, y: 0.049665865, z: 0.05222636}
   m_Center: {x: 0.002444495, y: 0.070087224, z: 0.0008142539}
+--- !u!114 &3632641337363269054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157113418287672349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b488df09d76c2c4ebc70344459161a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Turn On
+  keepRotation: 1
+  clips: []
+  trap: 1

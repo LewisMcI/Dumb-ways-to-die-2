@@ -74,9 +74,7 @@ public class RobotLaserDetection : MonoBehaviour
                         transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", true);
                         transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", false);
                     }
-
                     ChangeRed();
-                    GetComponent<AudioSource>().Play();
 
                     detected = true;
                 }

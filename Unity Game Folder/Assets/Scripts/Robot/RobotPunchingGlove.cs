@@ -46,7 +46,6 @@ public class RobotPunchingGlove : MonoBehaviour
                 {
                     attack = false;
                     whamVFX.Play();
-                    GetComponent<AudioSource>().Play();
                 }
             }
 
@@ -57,7 +56,6 @@ public class RobotPunchingGlove : MonoBehaviour
                 PlayerController.Instance.ThrowPlayerInRelativeDirection(25.0f, Direction.backwards, 1.0f, true);
                 attack = false;
                 whamVFX.Play();
-                GetComponent<AudioSource>().Play();
             }
         }
         else
