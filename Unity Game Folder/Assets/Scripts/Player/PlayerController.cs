@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private GameObject placeholderCam;
 
     public Transform CameraTransform { get => playerCam.transform; }
+    [SerializeField]
     private float restartTimer = 5f;
     private Rigidbody[] limbs;
     private bool dead;

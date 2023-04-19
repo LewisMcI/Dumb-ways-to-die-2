@@ -21,7 +21,16 @@ public class MakeCake : Interactable
     private GameObject smokeVFX;
 
     [SerializeField]
-    private VisualEffect fireVfx;
+    private VisualEffect[] fireVfxs;
+    [SerializeField]
+    AudioSource fireSFX;
+    [SerializeField]
+    AudioClip explosionSFX;
+
+    [SerializeField]
+    LayerMask playerLayer;
+
+    private bool fired = false;
     #endregion
 
     #region methods
@@ -33,9 +42,10 @@ public class MakeCake : Interactable
         iced = transform.GetChild(3).gameObject;
         CanInteract = false;
     }
-
     private void Update()
     {
+        if (fired)
+            return;
         if (!started && added && !ovenDoor.GetComponent<PivotSettings>().open)
         {
             // Disable door interaction
@@ -53,18 +63,47 @@ public class MakeCake : Interactable
             oven.GetComponent<Animator>().SetBool("Switch", false);
 
             if (deadly)
-            {
-                // Check if hit
-                fireVfx.Play();
-                PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0, 10, -10), 1.0f, SelectCam.toasterCam);
-                Destroy(gameObject);
+             {
+                fired = true;
+                if (Physics.CheckBox(transform.position, new Vector3(1, 1, 4), Quaternion.identity, playerLayer))
+                    StartCoroutine(KillPlayer(1.0f));
+                else
+                {
+                    StartFire();
+                }
             }
 
             CanInteract = true;
             opened = true;
         }
     }
+    IEnumerator KillPlayer(float delay)
+    {
+        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(0.0f, 20.0f, -30.0f), delay * 1.1f, SelectCam.toasterCam);
+        
+        yield return new WaitForSeconds(delay);
+        StartFire();
+        // Disable controls
+        GameManager.Instance.EnableControls = false;
+        // Start player fire fx
+        foreach (Transform child in PlayerController.Instance.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == "FireVFX")
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        smokeVFX.SetActive(false);
+        Destroy(this);
+    }
 
+    void StartFire()
+    {
+        fireSFX.Play();
+        fireSFX.PlayOneShot(explosionSFX);
+        foreach (VisualEffect fireVfx in fireVfxs)
+            fireVfx.Play();
+    }
     IEnumerator StartTimer()
     {
         // Wait to cook
@@ -80,9 +119,10 @@ public class MakeCake : Interactable
         
         if (!opened)
         {
-            smokeVFX.SetActive(true);
             // Mark as deadly
             deadly = true;
+
+            smokeVFX.SetActive(true);
         }
     }
 
