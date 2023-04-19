@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 527.6355, g: 341.2002, b: 361.5652, a: 1}
+  m_IndirectSpecularColor: {r: 539.5669, g: 350.28076, b: 368.53955, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,6 +134,130 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0761f7f79da18749adc7a8d16463294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &154476746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5636536950157133357, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+  m_PrefabInstance: {fileID: 260522978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &154476751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154476746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Interact
+  keepRotation: 1
+  interactable: 1
+  tickAudio: {fileID: 8300000, guid: 372e6a13e21b5304db355ee947298f4b, type: 3}
+  introAudio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  dialogues:
+  - text: Wait is that me? I dont remember taking this picture
+    speed: 1
+    holdAfterFinished: 3
+--- !u!82 &154476752
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154476746}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &160865762 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3866830963161398182, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
@@ -155,13 +279,151 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.08, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1001 &174949426
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6408480368448054864, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1292835217949135534, guid: 4943421cca9196f498d89755d03d9600, type: 2}
+    - target: {fileID: 6408480368448054866, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0075
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368448054867, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_text
+      value: "May 17th 19XX\r\n\r\nI couldn\u2019t resist them, they forced the medication
+        down my throat and made me swallow. I tried to make myself throw up but it
+        was hopeless. \r\nI was right about that horrible medication, after I took
+        it I went to sleep and was like that for days, but as I was sleeping I saw
+        it. There was a man in my house. He looked like me and sounded similar to
+        me but it wasn\u2019t me. I know it wasn\u2019t. It was another one of that
+        demon doctor's experiments. I know it was. He took my DNA and cloned me and
+        is trying to make it replace me so that they can experiment on me more, and
+        that medication is just to sedate me until they can capture me.\r\nBut I
+        won\u2019t let them kidnap and replace me. I\u2019ve noticed that there are
+        times when he doesn\u2019t show up as much when the medication is out. That
+        is my best time to plan. When he is away that gives me enough time to work
+        on my ways of getting rid of him. I\u2019m predicting that the next time
+        I will get this chance is in one month's time. That will be my next and most
+        likely final chance to get rid of the strange man once and for all.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368448054867, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_fontSize
+      value: 0.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368448054867, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4943421cca9196f498d89755d03d9600, type: 2}
+    - target: {fileID: 6408480368448054867, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368448054867, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1292835217949135534, guid: 4943421cca9196f498d89755d03d9600, type: 2}
+    - target: {fileID: 6408480368792548568, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_text
+      value: "March 12th 19XX\r\n\r\nThey\u2019re lying to me. They have to be. All
+        those doctors, the things they\u2019re saying, they think I\u2019m crazy!\r\nThey
+        don\u2019t know what they\u2019re talking about, saying I\u2019m \u201Csuffering
+        from psychosis\u201D and that they want to give me some experimental medication
+        that can help it. \r\nTHEY\u2019RE LYING!\r\nI know it. They just want to
+        pump me full of drugs and run tests on me. I saw the looks on their faces.
+        They were like demons looking at me as if I was just their next little play
+        thing. Well I won\u2019t let them drug me up. Not if I can help it.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368792548568, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_fontSize
+      value: 0.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368792548568, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4943421cca9196f498d89755d03d9600, type: 2}
+    - target: {fileID: 6408480368792548568, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368792548568, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1292835217949135534, guid: 4943421cca9196f498d89755d03d9600, type: 2}
+    - target: {fileID: 6408480368792548568, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368792548569, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1292835217949135534, guid: 4943421cca9196f498d89755d03d9600, type: 2}
+    - target: {fileID: 6408480368792548571, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0075
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.430629
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6798127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.918046
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052740, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408480368835052743, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
+      propertyPath: m_Name
+      value: Readable Book
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8224cdded57eb294bb35d64596bc98fe, type: 3}
 --- !u!43 &201937929
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030254
+  m_Name: pb_Mesh-58898
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -335,7 +597,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030266
+  m_Name: pb_Mesh-58910
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -816,7 +1078,7 @@ PrefabInstance:
       objectReference: {fileID: 595104205}
     - target: {fileID: 8602830096900560622, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8602830096900560622, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_LocalPosition.x
@@ -881,6 +1143,8 @@ GameObject:
   - component: {fileID: 327353595}
   - component: {fileID: 327353594}
   - component: {fileID: 327353593}
+  - component: {fileID: 327353598}
+  - component: {fileID: 327353597}
   m_Layer: 0
   m_Name: Blueprint Bomb
   m_TagString: Untagged
@@ -967,6 +1231,125 @@ Transform:
   m_Father: {fileID: 2095008048}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 89.266, y: -107.781, z: 432.015}
+--- !u!114 &327353597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327353592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Interact
+  keepRotation: 1
+  interactable: 1
+  tickAudio: {fileID: 8300000, guid: 372e6a13e21b5304db355ee947298f4b, type: 3}
+  introAudio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  dialogues:
+  - text: Plans for a bomb!? I really don't like this
+    speed: 1
+    holdAfterFinished: 3
+--- !u!82 &327353598
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327353592}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &376596162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1454,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030218
+  m_Name: pb_Mesh-58862
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1245,7 +1628,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030182
+  m_Name: pb_Mesh-58826
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1470,7 +1853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3529438518434249105, guid: cda2a384bf11e3949a08451dc255286c, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3529438518434249105, guid: cda2a384bf11e3949a08451dc255286c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1688,13 +2071,137 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &494417967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7146356830987937371, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+  m_PrefabInstance: {fileID: 260522978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &494417972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494417967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Interact
+  keepRotation: 1
+  interactable: 1
+  tickAudio: {fileID: 8300000, guid: 372e6a13e21b5304db355ee947298f4b, type: 3}
+  introAudio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  dialogues:
+  - text: Wait is that me? I dont remember taking this picture
+    speed: 1
+    holdAfterFinished: 3
+--- !u!82 &494417973
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494417967}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!43 &534627958
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099398
+  m_Name: pb_Mesh-128150
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1884,6 +2391,8 @@ GameObject:
   - component: {fileID: 565994413}
   - component: {fileID: 565994412}
   - component: {fileID: 565994411}
+  - component: {fileID: 565994416}
+  - component: {fileID: 565994415}
   m_Layer: 0
   m_Name: Blueprint Robot
   m_TagString: Untagged
@@ -1970,6 +2479,125 @@ Transform:
   m_Father: {fileID: 2095008048}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 89.281, y: -90, z: 450}
+--- !u!114 &565994415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565994410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Interact
+  keepRotation: 1
+  interactable: 1
+  tickAudio: {fileID: 8300000, guid: 372e6a13e21b5304db355ee947298f4b, type: 3}
+  introAudio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  dialogues:
+  - text: What are these plans for? A robot? What the hell is going on
+    speed: 1
+    holdAfterFinished: 3
+--- !u!82 &565994416
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565994410}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &595104205 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 340020097941546492, guid: ab0c194681d596e46880eca698c627ba, type: 3}
@@ -2073,7 +2701,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030170
+  m_Name: pb_Mesh-58814
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2247,7 +2875,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030134
+  m_Name: pb_Mesh-58778
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2638,7 +3266,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099386
+  m_Name: pb_Mesh-128138
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2822,7 +3450,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099374
+  m_Name: pb_Mesh-128126
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3006,7 +3634,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030146
+  m_Name: pb_Mesh-58790
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3174,6 +3802,130 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &904914368 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 583508287109227090, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+  m_PrefabInstance: {fileID: 260522978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &904914373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904914368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Interact
+  keepRotation: 1
+  interactable: 1
+  tickAudio: {fileID: 8300000, guid: 372e6a13e21b5304db355ee947298f4b, type: 3}
+  introAudio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  dialogues:
+  - text: Wait is that me? I dont remember taking this picture
+    speed: 1
+    holdAfterFinished: 3
+--- !u!82 &904914374
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904914368}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &961138149
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,7 +4084,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9095638
+  m_Name: pb_Mesh-124282
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3513,7 +4265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 357208897403792318, guid: b2a3854f607d5c14fbc23e1b3a19dbdb, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 357208897403792318, guid: b2a3854f607d5c14fbc23e1b3a19dbdb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3563,7 +4315,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030206
+  m_Name: pb_Mesh-58850
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3737,7 +4489,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9098246
+  m_Name: pb_Mesh-126998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4510,7 +5262,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9102494
+  m_Name: pb_Mesh-131344
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4668,6 +5420,130 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1214095608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5076889565927873647, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+  m_PrefabInstance: {fileID: 260522978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1214095613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214095608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b9f8eb1b27c254691a665ce05c2286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  text: Interact
+  keepRotation: 1
+  interactable: 1
+  tickAudio: {fileID: 8300000, guid: 372e6a13e21b5304db355ee947298f4b, type: 3}
+  introAudio: {fileID: 0}
+  outroAudio: {fileID: 0}
+  dialogues:
+  - text: Wait is that me? I dont remember taking this picture
+    speed: 1
+    holdAfterFinished: 3
+--- !u!82 &1214095614
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214095608}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8216744889737127976, guid: 2b788fdee5035aa42bac424bb453f45d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1259229970 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7525079420838077465, guid: ab0c194681d596e46880eca698c627ba, type: 3}
@@ -4694,7 +5570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515184893434683030, guid: b8c77110193445946be33c067a183b0d, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2515184893434683030, guid: b8c77110193445946be33c067a183b0d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4780,7 +5656,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030158
+  m_Name: pb_Mesh-58802
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4957,7 +5833,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4746636354660734781, guid: f01e26f196b7d564dabc21a8411270ba, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4746636354660734781, guid: f01e26f196b7d564dabc21a8411270ba, type: 3}
       propertyPath: m_LocalScale.x
@@ -5035,7 +5911,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030242
+  m_Name: pb_Mesh-58886
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5361,7 +6237,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1629778569
 Mesh:
@@ -5369,7 +6245,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099358
+  m_Name: pb_Mesh-128110
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5543,7 +6419,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030278
+  m_Name: pb_Mesh-58922
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5717,7 +6593,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030230
+  m_Name: pb_Mesh-58874
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5891,7 +6767,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099460
+  m_Name: pb_Mesh-128212
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6125,7 +7001,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1832546330
 PrefabInstance:
@@ -6168,7 +7044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3866830963161398184, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3866830963161398184, guid: dce6255722bb18845a0908d3708d1d4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6321,7 +7197,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099346
+  m_Name: pb_Mesh-128098
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6514,7 +7390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5294591435691724237, guid: ab0c194681d596e46880eca698c627ba, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5294591435691724237, guid: ab0c194681d596e46880eca698c627ba, type: 3}
       propertyPath: m_LocalScale.x
@@ -6580,7 +7456,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9030194
+  m_Name: pb_Mesh-58838
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6839,7 +7715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525523162020161419, guid: 490e36578d84ad04cb82618f97ca98c7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3525523162020161419, guid: 490e36578d84ad04cb82618f97ca98c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6962,7 +7838,7 @@ Transform:
   - {fileID: 1856798703}
   - {fileID: 376596163}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2120960425
 Mesh:
@@ -6970,7 +7846,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9099158
+  m_Name: pb_Mesh-127910
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7596,7 +8472,7 @@ Transform:
   - {fileID: 819493028208639238}
   - {fileID: 5945308988415419670}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!4 &7974863831518660448
 Transform:
