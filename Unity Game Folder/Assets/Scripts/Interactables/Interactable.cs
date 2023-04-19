@@ -8,7 +8,8 @@ public class Interactable : MonoBehaviour
         Pickup,
         Pivot,
         Trap,
-        Other
+        Other,
+        Readable
     }
     [Header("Interactable Settings")]
     [SerializeField]

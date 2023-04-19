@@ -6,7 +6,7 @@ public class InteractionSystem : MonoBehaviour
 {
     #region fields
     [SerializeField]
-    private Transform pickupTransform;
+    private Transform pickupTransform, closeTransform;
     private GameObject pickedUpObject;
     private int layer;
     [SerializeField]
@@ -62,8 +62,13 @@ public class InteractionSystem : MonoBehaviour
         // Pick up physics
         if (pickedUpObject)
         {
-            Vector3 desiredVelocity = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Normalize(pickupTransform.position - pickedUpObject.GetComponent<Renderer>().bounds.center) : Vector3.Normalize(pickupTransform.position - pickedUpObject.transform.position);
-            float distance = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Distance(pickedUpObject.GetComponent<Renderer>().bounds.center, pickupTransform.position) : Vector3.Distance(pickedUpObject.transform.position, pickupTransform.position);
+            Transform target = pickupTransform;
+
+            if (pickedUpObject.GetComponent<Interactable>().Type == Interactable.InteractableType.Readable)
+                target = closeTransform;
+
+            Vector3 desiredVelocity = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Normalize(target.position - pickedUpObject.GetComponent<Renderer>().bounds.center) : Vector3.Normalize(target.position - pickedUpObject.transform.position);
+            float distance = (pickedUpObject.GetComponent<Renderer>()) ? Vector3.Distance(pickedUpObject.GetComponent<Renderer>().bounds.center, target.position) : Vector3.Distance(pickedUpObject.transform.position, target.position);
             // Distance before slowing down
             float stopDistance = 2f;
             // Speed to reach object
@@ -87,7 +92,8 @@ public class InteractionSystem : MonoBehaviour
             {
                 switch (hit.transform.GetComponent<Interactable>().Type)
                 {
-                    case Interactable.InteractableType.Pickup:
+                    case Interactable.InteractableType.Pickup: 
+                    case Interactable.InteractableType.Readable:
                         GameUI.Instance.InteractText.text = hit.transform.GetComponent<Interactable>().Text;
                         GameUI.Instance.DotAnim.SetBool("Interactable", true);
                         if (Input.GetButtonDown("Interact"))
