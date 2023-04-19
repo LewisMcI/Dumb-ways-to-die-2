@@ -7,20 +7,36 @@ public class Phone : Interactable
     #region fields
     [SerializeField]
     private bool ring;
+
+    private string initText;
+    private DialogueSystem dialogueSystem;
     #endregion
 
     #region methods
     private void Awake()
     {
+        initText = Text;
+        dialogueSystem = GetComponent<DialogueSystem>();
         if (ring)
             StartCoroutine(StartAlarm());
         else
             CanInteract = false;
     }
+    private void Update()
+    {
+        if (!dialogueSystem.dialogueManager.CanPlay())
+            Text = "";
+        else
+            Text = initText;
+    }
+
 
     public override void Action()
     {
-        GetComponent<DialogueSystem>().TriggerDialogue();
+        if (!dialogueSystem.TryTriggerDialogue())
+        {
+            return;
+        }
         // Stop audio
         GetComponent<AudioSource>().Stop();
         // Stop animation

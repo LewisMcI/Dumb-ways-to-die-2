@@ -25,28 +25,37 @@ public class DialogueSystem : Interactable
     [SerializeField]
     public List<Dialogue> dialogues = new List<Dialogue>();
 
-
+    string initialText;
     bool complete = true;
 
     AudioSource audioSource;
-    DialogueManager dialogueManager = new DialogueManager();
+    public DialogueManager dialogueManager = new DialogueManager();
     
     public override void Action()
     {
         if (!interactable)
             return;
 
-        if (TriggerDialogue())
-            interactable = false;
+        if (TryTriggerDialogue())
+            CanInteract = false;
+    }
+
+    private void Update()
+    {
+        if (!dialogueManager.CanPlay())
+            Text = "";
+        else
+            Text = initialText;
     }
 
     private void Awake()
     {
+        initialText = Text;
         audioSource = GetComponent<AudioSource>();
         if (!audioSource)
             throw new System.Exception("AudioSource not added to dialogue system");
     }
-    public bool TriggerDialogue()
+    public bool TryTriggerDialogue()
     {
         if (dialogueManager.CanPlay())
         {

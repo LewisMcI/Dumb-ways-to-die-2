@@ -76,8 +76,9 @@ public class DialogueManager
         }
 
         // Disable GameUI
-        GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(false);
+
         GameUI.Instance.DialogueText.text = "";
+        GameUI.Instance.DialogueText.transform.parent.gameObject.SetActive(false);
 
         // Stop Audio
         audioSource.Stop();
