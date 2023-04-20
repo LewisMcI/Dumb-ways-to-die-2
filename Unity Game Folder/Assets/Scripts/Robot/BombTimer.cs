@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class BombTimer : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class BombTimer : MonoBehaviour
     private float currentTime;
     [SerializeField]
     private TextMeshPro timerText;
+    [SerializeField]
+    private VideoPlayer video;
 
     private bool ended;
     #endregion
@@ -64,7 +67,15 @@ public class BombTimer : MonoBehaviour
         // Timer finished
         DisplayTime(currentTime);
         ended = true;
+        PlayNukeScene();
         yield return null;
+    }
+
+    private void PlayNukeScene()
+    {
+        GameManager.Instance.EnableControls = false;
+        GameManager.Instance.EnableCamera = false;
+        video.enabled = true;
     }
     #endregion
 }
