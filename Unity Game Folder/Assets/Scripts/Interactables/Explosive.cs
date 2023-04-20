@@ -16,12 +16,22 @@ public class Explosive : Interactable
     private GameObject rootBone;
     [SerializeField]
     private RobotPunchingGlove punchingGlove;
+
+    // Respawn
+    [SerializeField]
+    private bool respawnable = true;
+    private Vector3 initPosition;
+    private Quaternion initRotation;
+
+
     private RobotAgent robot;
     #endregion
 
     #region methods
     private void Awake()
     {
+        initPosition = transform.position;
+        initRotation = transform.rotation;
         robot = punchingGlove.transform.root.GetComponent<RobotAgent>();
         StartCoroutine(ActivateExplosive());
     }
@@ -45,6 +55,7 @@ public class Explosive : Interactable
         if (!GetComponent<BoxCollider>().isTrigger)
             return;
 
+        Instantiate(gameObject, initPosition, initRotation, transform.parent).GetComponent<BoxCollider>().isTrigger = false;
         // Deflect if frying pan enabled
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && robot.FryingPan)
         {
