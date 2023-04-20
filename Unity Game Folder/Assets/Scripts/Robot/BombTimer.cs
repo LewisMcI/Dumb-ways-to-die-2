@@ -14,6 +14,8 @@ public class BombTimer : MonoBehaviour
     private TextMeshPro timerText;
     [SerializeField]
     private VideoPlayer video;
+    [SerializeField]
+    private Animator bombAnimator;
 
     private bool ended;
     #endregion
@@ -75,6 +77,19 @@ public class BombTimer : MonoBehaviour
     {
         GameManager.Instance.EnableControls = false;
         GameManager.Instance.EnableCamera = false;
+
+        float delay = 4.0f;
+        PlayerController.Instance.EnableNewCamera(SelectCam.outsideCam, delay);
+        StartCoroutine(EnableVideo(delay));
+    }
+
+    IEnumerator EnableVideo(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Play Anim
+        bombAnimator.SetTrigger("Fire");
+        yield return new WaitForSeconds(2.0f);
         video.enabled = true;
     }
     #endregion
