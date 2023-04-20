@@ -112,8 +112,6 @@ public class RobotAgent : SteeringAgent
 
     protected override void CooperativeArbitration()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            RevealCode();
         if (activated)
         {
             if (GameManager.Instance.IsPaused)
