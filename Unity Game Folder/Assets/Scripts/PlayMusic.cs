@@ -35,7 +35,10 @@ public class PlayMusic : Interactable
             audioSource.Play();
         }
     }
-
+    public void StopAll()
+    {
+        audioSource.Stop();
+    }
 
     public void TransitionDay()
     {

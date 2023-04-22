@@ -68,8 +68,6 @@ public class Smashable : MonoBehaviour
 
                     // Adds explosive force to separate objects.
                     newRb.AddExplosionForce(20, Vector3.down, 20);
-                    // Audio
-                    AudioManager.Instance.PlayAudio("Bottle Smash");
                 }
                 catch
                 {
@@ -77,10 +75,12 @@ public class Smashable : MonoBehaviour
 
                     // Adds explosive force to separate objects.
                     newRb.AddExplosionForce(20, Vector3.down, 20);
-                    // Audio
-                    AudioManager.Instance.PlayAudio("Bottle Smash");
                 }
+
             }
+            // Audio
+            float pitch = (Random.Range(1, 11) / 100.0f) + 1.0f;
+            AudioManager.Instance.PlayAudio("Glass Smash", pitch);
             // Destroys bottle and it's pieces after time.
             StartCoroutine(DestroyAfterSeconds(destroyTime));
         }

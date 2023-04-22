@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayAudio(string nameToFind)
+    public void PlayAudio(string nameToFind, float pitch = 1.0f)
     {
         bool found = false;
         // Check sounds
@@ -47,6 +47,7 @@ public class AudioManager : MonoBehaviour
             if (sounds[i].audioName == nameToFind)
             {
                 foundAudio = sounds[i];
+                foundAudio.audioSource.pitch = pitch;
                 // Play audio
                 foundAudio.audioSource.Play();
                 found = true;

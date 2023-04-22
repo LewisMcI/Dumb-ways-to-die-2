@@ -55,13 +55,14 @@ public class Explosive : Interactable
         if (!GetComponent<BoxCollider>().isTrigger)
             return;
 
-        Instantiate(gameObject, initPosition, initRotation, transform.parent).GetComponent<BoxCollider>().isTrigger = false;
+       
         // Deflect if frying pan enabled
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && robot.FryingPan)
         {
             StartCoroutine(Deflect());
             return;
         }
+        Instantiate(gameObject, initPosition, initRotation, transform.parent).GetComponent<BoxCollider>().isTrigger = false;
 
         // Play fx
         GetComponent<VisualEffect>().Play();

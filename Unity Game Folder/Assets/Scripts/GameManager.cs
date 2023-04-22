@@ -148,5 +148,9 @@ public class GameManager : MonoBehaviour
         music.TransitionDay();
         AudioManager.Instance.PlayAudio("Yawn");
     }
+    public void StopMusic()
+    {
+        music.StopAll();
+    }
     #endregion
 }

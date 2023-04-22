@@ -22,6 +22,7 @@ public class ActivateFloorCutscene : MonoBehaviour
             GameManager.Instance.EnableControls = false;
             GameManager.Instance.EnableCamera = false;
             video.enabled = true;
+            GameManager.Instance.StopMusic();
             StartCoroutine(Switch());
         }
     }
