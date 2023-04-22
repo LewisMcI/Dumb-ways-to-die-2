@@ -30,6 +30,9 @@ public class NukeButton : Interactable
         bombAnimator.SetTrigger("Open");
         StartCoroutine(ActivateRobot());
         StartCoroutine(ActivateTimer());
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Do Not Press");
+        GameManager.Instance.taskManager.SwapTasksOver(false);
+        StartCoroutine(PlayerController.Instance.OpenNotepad());
         GetComponent<Collider>().enabled = false;
         CanInteract = false;
     }

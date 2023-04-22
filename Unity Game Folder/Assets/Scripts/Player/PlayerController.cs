@@ -533,13 +533,20 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(3.3f);
 
-
         notepad.SetActive(true);
-
         GameManager.Instance.taskManager.FindNotepadText();
-
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
     }
+
+    public IEnumerator OpenNotepad()
+    {
+        notepad.SetActive(true);
+        GameManager.Instance.taskManager.FindNotepadText();
+        anim.SetBool("Notepad", !anim.GetBool("Notepad"));
+
+        yield return null;
+    }
+
 
     public void ReEnablePlayer()
     {

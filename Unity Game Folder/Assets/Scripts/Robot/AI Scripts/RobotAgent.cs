@@ -215,7 +215,7 @@ public class RobotAgent : SteeringAgent
     protected void ChangeState(RobotState newState)
     {
         currentState = newState;
-        Debug.Log("Change state to: " + currentState);
+        //Debug.Log("Change state to: " + currentState);
     }
 
     private void SwitchIdle()
