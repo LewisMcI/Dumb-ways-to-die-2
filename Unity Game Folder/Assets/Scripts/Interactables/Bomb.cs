@@ -11,6 +11,8 @@ public class Bomb : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast"))
             return;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            return;
         clickSFX.Play();
         StartCoroutine(KillPlayer(other.gameObject));
     }
@@ -46,12 +48,9 @@ public class Bomb : MonoBehaviour
 
         // Unchild lawnmower.
         transform.parent = null;
-
+        Vector3 dir = new Vector3(100, 200, 0);
         float delay = 0.1f;
-        PlayerController.Instance.Die(delay);
-        yield return new WaitForSeconds(delay);
-        // Add backwards force
-        PlayerController.Instance.AddRagdollForce(new Vector3(100, 200, 0));
+        PlayerController.Instance.ThrowPlayerInDirection(dir, delay);
         Destroy(gameObject);
     }
 }

@@ -38,6 +38,8 @@ public class Lawnmower : Interactable
     private int noToWin;
     bool active = false;
     bool usable = true;
+    bool newActive = false;
+    bool taskComplete = false;
     [SerializeField]
     private List<BoxCollider> walls;
 
@@ -83,7 +85,6 @@ public class Lawnmower : Interactable
             StopCoroutine(moveCameraToPlayer(player));
             StartCoroutine(moveCameraFromPlayer(player));
 
-
             // Move player to position
             player.transform.position = playerPosition.position;
             player.transform.rotation = playerPosition.rotation;
@@ -121,10 +122,10 @@ public class Lawnmower : Interactable
             // Set animation parameters
             anim.SetFloat("dirX", dir.x);
             anim.SetFloat("dirY", dir.y);
-
-            if (Input.GetKey(KeyCode.Escape) && !PlayerController.Instance.Dead)
+            if (!PlayerController.Instance.Dead)
             {
-                ExitLawnmower();
+                if (Input.GetKey(KeyCode.Escape) || (Input.GetButtonDown("Interact") && newActive))
+                    ExitLawnmower();
             }
 
             if (!lawnmowerStartup.isPlaying)
@@ -186,12 +187,12 @@ public class Lawnmower : Interactable
                 newRb.AddForce(-transform.forward * 2, ForceMode.Impulse);
 
             }
-            else if (noOfGrass <= noToWin)
+            else if (noOfGrass <= noToWin && !taskComplete)
             {
                 Debug.Log("Complete");
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Mow Lawn");
                 ExitLawnmower();
-                usable = false;
+                taskComplete = true;
             }
             cutGrass.Play();
 
@@ -248,6 +249,7 @@ public class Lawnmower : Interactable
         PlayerController.Instance.EnableNewCamera(SelectCam.outsideCam, 1.0f);
         yield return new WaitForSeconds(1.1f);
         player.AddComponent<TopdownPlayerController>();
+        newActive = true;
     }
 
     IEnumerator moveCameraToPlayer(GameObject player)
@@ -264,6 +266,7 @@ public class Lawnmower : Interactable
 
         // Remove Topdown Controller
         Destroy(player.GetComponent<TopdownPlayerController>());
+        newActive = false;
     }
 
 
