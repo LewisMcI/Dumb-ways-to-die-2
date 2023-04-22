@@ -123,7 +123,7 @@ public class TaskManager : MonoBehaviour
                 if (task.stepsComplete >= task.steps)
                 {
                     // Play time pass SFX
-                    DynamicSky.Instance.transform.GetComponent<AudioSource>().Play();
+                    //DynamicSky.Instance.transform.GetComponent<AudioSource>().Play();
 #pragma warning disable CS0642 // Possible mistaken empty statement
                     if (notepadText.text.Replace(" ", "").Contains(task.taskName.Replace(" ", ""))) ;
 #pragma warning restore CS0642 // Possible mistaken empty statement
