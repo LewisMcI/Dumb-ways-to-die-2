@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BombPhone : Interactable
@@ -37,6 +38,8 @@ public class BombPhone : Interactable
     private Material red, green, off;
     [SerializeField]
     private RobotAgent robot;
+    [SerializeField]
+    VideoPlayer video;
     #endregion
 
     #region methods
@@ -95,6 +98,10 @@ public class BombPhone : Interactable
                 // Correct
                 StartCoroutine(ChangeLight(LightColor.Green));
                 correctSFX.Play();
+                video.enabled = true;
+                GameManager.Instance.EnableCamera = false;
+                GameManager.Instance.EnableControls = false;
+                video.loopPointReached += EndGame;
             }
             else
             {
@@ -104,6 +111,12 @@ public class BombPhone : Interactable
             }
         }
     }
+
+    void EndGame(VideoPlayer vp)
+    {
+        GameManager.Instance.MoveToNextLevel();
+    }
+
 
     private void ReduceTime()
     {

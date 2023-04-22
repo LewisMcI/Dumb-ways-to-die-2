@@ -90,7 +90,19 @@ public class BombTimer : MonoBehaviour
         // Play Anim
         bombAnimator.SetTrigger("Fire");
         yield return new WaitForSeconds(2.0f);
+
         video.enabled = true;
+
+        GameManager.Instance.EnableCamera = false;
+        GameManager.Instance.EnableControls = false;
+
+        video.loopPointReached += NukeVideoFinished;
+    }
+
+    void NukeVideoFinished(VideoPlayer vp)
+    {
+        vp.enabled = false;
+        GameManager.Instance.Restart();
     }
     #endregion
 }
