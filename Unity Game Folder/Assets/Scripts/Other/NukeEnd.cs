@@ -12,6 +12,9 @@ public class NukeEnd : MonoBehaviour
     AudioSource explosionSFX;
 
     [SerializeField]
+    Animator global;
+
+    [SerializeField]
     Collider[] colliders;
     [SerializeField]
     float distance;
@@ -28,12 +31,13 @@ public class NukeEnd : MonoBehaviour
 
     IEnumerator AddForce()
     {
-        yield return new WaitForSeconds(2.0f);
-        animator.SetTrigger("Fire");
-        yield return new WaitForSeconds(7.0f);
+        yield return new WaitForSeconds(3.0f);
+        animator.SetTrigger("Launch");
+        yield return new WaitForSeconds(5.0f);
         int count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, targetLayers, QueryTriggerInteraction.Collide);
         Collider[] newColliders = Physics.OverlapSphere(transform.position, distance, targetLayers);
         Debug.Log(newColliders.Length);
+        global.SetTrigger("Yes");
 
         for (int i = 0; i < newColliders.Length; i++)
         {
@@ -41,6 +45,7 @@ public class NukeEnd : MonoBehaviour
         }
         rb.AddExplosionForce(20000.0f, transform.position, distance);
 
+        explosion.SetActive(true);
         explosionSFX.Play();
         Destroy(this);
     }
