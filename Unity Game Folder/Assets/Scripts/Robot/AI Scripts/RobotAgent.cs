@@ -302,6 +302,10 @@ public class RobotAgent : SteeringAgent
     {
         StartCoroutine(Stun());
         StartCoroutine(FryingPanForce());
+        laserDetection.ChangeRed();
+        laserDetection.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
+        Destroy(laserDetection);
+        laserDetection = null;
     }
 
     IEnumerator Stun()

@@ -28,19 +28,21 @@ public class RobotBreakDishwasher : MonoBehaviour
             transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
 
             // Disable scripts
-            laserDetection.ChangeRed();
-            laserDetection.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
+            if (laserDetection)
+            {
+                laserDetection.ChangeRed();
+                laserDetection.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
+                Destroy(laserDetection);
+            }
             robotBearTrap.StopAllCoroutines();
             robot.BearTrap = null;
-            Destroy(laserDetection);
             Destroy(robotBearTrap);
             robot.DisableMovement();
             robot.CheckDeath();
 
             // Enable smoke
             smoke.gameObject.SetActive(true);
-
-            this.enabled = false;
+            enabled = false;
         }
     }
     #endregion

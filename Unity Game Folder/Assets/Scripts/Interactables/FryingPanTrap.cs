@@ -60,8 +60,6 @@ public class FryingPanTrap : MonoBehaviour
     {
         if (isActiveAndEnabled && fryingPan)
         {
-            Debug.Log(other.gameObject.layer);
-            Debug.Log(other.transform.name);
             if (other.gameObject.layer == LayerMask.NameToLayer("Player") && !triggered)
             {
                 TriggerPlayer();
