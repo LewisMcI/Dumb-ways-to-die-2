@@ -11,7 +11,7 @@ public class TrapCouch : Interactable
 
     private Vector3 originalPos;
     private Quaternion originalRot;
-    private bool transition, sitting;
+    private bool transition, sitting, trapped;
     [SerializeField]
     float delay = 1.0f;
     [SerializeField]
@@ -23,6 +23,11 @@ public class TrapCouch : Interactable
     [SerializeField]
     private bool trap;
     private bool triggered;
+
+    public bool Trapped
+    { 
+        get { return trapped; } 
+    }
     #endregion
 
     #region methods
@@ -114,6 +119,7 @@ public class TrapCouch : Interactable
         PlayerController.Instance.GetComponent<Rigidbody>().isKinematic = false;
         // Play animation
         transform.parent.parent.GetComponent<Animator>().SetTrigger("Activate");
+        trapped = true;
     }
 
     IEnumerator SetSitting()
@@ -127,7 +133,7 @@ public class TrapCouch : Interactable
         {
             tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clip;
             tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
-            tv.transform.GetChild(1).gameObject.SetActive(true);
+            PlayerController.Instance.EnableNewCamera(SelectCam.tvCam, 1.5f);
         }
 
         if (!trap)
@@ -145,7 +151,7 @@ public class TrapCouch : Interactable
         transition = false;
         sitting = false;
         tv.transform.GetChild(0).GetComponent<VideoPlayer>().Stop();
-        tv.transform.GetChild(1).gameObject.SetActive(false);
+        PlayerController.Instance.ReEnablePlayerCamera(1.0f);
 
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;

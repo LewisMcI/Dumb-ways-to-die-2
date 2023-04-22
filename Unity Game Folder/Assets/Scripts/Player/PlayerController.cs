@@ -18,6 +18,7 @@ public enum SelectCam
     couchCam,
     bathroomCam,
     outsideCam,
+    tvCam,
     invalid = 100
 }
 public class PlayerController : MonoBehaviour
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private bool isCrouching, isJumping;
 
     [SerializeField]
-    private Camera playerCam, toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam;
+    private Camera playerCam, toasterCam, fridgeCam, couchCam, bathroomCam, outsideCam, tvCam;
 
     private GameObject placeholderCam;
 
@@ -490,6 +491,11 @@ public class PlayerController : MonoBehaviour
                 break;
             case SelectCam.outsideCam:
                 selectedCamTransform = outsideCam.transform;
+                currentCam.transform.parent = null;
+                StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
+                break;
+            case SelectCam.tvCam:
+                selectedCamTransform = tvCam.transform;
                 currentCam.transform.parent = null;
                 StartCoroutine(MoveTo(currentCam.transform, selectedCamTransform.position, selectedCamTransform.rotation, delay));
                 break;
