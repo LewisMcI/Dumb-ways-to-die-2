@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 539.9717, g: 349.85385, b: 367.5782, a: 1}
+  m_IndirectSpecularColor: {r: 591.45776, g: 295.89423, b: 221.44876, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1049,6 +1049,14 @@ PrefabInstance:
       propertyPath: bombAnimator
       value: 
       objectReference: {fileID: 1245955526}
+    - target: {fileID: 1714707904319441968, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: rootBone
+      value: 
+      objectReference: {fileID: 1259229970}
+    - target: {fileID: 1714707904319441968, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
+      propertyPath: punchingGlove
+      value: 
+      objectReference: {fileID: 595104205}
     - target: {fileID: 1756242613805557818, guid: 991fc666f0b212f4f8910bfd99505484, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -7801,6 +7809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskManager: {fileID: 1618988270}
   gameUI: {fileID: 2083169302}
+  music: {fileID: 0}
 --- !u!4 &1618988272
 Transform:
   m_ObjectHideFlags: 0
