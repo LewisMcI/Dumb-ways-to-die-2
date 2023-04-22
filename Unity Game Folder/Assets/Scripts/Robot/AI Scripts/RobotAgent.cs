@@ -215,7 +215,7 @@ public class RobotAgent : SteeringAgent
     protected void ChangeState(RobotState newState)
     {
         currentState = newState;
-        Debug.Log("Change state to: " + currentState);
+        //Debug.Log("Change state to: " + currentState);
     }
 
     private void SwitchIdle()
@@ -302,6 +302,10 @@ public class RobotAgent : SteeringAgent
     {
         StartCoroutine(Stun());
         StartCoroutine(FryingPanForce());
+        laserDetection.ChangeRed();
+        laserDetection.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
+        Destroy(laserDetection);
+        laserDetection = null;
     }
 
     IEnumerator Stun()

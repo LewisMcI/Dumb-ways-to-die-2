@@ -36,7 +36,7 @@ public class TaskManager : MonoBehaviour
         currentTasks = beforeTransitionTasks;
     }
 
-    public void SwapTasksOver()
+    public void SwapTasksOver(bool time = true)
     {
         currentTasks = afterTransitionTasks;
         ResetAllTraps();
@@ -44,7 +44,8 @@ public class TaskManager : MonoBehaviour
         {
             throw new Exception("Not Enough Traps in GameManager");
         }
-        DynamicSky.Instance.AdvanceTime();
+        if (time)
+            DynamicSky.Instance.AdvanceTime();
     }
 
     public void ResetAllTraps()
