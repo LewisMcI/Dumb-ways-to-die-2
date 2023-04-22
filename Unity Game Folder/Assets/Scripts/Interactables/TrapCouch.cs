@@ -127,7 +127,7 @@ public class TrapCouch : Interactable
         {
             tv.transform.GetChild(0).GetComponent<VideoPlayer>().clip = clip;
             tv.transform.GetChild(0).GetComponent<VideoPlayer>().Play();
-            tv.transform.GetChild(1).gameObject.SetActive(true);
+            PlayerController.Instance.EnableNewCamera(SelectCam.tvCam, 1.5f);
         }
 
         if (!trap)
@@ -145,7 +145,7 @@ public class TrapCouch : Interactable
         transition = false;
         sitting = false;
         tv.transform.GetChild(0).GetComponent<VideoPlayer>().Stop();
-        tv.transform.GetChild(1).gameObject.SetActive(false);
+        PlayerController.Instance.ReEnablePlayerCamera(1.0f);
 
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
