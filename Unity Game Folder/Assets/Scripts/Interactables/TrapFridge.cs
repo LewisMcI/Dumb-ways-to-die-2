@@ -40,10 +40,9 @@ public class TrapFridge : Interactable
         PlayerController.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirX", 0);
         PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().SetFloat("dirY", 0);
-        PlayerController.Instance.Die(0.75f, true, SelectCam.fridgeCam);
-        yield return new WaitForSeconds(0.75f);
-        // Add backwards force
-        PlayerController.Instance.AddRagdollForce(new Vector3(100, 10, 0));
+        float delay = .3f;
+        PlayerController.Instance.ThrowPlayerInDirection(new Vector3(100, 10, 0), delay, SelectCam.fridgeCam);
+        yield return new WaitForSeconds(delay * 1.2f);
         GetComponent<Animator>().SetTrigger("Activate");
         GetComponent<AudioSource>().Play();
         vfx.Play();

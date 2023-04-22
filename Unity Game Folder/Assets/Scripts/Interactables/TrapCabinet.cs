@@ -13,6 +13,9 @@ public class TrapCabinet : Interactable
 
     [SerializeField]
     float delay = 0.5f;
+
+    [SerializeField]
+    LayerMask playerLayer;
     #endregion
 
     #region methods
@@ -39,7 +42,11 @@ public class TrapCabinet : Interactable
             cut = true;
         }
     }
-
+    private void OnDrawGizmos()
+    {
+        // Show Shotgun Hitbox
+        // Gizmos.DrawCube(transform.GetChild(1).position, new Vector3(7, .7f, .7f));
+    }
     public override void Action()
     {
         if (InteractionSystem.Instance.PickedUpObject && InteractionSystem.Instance.PickedUpObject.name == "Scissors")
@@ -49,19 +56,14 @@ public class TrapCabinet : Interactable
             anim.SetTrigger("Open");
         else if (!cut && kills)
         {
-            // Cast ray to see if player will be hit
-            RaycastHit hit;
-            if (Physics.BoxCast(transform.GetChild(0).GetChild(0).transform.position, new Vector3(0.3f, 0.2f, 0.6f), Vector3.right, out hit, Quaternion.identity, 3f))
+            if (Physics.CheckBox(transform.GetChild(1).position, new Vector3(7, .7f, .7f), Quaternion.identity, playerLayer))
             {
-                if (hit.transform.tag == "Player" || hit.transform.tag == "MainCamera")
-                {
-                    StartCoroutine(TriggerTrap());
+                StartCoroutine(TriggerTrap());
 
-                    anim.SetTrigger("Shoot Smoke");
+                anim.SetTrigger("Shoot Smoke");
 
-                    GetComponent<Collider>().enabled = false;
-                    return;
-                }
+                GetComponent<Collider>().enabled = false;
+                return;
             }
             StartCoroutine(TriggerUntrapped());
             anim.SetTrigger("Shoot Smoke");
