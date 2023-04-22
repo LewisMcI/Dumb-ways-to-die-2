@@ -11,6 +11,8 @@ public class FryingPanTrap : MonoBehaviour
 
     [SerializeField]
     private bool attachement;
+    [SerializeField]
+    private AudioSource missSFX;
     #endregion
 
     #region properties
@@ -79,6 +81,7 @@ public class FryingPanTrap : MonoBehaviour
     {
         triggered = true;
         GetComponent<Animator>().SetBool("Trigger", true);
+        missSFX.Play();
 
         fryingPan.GetComponent<Interactable>().CanInteract = true;
         laser.enabled = false;
