@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameUI gameUI;
 
+    [SerializeField]
+    private PlayMusic music;
+
     // Instatiating variables.
     private bool enableControls = false;
     private bool enableCamera = false;
@@ -142,6 +145,8 @@ public class GameManager : MonoBehaviour
         hasTransitioned = true;
 
         StartCoroutine(PlayerController.Instance.OpenNotepadAfterAwake());
+        music.TransitionDay();
+        AudioManager.Instance.PlayAudio("Yawn");
     }
     #endregion
 }

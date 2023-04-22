@@ -35,4 +35,11 @@ public class PlayMusic : Interactable
             audioSource.Play();
         }
     }
+
+
+    public void TransitionDay()
+    {
+        audioSource.volume = audioSource.volume / 2;
+        audioSource.time = audioSource.time + 20;
+    }
 }
