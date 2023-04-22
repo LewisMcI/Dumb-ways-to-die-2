@@ -32,7 +32,10 @@ public class NukeButton : Interactable
         StartCoroutine(ActivateTimer());
         GameManager.Instance.taskManager.UpdateTaskCompletion("Do Not Press");
         GameManager.Instance.taskManager.SwapTasksOver(false);
-        StartCoroutine(PlayerController.Instance.OpenNotepad());
+        if (!PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().GetBool("Notepad"))
+            StartCoroutine(PlayerController.Instance.OpenNotepad());
+        else
+            GameManager.Instance.taskManager.FindNotepadText();
         GetComponent<Collider>().enabled = false;
         CanInteract = false;
     }
