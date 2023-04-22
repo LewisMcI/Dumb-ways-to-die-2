@@ -8,23 +8,21 @@ public class ToothBrush : Interactable
     #region methods
     public override void Action()
     {
-        // Play animation
-        GetComponent<Animator>().SetTrigger("React");
-        // Play audio
-        AudioManager.Instance.PlayAudio("Brush Teeth");
-        // Play bubble FX
-        Camera.main.transform.Find("VFX").transform.Find("Bubble Effect").GetComponent<VisualEffect>().Play();
-
+        //CanInteract = false;
+        // Player Animation
+        PlayerController.Instance.GetComponentInChildren<Animator>().SetTrigger("Brush Teeth");
         // Mark as complete
         GameManager.Instance.taskManager.UpdateTaskCompletion("Brush Teeth");
+        StartCoroutine(DestroyObject());
+    }
 
-        // Play grab animation
-        Animator anim = PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>();
-        if (!anim.GetBool("Notepad"))
-            anim.SetTrigger("Grab");
-
-        // Disable interaction
-        CanInteract = false;
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(1.05f);
+        GetComponent<MeshRenderer>().enabled = true;
+        //Destroy(this);
     }
     #endregion
 }
