@@ -89,7 +89,16 @@ public class BombTimer : MonoBehaviour
 
         // Play Anim
         bombAnimator.SetTrigger("Fire");
-        yield return new WaitForSeconds(2.0f);
+        Vector3 direction = PlayerController.Instance.transform.position - transform.position;
+        direction = direction.normalized;
+
+        // Prevent additional death from collision
+        PlayerController.Instance.DisableDeathFromCollision(100.0f);
+
+        yield return new WaitForSeconds(1.0f);
+        PlayerController.Instance.EnableRagdoll();
+        PlayerController.Instance.AddRagdollForce(direction * 150.0f + new Vector3(0, 10.0f, 0));
+        yield return new WaitForSeconds(1.0f);
 
         video.enabled = true;
 
