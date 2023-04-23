@@ -152,5 +152,9 @@ public class GameManager : MonoBehaviour
     {
         music.StopAll();
     }
+    public void SwapMusic()
+    {
+        music.SwapMusic();
+    }
     #endregion
 }

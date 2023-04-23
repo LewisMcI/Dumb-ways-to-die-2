@@ -19,8 +19,12 @@ public class PlayMusic : Interactable
     }
     public override void Action()
     {
+        SwapMusic();
+    }
+    public void SwapMusic()
+    {
         if (audioClips.Length == 0) return;
-        if (audioClips.Length == 1) 
+        if (audioClips.Length == 1)
         {
             if (!audioSource.isPlaying)
                 audioSource.Play();

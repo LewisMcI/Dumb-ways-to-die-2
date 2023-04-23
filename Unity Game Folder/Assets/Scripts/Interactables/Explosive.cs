@@ -55,7 +55,6 @@ public class Explosive : Interactable
         if (!GetComponent<BoxCollider>().isTrigger)
             return;
 
-       
         // Deflect if frying pan enabled
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && robot.FryingPan)
         {

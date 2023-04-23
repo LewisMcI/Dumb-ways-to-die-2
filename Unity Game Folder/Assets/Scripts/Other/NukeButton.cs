@@ -25,6 +25,7 @@ public class NukeButton : Interactable
     }
     public override void Action()
     {
+        GameManager.Instance.SwapMusic();
         lights.SetActive(true);
         buttonAnimator.SetTrigger("activate");
         bombAnimator.SetTrigger("Open");
