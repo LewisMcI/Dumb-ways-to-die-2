@@ -538,10 +538,9 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
     }
 
-    public IEnumerator OpenNotepad()
+    public IEnumerator UseNotepad()
     {
-        notepad.SetActive(true);
-        GameManager.Instance.taskManager.FindNotepadText();
+        notepad.SetActive(!anim.GetBool("Notepad"));
         anim.SetBool("Notepad", !anim.GetBool("Notepad"));
 
         yield return null;
