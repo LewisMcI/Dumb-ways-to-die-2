@@ -16,6 +16,9 @@ public class NukeButton : Interactable
     [SerializeField]
     private BombTimer timer;
 
+    [SerializeField]
+    Transform[] barricadeParents;
+
     private void Awake()
     {
         buttonAnimator = GetComponent<Animator>();
@@ -46,6 +49,24 @@ public class NukeButton : Interactable
     IEnumerator ActivateRobot()
     {
         yield return new WaitForSeconds(3.0f);
+        foreach (Transform boxParent in barricadeParents)
+        {
+            if (boxParent.transform.name == "Sample Barricade")
+            {
+                for (int i = 0; i < boxParent.childCount; i++)
+                {
+                    boxParent.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
+                }
+            }
+            else
+            {
+                boxParent.gameObject.layer = LayerMask.NameToLayer("Barricade");
+                for (int i = 0; i < boxParent.childCount; i++)
+                {
+                    boxParent.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Barricade");
+                }
+            }
+        }
         robot.Activate();
         Destroy(this);
     }
