@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private bool enableCamera = false;
     private bool isPaused;
     private bool hasTransitioned = false;
+    private bool canPause = true;
     #endregion
 
     #region properties
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
     {
         get { return enableCamera; }
         set { enableCamera = value; }
+    }
+    public bool EnablePause
+    {
+        get { return canPause; }
+        set { canPause = value; }
     }
     public bool IsPaused
     {
@@ -95,6 +101,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
+        if (!canPause)
+            return;
         isPaused = !isPaused;
 
         // Paused
