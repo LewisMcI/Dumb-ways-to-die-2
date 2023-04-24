@@ -22,7 +22,7 @@ public class ToothBrush : Interactable
         GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(1.05f);
         GetComponent<MeshRenderer>().enabled = true;
-        //Destroy(this);
+        Destroy(this);
     }
     #endregion
 }
