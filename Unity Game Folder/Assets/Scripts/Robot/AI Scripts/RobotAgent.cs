@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Video;
-using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Rendering.LookDev;
+using static UnityEngine.GraphicsBuffer;
 
 public class RobotAgent : SteeringAgent
 {
@@ -108,6 +106,28 @@ public class RobotAgent : SteeringAgent
         // Switch to expression screen
         tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, -0.000175f, tvExpression.transform.localPosition.z);
         tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, 0.0f, tvStatic.transform.localPosition.z);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (fryingPan)
+        {
+            // Explosive in sight
+            if (other.gameObject.layer == LayerMask.NameToLayer("Explosive") && other.gameObject.GetComponent<Collider>().isTrigger)
+            {
+                Vector3 toTarget = (other.transform.position - transform.position).normalized;
+
+                if (Vector3.Dot(toTarget, transform.forward) > 0)
+                {
+                    transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
+                    transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
+                }
+                else
+                {
+                    transform.GetChild(0).GetComponent<Animator>().SetTrigger("Defent Back Fast");
+                }
+            }
+        }
     }
 
     protected override void CooperativeArbitration()

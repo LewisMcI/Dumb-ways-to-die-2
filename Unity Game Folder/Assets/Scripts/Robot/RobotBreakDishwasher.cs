@@ -39,6 +39,7 @@ public class RobotBreakDishwasher : MonoBehaviour
             Destroy(robotBearTrap);
             robot.DisableMovement();
             robot.CheckDeath();
+            robot.FryingPan.GetComponent<Interactable>().CanInteract = true;
 
             // Enable smoke
             smoke.gameObject.SetActive(true);
