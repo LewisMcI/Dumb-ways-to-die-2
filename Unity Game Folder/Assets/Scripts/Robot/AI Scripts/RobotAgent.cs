@@ -113,42 +113,45 @@ public class RobotAgent : SteeringAgent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (fryingPan)
+        if (!dead)
         {
-            // Explosive in sight
-            if (other.gameObject.layer == LayerMask.NameToLayer("Explosive") && other.gameObject.GetComponent<Collider>().isTrigger)
+            if (fryingPan)
             {
-                Vector3 toTarget = (other.transform.position - transform.position).normalized;
+                // Explosive in sight
+                if (other.gameObject.layer == LayerMask.NameToLayer("Explosive") && other.gameObject.GetComponent<Collider>().isTrigger)
+                {
+                    Vector3 toTarget = (other.transform.position - transform.position).normalized;
 
-                if (Vector3.Dot(toTarget, transform.forward) > 0)
-                {
-                    transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
-                    transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
-                }
-                else
-                {
-                    transform.GetChild(0).GetComponent<Animator>().SetTrigger("Defent Back Fast");
+                    if (Vector3.Dot(toTarget, transform.forward) > 0)
+                    {
+                        transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
+                        transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
+                    }
+                    else
+                    {
+                        transform.GetChild(0).GetComponent<Animator>().SetTrigger("Defent Back Fast");
+                    }
                 }
             }
-        }
-        // Check barricade collision
-        if (Physics.CheckSphere(transform.position, 3.0f, barricadeLayer))
-        {
-            Collider[] objects = Physics.OverlapSphere(transform.position, 3.0f, barricadeLayer);
-            Debug.Log(objects.Length);
-            foreach (Collider h in objects)
+            // Check barricade collision
+            if (Physics.CheckSphere(transform.position, 3.0f, barricadeLayer))
             {
-                if (h.transform.name == "Metal Barricade")
+                Collider[] objects = Physics.OverlapSphere(transform.position, 3.0f, barricadeLayer);
+                Debug.Log(objects.Length);
+                foreach (Collider h in objects)
                 {
-                    Destroy(h.GetComponent<Rigidbody>());
-                    Destroy(h);
-                }
-                Rigidbody r = h.GetComponent<Rigidbody>();
-                if (r != null)
-                {
-                    r.isKinematic = false;
-                    r.AddExplosionForce(200.0f, transform.position, 3.0f);
-                    Destroy(r.gameObject, 3.0f);
+                    if (h.transform.name == "Metal Barricade")
+                    {
+                        Destroy(h.GetComponent<Rigidbody>());
+                        Destroy(h);
+                    }
+                    Rigidbody r = h.GetComponent<Rigidbody>();
+                    if (r != null)
+                    {
+                        r.isKinematic = false;
+                        r.AddExplosionForce(200.0f, transform.position, 3.0f);
+                        Destroy(r.gameObject, 3.0f);
+                    }
                 }
             }
         }
@@ -156,7 +159,7 @@ public class RobotAgent : SteeringAgent
 
     protected override void CooperativeArbitration()
     {
-        if (activated)
+        if (activated && !dead)
         {
             if (GameManager.Instance.IsPaused)
             {
@@ -386,6 +389,7 @@ public class RobotAgent : SteeringAgent
         force = (fryingPan.transform.forward * -10000.0f + fryingPan.transform.up * 10000.0f) * Time.deltaTime;
         fryingPan.GetComponent<Rigidbody>().AddForce(force);
         fryingPan = null;
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
         CheckDeath();
     }
 

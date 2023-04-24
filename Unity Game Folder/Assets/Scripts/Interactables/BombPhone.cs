@@ -104,6 +104,7 @@ public class BombPhone : Interactable
                 GameManager.Instance.EnableCamera = false;
                 GameManager.Instance.EnableControls = false;
                 video.loopPointReached += EndGame;
+                GameManager.Instance.taskManager.UpdateTaskCompletion("Defuse Bomb");
             }
             else
             {

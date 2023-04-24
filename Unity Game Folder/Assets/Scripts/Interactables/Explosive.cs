@@ -131,6 +131,7 @@ public class Explosive : Interactable
         // Drop
         rootBone.AddComponent<Rigidbody>();
         rootBone.AddComponent<Interactable>();
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
     }
 
     IEnumerator Deflect()
