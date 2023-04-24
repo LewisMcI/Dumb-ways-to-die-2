@@ -101,7 +101,7 @@ public class BombTimer : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         video.enabled = true;
-
+        GameManager.Instance.StopMusic();
         GameManager.Instance.EnableCamera = false;
         GameManager.Instance.EnableControls = false;
 

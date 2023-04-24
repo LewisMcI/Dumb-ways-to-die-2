@@ -99,6 +99,7 @@ public class BombPhone : Interactable
                 StartCoroutine(ChangeLight(LightColor.Green));
                 correctSFX.Play();
                 video.enabled = true;
+                GameManager.Instance.StopMusic();
                 GameManager.Instance.EnableCamera = false;
                 GameManager.Instance.EnableControls = false;
                 video.loopPointReached += EndGame;
