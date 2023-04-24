@@ -53,7 +53,7 @@ public class RobotBreakDishwasher : MonoBehaviour
 
             // Enable smoke
             smoke.gameObject.SetActive(true);
-            enabled = false;
+            GetComponent<Collider>().enabled = false;
             StartCoroutine(CheckForPickup());
         }
     }
