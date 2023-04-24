@@ -124,6 +124,7 @@ public class TrapCouch : Interactable
 
     IEnumerator SetSitting()
     {
+        GameManager.Instance.EnablePause = false;
         transition = true;
         yield return new WaitForSeconds(1.0f);
         transition = false;
@@ -155,6 +156,7 @@ public class TrapCouch : Interactable
 
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
+        GameManager.Instance.EnablePause = true;
         Destroy(this);
     }
     #endregion
