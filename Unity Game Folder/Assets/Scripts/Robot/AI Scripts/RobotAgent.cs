@@ -390,6 +390,7 @@ public class RobotAgent : SteeringAgent
         fryingPan.GetComponent<Rigidbody>().AddForce(force);
         fryingPan = null;
         GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
+
         CheckDeath();
     }
 
@@ -409,7 +410,6 @@ public class RobotAgent : SteeringAgent
             // Switch to static screen
             tvExpression.transform.localPosition = new Vector3(tvExpression.transform.localPosition.x, 0.0f, tvExpression.transform.localPosition.z);
             tvStatic.transform.localPosition = new Vector3(tvStatic.transform.localPosition.x, -0.000175f, tvStatic.transform.localPosition.z);
-            GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
             activated = false;
             dead = true;
 

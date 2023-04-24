@@ -59,7 +59,7 @@ public class Explosive : Interactable
             return;
 
         // Deflect if frying pan enabled
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && robot.FryingPan)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !robot.Dead && robot.FryingPan)
         {
             StartCoroutine(Deflect());
             return;
@@ -84,7 +84,7 @@ public class Explosive : Interactable
             return;
         }
         // Check robot collision
-        if (Physics.CheckSphere(transform.position, sphereDistance, breakLayer))
+        if (Physics.CheckSphere(transform.position, sphereDistance, breakLayer) && !robot.Dead)
         {
             if (!robot.FryingPan)
             {

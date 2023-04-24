@@ -48,8 +48,7 @@ public class RobotBreakDishwasher : MonoBehaviour
             robot.DisableMovement();
             robot.CheckDeath();
 
-            if (GameManager.Instance.taskManager.GetTask("Defeat Robot").stepsComplete < 3)
-                GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
+            GameManager.Instance.taskManager.UpdateTaskCompletion("Defeat Robot");
 
             // Enable smoke
             smoke.gameObject.SetActive(true);
