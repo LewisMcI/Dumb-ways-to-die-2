@@ -97,7 +97,7 @@ public class Explosive : Interactable
         // Check barricade collision
         if (Physics.CheckSphere(transform.position, sphereDistance, barricadeLayer))
         {
-            Collider[] objects = Physics.OverlapSphere(transform.position, 3.0f);
+            Collider[] objects = Physics.OverlapSphere(transform.position, 3.0f, barricadeLayer);
             foreach (Collider h in objects)
             {
                 if (h.transform.name == "Metal Barricade")
@@ -109,7 +109,7 @@ public class Explosive : Interactable
                 if (r != null)
                 {
                     r.isKinematic = false;
-                    r.AddExplosionForce(100.0f, transform.position, 3.0f);
+                    r.AddExplosionForce(200.0f, transform.position, 3.0f);
                     Destroy(r.gameObject, 3.0f);
                 }
             }
