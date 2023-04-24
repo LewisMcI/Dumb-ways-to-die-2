@@ -148,10 +148,6 @@ public class DynamicSky : MonoBehaviour
 
         isNight = true;
     }
-    private void FixedUpdate()
-    {
-        if (Input.GetKey(KeyCode.Backspace)) AdvanceTime();
-    }
     public void AdvanceTime()
     {
         timeOfDay = 19.0f;
