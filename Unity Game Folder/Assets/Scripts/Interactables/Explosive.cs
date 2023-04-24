@@ -11,6 +11,8 @@ public class Explosive : Interactable
     [SerializeField]
     private LayerMask playerLayer;
     [SerializeField]
+    private LayerMask barricadeLayer;
+    [SerializeField]
     private float sphereDistance;
     [SerializeField]
     private GameObject rootBone;
@@ -90,6 +92,26 @@ public class Explosive : Interactable
             else
             {
                 robot.transform.GetChild(0).GetComponent<Animator>().SetBool("Defend Front", true);
+            }
+        }
+        // Check barricade collision
+        if (Physics.CheckSphere(transform.position, sphereDistance, barricadeLayer))
+        {
+            Collider[] objects = Physics.OverlapSphere(transform.position, 3.0f);
+            foreach (Collider h in objects)
+            {
+                if (h.transform.name == "Metal Barricade")
+                {
+                    Destroy(h.GetComponent<Rigidbody>());
+                    Destroy(h);
+                }
+                Rigidbody r = h.GetComponent<Rigidbody>();
+                if (r != null)
+                {
+                    r.isKinematic = false;
+                    r.AddExplosionForce(100.0f, transform.position, 3.0f);
+                    Destroy(r.gameObject, 3.0f);
+                }
             }
         }
     }
