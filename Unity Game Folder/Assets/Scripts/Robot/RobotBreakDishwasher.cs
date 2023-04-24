@@ -58,7 +58,7 @@ public class RobotBreakDishwasher : MonoBehaviour
     IEnumerator CheckForPickup()
     {
         if (fryingPan == null)
-            yield return null;
+            yield break;
         bool found = false;
         while (!found)
         {

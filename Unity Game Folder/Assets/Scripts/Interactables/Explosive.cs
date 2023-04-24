@@ -34,7 +34,8 @@ public class Explosive : Interactable
     {
         initPosition = transform.position;
         initRotation = transform.rotation;
-        robot = punchingGlove.transform.root.GetComponent<RobotAgent>();
+        if (punchingGlove != null)
+            robot = punchingGlove.transform.root.GetComponent<RobotAgent>();
         StartCoroutine(ActivateExplosive());
     }
 
