@@ -87,7 +87,11 @@ public class Explosive : Interactable
         {
             if (!robot.FryingPan)
             {
-                BreakPunchingGlove();
+                try
+                {
+                    BreakPunchingGlove();
+                }
+                catch { }
             }
             else
             {

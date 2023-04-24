@@ -26,9 +26,12 @@ public class RobotBreakDishwasher : MonoBehaviour
     {
         if (other.transform.name.Contains("Axe"))
         {
-            fryingPan = robot.FryingPan.AddComponent<Interactable>();
-            fryingPanRb = robot.FryingPan.AddComponent<Rigidbody>();
-            fryingPanRb.isKinematic = true;
+            if (robot.FryingPan != null)
+            {
+                fryingPan = robot.FryingPan.AddComponent<Interactable>();
+                fryingPanRb = robot.FryingPan.AddComponent<Rigidbody>();
+                fryingPanRb.isKinematic = true;
+            }
             // Reset animation
             transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
 
@@ -54,6 +57,8 @@ public class RobotBreakDishwasher : MonoBehaviour
 
     IEnumerator CheckForPickup()
     {
+        if (fryingPan == null)
+            yield return null;
         bool found = false;
         while (!found)
         {
