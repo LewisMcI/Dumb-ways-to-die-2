@@ -63,7 +63,7 @@ public class NukeButton : Interactable
                 boxParent.gameObject.layer = LayerMask.NameToLayer("Barricade");
                 for (int i = 0; i < boxParent.childCount; i++)
                 {
-                    boxParent.gameObject.layer = LayerMask.NameToLayer("Barricade");
+                    boxParent.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Barricade");
                 }
             }
         }
