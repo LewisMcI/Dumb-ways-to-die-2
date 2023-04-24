@@ -51,10 +51,20 @@ public class NukeButton : Interactable
         yield return new WaitForSeconds(3.0f);
         foreach (Transform boxParent in barricadeParents)
         {
-            boxParent.gameObject.layer = LayerMask.NameToLayer("Barricade");
-            for (int i = 0; i < boxParent.childCount; i++)
+            if (boxParent.transform.name == "Sample Barricade")
+            {
+                for (int i = 0; i < boxParent.childCount; i++)
+                {
+                    boxParent.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
+                }
+            }
+            else
             {
                 boxParent.gameObject.layer = LayerMask.NameToLayer("Barricade");
+                for (int i = 0; i < boxParent.childCount; i++)
+                {
+                    boxParent.gameObject.layer = LayerMask.NameToLayer("Barricade");
+                }
             }
         }
         robot.Activate();
