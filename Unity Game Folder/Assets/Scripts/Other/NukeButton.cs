@@ -14,9 +14,6 @@ public class NukeButton : Interactable
     private Animator buttonAnimator;
 
     [SerializeField]
-    Transform[] barricadeParents;
-
-    [SerializeField]
     private BombTimer timer;
 
     private void Awake()
@@ -48,23 +45,14 @@ public class NukeButton : Interactable
 
     IEnumerator ActivateRobot()
     {
-        yield return new WaitForSeconds(1.0f);
-        // TODO: Activate RigidBodies of Boxes
-        // TODO: Default robot to lights off and Activate here
-        foreach(Transform boxParent in barricadeParents)
-        {
-            for (int i = 0; i < boxParent.childCount; i++)
-            {
-                boxParent.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
-            }
-        }
+        yield return new WaitForSeconds(3.0f);
         robot.Activate();
+        Destroy(this);
     }
 
     IEnumerator ActivateTimer()
     {
         yield return new WaitForSeconds(1.3f);
         timer.StartTimer();
-        Destroy(this);
     }
 }

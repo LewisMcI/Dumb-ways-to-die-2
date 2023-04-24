@@ -42,6 +42,9 @@ public class RobotAgent : SteeringAgent
     private GameObject fryingPan;
 
     [SerializeField]
+    private LayerMask barricadeLayer;
+
+    [SerializeField]
     private GameObject codeText;
     private int[] code;
 
@@ -125,6 +128,27 @@ public class RobotAgent : SteeringAgent
                 else
                 {
                     transform.GetChild(0).GetComponent<Animator>().SetTrigger("Defent Back Fast");
+                }
+            }
+        }
+        // Check barricade collision
+        if (Physics.CheckSphere(transform.position, 3.0f, barricadeLayer))
+        {
+            Collider[] objects = Physics.OverlapSphere(transform.position, 3.0f, barricadeLayer);
+            Debug.Log(objects.Length);
+            foreach (Collider h in objects)
+            {
+                if (h.transform.name == "Metal Barricade")
+                {
+                    Destroy(h.GetComponent<Rigidbody>());
+                    Destroy(h);
+                }
+                Rigidbody r = h.GetComponent<Rigidbody>();
+                if (r != null)
+                {
+                    r.isKinematic = false;
+                    r.AddExplosionForce(200.0f, transform.position, 3.0f);
+                    Destroy(r.gameObject, 3.0f);
                 }
             }
         }
@@ -322,10 +346,14 @@ public class RobotAgent : SteeringAgent
     {
         StartCoroutine(Stun());
         StartCoroutine(FryingPanForce());
-        laserDetection.ChangeRed();
-        laserDetection.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
-        Destroy(laserDetection);
-        laserDetection = null;
+        try
+        {
+            laserDetection.ChangeRed();
+            laserDetection.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
+            Destroy(laserDetection);
+            laserDetection = null;
+        }
+        catch { }
     }
 
     IEnumerator Stun()

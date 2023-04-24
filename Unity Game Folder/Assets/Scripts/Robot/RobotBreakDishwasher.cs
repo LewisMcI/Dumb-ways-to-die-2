@@ -20,10 +20,15 @@ public class RobotBreakDishwasher : MonoBehaviour
         robot = robotBearTrap.transform.root.GetComponent<RobotAgent>();
     }
 
+    Interactable fryingPan;
+    Rigidbody fryingPanRb;
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.name.Contains("Axe"))
         {
+            fryingPan = robot.FryingPan.AddComponent<Interactable>();
+            fryingPanRb = robot.FryingPan.AddComponent<Rigidbody>();
+            fryingPanRb.isKinematic = true;
             // Reset animation
             transform.root.GetChild(0).GetComponent<Animator>().SetBool("Defend Back", false);
 
@@ -39,12 +44,28 @@ public class RobotBreakDishwasher : MonoBehaviour
             Destroy(robotBearTrap);
             robot.DisableMovement();
             robot.CheckDeath();
-            //robot.FryingPan.GetComponent<Interactable>().CanInteract = true;
 
             // Enable smoke
             smoke.gameObject.SetActive(true);
             enabled = false;
+            StartCoroutine(CheckForPickup());
         }
+    }
+
+    IEnumerator CheckForPickup()
+    {
+        bool found = false;
+        while (!found)
+        {
+            if (fryingPan.Interacting == true)
+            {
+                found = true;
+            }
+            else
+                yield return new WaitForFixedUpdate();
+        }
+        robot.TriggerStun();
+        fryingPanRb.isKinematic = false;
     }
     #endregion
 }
