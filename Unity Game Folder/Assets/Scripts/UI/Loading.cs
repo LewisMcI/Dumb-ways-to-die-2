@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,11 +16,13 @@ public class Loading : MonoBehaviour
     #region methods
     private void Awake()
     {
+        Debug.Log(GameSettings.Instance.currLevel);
         string scene;
         switch (GameSettings.Instance.currLevel)
         {
             case 1:
                 scene = "Level 1";
+                loadingUI.GetComponent<TextMeshProUGUI>().text = "LOADING...";
                 break;
             case 2:
                 scene = "Level 2";
@@ -33,11 +36,9 @@ public class Loading : MonoBehaviour
             case 5:
                 scene = "Level 5";
                 break;
-            case 6:
-                scene = "End Scene";
-                break;
             default:
                 scene = "Main Menu";
+                loadingUI.GetComponent<TextMeshProUGUI>().text = "LOADING...";
                 break;
         }
 
