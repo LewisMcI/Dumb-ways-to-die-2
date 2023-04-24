@@ -23,6 +23,7 @@ public class NukeButton : Interactable
     {
         buttonAnimator = GetComponent<Animator>();
     }
+
     public override void Action()
     {
         GameManager.Instance.SwapMusic();
@@ -34,7 +35,11 @@ public class NukeButton : Interactable
         GameManager.Instance.taskManager.UpdateTaskCompletion("Do Not Press");
         GameManager.Instance.taskManager.SwapTasksOver(false);
         if (!PlayerController.Instance.transform.GetChild(0).GetComponent<Animator>().GetBool("Notepad"))
-            StartCoroutine(PlayerController.Instance.OpenNotepad());
+        {
+            StartCoroutine(PlayerController.Instance.UseNotepad());
+            GameManager.Instance.taskManager.FindNotepadText();
+            StartCoroutine(PlayerController.Instance.UseNotepad());
+        }
         else
             GameManager.Instance.taskManager.FindNotepadText();
         GetComponent<Collider>().enabled = false;
