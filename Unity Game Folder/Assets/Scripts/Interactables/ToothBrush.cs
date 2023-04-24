@@ -8,7 +8,7 @@ public class ToothBrush : Interactable
     #region methods
     public override void Action()
     {
-        //CanInteract = false;
+        CanInteract = false;
         // Player Animation
         PlayerController.Instance.GetComponentInChildren<Animator>().SetTrigger("Brush Teeth");
         // Mark as complete
