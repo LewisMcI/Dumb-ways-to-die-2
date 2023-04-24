@@ -97,6 +97,7 @@ public class BombPhone : Interactable
                 }
                 // Correct
                 StartCoroutine(ChangeLight(LightColor.Green));
+                timer.StopTimer();
                 correctSFX.Play();
                 video.enabled = true;
                 GameManager.Instance.StopMusic();
