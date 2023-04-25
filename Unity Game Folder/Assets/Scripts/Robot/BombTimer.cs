@@ -57,14 +57,22 @@ public class BombTimer : MonoBehaviour
 
     IEnumerator Countdown()
     {
+
         // Reduce time
         while (currentTime > 0.0f)
         {
-            currentTime -= Time.deltaTime;
-            if (currentTime < 0.0f)
-                currentTime = 0.0f;
-            DisplayTime(currentTime);
-            yield return new WaitForEndOfFrame();
+            if (!GameManager.Instance.IsPaused)
+            {
+                currentTime -= Time.deltaTime;
+                if (currentTime < 0.0f)
+                    currentTime = 0.0f;
+                DisplayTime(currentTime);
+                yield return new WaitForEndOfFrame();
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+            }
         }
         // Timer finished
         DisplayTime(currentTime);
