@@ -121,7 +121,6 @@ public class BombPhone : Interactable
             {
                 ReduceTime();
                 StartCoroutine(ResetCode());
-                timer.StopTimer();
             }
         }
     }
