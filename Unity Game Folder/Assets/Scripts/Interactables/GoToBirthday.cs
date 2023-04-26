@@ -6,6 +6,8 @@ public class GoToBirthday : Interactable
     #region fields
     [SerializeField]
     Door doorToClose;
+    [SerializeField]
+    private GameObject cutscene;
     #endregion
 
     #region methods
@@ -23,7 +25,8 @@ public class GoToBirthday : Interactable
         if (GameManager.Instance.taskManager.AllTasksComplete())
         {
             // TODO: Add ReverseBlink animation equivalent for leaving to work.
-            StartCoroutine(LeaveForBirthday());           
+            StartCoroutine(LeaveForBirthday());
+            cutscene.SetActive(true);
         }
     }
 
