@@ -38,6 +38,7 @@ public class Loading : MonoBehaviour
                 break;
             case 6:
                 scene = "End Scene";
+                loadingUI.GetComponent<TextMeshProUGUI>().text = "LOADING...";
                 break;
             default:
                 scene = "Main Menu";
