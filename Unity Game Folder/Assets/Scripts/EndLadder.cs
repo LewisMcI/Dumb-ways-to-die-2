@@ -13,6 +13,7 @@ public class EndLadder : Interactable
         if (!interactable)
             return;
         video.enabled = true;
+        GameManager.Instance.taskManager.UpdateTaskCompletion("Escape");
         GameManager.Instance.EnableCamera = false;
         GameManager.Instance.EnableControls = false;
         video.loopPointReached += EndGame;
