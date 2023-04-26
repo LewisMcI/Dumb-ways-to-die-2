@@ -76,6 +76,24 @@ public class Door : Interactable
         }
     }
 
+    public void ResetDoor()
+    {
+        if (openingBackward.inUse || openingForward.inUse)
+        {
+            return;
+        }
+        else if (openingForward.open == true)
+        {
+            OpenForward();
+            return;
+        }
+        else if (openingBackward.open == true)
+        {
+            OpenBackward();
+            return;
+        }
+    }
+
     private void OpenForward()
     {
         StartCoroutine(PivotObjectEnumerator(openingForward));

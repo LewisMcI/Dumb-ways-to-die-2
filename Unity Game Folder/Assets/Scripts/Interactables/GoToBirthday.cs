@@ -4,6 +4,8 @@ using UnityEngine;
 public class GoToBirthday : Interactable
 {
     #region fields
+    [SerializeField]
+    Door doorToClose;
     #endregion
 
     #region methods
@@ -21,7 +23,7 @@ public class GoToBirthday : Interactable
         if (GameManager.Instance.taskManager.AllTasksComplete())
         {
             // TODO: Add ReverseBlink animation equivalent for leaving to work.
-            StartCoroutine(LeaveForBirthday());
+            StartCoroutine(LeaveForBirthday());           
         }
     }
 
@@ -39,6 +41,7 @@ public class GoToBirthday : Interactable
         yield return new WaitForSeconds(2.4f);
         GameManager.Instance.EnableControls = true;
         GameManager.Instance.EnableCamera = true;
+        doorToClose.ResetDoor();
     }
     #endregion
 }
