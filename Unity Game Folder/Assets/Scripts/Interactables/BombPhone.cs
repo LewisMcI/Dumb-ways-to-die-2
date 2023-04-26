@@ -39,7 +39,15 @@ public class BombPhone : Interactable
     [SerializeField]
     private RobotAgent robot;
     [SerializeField]
-    VideoPlayer video;
+    NukeButton nukeButton;
+
+    [SerializeField]
+    GameObject ladderLight;
+
+    [SerializeField]
+    EndLadder endLadder;
+    [SerializeField]
+    GameObject bombLight;
     #endregion
 
     #region methods
@@ -50,6 +58,8 @@ public class BombPhone : Interactable
 
     public override void Action()
     {
+        if (timer == null)
+            Destroy(this);
         // Input
         switch (codeType)
         {
@@ -99,12 +109,13 @@ public class BombPhone : Interactable
                 StartCoroutine(ChangeLight(LightColor.Green));
                 timer.StopTimer();
                 correctSFX.Play();
-                video.enabled = true;
                 GameManager.Instance.StopMusic();
-                GameManager.Instance.EnableCamera = false;
-                GameManager.Instance.EnableControls = false;
-                video.loopPointReached += EndGame;
                 GameManager.Instance.taskManager.UpdateTaskCompletion("Defuse Bomb");
+                ladderLight.SetActive(true);
+                endLadder.interactable = true;
+                bombLight.SetActive(false);
+                nukeButton.DisableLights();
+                Destroy(this);
             }
             else
             {
@@ -114,12 +125,6 @@ public class BombPhone : Interactable
             }
         }
     }
-
-    void EndGame(VideoPlayer vp)
-    {
-        GameManager.Instance.MoveToNextLevel();
-    }
-
 
     private void ReduceTime()
     {

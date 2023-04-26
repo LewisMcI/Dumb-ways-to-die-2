@@ -46,6 +46,7 @@ public class BombTimer : MonoBehaviour
     public void StopTimer()
     {
         StopCoroutine(Countdown());
+        Destroy(this);
     }
 
     private void DisplayTime(float timeToDisplay)
@@ -63,6 +64,7 @@ public class BombTimer : MonoBehaviour
         {
             if (!GameManager.Instance.IsPaused)
             {
+                Debug.Log("Something anything");
                 currentTime -= Time.deltaTime;
                 if (currentTime < 0.0f)
                     currentTime = 0.0f;

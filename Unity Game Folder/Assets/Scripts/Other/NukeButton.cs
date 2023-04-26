@@ -24,6 +24,10 @@ public class NukeButton : Interactable
         buttonAnimator = GetComponent<Animator>();
     }
 
+    public void DisableLights()
+    {
+        lights.SetActive(false);
+    }
     public override void Action()
     {
         GameManager.Instance.SwapMusic();

@@ -112,7 +112,7 @@ public class BearTrap : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         // Enable
-        if (obj.GetComponent<Interactable>())
+        if (obj != null && obj.GetComponent<Interactable>())
         {
             obj.GetComponent<Interactable>().CanInteract = true;
         }
