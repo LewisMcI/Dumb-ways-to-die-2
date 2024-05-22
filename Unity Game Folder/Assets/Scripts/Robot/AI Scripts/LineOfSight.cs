@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class LineOfSight : MonoBehaviour
 {
     #region variables
@@ -57,7 +58,7 @@ public class LineOfSight : MonoBehaviour
     #region methods
     private void Awake()
     {
-        
+        Activate();
         // Set starting scan interval
         scanInterval = 1.0f / scanFrequency;
     }
@@ -238,16 +239,16 @@ public class LineOfSight : MonoBehaviour
         }
 
         // Render all spheres nearby
-        /*   Gizmos.color = Color.red;
-           Gizmos.DrawWireSphere(transform.position, distance);
-           for (int i = 0; i < count; ++i)
-           {
-               Gizmos.DrawSphere(colliders[i].transform.position, 1.0f);
-           }
+/*        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, distance);
+        for (int i = 0; i < count; ++i)
+        {
+            Gizmos.DrawSphere(colliders[i].transform.position, 1.0f);
+        }*/
 
-           Gizmos.color = sensorColour;*/
+        Gizmos.color = Color.green;
 
-/*        // Render Spheres at all objects within Line of Sight.
+        // Render Spheres at all objects within Line of Sight.
         objs.RemoveAll(s => s == null);
         foreach (var Object in objs)
         {
@@ -256,9 +257,9 @@ public class LineOfSight : MonoBehaviour
                 objs.Remove(Object);
                 continue;
             }
-          
+
             Gizmos.DrawSphere(Object.transform.position, 1.0f);
-        }*/
+        }
 
     }
     #endregion
