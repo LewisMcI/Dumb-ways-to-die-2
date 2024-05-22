@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class BookMenu : MonoBehaviour
 {
     [SerializeField]
+    bool cheatsEnabled = true;
+    [SerializeField]
+    GameObject cheatMenu;
+    [SerializeField]
     GameObject mainMenu;
     [SerializeField]
     GameObject settingsMenu;
@@ -37,6 +41,11 @@ public class BookMenu : MonoBehaviour
         try { GameSettings.Instance.ResetUI(); } catch { }
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        if (!cheatsEnabled)
+            cheatMenu.SetActive(false);
+        else
+            cheatMenu.SetActive(true);
     }
     void PlayGame()
     {
